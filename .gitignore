@@ -1,0 +1,5 @@
+/.idea/
+.DS_Store
+
+/events/events.json
+/feed/rss.xml
