@@ -1,5 +1,5 @@
 # IFSC Calendar and Streams Frontend
-![update ralendar](https://github.com/sportclimbing/web/actions/workflows/deploy.yml/badge.svg)
+![update ralendar](https://github.com/sportclimbing/web/actions/workflows/static-deploy.yml/badge.svg)
 
 Frontend for [https://ifsc.streams](https://ifsc.streams/)
 
