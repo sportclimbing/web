@@ -28,18 +28,17 @@
 </template>
 
 <template id="ifsc-event">
-    <li class="list-group-item d-flex justify-content-between align-items-center ifsc-event">
+    <li class="list-group-item d-flex justify-content-between align-items-center ifsc-event" style="padding-left: 10px; margin: 0;">
         <div class="d-flex align-items-center">
-            <img id="ifsc-poster" src="" alt="" style="width: 100px; height: 135px" class="rounded-2" />
+            <img id="ifsc-poster" src="" alt="" style="width: 100px; height: 135px;" class="rounded-2" />
             <div class="ms-3">
                 <h6 class="fw-bold mb-1" id="ifsc-name" style="font-size: 15px;"></h6>
-                <h6 class="fw-bold mb-1" id="ifsc-description" style="font-size: 15px;"></h6>
-                <p class="text-muted" id="ifsc-starts-in"></p>
+                <h6 class="fw-bold mb-1" id="ifsc-description" style="font-size: 14px;"></h6>
+                <p class="text-muted" id="ifsc-starts-in" data-toggle="tooltip" data-placement="left" style="font-size: 14px;"></p>
                 <a class="btn btn-primary" href="" role="button" id="button-stream" target="_blank">👀 Watch</a>
                 <a class="btn btn-outline-danger" href="" role="button" id="button-results" target="_blank">🏆 Results</a>
             </div>
         </div>
-        <span id="ifsc-status"></span>
     </li>
 </template>
 
@@ -47,11 +46,11 @@
     <div class="card container-xl" style="padding: 0; margin-bottom: 4px;">
         <div class="card-header" id="heading_id">
             <h5 class="mb-0">
-                <button style="font-size: 14px;" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="ifsc-league-name"></button>
+                <button style="font-size: 14px; padding: 5px 0;" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="ifsc-league-name"></button>
             </h5>
         </div>
-        <div id="event-n" class="collapse" aria-labelledby="heading_id" data-parent="#accordion">
-            <ul class="card-body list-group" style="padding: 0;"></ul>
+        <div id="event-n" class="collapse" aria-labelledby="heading_id" data-parent="#accordion" style="width: calc(100%);">
+            <ul class="card-body list-group" style="padding: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; width: calc(100%);"></ul>
         </div>
     </div>
 </template>
@@ -64,10 +63,7 @@
                     <h4 class="text-white">About</h4>
                     <p class="text-muted">This is an auto-generated and updated <code>iCal</code> calendar to which you can subscribe to.
                         More info about this can be found in the <a href="https://github.com/sportclimbing" target="_blank" class="link-info">GitHub Repository</a>.
-
-
                     </p>
-
                 </div>
                 <div class="col-sm-4 offset-md-1 py-4">
                     <h4 class="text-white">Links</h4>
@@ -76,7 +72,6 @@
                         <li><a href="https://github.com/sportclimbing" class="text-white">View project on GitHub</a></li>
                         <li><a href="https://instagram.com/nicoswd" class="text-white">Follow me on Instagram</a></li>
                     </ul>
-                    <!-- Place this tag where you want the button to render. -->
                     <a class="github-button" href="https://github.com/sportclimbing/ifsc-calendar" data-size="large" data-show-count="true" aria-label="Star sportclimbing/ifsc-calendar on GitHub">Star</a>
                 </div>
             </div>
@@ -98,9 +93,9 @@
     </div>
 </header>
 
-<main role="main" style="max-width: 700px; margin: 0 auto; padding: 3px;">
-    <section class="jumbotron" style="margin: 10px 0; padding: 0;">
-        <h1 class="alert alert-success" role="alert" style="color: #1b2839; font-weight: bold; font-size: 22px; text-align: center; margin: 5px 0;">IFSC Climbing Streams 2023</h1>
+<main role="main" style="max-width: 700px; margin: 0 auto; padding: 0 3px;">
+    <section class="jumbotron" style="margin: 3px 0; padding: 0;">
+        <h1 class="alert alert-success" role="alert" style="background-color: rgba(13,202,240,0.24); color: #1b2839; font-weight: bold; font-size: 22px; text-align: center; margin: 5px 0;">IFSC Climbing Streams 2023</h1>
         <div id="accordion"></div>
     </section>
 
@@ -138,6 +133,7 @@
 <script src="js/dayjs.min.js"></script>
 <script src="js/relativeTime.js"></script>
 <script src="js/isBetween.js"></script>
+<script src="js/popper.min.js"></script>
 <script src="js/events.js"></script>
 <script src="js/feed.js"></script>
 <script src="js/jquery-3.2.1.slim.min.js"></script>

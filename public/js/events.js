@@ -168,40 +168,33 @@ const refresh = (async () => {
                 clone.getElementById('button-stream').href = 'https://www.youtube.com/@sportclimbing/streams';
             }
 
-            let status = clone.getElementById('ifsc-status');
-
             if (event_is_streaming(event)) {
                 clone.getElementById('ifsc-starts-in').innerText = `🔴 Live Now`;
                 clone.getRootNode().firstChild.nextSibling.style.backgroundColor = '#f7f7f7';
-                status.innerHTML = `🔴`;
-                status.classList.add('text-danger');
                 liveEvent = event;
 
                 clone.getRootNode().firstChild.nextSibling.style.opacity = '100%'
                 clone.getElementById('button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
                 document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
             } else if (new Date(event.start_time) > now) {
-                clone.getElementById('ifsc-starts-in').innerText = `⏰ Starts ${pretty_starts_in(event)}`;
+                let startsIn = clone.getElementById('ifsc-starts-in');
 
                 if (!liveEvent && lastEventFinished) {
                     lastEventFinished = false;
-                    status.innerHTML = `🟢`;
-                    status.classList.add('text-success');
+                    startsIn.innerText = `🟢 Starts ${pretty_starts_in(event)}`;
+                    startsIn.title = "Next Event";
 
                     clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(246,245,245,0.4)';
                     clone.getRootNode().firstChild.nextSibling.style.opacity = '100%'
                 } else {
                     clone.getRootNode().firstChild.nextSibling.style.opacity = '70%'
-                    status.innerHTML = `⌛️`;
-                    status.classList.add('text-warning');
+                    startsIn.innerText = `⌛ Starts ${pretty_starts_in(event)}`;
                 }
 
                 clone.getElementById('button-results').style.display = 'none';
                 document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
             } else {
-                clone.getElementById('ifsc-starts-in').innerText = `⏰ ${pretty_finished_ago(event)}`;
-                status.classList.add('text-danger');
-                status.innerHTML = `🏁`;
+                clone.getElementById('ifsc-starts-in').innerText = `🏁 ${pretty_finished_ago(event)}`;
 
                 clone.getRootNode().firstChild.nextSibling.style.opacity = '70%'
                 clone.getElementById('button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
@@ -218,6 +211,7 @@ const refresh = (async () => {
         leagueElement.scrollIntoView();
     }
 
+    $('[data-toggle="tooltip"]').tooltip();
     remove_hash();
 });
 
