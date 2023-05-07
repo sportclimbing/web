@@ -4,12 +4,12 @@
 Frontend for [https://ifsc.streams](https://ifsc.streams/)
 
 ### Todo
-- [ ] Make landing site prettier and responsive
 - [ ] Download posters and save them locally (preferably downsized versions too)
 - [ ] Add VPN note and link (to ProtonVPN?)
 - [ ] Change favicon when an event started streaming
-- [ ] Show exact streaming date/time in addition to "in X hours" (maybe via tooltip?)
 - [ ] Add warning about qualification streams likely not being available
+- [x] Show exact streaming date/time in addition to "in X hours" (maybe via tooltip?)
+- [x] Make landing site prettier and responsive
 - [x] Refresh events every minute
 - [x] Add tutorial modal to `Add to your Calendar` button
 - [x] Show past and future events
