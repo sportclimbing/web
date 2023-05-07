@@ -15,6 +15,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+env:
+  IFSC_RSS_FEED_URL: "https://www.ifsc-climbing.org/news?format=feed&type=rss"
+
 jobs:
   deploy:
     environment:
@@ -31,7 +34,7 @@ jobs:
           php-version: '8.2'
 
       - name: "Update RSS file"
-        run: curl -sS "https://www.ifsc-climbing.org/index.php/news?format=feed&type=rss" --output public/feed/rss.xml
+        run: curl -sS "${{ env.IFSC_RSS_FEED_URL }}" --output public/feed/rss.xml
 
       - name: "Download latest calendar"
         run: curl -sSL "$(php bin/latest-calendar-url)" --output public/events/events.json
