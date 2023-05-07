@@ -37,7 +37,7 @@ function pretty_finished_ago(event) {
 
 function get_upcoming_events(jsonData) {
     const now = new Date();
-    const upcomingEvents = jsonData.events.filter((event) => new Date(event.start_time) >= now);
+    const upcomingEvents = jsonData.events.filter((event) => new Date(event.start_time) >= now || event_is_streaming(event));
 
     upcomingEvents.sort(sort_by_date);
 
@@ -86,8 +86,6 @@ function remove_hash() {
     }
 }
 
-let hasScrolled = false;
-
 const refresh = (async () => {
     const response = await fetch("events/events.json");
     const jsonData = await response.json();
@@ -96,6 +94,20 @@ const refresh = (async () => {
     const now = new Date();
     const leagueTemplate = document.getElementById('ifsc-league');
     const accordion = document.getElementById('accordion');
+    const currentOpenElement = document.querySelector('div#accordion .show');
+    const nextEvent = upcomingEvents.at(0);
+    let selectedLeague = parseInt((window.location.hash || '').substring(7));
+    let currentOpenId = null;
+
+    if (currentOpenElement) {
+        currentOpenId = currentOpenElement.getAttribute('id');
+    }
+
+    const allCollapsed = accordion.childElementCount > 0 && !currentOpenId;
+
+    if (!selectedLeague && nextEvent) {
+        selectedLeague = nextEvent.id;
+    }
 
     while (accordion.lastElementChild) {
         accordion.removeChild(accordion.lastElementChild);
@@ -115,19 +127,18 @@ const refresh = (async () => {
         accordion.appendChild(clone);
     });
 
-    let nextEvent = upcomingEvents.at(0);
-    let selectedLeague = parseInt((window.location.hash || '').substring(7));
-
-    if (!selectedLeague && nextEvent) {
-        selectedLeague = nextEvent.id;
-    }
-
     let leagueElement = document.getElementById(`event-${selectedLeague}`);
-    leagueElement.classList.add('show');
+
+    if (!allCollapsed) {
+        if (currentOpenId) {
+            document.getElementById(currentOpenId).classList.add('show');
+        } else {
+            leagueElement.classList.add('show');
+        }
+    }
 
     const template = document.getElementById("ifsc-event");
     let liveEvent = null;
-
     let lastEventFinished = false;
 
     jsonData.events.forEach((event) => {
@@ -195,9 +206,8 @@ const refresh = (async () => {
         }
     });
 
-    if (!hasScrolled && !element_is_in_viewport(leagueElement)) {
+    if (window.location.hash && !element_is_in_viewport(leagueElement)) {
         leagueElement.scrollIntoView();
-        hasScrolled = true;
     }
 
     remove_hash();
