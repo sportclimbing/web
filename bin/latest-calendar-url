@@ -11,6 +11,6 @@ $opts = stream_context_create([
     ]
 ]);
 
-$json = json_decode(file_get_contents('https://api.github.com/repos/sportclimbing/ifsc-calendar/releases/latest', false, $opts));
+$json = json_decode(file_get_contents('https://api.github.com/repos/sportclimbing/ifsc-calendar/releases/latest', context: $opts));
 
 echo $json->assets[1]->browser_download_url;

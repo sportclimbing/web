@@ -25,16 +25,16 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v3
 
-      - name: "Update RSS file"
-        run: curl -sS "https://www.ifsc-climbing.org/index.php/news?format=feed&type=rss" --output feed/rss.xml
-
       - name: "Setup PHP"
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
 
+      - name: "Update RSS file"
+        run: curl -sS "https://www.ifsc-climbing.org/index.php/news?format=feed&type=rss" --output public/feed/rss.xml
+
       - name: "Download latest calendar"
-        run: curl -sSL "$(php bin/latest-calendar-url)" --output events/events.json
+        run: curl -sSL "$(php bin/latest-calendar-url)" --output public/events/events.json
 
       - name: "Setup Pages"
         uses: actions/configure-pages@v3
@@ -42,7 +42,7 @@ jobs:
       - name: "Upload artifact"
         uses: actions/upload-pages-artifact@v1
         with:
-          path: '.'
+          path: 'public/'
 
       - name: "Deploy to GitHub Pages"
         id: deployment
