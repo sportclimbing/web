@@ -86,17 +86,25 @@ function remove_hash() {
     }
 }
 
+function get_selected_event() {
+    if (!window.location.hash) {
+        return '';
+    }
+
+    return window.location.hash.match(/event\/(\d+)/)[1] || '';
+}
+
 const refresh = (async () => {
     const response = await fetch("events/events.json");
     const jsonData = await response.json();
     const upcomingEvents = get_upcoming_events(jsonData);
     const leagues = sort_leagues_by_id(jsonData);
+    let selectedEvent = get_selected_event();
     const now = new Date();
     const leagueTemplate = document.getElementById('ifsc-league');
     const accordion = document.getElementById('accordion');
     const currentOpenElement = document.querySelector('div#accordion .show');
     const nextEvent = upcomingEvents.at(0);
-    let selectedLeague = parseInt((window.location.hash || '').substring(7));
     let currentOpenId = null;
 
     if (currentOpenElement) {
@@ -105,8 +113,8 @@ const refresh = (async () => {
 
     const allCollapsed = accordion.childElementCount > 0 && !currentOpenId;
 
-    if (!selectedLeague && nextEvent) {
-        selectedLeague = nextEvent.id;
+    if (!selectedEvent && nextEvent) {
+        selectedEvent = nextEvent.id;
     }
 
     while (accordion.lastElementChild) {
@@ -127,7 +135,7 @@ const refresh = (async () => {
         accordion.appendChild(clone);
     });
 
-    let leagueElement = document.getElementById(`event-${selectedLeague}`);
+    let leagueElement = document.getElementById(`event-${selectedEvent}`);
 
     if (!allCollapsed) {
         if (currentOpenId) {
