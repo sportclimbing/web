@@ -135,7 +135,7 @@ const fetchSeasons = (async () => {
 });
 
 const refresh = (async () => {
-    const response = await fetch(`events/events_${selectedSeason}.json`);
+    const response = await fetch(`events/events_${selectedSeason}.json?v=` + Math.floor(Math.random() * 10000));
     const jsonData = await response.json();
     const upcomingEvents = get_upcoming_events(jsonData);
     const leagues = sort_leagues_by_id(jsonData);
@@ -202,10 +202,19 @@ const refresh = (async () => {
             clone.getElementById('ifsc-name').innerText = `🏆 ${event.name}`;
             clone.getElementById('ifsc-description').innerText = '📆 ' + dayjs(event.start_time).format('MMMM D, YYYY [at] hh:mm A');
 
+            let streamButton = clone.getElementById('button-stream');
+
             if (event.stream_url) {
-                clone.getElementById('button-stream').href = event.stream_url;
+                streamButton.href = event.stream_url;
             } else {
-                clone.getElementById('button-stream').href = 'https://www.youtube.com/@sportclimbing/streams';
+                streamButton.href = 'https://www.youtube.com/@sportclimbing/streams';
+                streamButton.onclick = (e) => {
+                    e.preventDefault();
+
+                    if (confirm('We could not find a link for this event. Do you want to check IFSC\'s YouTube channel?')) {
+                        window.open('https://www.youtube.com/@sportclimbing/streams', '_blank', '');
+                    }
+                };
             }
 
             if (event_is_streaming(event)) {
