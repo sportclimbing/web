@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>IFSC Climbing Streams &amp; Calendar 2023</title>
+    <title>IFSC Climbing Calendar &amp; Streams 2023</title>
 
     <meta charset="utf-8">
-    <meta name="description" content="IFSC 2023 Climbing Streams and Calendar for all upcoming events">
+    <meta name="description" content="IFSC 2023 Climbing Calendar &amp; Streams for all upcoming events">
     <meta name="viewport" content="initial-scale=1" />
 
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png">
@@ -95,7 +95,12 @@
 
 <main role="main" style="max-width: 700px; margin: 0 auto; padding: 0 3px;">
     <section class="jumbotron" style="margin: 3px 0; padding: 0;">
-        <h1 class="alert alert-success" role="alert" style="background-color: rgba(13,202,240,0.24); color: #1b2839; font-weight: bold; font-size: 22px; text-align: center; margin: 5px 0;">IFSC Climbing Streams 2023</h1>
+        <div class="dropdown" style="margin-bottom: 5px;">
+            <button id="ifsc-season" style="width: 100%; background-color: rgba(13,202,240,0.24); color: #1b2839; font-weight: bold; font-size: 22px; text-align: center; margin: 5px 0;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                IFSC Climbing Calendar 2023
+            </button>
+            <div class="dropdown-menu" id="ifsc-season-selector" aria-labelledby="dropdownMenuButton" style="width: 100%;"></div>
+        </div>
         <div id="accordion"></div>
     </section>
 

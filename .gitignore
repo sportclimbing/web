@@ -1,5 +1,5 @@
 /.idea/
 .DS_Store
 
-/public/events/events.json
+/public/events/events_2023.json
 /public/feed/rss.xml

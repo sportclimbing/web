@@ -16,6 +16,10 @@ function sort_by_date(event1, event2) {
     return 0;
 }
 
+function sort_league_by_date(league1, league2) {
+    return sort_by_date(league1[0], league2[0]);
+}
+
 function event_is_streaming(event) {
     const now = dayjs();
     const eventStart = dayjs(event.start_time);
@@ -45,8 +49,7 @@ function get_upcoming_events(jsonData) {
 }
 
 function sort_leagues_by_id(jsonData) {
-    let leagues = [];
-
+    const leagues = [];
     jsonData.events.forEach((event) => {
         if (typeof leagues[event.id] === 'undefined') {
             leagues[event.id] = [];
@@ -54,6 +57,8 @@ function sort_leagues_by_id(jsonData) {
 
         leagues[event.id].push(event);
     });
+
+    leagues.sort(sort_league_by_date);
 
     return leagues;
 }
@@ -86,20 +91,54 @@ function remove_hash() {
     }
 }
 
-function get_selected_event() {
-    if (!window.location.hash) {
-        return '';
-    }
-
-    return window.location.hash.match(/event\/(\d+)/)[1] || '';
+function get_selected_season() {
+    return get_id_from_hash('season') || defaultSeason;
 }
 
+function get_selected_event() {
+    return get_id_from_hash('event');
+}
+
+function get_id_from_hash(name) {
+    if (window.location.hash) {
+        const regex = new RegExp(`/${name}/(\\d+)`);
+        const match = regex.exec(window.location.hash);
+
+        if (match) {
+            return parseInt(match[1]);
+        }
+    }
+
+    return '';
+}
+
+const defaultSeason = '2023';
+let selectedSeason = get_selected_season();
+let selectedEvent = get_selected_event();
+
+const fetchSeasons = (async () => {
+    let seasonTitle = document.getElementById('ifsc-season');
+    seasonTitle.innerText = seasonTitle.innerText.replace(/20\d{2}/, selectedSeason);
+
+    const response = await fetch(`events/seasons.json`);
+    const jsonData = await response.json();
+    const seasonSelector = document.getElementById('ifsc-season-selector');
+
+    jsonData.seasons.forEach((season) => {
+        let link = document.createElement('a');
+        link.classList.add('dropdown-item');
+        link.setAttribute('href', `#/season/${season}`);
+        link.innerText = `Season ${season}`;
+
+        seasonSelector.appendChild(link);
+    });
+});
+
 const refresh = (async () => {
-    const response = await fetch("events/events.json");
+    const response = await fetch(`events/events_${selectedSeason}.json`);
     const jsonData = await response.json();
     const upcomingEvents = get_upcoming_events(jsonData);
     const leagues = sort_leagues_by_id(jsonData);
-    let selectedEvent = get_selected_event();
     const now = new Date();
     const leagueTemplate = document.getElementById('ifsc-league');
     const accordion = document.getElementById('accordion');
@@ -138,9 +177,10 @@ const refresh = (async () => {
     let leagueElement = document.getElementById(`event-${selectedEvent}`);
 
     if (!allCollapsed) {
-        if (currentOpenId) {
-            document.getElementById(currentOpenId).classList.add('show');
-        } else {
+        let currentOpenElement = document.getElementById(currentOpenId);
+        if (currentOpenId && currentOpenElement) {
+            currentOpenElement.classList.add('show');
+        } else if (leagueElement) {
             leagueElement.classList.add('show');
         }
     }
@@ -207,15 +247,25 @@ const refresh = (async () => {
         }
     });
 
-    if (window.location.hash && !element_is_in_viewport(leagueElement)) {
+    if (window.location.hash && leagueElement && !element_is_in_viewport(leagueElement)) {
         leagueElement.scrollIntoView();
+        remove_hash();
     }
 
     $('[data-toggle="tooltip"]').tooltip();
-    remove_hash();
 });
 
 (async () => {
+    await fetchSeasons();
     await refresh();
     window.setInterval(refresh, 1000 * 60);
+
+    addEventListener('hashchange', () => {
+        let season = get_selected_season();
+
+        selectedSeason = season;
+        selectedEvent = null;
+        document.getElementById('ifsc-season').innerText = `IFSC Climbing Streams ${season}`;
+        refresh();
+    });
 })();
