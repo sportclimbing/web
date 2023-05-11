@@ -112,6 +112,16 @@ function get_id_from_hash(name) {
     return '';
 }
 
+function extract_youtube_video_id(url) {
+    const match = url.match(/youtu(\.be|be\.com)\/(live\/|watch\?v=)?([a-zA-Z0-9_-]{10,})/);
+
+    if (match) {
+        return match[3];
+    }
+
+    return null;
+}
+
 const defaultSeason = '2023';
 let selectedSeason = get_selected_season();
 let selectedEvent = get_selected_event();
@@ -206,13 +216,26 @@ const refresh = (async () => {
 
             if (event.stream_url) {
                 streamButton.href = event.stream_url;
+                const youTubeVideoId = extract_youtube_video_id(event.stream_url);
+
+                if (youTubeVideoId) {
+                    streamButton.setAttribute('data-target', "#video-modal");
+                    streamButton.setAttribute('data-toggle', "modal");
+
+                    streamButton.onclick = (e) => {
+                        e.preventDefault();
+
+                        $('#youtube-video').attr('src', `https://www.youtube.com/embed/${youTubeVideoId}`);
+                        $('#youtube-video-title').html(`🍿 ${event.name}`);
+                    };
+                }
             } else {
                 streamButton.href = 'https://www.youtube.com/@sportclimbing/streams';
                 streamButton.onclick = (e) => {
                     e.preventDefault();
 
                     if (confirm('We could not find a link for this event. Do you want to check IFSC\'s YouTube channel?')) {
-                        window.open('https://www.youtube.com/@sportclimbing/streams', '_blank', '');
+                        window.open(streamButton.href, '_blank', '');
                     }
                 };
             }
@@ -231,7 +254,6 @@ const refresh = (async () => {
                 if (!liveEvent && lastEventFinished) {
                     lastEventFinished = false;
                     startsIn.innerText = `🟢 Starts ${pretty_starts_in(event)}`;
-                    startsIn.title = "Next Event";
 
                     clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(246,245,245,0.4)';
                     clone.getRootNode().firstChild.nextSibling.style.opacity = '100%'
@@ -260,8 +282,6 @@ const refresh = (async () => {
         leagueElement.scrollIntoView();
         remove_hash();
     }
-
-    $('[data-toggle="tooltip"]').tooltip();
 });
 
 (async () => {
@@ -277,4 +297,8 @@ const refresh = (async () => {
         document.getElementById('ifsc-season').innerText = `IFSC Climbing Streams ${season}`;
         refresh();
     });
+
+    $('#video-modal').on('hide.bs.modal', function (e) {
+        $('#youtube-video').attr('src', 'about:blank');
+    })
 })();
