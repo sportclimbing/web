@@ -209,6 +209,10 @@ function apply_search_filters(event) {
     return true;
 }
 
+function basename(path) {
+    return path.split('/').reverse()[0];
+}
+
 const defaultSeason = '2023';
 
 let selectedSeason = get_selected_season();
@@ -276,12 +280,16 @@ const refresh = (async () => {
 
         league.forEach((event) => {
             const clone = template.content.cloneNode(true);
+            const poster = clone.getElementById('ifsc-poster');
 
             if (event.poster) {
-                clone.getElementById('ifsc-poster').src = event.poster;
+                poster.src = `img/posters/${basename(event.poster)}`;
             } else {
-                clone.getElementById('ifsc-poster').src = 'img/posters/230329_Poster_SEOUL23_thumb.jpg';
+                poster.src = 'img/posters/230329_Poster_SEOUL23_thumb.jpg';
             }
+
+            poster.alt = event.description;
+            poster.title = event.description;
 
             clone.getElementById('ifsc-name').innerText = `🏆 ${event.name}`;
             clone.getElementById('ifsc-description').innerText = '📆 ' + dayjs(event.start_time).format('MMMM D, YYYY [at] hh:mm A');

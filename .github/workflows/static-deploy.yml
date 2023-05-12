@@ -39,6 +39,9 @@ jobs:
       - name: "Download latest calendar"
         run: curl -sSL "$(php bin/latest-calendar-url)" --output "public/events/events_$(date +'%Y').json"
 
+      - name: "Download posters"
+        run: php bin/download-posters "public/events/events_$(date +'%Y').json"
+
       - name: "Setup Pages"
         uses: actions/configure-pages@v3
 
