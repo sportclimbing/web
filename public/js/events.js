@@ -39,18 +39,27 @@ function pretty_finished_ago(event) {
     return `Streamed ${dayjs(event.start_time).fromNow()}`;
 }
 
-function get_upcoming_events(jsonData) {
+function get_next_event(leagues) {
     const now = new Date();
-    const upcomingEvents = jsonData.events.filter((event) => new Date(event.start_time) >= now || event_is_streaming(event));
 
-    upcomingEvents.sort(sort_by_date);
+    for (const league of leagues) {
+        if (!league) {
+            continue;
+        }
 
-    return upcomingEvents;
+        for (const event of league) {
+            if (new Date(event.start_time) >= now || event_is_streaming(event)) {
+                return event;
+            }
+        }
+    }
 }
 
-function sort_leagues_by_id(jsonData) {
+function sort_leagues_by_date(jsonData) {
     const leagues = [];
-    jsonData.events.forEach((event) => {
+    const filteredEvents = jsonData.events.filter(apply_search_filters);
+
+    filteredEvents.forEach((event) => {
         if (typeof leagues[event.id] === 'undefined') {
             leagues[event.id] = [];
         }
@@ -63,7 +72,7 @@ function sort_leagues_by_id(jsonData) {
     return leagues;
 }
 
-function element_is_in_viewport (el) {
+function element_is_in_viewport(el) {
     const rect = el.getBoundingClientRect();
 
     return (
@@ -101,11 +110,11 @@ function get_selected_event() {
 
 function get_id_from_hash(name) {
     if (window.location.hash) {
-        const regex = new RegExp(`/${name}/(\\d+)`);
+        const regex = new RegExp(`/${name}/(?<id>\\d+)`);
         const match = regex.exec(window.location.hash);
 
         if (match) {
-            return parseInt(match[1]);
+            return parseInt(match.groups.id);
         }
     }
 
@@ -113,16 +122,95 @@ function get_id_from_hash(name) {
 }
 
 function extract_youtube_video_id(url) {
-    const match = url.match(/youtu(\.be|be\.com)\/(live\/|watch\?v=)?([a-zA-Z0-9_-]{10,})/);
+    const match = url.match(/youtu(\.be|be\.com)\/(live\/|watch\?v=)?(?<video_id>[a-zA-Z0-9_-]{10,})/);
 
     if (match) {
-        return match[3];
+        return match.groups.video_id;
     }
 
     return null;
 }
 
+function load_config_from_modal() {
+    return {
+        disciplines: {
+            "boulder": config_is_enabled('discipline[boulder]'),
+            "lead": config_is_enabled('discipline[lead]'),
+            "speed": config_is_enabled('discipline[speed]'),
+        },
+        rounds: {
+            "qualifications?": config_is_enabled('round[qualifications]'),
+            "semi[-\\s]?finals?": config_is_enabled('round[semifinals]'),
+            "[\\s]finals?": config_is_enabled('round[finals]'),
+        }
+    };
+}
+
+function restore_config() {
+    let config = window.localStorage.getItem('config');
+    let json;
+
+    if (config) {
+        try {
+            json = JSON.parse(config);
+
+            first_element_by_name("discipline[boulder]").checked = json.disciplines.boulder;
+            first_element_by_name("discipline[lead]").checked = json.disciplines.lead;
+            first_element_by_name("discipline[speed]").checked = json.disciplines.speed;
+
+            first_element_by_name("round[qualifications]").checked = json.rounds["qualifications?"];
+            first_element_by_name("round[semifinals]").checked = json.rounds["semi[-\\s]?finals?"];
+            first_element_by_name("round[finals]").checked = json.rounds["[\\s]finals?"];
+        } catch (e) {
+            window.localStorage.clear();
+        }
+    }
+}
+
+function config_is_enabled(name) {
+    return first_element_by_name(name).checked;
+}
+
+function first_element_by_name(name) {
+    return document.getElementsByName(name)[0];
+}
+
+function apply_search_filters(event) {
+    const disciplines = [];
+    const rounds = [];
+
+    for (let discipline in config.disciplines) {
+        if (config.disciplines[discipline]) {
+            disciplines.push(discipline);
+        }
+    }
+
+    if (disciplines.length !== config.disciplines.length) {
+        const disciplinesRegex = new RegExp('(' + disciplines.join('|') + ')', 'i');
+        if (!disciplinesRegex.test(event.name)) {
+            return false;
+        }
+    }
+
+    for (let round in config.rounds) {
+        if (config.rounds[round]) {
+            rounds.push(round);
+        }
+    }
+
+    if (rounds.length !== config.rounds.length) {
+        const roundsRegex = new RegExp(rounds.join('|'), 'i');
+
+        if (!roundsRegex.test(event.name)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 const defaultSeason = '2023';
+
 let selectedSeason = get_selected_season();
 let selectedEvent = get_selected_event();
 
@@ -147,13 +235,12 @@ const fetchSeasons = (async () => {
 const refresh = (async () => {
     const response = await fetch(`events/events_${selectedSeason}.json?v=` + Math.floor(Math.random() * 10000));
     const jsonData = await response.json();
-    const upcomingEvents = get_upcoming_events(jsonData);
-    const leagues = sort_leagues_by_id(jsonData);
+    const leagues = sort_leagues_by_date(jsonData);
+    const nextEvent = get_next_event(leagues);
     const now = new Date();
     const leagueTemplate = document.getElementById('ifsc-league');
     const accordion = document.getElementById('accordion');
     const currentOpenElement = document.querySelector('div#accordion .show');
-    const nextEvent = upcomingEvents.at(0);
     let currentOpenId = null;
 
     if (currentOpenElement) {
@@ -170,6 +257,10 @@ const refresh = (async () => {
         accordion.removeChild(accordion.lastElementChild);
     }
 
+    const template = document.getElementById("ifsc-event");
+    let liveEvent = null;
+    let lastEventFinished = false;
+
     leagues.forEach((league) => {
         const clone = leagueTemplate.content.cloneNode(true);
 
@@ -182,25 +273,8 @@ const refresh = (async () => {
         clone.getElementById('event-n').id = `event-${league[0].id}`;
 
         accordion.appendChild(clone);
-    });
 
-    let leagueElement = document.getElementById(`event-${selectedEvent}`);
-
-    if (!allCollapsed) {
-        let currentOpenElement = document.getElementById(currentOpenId);
-        if (currentOpenId && currentOpenElement) {
-            currentOpenElement.classList.add('show');
-        } else if (leagueElement) {
-            leagueElement.classList.add('show');
-        }
-    }
-
-    const template = document.getElementById("ifsc-event");
-    let liveEvent = null;
-    let lastEventFinished = false;
-
-    jsonData.events.forEach((event) => {
-        try {
+        league.forEach((event) => {
             const clone = template.content.cloneNode(true);
 
             if (event.poster) {
@@ -212,32 +286,32 @@ const refresh = (async () => {
             clone.getElementById('ifsc-name').innerText = `🏆 ${event.name}`;
             clone.getElementById('ifsc-description').innerText = '📆 ' + dayjs(event.start_time).format('MMMM D, YYYY [at] hh:mm A');
 
-            let streamButton = clone.getElementById('button-stream');
+            const streamButton = $('#button-stream', clone);
 
             if (event.stream_url) {
-                streamButton.href = event.stream_url;
-                const youTubeVideoId = extract_youtube_video_id(event.stream_url);
+                streamButton.attr('href', event.stream_url);
+                streamButton.on('click', (e) => {
+                    const youTubeVideoId = extract_youtube_video_id(e.currentTarget.href);
 
-                if (youTubeVideoId) {
-                    streamButton.setAttribute('data-target', "#video-modal");
-                    streamButton.setAttribute('data-toggle', "modal");
-
-                    streamButton.onclick = (e) => {
+                    if (youTubeVideoId) {
                         e.preventDefault();
 
-                        $('#youtube-video').attr('src', `https://www.youtube.com/embed/${youTubeVideoId}`);
+                        streamButton.attr('data-target', "#video-modal");
+                        streamButton.attr('data-toggle', "modal");
+
+                        $('#youtube-video').attr('src', `https://www.youtube.com/embed/${youTubeVideoId}?autoplay=1`);
                         $('#youtube-video-title').html(`🍿 ${event.name}`);
-                    };
-                }
+                    }
+                });
             } else {
-                streamButton.href = 'https://www.youtube.com/@sportclimbing/streams';
-                streamButton.onclick = (e) => {
+                streamButton.attr('href', 'https://www.youtube.com/@sportclimbing/streams');
+                streamButton.on('click', (e) => {
                     e.preventDefault();
 
                     if (confirm('We could not find a link for this event. Do you want to check IFSC\'s YouTube channel?')) {
-                        window.open(streamButton.href, '_blank', '');
+                        window.open(streamButton.attr('href'), '_blank', '');
                     }
-                };
+                });
             }
 
             if (event_is_streaming(event)) {
@@ -258,7 +332,7 @@ const refresh = (async () => {
                     clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(246,245,245,0.4)';
                     clone.getRootNode().firstChild.nextSibling.style.opacity = '100%'
                 } else {
-                    clone.getRootNode().firstChild.nextSibling.style.opacity = '70%'
+                    clone.getRootNode().firstChild.nextSibling.style.opacity = '80%'
                     startsIn.innerText = `⌛ Starts ${pretty_starts_in(event)}`;
                 }
 
@@ -267,38 +341,63 @@ const refresh = (async () => {
             } else {
                 clone.getElementById('ifsc-starts-in').innerText = `🏁 ${pretty_finished_ago(event)}`;
 
-                clone.getRootNode().firstChild.nextSibling.style.opacity = '70%'
+                clone.getRootNode().firstChild.nextSibling.style.opacity = '80%'
                 clone.getElementById('button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
 
                 lastEventFinished = true;
                 document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
             }
-        } catch (e) {
-            console.log(e)
-        }
+        });
     });
 
-    if (window.location.hash && leagueElement && !element_is_in_viewport(leagueElement)) {
-        leagueElement.scrollIntoView();
-        remove_hash();
+    let leagueElement = document.getElementById(`event-${selectedEvent}`);
+
+    if (!allCollapsed) {
+        let currentOpenElement = document.getElementById(currentOpenId);
+        if (currentOpenId && currentOpenElement) {
+            currentOpenElement.classList.add('show');
+        } else if (leagueElement) {
+            leagueElement.classList.add('show');
+        }
     }
 });
 
-(async () => {
-    await fetchSeasons();
-    await refresh();
-    window.setInterval(refresh, 1000 * 60);
+let config;
+
+(() => {
+    fetchSeasons().then();
+    refresh().then(() => {
+        window.setInterval(refresh, 1000 * 60);
+
+        let leagueElement = document.getElementById(`event-${selectedEvent}`);
+
+        if (leagueElement && !element_is_in_viewport(leagueElement)) {
+            leagueElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+        }
+    });
+
+    restore_config();
+    config = load_config_from_modal();
 
     addEventListener('hashchange', () => {
         let season = get_selected_season();
 
         selectedSeason = season;
         selectedEvent = null;
-        document.getElementById('ifsc-season').innerText = `IFSC Climbing Streams ${season}`;
-        refresh();
+        refresh().then();
+
+        const seasonSelector = document.getElementById('ifsc-season');
+        seasonSelector.innerText = seasonSelector.innerText.replace(/20\d{2}/, season);
     });
 
-    $('#video-modal').on('hide.bs.modal', function (e) {
+    $('#video-modal').on('hide.bs.modal', () => {
         $('#youtube-video').attr('src', 'about:blank');
     })
+
+    $('#save-filters').on('click', () => {
+        config = load_config_from_modal();
+        refresh().then();
+
+        window.localStorage.setItem('config', JSON.stringify(config));
+    });
 })();
