@@ -1,0 +1,35 @@
+#!/usr/bin/php
+<?php declare(strict_types=1);
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+use Gumlet\ImageResize;
+
+require __DIR__ . '/vendor/gumlet/ImageResize.php';
+require __DIR__ . '/vendor/gumlet/ImageResizeException.php';
+
+$xml = simplexml_load_file($argv[1]);
+$maxImages = 12;
+$count = 0;
+
+foreach ($xml->channel->item as $item) {
+    if (preg_match('~src="(?<image>[^"]+)"~', (string) $item->description, $match)) {
+        $basename = basename($match['image']);
+        $saveAs = "public/img/news/{$basename}";
+
+        if (copy($match['image'], $saveAs)) {
+            echo "[+] Downloaded image '{$basename}'", PHP_EOL;
+
+            $image = new ImageResize($saveAs);
+            $image->resizeToWidth(400);
+            $image->save($saveAs);
+        } else {
+            echo "[-] Error downloading image '{$basename}'", PHP_EOL;
+        }
+
+        if (++$count === $maxImages) {
+            break;
+        }
+    }
+}

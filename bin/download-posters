@@ -4,6 +4,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+use Gumlet\ImageResize;
+
+require __DIR__ . '/vendor/gumlet/ImageResize.php';
+require __DIR__ . '/vendor/gumlet/ImageResizeException.php';
+
 try {
     $json = json_decode(file_get_contents($argv[2]), flags: JSON_THROW_ON_ERROR);
 } catch (JsonException $e) {
@@ -24,6 +29,10 @@ foreach ($json->events as $event) {
 
         if (copy($event->poster, $saveAs)) {
             echo "[+] Downloaded poster '{$basename}'", PHP_EOL;
+
+            $image = new ImageResize($saveAs);
+            $image->resizeToWidth(200);
+            $image->save($saveAs);
         } else {
             echo "[-] Error downloading poster '{$basename}'", PHP_EOL;
         }
