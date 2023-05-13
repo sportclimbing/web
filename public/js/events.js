@@ -213,6 +213,10 @@ function basename(path) {
     return path.split('/').reverse()[0];
 }
 
+function event_poster_path(event) {
+    return `img/posters/${event.start_time.substring(0, 4)}/${basename(event.poster)}`;
+}
+
 const defaultSeason = '2023';
 
 let selectedSeason = get_selected_season();
@@ -283,9 +287,9 @@ const refresh = (async () => {
             const poster = clone.getElementById('ifsc-poster');
 
             if (event.poster) {
-                poster.src = `img/posters/${basename(event.poster)}`;
+                poster.src = event_poster_path(event);
             } else {
-                poster.src = 'img/posters/230329_Poster_SEOUL23_thumb.jpg';
+                poster.src = 'img/posters/2023/default.jpg';
             }
 
             poster.alt = event.description;

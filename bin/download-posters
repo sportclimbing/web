@@ -1,10 +1,31 @@
 #!/usr/bin/php
 <?php declare(strict_types=1);
 
-$json = json_decode(file_get_contents($argv[1]));
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+try {
+    $json = json_decode(file_get_contents($argv[2]), flags: JSON_THROW_ON_ERROR);
+} catch (JsonException $e) {
+    echo "Could not parse JSON: {$e->getMessage()}", PHP_EOL;
+    exit(1);
+}
+
+$season = (int) $argv[1];
 
 foreach ($json->events as $event) {
     if ($event->poster) {
-        copy($event->poster, "public/img/posters/" . basename($event->poster));
+        $basename = basename($event->poster);
+        $saveAs = "public/img/posters/{$season}/{$basename}";
+
+        if (is_file($saveAs)) {
+            continue;
+        }
+
+        if (copy($event->poster, $saveAs)) {
+            echo "[+] Downloaded poster '{$basename}'", PHP_EOL;
+        } else {
+            echo "[-] Error downloading poster '{$basename}'", PHP_EOL;
+        }
     }
 }
