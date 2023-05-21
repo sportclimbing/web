@@ -17,10 +17,10 @@
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
             <img class="card-img-top" id="ifsc-image" loading="lazy" src="" alt="">
-            <div class="card-body" style="padding: 5px;">
-                <p class="card-text news-title" style="font-size: 12px;"><a class="link-secondary" id="ifsc-title" href="" target="_blank"></a></p>
+            <div class="card-body" style="padding: 5px; min-height: 80px;">
+                <p class="card-text news-title" style="font-size: 12px; height: 35px;"><a class="link-secondary" id="ifsc-title" href="" target="_blank"></a></p>
                 <div class="d-flex justify-content-between align-items-center">
-                    <span id="ifsc-date" style="font-size: 11px;">📆 Posted </span> <small class="text-muted"></small>
+                    <span id="ifsc-date" style="font-size: 11px;">📆 Posted </span>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
 </template>
 
 <template id="ifsc-league">
-    <div class="card container-xl" style="padding: 0; margin-bottom: 4px;">
+    <div class="card container-xl" style="padding: 0; margin-bottom: 1px;">
         <div class="card-header" id="heading_id">
             <h5 class="mb-0">
                 <button style="font-size: 14px; padding: 5px 0;" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="ifsc-league-name"></button>
@@ -93,9 +93,9 @@
 
 <main role="main" style="max-width: 700px; margin: 0 auto; padding: 0 3px;">
     <section class="jumbotron" style="margin: 3px 0; padding: 0;">
-        <div class="dropdown" style="margin-bottom: 5px;">
-            <button id="ifsc-season" style="width: 100%; background-color: rgba(13,202,240,0.24); color: #1b2839; font-weight: bold; font-size: 22px; text-align: center; margin: 5px 0;" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                IFSC Calendar 2023
+        <div class="dropdown" style="margin-bottom: 0px;">
+            <button id="ifsc-season" style="width: 100%; background-color: rgb(138,225,246); color: #000000; font-weight: bold; font-size: 22px; text-align: center; margin: 5px 0;" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                IFSC Calendar &amp; Live Streams 2023
             </button>
             <div class="dropdown-menu" id="ifsc-season-selector" aria-labelledby="ifsc-season" style="width: 100%;"></div>
         </div>
@@ -103,8 +103,8 @@
     </section>
 
     <h1 class="alert alert-warning" role="alert" style="color: #1b2839; font-weight: bold; font-size: 22px; text-align: center; margin: 15px 0 15px 0;">Recent IFSC News</h1>
-    <div class="album" style="padding: 0 0;">
-        <div class="container">
+    <div class="album">
+        <div class="container" style="padding: 0;">
             <div class="row" id="container"></div>
         </div>
     </div>
@@ -184,8 +184,11 @@
     </div>
 </div>
 
-<footer class="text-muted">
-    <div class="container text-center">In no way affiliated with, or endorsed by <a href="https://www.ifsc-climbing.org/" target="_blank">IFSC</a>.</div>
+<footer class="text-muted card" style="max-width: 700px; margin: 0 auto; padding: 5px;">
+    <div class="container text-center">
+        <p>&copy; 2023 by Nico Oelgart (<a href="https://github.com/sportclimbing">@sportclimbing</a>) - <a href="https://www.reddit.com/r/CompetitionClimbing/comments/13bj7vx/i_made_a_better_ifsc_competition_calendar_you_can/">Discuss on Reddit</a> </p>
+        <p>In no way affiliated with, or endorsed by <a href="https://www.ifsc-climbing.org/" target="_blank">IFSC</a>.</p>
+    </div>
 </footer>
 
 <script src="js/dayjs.min.js"></script>

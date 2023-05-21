@@ -101,7 +101,7 @@ function remove_hash() {
 }
 
 function get_selected_season() {
-    return get_id_from_hash('season') || defaultSeason;
+    return get_id_from_hash('season') || DEFAULT_SEASON;
 }
 
 function get_selected_event() {
@@ -217,7 +217,21 @@ function event_poster_path(event) {
     return `img/posters/${event.start_time.substring(0, 4)}/${basename(event.poster)}`;
 }
 
-const defaultSeason = '2023';
+function set_background_imag(event) {
+    let backgroundImage;
+
+    if (event.stream_url) {
+        const youTubeVideoId = extract_youtube_video_id(event.stream_url);
+        backgroundImage = `https://i.ytimg.com/vi/${youTubeVideoId}/maxresdefault.jpg`;
+    } else {
+        backgroundImage = DEFAULT_POSTER;
+    }
+
+    document.body.style.backgroundImage = `url(${backgroundImage})`;
+}
+
+const DEFAULT_SEASON = '2023';
+const DEFAULT_POSTER = 'img/posters/2023/default.jpg';
 
 let selectedSeason = get_selected_season();
 let selectedEvent = get_selected_event();
@@ -289,7 +303,7 @@ const refresh = (async () => {
             if (event.poster) {
                 poster.src = event_poster_path(event);
             } else {
-                poster.src = 'img/posters/2023/default.jpg';
+                poster.src = DEFAULT_POSTER;
             }
 
             poster.alt = event.description;
@@ -334,15 +348,19 @@ const refresh = (async () => {
                 clone.getRootNode().firstChild.nextSibling.style.opacity = '100%'
                 clone.getElementById('button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
                 document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
+
+                set_background_imag(event);
             } else if (new Date(event.start_time) > now) {
                 let startsIn = clone.getElementById('ifsc-starts-in');
 
                 if (!liveEvent && lastEventFinished) {
                     lastEventFinished = false;
-                    startsIn.innerText = `🟢 Starts ${pretty_starts_in(event)}`;
+                    startsIn.innerText = `🟢 Next Event (starts ${pretty_starts_in(event)})`;
 
-                    clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(246,245,245,0.4)';
+                    clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(193,241,241,0.4)';
                     clone.getRootNode().firstChild.nextSibling.style.opacity = '100%'
+
+                    set_background_imag(event);
                 } else {
                     clone.getRootNode().firstChild.nextSibling.style.opacity = '80%'
                     startsIn.innerText = `⌛ Starts ${pretty_starts_in(event)}`;
