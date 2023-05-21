@@ -217,17 +217,25 @@ function event_poster_path(event) {
     return `img/posters/${event.start_time.substring(0, 4)}/${basename(event.poster)}`;
 }
 
-function set_background_imag(event) {
-    let backgroundImage;
+function set_background_image(event) {
+    let youTubeVideoId;
 
     if (event.stream_url) {
-        const youTubeVideoId = extract_youtube_video_id(event.stream_url);
-        backgroundImage = `https://i.ytimg.com/vi/${youTubeVideoId}/maxresdefault.jpg`;
-    } else {
-        backgroundImage = DEFAULT_POSTER;
+        youTubeVideoId = extract_youtube_video_id(event.stream_url);
     }
 
+    if (!youTubeVideoId) {
+        youTubeVideoId = '_8id2biZ-j0';
+    }
+
+    const backgroundImage = `https://i.ytimg.com/vi/${youTubeVideoId}/maxresdefault.jpg`;
+    const backgroundImageFallback = `https://i.ytimg.com/vi/${youTubeVideoId}/hqdefault.jpg`;
+
     document.body.style.backgroundImage = `url(${backgroundImage})`;
+
+    const img = new Image();
+    img.src = backgroundImage;
+    img.onerror = () => document.body.style.backgroundImage = `url(${backgroundImageFallback})`;
 }
 
 const DEFAULT_SEASON = '2023';
@@ -310,7 +318,7 @@ const refresh = (async () => {
             poster.title = event.description;
 
             clone.getElementById('ifsc-name').innerText = `🏆 ${event.name}`;
-            clone.getElementById('ifsc-description').innerText = '📆 ' + dayjs(event.start_time).format('MMMM D, YYYY [at] hh:mm A');
+            clone.getElementById('ifsc-description').innerText = '📆 ' + dayjs(event.start_time).format('ddd, D MMMM, YYYY [at] hh:mm A');
 
             const streamButton = $('#button-stream', clone);
 
@@ -345,11 +353,11 @@ const refresh = (async () => {
                 clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(193,241,241,0.4)';
                 liveEvent = event;
 
-                clone.getRootNode().firstChild.nextSibling.style.opacity = '100%'
+                clone.getRootNode().firstChild.nextSibling.style.opacity = '100%';
                 clone.getElementById('button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
                 document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
 
-                set_background_imag(event);
+                set_background_image(event);
             } else if (new Date(event.start_time) > now) {
                 let startsIn = clone.getElementById('ifsc-starts-in');
 
@@ -358,11 +366,11 @@ const refresh = (async () => {
                     startsIn.innerText = `🟢 Next Event (starts ${pretty_starts_in(event)})`;
 
                     clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(193,241,241,0.4)';
-                    clone.getRootNode().firstChild.nextSibling.style.opacity = '100%'
+                    clone.getRootNode().firstChild.nextSibling.style.opacity = '100%';
 
-                    set_background_imag(event);
+                    set_background_image(event);
                 } else {
-                    clone.getRootNode().firstChild.nextSibling.style.opacity = '80%'
+                    clone.getRootNode().firstChild.nextSibling.style.opacity = '80%';
                     startsIn.innerText = `⌛ Starts ${pretty_starts_in(event)}`;
                 }
 
@@ -371,7 +379,7 @@ const refresh = (async () => {
             } else {
                 clone.getElementById('ifsc-starts-in').innerText = `🏁 ${pretty_finished_ago(event)}`;
 
-                clone.getRootNode().firstChild.nextSibling.style.opacity = '80%'
+                clone.getRootNode().firstChild.nextSibling.style.opacity = '80%';
                 clone.getElementById('button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
 
                 lastEventFinished = true;
