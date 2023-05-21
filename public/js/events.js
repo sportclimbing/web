@@ -342,7 +342,7 @@ const refresh = (async () => {
 
             if (event_is_streaming(event)) {
                 clone.getElementById('ifsc-starts-in').innerText = `🔴 Live Now`;
-                clone.getRootNode().firstChild.nextSibling.style.backgroundColor = '#f7f7f7';
+                clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(193,241,241,0.4)';
                 liveEvent = event;
 
                 clone.getRootNode().firstChild.nextSibling.style.opacity = '100%'
