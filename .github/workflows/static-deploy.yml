@@ -45,6 +45,12 @@ jobs:
       - name: "Download posters"
         run: php bin/download-posters "$(date +'%Y')" "public/events/events_$(date +'%Y').json"
 
+      - name: "Copy video covers"
+        run: |
+          composer install
+          cp vendor/sportclimbing/ifsc-youtube-videos/data/covers/original/*.jpg public/img/covers/
+          cp vendor/sportclimbing/ifsc-youtube-videos/data/covers/optimized/*.jpg public/img/covers/
+
       - name: "Setup Pages"
         uses: actions/configure-pages@v3
 

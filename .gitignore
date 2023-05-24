@@ -5,3 +5,5 @@
 /public/feed/rss.xml
 /public/img/news
 /public/img/posters/2023/
+/composer.lock
+/vendor/

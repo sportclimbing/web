@@ -1,0 +1,14 @@
+{
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nico Oelgart",
+            "email": "nico@oelgart.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "sportclimbing/ifsc-youtube-videos": "dev-main"
+    }
+}

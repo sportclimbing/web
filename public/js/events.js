@@ -1,6 +1,15 @@
 dayjs.extend(window.dayjs_plugin_relativeTime);
 dayjs.extend(window.dayjs_plugin_isBetween);
 
+const DEFAULT_SEASON = '2023';
+const DEFAULT_POSTER = 'img/posters/2023/default.jpg';
+const DEFAULT_BACKGROUND_IMAGE_ID = 'MU2RQo273TY';
+
+let config;
+
+let selectedSeason = get_selected_season();
+let selectedEvent = get_selected_event();
+
 function sort_by_date(event1, event2) {
     let eventDate1 = new Date(event1.start_time);
     let eventDate2 = new Date(event2.start_time);
@@ -25,6 +34,10 @@ function event_is_streaming(event) {
     const eventStart = dayjs(event.start_time);
 
     return eventStart.isBetween(now, now.subtract(3, 'hour'));
+}
+
+function event_is_upcoming(event) {
+    return new Date(event.start_time) > new Date();
 }
 
 function pretty_starts_in(event) {
@@ -81,23 +94,6 @@ function element_is_in_viewport(el) {
         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
-}
-
-function remove_hash() {
-    let scrollV, scrollH, loc = window.location;
-    if ("pushState" in history)
-        history.pushState("", document.title, loc.pathname + loc.search);
-    else {
-        // Prevent scrolling by storing the page's current scroll offset
-        scrollV = document.body.scrollTop;
-        scrollH = document.body.scrollLeft;
-
-        loc.hash = "";
-
-        // Restore the scroll offset, should be flicker free
-        document.body.scrollTop = scrollV;
-        document.body.scrollLeft = scrollH;
-    }
 }
 
 function get_selected_season() {
@@ -225,11 +221,11 @@ function set_background_image(event) {
     }
 
     if (!youTubeVideoId) {
-        youTubeVideoId = '_8id2biZ-j0';
+        youTubeVideoId = DEFAULT_BACKGROUND_IMAGE_ID;
     }
 
-    const backgroundImage = `https://i.ytimg.com/vi/${youTubeVideoId}/maxresdefault.jpg`;
-    const backgroundImageFallback = `https://i.ytimg.com/vi/${youTubeVideoId}/hqdefault.jpg`;
+    const backgroundImage = `img/covers/${youTubeVideoId}.jpg`;
+    const backgroundImageFallback = `img/covers/${DEFAULT_BACKGROUND_IMAGE_ID}.jpg`;
 
     document.body.style.backgroundImage = `url(${backgroundImage})`;
 
@@ -238,11 +234,32 @@ function set_background_image(event) {
     img.onerror = () => document.body.style.backgroundImage = `url(${backgroundImageFallback})`;
 }
 
-const DEFAULT_SEASON = '2023';
-const DEFAULT_POSTER = 'img/posters/2023/default.jpg';
+const handle_watch_event = (event) => (e) => {
+    const youTubeVideoId = extract_youtube_video_id(e.currentTarget.href);
 
-let selectedSeason = get_selected_season();
-let selectedEvent = get_selected_event();
+    if (youTubeVideoId) {
+        e.preventDefault();
+
+        const streamButton = $(e.currentTarget);
+        streamButton.attr('data-target', "#video-modal");
+        streamButton.attr('data-toggle', "modal");
+
+        $('#youtube-video').attr('src', `https://www.youtube.com/embed/${youTubeVideoId}?autoplay=1`);
+        $('#youtube-video-title').html(`🍿 ${event.name}`);
+    }
+};
+
+const handle_watch_event_no_url = (event) => (e) => {
+    e.preventDefault();
+
+    if (event_is_upcoming(event) && !event_is_streaming(event)) {
+        alert('The event has not started yet, and we couldn\'t find a link to it. Come back later, or check the previous streams!');
+    } else {
+        if (confirm('We could not find a link for this event. Do you want to check IFSC\'s YouTube channel?')) {
+            window.open($(e.targetElement).attr('href'), '_blank', '');
+        }
+    }
+};
 
 const fetchSeasons = (async () => {
     let seasonTitle = document.getElementById('ifsc-season');
@@ -267,7 +284,6 @@ const refresh = (async () => {
     const jsonData = await response.json();
     const leagues = sort_leagues_by_date(jsonData);
     const nextEvent = get_next_event(leagues);
-    const now = new Date();
     const leagueTemplate = document.getElementById('ifsc-league');
     const accordion = document.getElementById('accordion');
     const currentOpenElement = document.querySelector('div#accordion .show');
@@ -324,28 +340,10 @@ const refresh = (async () => {
 
             if (event.stream_url) {
                 streamButton.attr('href', event.stream_url);
-                streamButton.on('click', (e) => {
-                    const youTubeVideoId = extract_youtube_video_id(e.currentTarget.href);
-
-                    if (youTubeVideoId) {
-                        e.preventDefault();
-
-                        streamButton.attr('data-target', "#video-modal");
-                        streamButton.attr('data-toggle', "modal");
-
-                        $('#youtube-video').attr('src', `https://www.youtube.com/embed/${youTubeVideoId}?autoplay=1`);
-                        $('#youtube-video-title').html(`🍿 ${event.name}`);
-                    }
-                });
+                streamButton.on('click', handle_watch_event(event));
             } else {
                 streamButton.attr('href', 'https://www.youtube.com/@sportclimbing/streams');
-                streamButton.on('click', (e) => {
-                    e.preventDefault();
-
-                    if (confirm('We could not find a link for this event. Do you want to check IFSC\'s YouTube channel?')) {
-                        window.open(streamButton.attr('href'), '_blank', '');
-                    }
-                });
+                streamButton.on('click', handle_watch_event_no_url(event));
             }
 
             if (event_is_streaming(event)) {
@@ -358,7 +356,7 @@ const refresh = (async () => {
                 document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
 
                 set_background_image(event);
-            } else if (new Date(event.start_time) > now) {
+            } else if (event_is_upcoming(event)) {
                 let startsIn = clone.getElementById('ifsc-starts-in');
 
                 if (!liveEvent && lastEventFinished) {
@@ -372,8 +370,9 @@ const refresh = (async () => {
                 } else {
                     clone.getRootNode().firstChild.nextSibling.style.opacity = '80%';
                     startsIn.innerText = `⌛ Starts ${pretty_starts_in(event)}`;
+                    poster.classList.add('bw');
+                    streamButton.addClass('disabled-watch-btn');
                 }
-
                 clone.getElementById('button-results').style.display = 'none';
                 document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
             } else {
@@ -399,8 +398,6 @@ const refresh = (async () => {
         }
     }
 });
-
-let config;
 
 (() => {
     fetchSeasons().then();
@@ -438,4 +435,13 @@ let config;
 
         window.localStorage.setItem('config', JSON.stringify(config));
     });
+
+    if (document.location.hostname === 'ifsc.stream') {
+        const img = new Image();
+        img.src = 'https://calendar.ifsc.stream/pixel.gif';
+        img.width = 1;
+        img.height = 1;
+
+        document.body.appendChild(img);
+    }
 })();
