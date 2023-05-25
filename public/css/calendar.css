@@ -21,8 +21,8 @@ body {
 }
 
 img.bw {
-    -webkit-filter: grayscale(80%); /* Safari 6.0 - 9.0 */
-    filter: grayscale(80%);
+    -webkit-filter: grayscale(40%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(40%);
 }
 
 .videoWrapper {
