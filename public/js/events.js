@@ -368,6 +368,10 @@ const refresh = (async () => {
 
                     set_background_image(event);
                     clone.querySelector('a[data-toggle="modal"]').style.display = 'inline';
+
+                    if (!event.stream_url) {
+                        streamButton.hide();
+                    }
                 } else {
                     clone.getRootNode().firstChild.nextSibling.style.opacity = '80%';
                     startsIn.innerText = `⌛ Starts ${pretty_starts_in(event)}`;
