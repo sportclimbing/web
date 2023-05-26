@@ -367,18 +367,19 @@ const refresh = (async () => {
                     clone.getRootNode().firstChild.nextSibling.style.opacity = '100%';
 
                     set_background_image(event);
+                    clone.querySelector('a[data-toggle="modal"]').style.display = 'inline';
                 } else {
                     clone.getRootNode().firstChild.nextSibling.style.opacity = '80%';
                     startsIn.innerText = `⌛ Starts ${pretty_starts_in(event)}`;
                     poster.classList.add('bw');
-                    streamButton.addClass('disabled-watch-btn');
+                    streamButton.hide();
+
+                    clone.querySelector('a[data-toggle="modal"]').style.display = 'inline';
                 }
                 clone.getElementById('button-results').style.display = 'none';
                 document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
             } else {
                 clone.getElementById('ifsc-starts-in').innerText = `🏁 ${pretty_finished_ago(event)}`;
-
-                clone.getRootNode().firstChild.nextSibling.style.opacity = '80%';
                 clone.getElementById('button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
 
                 lastEventFinished = true;

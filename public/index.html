@@ -32,9 +32,10 @@
         <div class="d-flex align-items-center">
             <img id="ifsc-poster" src="" loading="lazy" alt="" style="width: 100px; height: 135px;" class="rounded-2" />
             <div class="ms-3">
-                <h6 class="fw-bold mb-1" id="ifsc-name" style="font-size: 15px;"></h6>
-                <h6 class="fw-bold mb-1" id="ifsc-description" style="font-size: 14px;"></h6>
-                <p class="text-muted" id="ifsc-starts-in" style="font-size: 14px;"></p>
+                <h6 class="fw-bold mb-1" id="ifsc-name" style="font-size: 15px; padding-bottom: 3px;"></h6>
+                <h6 class="fw-bold mb-1" id="ifsc-description" style="font-size: 14px; padding-bottom: 2px;"></h6>
+                <p class="text-muted" id="ifsc-starts-in" style="font-size: 14px; margin-bottom: 25px;"></p>
+                <a class="btn btn-primary" style="background-color: #e6007e; border: 1px solid #ad0a68; display: none; width: 120px; padding: 8px;" href="https://github.com/sportclimbing/ifsc-calendar/wiki" role="button" target="_blank" data-toggle="modal" data-target="#calendar-modal">📆 Set Reminder</a>
                 <a class="btn btn-primary" href="" role="button" id="button-stream" target="_blank">👀 Watch</a>
                 <a class="btn btn-outline-danger" href="" role="button" id="button-results" target="_blank">🏆 Results</a>
             </div>
@@ -80,8 +81,8 @@
     <div class="navbar navbar-dark box-shadow" style="background-color: rgb(27, 40, 57); width: 100%;">
         <div class="container d-flex justify-content-between" style="max-width: 700px; padding: 0 5px;">
             <div class="float-start">
-                <a class="btn btn-primary" style="background-color: #e6007e;" href="https://github.com/sportclimbing/ifsc-calendar/wiki" role="button" target="_blank" data-toggle="modal" data-target="#calendar-modal">📆 Add to Calendar</a>
-                <a class="btn btn-info" role="button" target="_blank" data-toggle="modal" data-target="#filter-modal">🔎️ Filters️</a>
+                <a class="btn btn-primary" style="background-color: #e6007e; border: 1px solid #ad0a68;" href="https://github.com/sportclimbing/ifsc-calendar/wiki" role="button" target="_blank" data-toggle="modal" data-target="#calendar-modal">📆 Add to Calendar</a>
+                <a class="btn btn-primary" role="button" target="_blank" data-toggle="modal" data-target="#filter-modal">🔎️ Filters️</a>
             </div>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,8 +94,8 @@
 
 <main role="main" style="max-width: 700px; margin: 0 auto; padding: 0 3px;">
     <section class="jumbotron" style="margin: 3px 0; padding: 0;">
-        <div class="dropdown" style="margin-bottom: 0px;">
-            <button id="ifsc-season" style="width: 100%; background-color: rgb(138,225,246); color: #000000; font-weight: bold; font-size: 22px; text-align: center; margin: 5px 0;" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="dropdown" style="margin-bottom: 0;">
+            <button id="ifsc-season" style="width: 100%; background-color: rgb(110,174,241); color: #fff; font-weight: bold; font-size: 22px; text-align: center; margin: 5px 0;" class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 IFSC Calendar &amp; Live Streams 2023
             </button>
             <div class="dropdown-menu" id="ifsc-season-selector" aria-labelledby="ifsc-season" style="width: 100%;"></div>
@@ -118,7 +119,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Add this <code>iCal</code> URL to your calendar subscriptions and keep your device synced:</p>
+                <p>Don't miss future events, by adding this <code>iCal</code> URL to your calendar subscriptions and keep your device synced:</p>
                 <p><a href="https://calendar.ifsc.stream" target="_blank" style="color: #e6007e;"><code>https://calendar.ifsc.stream</code></a></p>
             </div>
             <div class="modal-footer">
@@ -196,7 +197,7 @@
 <script src="js/isBetween.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/jquery-3.2.1.slim.min.js"></script>
-<script src="js/events.js?v=8"></script>
+<script src="js/events.js?v=9"></script>
 <script src="js/feed.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
