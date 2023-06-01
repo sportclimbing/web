@@ -40,7 +40,10 @@ jobs:
         run:  php bin/download-news-images "public/feed/rss.xml"
 
       - name: "Download latest calendar"
-        run: curl -sSL "https://calendar.ifsc.stream/?format=json&nocache=1" --output "public/events/events_$(date +'%Y').json"
+        run: |
+          curl -sSL "https://calendar.ifsc.stream/?format=json&nocache=1" \
+              --output "public/events/events_$(date +'%Y').json" \
+              --max-time 15
 
       - name: "Download posters"
         run: php bin/download-posters "$(date +'%Y')" "public/events/events_$(date +'%Y').json"
