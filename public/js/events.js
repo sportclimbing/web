@@ -234,6 +234,21 @@ function set_background_image(event) {
     img.onerror = () => document.body.style.backgroundImage = `url(${backgroundImageFallback})`;
 }
 
+function set_favicon(liveEvent) {
+    let favicon;
+
+    if (liveEvent) {
+        document.title = `Live now: ${liveEvent.name} | ${document.title}`;
+        favicon = 'img/favicon-live.png';
+    } else {
+        let title = document.title.split(' | ')[1];
+        document.title = title[title.length - 1];
+        favicon = 'img/favicon.png';
+    }
+
+    document.getElementById('favicon').href = favicon;
+}
+
 const handle_watch_event = (event) => (e) => {
     const youTubeVideoId = extract_youtube_video_id(e.currentTarget.href);
 
@@ -402,6 +417,8 @@ const refresh = (async () => {
             leagueElement.classList.add('show');
         }
     }
+
+    set_favicon(liveEvent);
 });
 
 (() => {
