@@ -392,7 +392,10 @@ const refresh = (async () => {
                     clone.getRootNode().firstChild.nextSibling.style.opacity = '80%';
                     startsIn.innerText = `⌛ Starts ${pretty_starts_in(event)}`;
                     poster.classList.add('bw');
-                    streamButton.hide();
+
+                    if (!event.stream_url) {
+                        streamButton.hide();
+                    }
 
                     clone.querySelector('a[data-toggle="modal"]').style.display = 'inline';
                 }
