@@ -236,13 +236,14 @@ function set_background_image(event) {
 
 function set_favicon(liveEvent) {
     let favicon;
+    let title = document.title.split(' | ');
+    title = title[title.length - 1];
 
     if (liveEvent) {
-        document.title = `Live now: ${liveEvent.name} | ${document.title}`;
+        document.title = `Live now: ${liveEvent.name} | ${title}`;
         favicon = 'img/favicon-live.png';
     } else {
-        let title = document.title.split(' | ')[1];
-        document.title = title[title.length - 1];
+        document.title = title;
         favicon = 'img/favicon.png';
     }
 
