@@ -250,6 +250,18 @@ function set_favicon(liveEvent) {
     document.getElementById('favicon').href = favicon;
 }
 
+function handle_chat_toggle(button) {
+    const chat = $('#live-chat');
+
+    if (chat.is(':hidden')) {
+        chat.show();
+        button.innerText = 'Hide Chat';
+    } else {
+        chat.hide();
+        button.innerText = 'Show Chat';
+    }
+}
+
 const handle_watch_event = (event) => (e) => {
     const youTubeVideoId = extract_youtube_video_id(e.currentTarget.href);
 
@@ -259,6 +271,17 @@ const handle_watch_event = (event) => (e) => {
         const streamButton = $(e.currentTarget);
         streamButton.attr('data-target', "#video-modal");
         streamButton.attr('data-toggle', "modal");
+
+        let chat = $('#live-chat');
+        let chatToggle = $('#chat-toggle');
+
+        if (event_is_streaming(event) || event_is_upcoming(event)) {
+            chat.show();
+            chatToggle.show();
+        } else {
+            chat.hide();
+            chatToggle.hide();
+        }
 
         $('#youtube-video').attr('src', `https://www.youtube.com/embed/${youTubeVideoId}?autoplay=1`);
         $('#youtube-video-title').html(`🍿 ${event.name}`);

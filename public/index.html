@@ -69,9 +69,10 @@
                 <div class="col-sm-4 offset-md-1 py-4">
                     <h4 class="text-white">Links</h4>
                     <ul class="list-unstyled">
-                        <li><a href="https://github.com/sportclimbing/ifsc-calendar/issues" class="text-white">Report an issue</a></li>
-                        <li><a href="https://github.com/sportclimbing" class="text-white">View project on GitHub</a></li>
-                        <li><a href="https://instagram.com/nicoswd" class="text-white">Follow me on Instagram</a></li>
+                        <li><a href="https://discord.gg/YbRehXZazW" class="text-white" target="_blank">Join Discord</a></li>
+                        <li><a href="https://github.com/sportclimbing/ifsc-calendar/issues" target="_blank" class="text-white">Report an issue</a></li>
+                        <li><a href="https://github.com/sportclimbing" target="_blank" class="text-white">View project on GitHub</a></li>
+                        <li><a href="https://instagram.com/nicoswd" target="_blank" class="text-white">Follow me on Instagram</a></li>
                     </ul>
                     <a class="github-button" href="https://github.com/sportclimbing/ifsc-calendar" data-size="large" data-show-count="true" aria-label="Star sportclimbing/ifsc-calendar on GitHub">Star</a>
                 </div>
@@ -178,8 +179,19 @@
             <div class="modal-body videoWrapper">
                 <iframe id="youtube-video" src="" allow="autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
+
+            <div id="live-chat" style="display: none; background-color: rgba(42,40,40,0.99);">
+                <widgetbot
+                        server="1116469956725452830"
+                        channel="1116472895187722361"
+                        width="100%"
+                        height="280"
+                ></widgetbot>
+            </div>
+
             <div class="modal-footer">
                 <a class="btn btn-info" style="color: #fff; background-color: #e6007e; left: 10px; position: absolute;" href="https://protonvpn.com/" role="button" target="_blank">Video blocked? Free VPN</a>
+                <a class="btn btn-primary" style="left: 225px; position: absolute; display: none;" role="button" target="_blank" id="chat-toggle" onclick="handle_chat_toggle(this);">Hide Chat</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -202,5 +214,6 @@
 <script src="js/feed.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
 </body>
 </html>
