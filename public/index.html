@@ -120,12 +120,25 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Don't miss future events, by adding this <code>iCal</code> URL to your calendar subscriptions and keeping your device synced:</p>
-                <p style="width: 500px;"><a href="https://calendar.ifsc.stream" target="_blank" style="color: #e6007e; font-size: 18px; font-weight: bold; width: 100%; text-align: center; padding: 10px 0px;"><code>https://calendar.ifsc.stream</code></a></p>
+                <h5>For Mobile and Desktop</h5>
+                <p>Automatically updating calendar for apps like Outlook, iOS &amp; macOS Calendar</p>
+                <a class="btn btn-primary" href="webcal://calendar.ifsc.stream" role="button">Add to Device's Calendar</a>
+                <hr style="margin: 20px 0 20px 0;" />
+
+                <h5>For Google Calendar</h5>
+                <p>Automatically updating calendar for Google</p>
+                <a class="btn btn-primary" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream" target="_blank" role="button">Add to Google Calendar</a>
+                <hr style="margin: 20px 0 20px 0;" />
+
+                <h5>Download <code>.ics</code> file</h5>
+                <p>Non-updating calendar (<code>.ics</code>) for calendars that can’t handle updating subscriptions</p>
+                <a class="btn btn-primary" href="https://calendar.ifsc.stream" role="button">Download .ics</a>
+                <a class="btn btn-primary" href="https://github.com/sportclimbing/ifsc-calendar/wiki" role="button" target="_blank">View Tutorial</a>
+                <hr style="margin: 20px 0 20px 0;" />
+
                 <p class="small">This calendar will auto-update and be ready for future seasons as well. And it's fully <a href="https://github.com/sportclimbing/ifsc-calendar">open source</a>.</p>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-primary" href="https://github.com/sportclimbing/ifsc-calendar/wiki" role="button" target="_blank">View Tutorial</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
