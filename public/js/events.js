@@ -487,7 +487,7 @@ const refresh = (async () => {
 
     if (document.location.hostname === 'ifsc.stream') {
         const img = new Image();
-        img.src = 'https://calendar.ifsc.stream/pixel.gif' + (document.referrer ? `?r=${document.referrer}` : '');
+        img.src = 'https://calendar.ifsc.stream/pixel.gif?' + (document.referrer ? `r=${encodeURIComponent(document.referrer)}` : '');
         img.width = 1;
         img.height = 1;
 
