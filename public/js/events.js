@@ -216,7 +216,7 @@ function event_poster_path(event) {
 function set_background_image(event) {
     let youTubeVideoId;
 
-    if (event.stream_url) {
+    if (event && event.stream_url) {
         youTubeVideoId = extract_youtube_video_id(event.stream_url);
     }
 
@@ -345,6 +345,7 @@ const refresh = (async () => {
     const template = document.getElementById("ifsc-event");
     let liveEvent = null;
     let lastEventFinished = false;
+    let seasonHasUpcomingEvents = false;
 
     leagues.forEach((league) => {
         const clone = leagueTemplate.content.cloneNode(true);
@@ -389,6 +390,7 @@ const refresh = (async () => {
                 clone.getElementById('ifsc-starts-in').innerText = `🔴 Live Now`;
                 clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(193,241,241,0.4)';
                 liveEvent = event;
+                seasonHasUpcomingEvents = true;
 
                 clone.getRootNode().firstChild.nextSibling.style.opacity = '100%';
                 clone.getElementById('button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
@@ -397,6 +399,7 @@ const refresh = (async () => {
                 set_background_image(event);
             } else if (event_is_upcoming(event)) {
                 let startsIn = clone.getElementById('ifsc-starts-in');
+                seasonHasUpcomingEvents = true;
 
                 if (!liveEvent && lastEventFinished) {
                     lastEventFinished = false;
@@ -446,6 +449,10 @@ const refresh = (async () => {
     }
 
     set_favicon(liveEvent);
+
+    if (!seasonHasUpcomingEvents) {
+        set_background_image();
+    }
 });
 
 (() => {
