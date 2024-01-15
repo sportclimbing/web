@@ -17,6 +17,7 @@ concurrency:
 
 env:
   IFSC_RSS_FEED_URL: "https://www.ifsc-climbing.org/news?format=feed&type=rss"
+  YEAR: 2023
 
 jobs:
   deploy:
@@ -42,11 +43,11 @@ jobs:
       - name: "Download latest calendar"
         run: |
           curl -sSL "https://calendar.ifsc.stream/?format=json&nocache=1" \
-              --output "public/events/events_$(date +'%Y').json" \
+              --output "public/events/events_${YEAR}.json" \
               --max-time 15
 
       - name: "Download posters"
-        run: php bin/download-posters "$(date +'%Y')" "public/events/events_$(date +'%Y').json"
+        run: php bin/download-posters "${YEAR}" "public/events/events_${YEAR}.json"
 
       - name: "Copy video covers"
         run: |
