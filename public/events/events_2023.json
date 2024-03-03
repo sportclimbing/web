@@ -1,0 +1,2427 @@
+{
+    "events": [
+        {
+            "id": 1291,
+            "season": 2023,
+            "name": "IFSC World Cup Hachioji 2023",
+            "country": "JPN",
+            "location": "Hachioji",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230422_Hachioji_WC\/a._Poster_HACH23.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1291",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1291",
+            "disciplines": [
+                "boulder"
+            ],
+            "starts_at": "2023-04-21T17:00:00+09:00",
+            "ends_at": "2023-04-23T17:00:00+09:00",
+            "timezone": "Asia\/Tokyo",
+            "rounds": [
+                {
+                    "name": "Boulder Qualifications",
+                    "stream_url": "https:\/\/youtu.be\/MQeQs6K_T5g",
+                    "starts_at": "2023-04-21T09:00:00+09:00",
+                    "ends_at": "2023-04-21T12:00:00+09:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/kuE-qhRq7Fk",
+                    "starts_at": "2023-04-22T11:00:00+09:00",
+                    "ends_at": "2023-04-22T14:00:00+09:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/eNR77KOXi20",
+                    "starts_at": "2023-04-22T17:00:00+09:00",
+                    "ends_at": "2023-04-22T20:00:00+09:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/_D1hGBIEdQw",
+                    "starts_at": "2023-04-23T11:00:00+09:00",
+                    "ends_at": "2023-04-23T14:00:00+09:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/JX_-Ab7-IPY",
+                    "starts_at": "2023-04-23T17:00:00+09:00",
+                    "ends_at": "2023-04-23T20:00:00+09:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Jessica",
+                    "last_name": "PILZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1226\/photo"
+                },
+                {
+                    "first_name": "Jakob",
+                    "last_name": "SCHUBERT",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1214\/photo"
+                },
+                {
+                    "first_name": "Oceania",
+                    "last_name": "MACKENZIE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2501\/photo"
+                },
+                {
+                    "first_name": "Hannes",
+                    "last_name": "VAN DUYSEN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/373\/photo"
+                },
+                {
+                    "first_name": "Simon",
+                    "last_name": "LORENZI",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/318\/photo"
+                },
+                {
+                    "first_name": "Nicolas",
+                    "last_name": "COLLIN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/320\/photo"
+                },
+                {
+                    "first_name": "Nicolai",
+                    "last_name": "UZNIK",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1256\/photo"
+                },
+                {
+                    "first_name": "Stefan",
+                    "last_name": "SCHERZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1274\/photo"
+                },
+                {
+                    "first_name": "Franziska",
+                    "last_name": "STERRER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1240\/photo"
+                },
+                {
+                    "first_name": "Johanna",
+                    "last_name": "F\u00c4RBER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1243\/photo"
+                },
+                {
+                    "first_name": "Maya",
+                    "last_name": "STASIUK",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13857\/photo"
+                },
+                {
+                    "first_name": "Chloe",
+                    "last_name": "CAULIER",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/316\/photo"
+                },
+                {
+                    "first_name": "Slav",
+                    "last_name": "KIROV",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11500\/photo"
+                },
+                {
+                    "first_name": "Felipe",
+                    "last_name": "HO FOGANHOLO",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3141\/photo"
+                },
+                {
+                    "first_name": "Dylan",
+                    "last_name": "PARKS",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13853\/photo"
+                },
+                {
+                    "first_name": "Emily",
+                    "last_name": "SCOTT",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13510\/photo"
+                },
+                {
+                    "first_name": "Anja",
+                    "last_name": "K\u00d6HLER ",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3204\/photo"
+                },
+                {
+                    "first_name": "Bianca",
+                    "last_name": "DE MAGALHAES DE CASTRO",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11614\/photo"
+                },
+                {
+                    "first_name": "Rodrigo",
+                    "last_name": "IASI HANADA",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12903\/photo"
+                },
+                {
+                    "first_name": "Liam",
+                    "last_name": "HEALY",
+                    "country": "AUS",
+                    "photo_url": null
+                }
+            ]
+        },
+        {
+            "id": 1292,
+            "season": 2023,
+            "name": "IFSC World Cup Seoul 2023",
+            "country": "KOR",
+            "location": "Seoul",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230428_Seoul_WC\/230329_Poster_SEOUL23.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1292",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1292",
+            "disciplines": [
+                "boulder",
+                "speed"
+            ],
+            "starts_at": "2023-04-28T17:00:00+09:00",
+            "ends_at": "2023-04-30T17:00:00+09:00",
+            "timezone": "Asia\/Seoul",
+            "rounds": [
+                {
+                    "name": "Speed Qualifications",
+                    "stream_url": "https:\/\/youtu.be\/mC1RhpB4uuQ",
+                    "starts_at": "2023-04-28T12:15:00+09:00",
+                    "ends_at": "2023-04-28T15:15:00+09:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Speed Finals",
+                    "stream_url": "https:\/\/youtu.be\/eIa6VYrfqX8",
+                    "starts_at": "2023-04-28T20:00:00+09:00",
+                    "ends_at": "2023-04-28T23:00:00+09:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Qualification",
+                    "stream_url": "https:\/\/youtu.be\/dZVTyhrrfao",
+                    "starts_at": "2023-04-29T15:30:00+09:00",
+                    "ends_at": "2023-04-29T18:30:00+09:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Qualification",
+                    "stream_url": "https:\/\/youtu.be\/emrHdLsJTk4",
+                    "starts_at": "2023-04-30T10:00:00+09:00",
+                    "ends_at": "2023-04-30T13:00:00+09:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Boulder Finals",
+                    "stream_url": "https:\/\/youtu.be\/4ZfaojD52K4",
+                    "starts_at": "2023-04-30T18:00:00+09:00",
+                    "ends_at": "2023-04-30T21:00:00+09:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Jessica",
+                    "last_name": "PILZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1226\/photo"
+                },
+                {
+                    "first_name": "Jakob",
+                    "last_name": "SCHUBERT",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1214\/photo"
+                },
+                {
+                    "first_name": "Oceania",
+                    "last_name": "MACKENZIE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2501\/photo"
+                },
+                {
+                    "first_name": "Hannes",
+                    "last_name": "VAN DUYSEN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/373\/photo"
+                },
+                {
+                    "first_name": "Simon",
+                    "last_name": "LORENZI",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/318\/photo"
+                },
+                {
+                    "first_name": "Nicolas",
+                    "last_name": "COLLIN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/320\/photo"
+                },
+                {
+                    "first_name": "Nicolai",
+                    "last_name": "UZNIK",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1256\/photo"
+                },
+                {
+                    "first_name": "Stefan",
+                    "last_name": "SCHERZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1274\/photo"
+                },
+                {
+                    "first_name": "Franziska",
+                    "last_name": "STERRER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1240\/photo"
+                },
+                {
+                    "first_name": "Johanna",
+                    "last_name": "F\u00c4RBER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1243\/photo"
+                },
+                {
+                    "first_name": "Maya",
+                    "last_name": "STASIUK",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13857\/photo"
+                },
+                {
+                    "first_name": "Chloe",
+                    "last_name": "CAULIER",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/316\/photo"
+                },
+                {
+                    "first_name": "Lukas",
+                    "last_name": "KNAPP",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1263\/photo"
+                },
+                {
+                    "first_name": "Grace",
+                    "last_name": "CROWLEY",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Dylan",
+                    "last_name": "PARKS",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13853\/photo"
+                },
+                {
+                    "first_name": "Emily",
+                    "last_name": "SCOTT",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13510\/photo"
+                },
+                {
+                    "first_name": "Tobias",
+                    "last_name": "PLANGGER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1278\/photo"
+                },
+                {
+                    "first_name": "Valentin",
+                    "last_name": "STERNIK",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3169\/photo"
+                },
+                {
+                    "first_name": "Rodrigo",
+                    "last_name": "IASI HANADA",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12903\/photo"
+                },
+                {
+                    "first_name": "Liam",
+                    "last_name": "HEALY",
+                    "country": "AUS",
+                    "photo_url": null
+                }
+            ]
+        },
+        {
+            "id": 1293,
+            "season": 2023,
+            "name": "IFSC World Cup Jakarta 2023",
+            "country": "INA",
+            "location": "Indonesia",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230506_Jakarta_WC\/230415_Poster_JAK23v2.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1293",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1293",
+            "disciplines": [
+                "speed"
+            ],
+            "starts_at": "2023-05-06T15:00:00+07:00",
+            "ends_at": "2023-05-07T15:00:00+07:00",
+            "timezone": "Asia\/Jakarta",
+            "rounds": [
+                {
+                    "name": "Speed Qualifications",
+                    "stream_url": "https:\/\/youtu.be\/zs9yALEofeQ",
+                    "starts_at": "2023-05-06T18:15:00+07:00",
+                    "ends_at": "2023-05-06T21:15:00+07:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Speed Finals",
+                    "stream_url": "https:\/\/youtu.be\/PSKWTWru-3A",
+                    "starts_at": "2023-05-07T20:00:00+07:00",
+                    "ends_at": "2023-05-07T23:00:00+07:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Jinbao",
+                    "last_name": "LONG",
+                    "country": "CHN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11460\/photo"
+                },
+                {
+                    "first_name": "Xinshang",
+                    "last_name": "WANG",
+                    "country": "CHN",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Liang",
+                    "last_name": "ZHANG",
+                    "country": "CHN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11409\/photo"
+                },
+                {
+                    "first_name": "Di",
+                    "last_name": "NIU",
+                    "country": "CHN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2941\/photo"
+                },
+                {
+                    "first_name": "Jianguo",
+                    "last_name": "LONG",
+                    "country": "CHN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11395\/photo"
+                },
+                {
+                    "first_name": "Shaoqin",
+                    "last_name": "ZHANG",
+                    "country": "CHN",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Yafei",
+                    "last_name": "ZHOU",
+                    "country": "CHN",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Yuju",
+                    "last_name": "MOU",
+                    "country": "CHN",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Long",
+                    "last_name": "CAO",
+                    "country": "CHN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11414\/photo"
+                },
+                {
+                    "first_name": "Minhui",
+                    "last_name": "WANG",
+                    "country": "CHN",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Mi",
+                    "last_name": "YANG",
+                    "country": "CHN",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Lukas",
+                    "last_name": "KNAPP",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1263\/photo"
+                },
+                {
+                    "first_name": "Michael",
+                    "last_name": "FINN-HENRY",
+                    "country": "CAN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1843\/photo"
+                },
+                {
+                    "first_name": "Grace",
+                    "last_name": "CROWLEY",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Hayden",
+                    "last_name": "BARTON",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Erica",
+                    "last_name": "VELEV",
+                    "country": "CAN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2445\/photo"
+                },
+                {
+                    "first_name": "Tobias",
+                    "last_name": "PLANGGER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1278\/photo"
+                },
+                {
+                    "first_name": "Dylan",
+                    "last_name": "LE",
+                    "country": "CAN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11854\/photo"
+                },
+                {
+                    "first_name": "Valentin",
+                    "last_name": "STERNIK",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3169\/photo"
+                },
+                {
+                    "first_name": "Adrien",
+                    "last_name": "LEVESQUE",
+                    "country": "CAN",
+                    "photo_url": null
+                }
+            ]
+        },
+        {
+            "id": 1294,
+            "season": 2023,
+            "name": "IFSC World Cup Salt Lake City 2023",
+            "country": "USA",
+            "location": "Salt Lake City",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230519_Salt_Lake_City_WC\/Poster_op_SLC23_WC.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1294",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1294",
+            "disciplines": [
+                "boulder",
+                "speed"
+            ],
+            "starts_at": "2023-05-19T02:00:00-06:00",
+            "ends_at": "2023-05-21T02:00:00-06:00",
+            "timezone": "America\/Denver",
+            "rounds": [
+                {
+                    "name": "Women's Boulder Qualification",
+                    "stream_url": "https:\/\/youtu.be\/Q9kmgyf880o",
+                    "starts_at": "2023-05-19T09:00:00-06:00",
+                    "ends_at": "2023-05-19T12:00:00-06:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Qualification",
+                    "stream_url": "https:\/\/youtu.be\/Q9kmgyf880o",
+                    "starts_at": "2023-05-19T15:30:00-06:00",
+                    "ends_at": "2023-05-19T18:30:00-06:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/_8id2biZ-j0",
+                    "starts_at": "2023-05-20T10:00:00-06:00",
+                    "ends_at": "2023-05-20T13:00:00-06:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Speed Qualification",
+                    "stream_url": "https:\/\/youtu.be\/n6YyV2ddbb4",
+                    "starts_at": "2023-05-20T15:45:00-06:00",
+                    "ends_at": "2023-05-20T18:45:00-06:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/MU2RQo273TY",
+                    "starts_at": "2023-05-20T18:00:00-06:00",
+                    "ends_at": "2023-05-20T21:00:00-06:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Speed Final",
+                    "stream_url": "https:\/\/youtu.be\/RMHaYgo9djM",
+                    "starts_at": "2023-05-20T20:00:00-06:00",
+                    "ends_at": "2023-05-20T23:00:00-06:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/L3hfbTCu7Lc",
+                    "starts_at": "2023-05-21T10:00:00-06:00",
+                    "ends_at": "2023-05-21T13:00:00-06:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Speed Qualification",
+                    "stream_url": "https:\/\/youtu.be\/fNhojRyf9do",
+                    "starts_at": "2023-05-21T15:45:00-06:00",
+                    "ends_at": "2023-05-21T18:45:00-06:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/BoMLaSywonc",
+                    "starts_at": "2023-05-21T18:00:00-06:00",
+                    "ends_at": "2023-05-21T21:00:00-06:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Speed Final",
+                    "stream_url": "https:\/\/youtu.be\/dRNb3xfZ16E",
+                    "starts_at": "2023-05-21T20:00:00-06:00",
+                    "ends_at": "2023-05-21T23:00:00-06:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Oceania",
+                    "last_name": "MACKENZIE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2501\/photo"
+                },
+                {
+                    "first_name": "Hannes",
+                    "last_name": "VAN DUYSEN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/373\/photo"
+                },
+                {
+                    "first_name": "Simon",
+                    "last_name": "LORENZI",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/318\/photo"
+                },
+                {
+                    "first_name": "Nicolas",
+                    "last_name": "COLLIN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/320\/photo"
+                },
+                {
+                    "first_name": "Johanna",
+                    "last_name": "F\u00c4RBER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1243\/photo"
+                },
+                {
+                    "first_name": "Aleksandra",
+                    "last_name": "TOTKOVA",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11464\/photo"
+                },
+                {
+                    "first_name": "Valentina",
+                    "last_name": "AGUADO",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3161\/photo"
+                },
+                {
+                    "first_name": "Chloe",
+                    "last_name": "CAULIER",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/316\/photo"
+                },
+                {
+                    "first_name": "Kevin",
+                    "last_name": "AMON",
+                    "country": "AUT",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Sandra",
+                    "last_name": "LETTNER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1270\/photo"
+                },
+                {
+                    "first_name": "Lukas",
+                    "last_name": "KNAPP",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1263\/photo"
+                },
+                {
+                    "first_name": "Grace",
+                    "last_name": "CROWLEY",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Felipe",
+                    "last_name": "HO FOGANHOLO",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3141\/photo"
+                },
+                {
+                    "first_name": "Tobias",
+                    "last_name": "PLANGGER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1278\/photo"
+                },
+                {
+                    "first_name": "Zoe",
+                    "last_name": "GARCIA MOLINA",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11998\/photo"
+                },
+                {
+                    "first_name": "Mateus",
+                    "last_name": "RODRIGUES BELLOTTO",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11836\/photo"
+                },
+                {
+                    "first_name": "Mariana",
+                    "last_name": "HANGGI CORREIA",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12902\/photo"
+                },
+                {
+                    "first_name": "Laura",
+                    "last_name": "FARHAT DE ARAUJO FRAGA TIMO",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12901\/photo"
+                },
+                {
+                    "first_name": "Liam",
+                    "last_name": "HEALY",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Samuel",
+                    "last_name": "HEALY",
+                    "country": "AUS",
+                    "photo_url": null
+                }
+            ]
+        },
+        {
+            "id": 1295,
+            "season": 2023,
+            "name": "IFSC World Cup Prague 2023",
+            "country": "CZE",
+            "location": "Prague",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230602_Prague_WC\/Poster_PRAGUE23.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1295",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1295",
+            "disciplines": [
+                "boulder"
+            ],
+            "starts_at": "2023-06-02T10:00:00+02:00",
+            "ends_at": "2023-06-04T10:00:00+02:00",
+            "timezone": "Europe\/Prague",
+            "rounds": [
+                {
+                    "name": "Men's Boulder Qualification",
+                    "stream_url": "https:\/\/youtu.be\/N_vjATugAAI",
+                    "starts_at": "2023-06-02T09:00:00+02:00",
+                    "ends_at": "2023-06-02T12:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Qualification",
+                    "stream_url": "https:\/\/youtu.be\/N_vjATugAAI",
+                    "starts_at": "2023-06-02T16:00:00+02:00",
+                    "ends_at": "2023-06-02T19:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/2B_fZ2ViAOo",
+                    "starts_at": "2023-06-03T12:00:00+02:00",
+                    "ends_at": "2023-06-03T15:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/DkMHSYzeflQ",
+                    "starts_at": "2023-06-03T20:00:00+02:00",
+                    "ends_at": "2023-06-03T23:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/O88jFbeoZWM",
+                    "starts_at": "2023-06-04T12:00:00+02:00",
+                    "ends_at": "2023-06-04T15:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/HDT6sOLeB0I",
+                    "starts_at": "2023-06-04T19:00:00+02:00",
+                    "ends_at": "2023-06-04T22:00:00+02:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Jessica",
+                    "last_name": "PILZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1226\/photo"
+                },
+                {
+                    "first_name": "Jakob",
+                    "last_name": "SCHUBERT",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1214\/photo"
+                },
+                {
+                    "first_name": "Oceania",
+                    "last_name": "MACKENZIE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2501\/photo"
+                },
+                {
+                    "first_name": "Hannes",
+                    "last_name": "VAN DUYSEN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/373\/photo"
+                },
+                {
+                    "first_name": "Simon",
+                    "last_name": "LORENZI",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/318\/photo"
+                },
+                {
+                    "first_name": "Nicolas",
+                    "last_name": "COLLIN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/320\/photo"
+                },
+                {
+                    "first_name": "Nicolai",
+                    "last_name": "UZNIK",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1256\/photo"
+                },
+                {
+                    "first_name": "Franziska",
+                    "last_name": "STERRER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1240\/photo"
+                },
+                {
+                    "first_name": "Sean",
+                    "last_name": "MCCOLL",
+                    "country": "CAN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1559\/photo"
+                },
+                {
+                    "first_name": "Johanna",
+                    "last_name": "F\u00c4RBER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1243\/photo"
+                },
+                {
+                    "first_name": "Nikolay",
+                    "last_name": "RUSEV",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12329\/photo"
+                },
+                {
+                    "first_name": "Aleksandra",
+                    "last_name": "TOTKOVA",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11464\/photo"
+                },
+                {
+                    "first_name": "Valentina",
+                    "last_name": "AGUADO",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3161\/photo"
+                },
+                {
+                    "first_name": "Chloe",
+                    "last_name": "CAULIER",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/316\/photo"
+                },
+                {
+                    "first_name": "Slav",
+                    "last_name": "KIROV",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11500\/photo"
+                },
+                {
+                    "first_name": "Sandra",
+                    "last_name": "LETTNER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1270\/photo"
+                },
+                {
+                    "first_name": "Maxim",
+                    "last_name": "PARE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2565\/photo"
+                },
+                {
+                    "first_name": "Zoe",
+                    "last_name": "GARCIA MOLINA",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11998\/photo"
+                },
+                {
+                    "first_name": "Aiden",
+                    "last_name": "YANEV",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Lautaro Nicol\u00e1s",
+                    "last_name": "SORIA SANCHEZ",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/14439\/photo"
+                }
+            ]
+        },
+        {
+            "id": 1296,
+            "season": 2023,
+            "name": "IFSC World Cup Brixen 2023",
+            "country": "ITA",
+            "location": "Brixen",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230609_Brixen_WC\/280323_IFSC_WC_BRIX_posterWB.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1296",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1296",
+            "disciplines": [
+                "boulder"
+            ],
+            "starts_at": "2023-06-09T10:00:00+02:00",
+            "ends_at": "2023-06-11T10:00:00+02:00",
+            "timezone": "Europe\/Rome",
+            "rounds": [
+                {
+                    "name": "Women's Boulder Qualification",
+                    "stream_url": "https:\/\/youtu.be\/CpAPoCZAjsQ",
+                    "starts_at": "2023-06-09T09:00:00+02:00",
+                    "ends_at": "2023-06-09T12:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Qualification",
+                    "stream_url": "https:\/\/youtu.be\/CpAPoCZAjsQ",
+                    "starts_at": "2023-06-09T16:00:00+02:00",
+                    "ends_at": "2023-06-09T19:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/ZPUvnWzWk-I",
+                    "starts_at": "2023-06-10T11:00:00+02:00",
+                    "ends_at": "2023-06-10T14:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/NJxLLzfduG4",
+                    "starts_at": "2023-06-10T20:00:00+02:00",
+                    "ends_at": "2023-06-10T23:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/JJsSAQTj_l4",
+                    "starts_at": "2023-06-11T11:00:00+02:00",
+                    "ends_at": "2023-06-11T14:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/iJ-FNcl6nbo",
+                    "starts_at": "2023-06-11T20:00:00+02:00",
+                    "ends_at": "2023-06-11T23:00:00+02:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Jessica",
+                    "last_name": "PILZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1226\/photo"
+                },
+                {
+                    "first_name": "Jakob",
+                    "last_name": "SCHUBERT",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1214\/photo"
+                },
+                {
+                    "first_name": "Oceania",
+                    "last_name": "MACKENZIE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2501\/photo"
+                },
+                {
+                    "first_name": "Nicolas",
+                    "last_name": "COLLIN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/320\/photo"
+                },
+                {
+                    "first_name": "Nicolai",
+                    "last_name": "UZNIK",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1256\/photo"
+                },
+                {
+                    "first_name": "Stefan",
+                    "last_name": "SCHERZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1274\/photo"
+                },
+                {
+                    "first_name": "Franziska",
+                    "last_name": "STERRER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1240\/photo"
+                },
+                {
+                    "first_name": "Johanna",
+                    "last_name": "F\u00c4RBER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1243\/photo"
+                },
+                {
+                    "first_name": "Nikolay",
+                    "last_name": "RUSEV",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12329\/photo"
+                },
+                {
+                    "first_name": "Aleksandra",
+                    "last_name": "TOTKOVA",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11464\/photo"
+                },
+                {
+                    "first_name": "Valentina",
+                    "last_name": "AGUADO",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3161\/photo"
+                },
+                {
+                    "first_name": "Maya",
+                    "last_name": "STASIUK",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13857\/photo"
+                },
+                {
+                    "first_name": "Chloe",
+                    "last_name": "CAULIER",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/316\/photo"
+                },
+                {
+                    "first_name": "Sandra",
+                    "last_name": "LETTNER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1270\/photo"
+                },
+                {
+                    "first_name": "Dylan",
+                    "last_name": "PARKS",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13853\/photo"
+                },
+                {
+                    "first_name": "Maxim",
+                    "last_name": "PARE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2565\/photo"
+                },
+                {
+                    "first_name": "Rocio Ailen",
+                    "last_name": "BECERRA",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3160\/photo"
+                },
+                {
+                    "first_name": "Lautaro Nicol\u00e1s",
+                    "last_name": "SORIA SANCHEZ",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/14439\/photo"
+                },
+                {
+                    "first_name": "Bautista",
+                    "last_name": "GREGORINI",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12026\/photo"
+                },
+                {
+                    "first_name": "Jordyn",
+                    "last_name": "DAMASCO",
+                    "country": "AUS",
+                    "photo_url": null
+                }
+            ]
+        },
+        {
+            "id": 1297,
+            "season": 2023,
+            "name": "IFSC World Cup Innsbruck 2023",
+            "country": "AUT",
+            "location": "Innsbruck",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230614_Innsbruck_WC\/Poster_Innsbruck2023_eng.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1297",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1297",
+            "disciplines": [
+                "boulder",
+                "lead"
+            ],
+            "starts_at": "2023-06-14T10:00:00+02:00",
+            "ends_at": "2023-06-18T10:00:00+02:00",
+            "timezone": "Europe\/Vienna",
+            "rounds": [
+                {
+                    "name": "Women's Boulder Qualification",
+                    "stream_url": "",
+                    "starts_at": "2023-06-14T09:00:00+02:00",
+                    "ends_at": "2023-06-14T12:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/9ZMpF6qNjfs",
+                    "starts_at": "2023-06-14T19:30:00+02:00",
+                    "ends_at": "2023-06-14T22:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Qualification",
+                    "stream_url": "",
+                    "starts_at": "2023-06-15T09:00:00+02:00",
+                    "ends_at": "2023-06-15T12:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/GniLH6sXlXc",
+                    "starts_at": "2023-06-15T19:30:00+02:00",
+                    "ends_at": "2023-06-15T22:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/eqDnjXqy7oU",
+                    "starts_at": "2023-06-16T13:00:00+02:00",
+                    "ends_at": "2023-06-16T16:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/zt8OZx7qS8o",
+                    "starts_at": "2023-06-16T19:30:00+02:00",
+                    "ends_at": "2023-06-16T22:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Qualifications",
+                    "stream_url": "",
+                    "starts_at": "2023-06-17T08:00:00+02:00",
+                    "ends_at": "2023-06-17T11:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Semi-finals",
+                    "stream_url": "https:\/\/youtu.be\/9-Gurj4CW_w",
+                    "starts_at": "2023-06-17T19:00:00+02:00",
+                    "ends_at": "2023-06-17T22:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Lead Final",
+                    "stream_url": "https:\/\/youtu.be\/T8PBP_xPH_4",
+                    "starts_at": "2023-06-18T19:30:00+02:00",
+                    "ends_at": "2023-06-18T22:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Lead Final",
+                    "stream_url": "https:\/\/youtu.be\/T8PBP_xPH_4",
+                    "starts_at": "2023-06-18T20:30:00+02:00",
+                    "ends_at": "2023-06-18T23:30:00+02:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Jessica",
+                    "last_name": "PILZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1226\/photo"
+                },
+                {
+                    "first_name": "Jakob",
+                    "last_name": "SCHUBERT",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1214\/photo"
+                },
+                {
+                    "first_name": "Oceania",
+                    "last_name": "MACKENZIE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2501\/photo"
+                },
+                {
+                    "first_name": "Franziska",
+                    "last_name": "STERRER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1240\/photo"
+                },
+                {
+                    "first_name": "Valentina",
+                    "last_name": "AGUADO",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3161\/photo"
+                },
+                {
+                    "first_name": "Maya",
+                    "last_name": "STASIUK",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13857\/photo"
+                },
+                {
+                    "first_name": "Dylan",
+                    "last_name": "PARKS",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13853\/photo"
+                },
+                {
+                    "first_name": "Maxim",
+                    "last_name": "PARE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2565\/photo"
+                },
+                {
+                    "first_name": "Rocio Ailen",
+                    "last_name": "BECERRA",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3160\/photo"
+                },
+                {
+                    "first_name": "Andreas",
+                    "last_name": "HOFHERR",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1282\/photo"
+                },
+                {
+                    "first_name": "Dominik",
+                    "last_name": "HAERTL",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1262\/photo"
+                },
+                {
+                    "first_name": "Lautaro Nicol\u00e1s",
+                    "last_name": "SORIA SANCHEZ",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/14439\/photo"
+                },
+                {
+                    "first_name": "Johannes",
+                    "last_name": "HOFHERR",
+                    "country": "AUT",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Maximilian",
+                    "last_name": "LENZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1332\/photo"
+                },
+                {
+                    "first_name": "Julia",
+                    "last_name": "FISER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1239\/photo"
+                },
+                {
+                    "first_name": "Bautista",
+                    "last_name": "GREGORINI",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12026\/photo"
+                },
+                {
+                    "first_name": "Sophia",
+                    "last_name": "AVENDER",
+                    "country": "AUT",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Anna",
+                    "last_name": "BOLIUS",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12597\/photo"
+                },
+                {
+                    "first_name": "Lea",
+                    "last_name": "KEMPF",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1285\/photo"
+                },
+                {
+                    "first_name": "Ariane",
+                    "last_name": "FRANKEN",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12383\/photo"
+                }
+            ]
+        },
+        {
+            "id": 1298,
+            "season": 2023,
+            "name": "IFSC World Cup Villars 2023",
+            "country": "SUI",
+            "location": "Villars-sur-Ollon",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230630_Villars_WC\/Poster_Villars23_WC.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1298",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1298",
+            "disciplines": [
+                "lead",
+                "speed"
+            ],
+            "starts_at": "2023-06-30T10:00:00+02:00",
+            "ends_at": "2023-07-02T10:00:00+02:00",
+            "timezone": "Europe\/Zurich",
+            "rounds": [
+                {
+                    "name": "Lead Qualifications",
+                    "stream_url": "https:\/\/youtu.be\/SA18mEBGT5E",
+                    "starts_at": "2023-06-30T13:00:00+02:00",
+                    "ends_at": "2023-06-30T16:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Semi-finals",
+                    "stream_url": "https:\/\/youtu.be\/n9lueaT5MJk",
+                    "starts_at": "2023-07-01T12:00:00+02:00",
+                    "ends_at": "2023-07-01T15:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Finals",
+                    "stream_url": "https:\/\/youtu.be\/tXQqw_p_rpQ",
+                    "starts_at": "2023-07-01T20:00:00+02:00",
+                    "ends_at": "2023-07-01T23:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Speed Qualifications",
+                    "stream_url": "https:\/\/youtu.be\/uHmXKKeKsEw",
+                    "starts_at": "2023-07-02T12:00:00+02:00",
+                    "ends_at": "2023-07-02T15:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Speed Finals",
+                    "stream_url": "https:\/\/youtu.be\/bYAvgNJIefI",
+                    "starts_at": "2023-07-02T18:00:00+02:00",
+                    "ends_at": "2023-07-02T21:00:00+02:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Jessica",
+                    "last_name": "PILZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1226\/photo"
+                },
+                {
+                    "first_name": "Jakob",
+                    "last_name": "SCHUBERT",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1214\/photo"
+                },
+                {
+                    "first_name": "Nicolai",
+                    "last_name": "UZNIK",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1256\/photo"
+                },
+                {
+                    "first_name": "Stefan",
+                    "last_name": "SCHERZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1274\/photo"
+                },
+                {
+                    "first_name": "Franziska",
+                    "last_name": "STERRER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1240\/photo"
+                },
+                {
+                    "first_name": "Valentina",
+                    "last_name": "AGUADO",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3161\/photo"
+                },
+                {
+                    "first_name": "Kevin",
+                    "last_name": "AMON",
+                    "country": "AUT",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Lukas",
+                    "last_name": "KNAPP",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1263\/photo"
+                },
+                {
+                    "first_name": "Grace",
+                    "last_name": "CROWLEY",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Eva Maria",
+                    "last_name": "HAMMELM\u00dcLLER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1259\/photo"
+                },
+                {
+                    "first_name": "Emily",
+                    "last_name": "SCOTT",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13510\/photo"
+                },
+                {
+                    "first_name": "Tobias",
+                    "last_name": "PLANGGER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1278\/photo"
+                },
+                {
+                    "first_name": "Mathias",
+                    "last_name": "POSCH",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1251\/photo"
+                },
+                {
+                    "first_name": "Valentin",
+                    "last_name": "STERNIK",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3169\/photo"
+                },
+                {
+                    "first_name": "Louis",
+                    "last_name": "GUNDOLF",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1277\/photo"
+                },
+                {
+                    "first_name": "Zoe",
+                    "last_name": "GARCIA MOLINA",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11998\/photo"
+                },
+                {
+                    "first_name": "Lawrence",
+                    "last_name": "BOGESCHDORFER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1317\/photo"
+                },
+                {
+                    "first_name": "Lautaro Nicol\u00e1s",
+                    "last_name": "SORIA SANCHEZ",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/14439\/photo"
+                },
+                {
+                    "first_name": "Chad",
+                    "last_name": "HORTON",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Bautista",
+                    "last_name": "GREGORINI",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12026\/photo"
+                }
+            ]
+        },
+        {
+            "id": 1299,
+            "season": 2023,
+            "name": "IFSC World Cup Chamonix 2023",
+            "country": "FRA",
+            "location": "Chamonix",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230707_Chamonix_WC\/Poster_CHAMONIX23.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1299",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1299",
+            "disciplines": [
+                "lead",
+                "speed"
+            ],
+            "starts_at": "2023-07-07T10:00:00+02:00",
+            "ends_at": "2023-07-09T10:00:00+02:00",
+            "timezone": "Europe\/Paris",
+            "rounds": [
+                {
+                    "name": "Speed Qualifications",
+                    "stream_url": "https:\/\/youtu.be\/h6EYmiImp5g",
+                    "starts_at": "2023-07-07T08:00:00+02:00",
+                    "ends_at": "2023-07-07T11:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Qualifications",
+                    "stream_url": "https:\/\/youtu.be\/Bzesi3mciuw",
+                    "starts_at": "2023-07-08T09:00:00+02:00",
+                    "ends_at": "2023-07-08T12:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Speed Finals",
+                    "stream_url": "https:\/\/youtu.be\/3zfs3s06yPQ",
+                    "starts_at": "2023-07-08T21:00:00+02:00",
+                    "ends_at": "2023-07-09T00:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Semi-finals",
+                    "stream_url": "https:\/\/youtu.be\/iF_1fI21Z_w",
+                    "starts_at": "2023-07-09T10:00:00+02:00",
+                    "ends_at": "2023-07-09T13:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Lead Final",
+                    "stream_url": "https:\/\/youtu.be\/ZNgbe8vi2OI",
+                    "starts_at": "2023-07-09T20:30:00+02:00",
+                    "ends_at": "2023-07-09T23:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Lead Final",
+                    "stream_url": "https:\/\/youtu.be\/ZNgbe8vi2OI",
+                    "starts_at": "2023-07-09T21:30:00+02:00",
+                    "ends_at": "2023-07-10T00:30:00+02:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Jessica",
+                    "last_name": "PILZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1226\/photo"
+                },
+                {
+                    "first_name": "Oceania",
+                    "last_name": "MACKENZIE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2501\/photo"
+                },
+                {
+                    "first_name": "Stefan",
+                    "last_name": "SCHERZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1274\/photo"
+                },
+                {
+                    "first_name": "Mattea",
+                    "last_name": "P\u00d6TZI",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1266\/photo"
+                },
+                {
+                    "first_name": "Franziska",
+                    "last_name": "STERRER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1240\/photo"
+                },
+                {
+                    "first_name": "Campbell",
+                    "last_name": "HARRISON",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2493\/photo"
+                },
+                {
+                    "first_name": "Valentina",
+                    "last_name": "AGUADO",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3161\/photo"
+                },
+                {
+                    "first_name": "Lukas",
+                    "last_name": "KNAPP",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1263\/photo"
+                },
+                {
+                    "first_name": "Grace",
+                    "last_name": "CROWLEY",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Eva Maria",
+                    "last_name": "HAMMELM\u00dcLLER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1259\/photo"
+                },
+                {
+                    "first_name": "Emily",
+                    "last_name": "SCOTT",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13510\/photo"
+                },
+                {
+                    "first_name": "Tobias",
+                    "last_name": "PLANGGER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1278\/photo"
+                },
+                {
+                    "first_name": "Mathias",
+                    "last_name": "POSCH",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1251\/photo"
+                },
+                {
+                    "first_name": "Valentin",
+                    "last_name": "STERNIK",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3169\/photo"
+                },
+                {
+                    "first_name": "Zoe",
+                    "last_name": "GARCIA MOLINA",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11998\/photo"
+                },
+                {
+                    "first_name": "Lautaro Nicol\u00e1s",
+                    "last_name": "SORIA SANCHEZ",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/14439\/photo"
+                },
+                {
+                    "first_name": "Johannes",
+                    "last_name": "HOFHERR",
+                    "country": "AUT",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Dylan",
+                    "last_name": "SOIN",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Chad",
+                    "last_name": "HORTON",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Bautista",
+                    "last_name": "GREGORINI",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12026\/photo"
+                }
+            ]
+        },
+        {
+            "id": 1300,
+            "season": 2023,
+            "name": "IFSC World Cup Brian\u00e7on 2023",
+            "country": "FRA",
+            "location": "Brian\u00e7on",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230714_Briancon_WC\/Poster_BRIAN2023.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1300",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1300",
+            "disciplines": [
+                "lead"
+            ],
+            "starts_at": "2023-07-14T10:00:00+02:00",
+            "ends_at": "2023-07-15T10:00:00+02:00",
+            "timezone": "Europe\/Paris",
+            "rounds": [
+                {
+                    "name": "Lead Qualifications",
+                    "stream_url": "",
+                    "starts_at": "2023-07-14T09:00:00+02:00",
+                    "ends_at": "2023-07-14T12:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Semi-finals",
+                    "stream_url": "https:\/\/youtu.be\/eTNDKfip2SY",
+                    "starts_at": "2023-07-14T20:30:00+02:00",
+                    "ends_at": "2023-07-14T23:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Lead Final",
+                    "stream_url": "https:\/\/youtu.be\/pOHRMCGtTJE",
+                    "starts_at": "2023-07-15T20:30:00+02:00",
+                    "ends_at": "2023-07-15T23:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Lead Final",
+                    "stream_url": "https:\/\/youtu.be\/pOHRMCGtTJE",
+                    "starts_at": "2023-07-15T21:30:00+02:00",
+                    "ends_at": "2023-07-16T00:30:00+02:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Oceania",
+                    "last_name": "MACKENZIE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2501\/photo"
+                },
+                {
+                    "first_name": "Simon",
+                    "last_name": "LORENZI",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/318\/photo"
+                },
+                {
+                    "first_name": "Mattea",
+                    "last_name": "P\u00d6TZI",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1266\/photo"
+                },
+                {
+                    "first_name": "Campbell",
+                    "last_name": "HARRISON",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2493\/photo"
+                },
+                {
+                    "first_name": "Valentina",
+                    "last_name": "AGUADO",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3161\/photo"
+                },
+                {
+                    "first_name": "Chloe",
+                    "last_name": "CAULIER",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/316\/photo"
+                },
+                {
+                    "first_name": "Sandra",
+                    "last_name": "LETTNER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1270\/photo"
+                },
+                {
+                    "first_name": "Ties",
+                    "last_name": "VANCRAEYNEST",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/356\/photo"
+                },
+                {
+                    "first_name": "Eva Maria",
+                    "last_name": "HAMMELM\u00dcLLER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1259\/photo"
+                },
+                {
+                    "first_name": "Roxy",
+                    "last_name": "PERRY",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Mathias",
+                    "last_name": "POSCH",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1251\/photo"
+                },
+                {
+                    "first_name": "Anja",
+                    "last_name": "K\u00d6HLER ",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3204\/photo"
+                },
+                {
+                    "first_name": "Louis",
+                    "last_name": "GUNDOLF",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1277\/photo"
+                },
+                {
+                    "first_name": "Zoe",
+                    "last_name": "GARCIA MOLINA",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11998\/photo"
+                },
+                {
+                    "first_name": "Lucie",
+                    "last_name": "WATILLON",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/363\/photo"
+                },
+                {
+                    "first_name": "Aiden",
+                    "last_name": "YANEV",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Lautaro Nicol\u00e1s",
+                    "last_name": "SORIA SANCHEZ",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/14439\/photo"
+                },
+                {
+                    "first_name": "Johannes",
+                    "last_name": "HOFHERR",
+                    "country": "AUT",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Arno",
+                    "last_name": "LUYPAERT",
+                    "country": "BEL",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Bautista",
+                    "last_name": "GREGORINI",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12026\/photo"
+                }
+            ]
+        },
+        {
+            "id": 1301,
+            "season": 2023,
+            "name": "IFSC World Championships Bern 2023",
+            "country": "SUI",
+            "location": "Bern",
+            "poster": null,
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1301",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1301",
+            "disciplines": [
+                "boulder",
+                "lead",
+                "speed"
+            ],
+            "starts_at": "2023-08-01T10:00:00+02:00",
+            "ends_at": "2023-08-12T10:00:00+02:00",
+            "timezone": "Europe\/Zurich",
+            "rounds": [
+                {
+                    "name": "Men's Boulder Qualification",
+                    "stream_url": null,
+                    "starts_at": "2023-08-01T09:00:00+02:00",
+                    "ends_at": "2023-08-01T12:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Lead Qualification",
+                    "stream_url": null,
+                    "starts_at": "2023-08-02T11:00:00+02:00",
+                    "ends_at": "2023-08-02T14:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Lead Qualification",
+                    "stream_url": null,
+                    "starts_at": "2023-08-03T08:30:00+02:00",
+                    "ends_at": "2023-08-03T11:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Qualification",
+                    "stream_url": null,
+                    "starts_at": "2023-08-03T15:30:00+02:00",
+                    "ends_at": "2023-08-03T18:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/XAIvMgZ4Amk",
+                    "starts_at": "2023-08-04T10:00:00+02:00",
+                    "ends_at": "2023-08-04T13:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/rej4PvBMzdE",
+                    "starts_at": "2023-08-04T18:30:00+02:00",
+                    "ends_at": "2023-08-04T21:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/Dfwjy3iNs5o",
+                    "starts_at": "2023-08-05T10:00:00+02:00",
+                    "ends_at": "2023-08-05T13:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder Final",
+                    "stream_url": "https:\/\/youtu.be\/9QRsxEWRqFY",
+                    "starts_at": "2023-08-05T18:30:00+02:00",
+                    "ends_at": "2023-08-05T21:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Semi-finals",
+                    "stream_url": "https:\/\/youtu.be\/s_yWGbYAudo",
+                    "starts_at": "2023-08-06T10:00:00+02:00",
+                    "ends_at": "2023-08-06T13:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Finals",
+                    "stream_url": "https:\/\/youtu.be\/-oX3AcDwJMc",
+                    "starts_at": "2023-08-06T18:30:00+02:00",
+                    "ends_at": "2023-08-06T21:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder & Lead Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/DN1Q403kUlQ",
+                    "starts_at": "2023-08-09T09:00:00+02:00",
+                    "ends_at": "2023-08-09T12:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder & Lead Semi-final",
+                    "stream_url": "https:\/\/youtu.be\/DN1Q403kUlQ",
+                    "starts_at": "2023-08-09T13:00:00+02:00",
+                    "ends_at": "2023-08-09T16:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Boulder & Lead Semi-finals",
+                    "stream_url": "https:\/\/youtu.be\/DN1Q403kUlQ",
+                    "starts_at": "2023-08-09T20:30:00+02:00",
+                    "ends_at": "2023-08-09T23:30:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Speed Qualifications",
+                    "stream_url": "https:\/\/youtu.be\/hSDU0U4Atj4",
+                    "starts_at": "2023-08-10T09:00:00+02:00",
+                    "ends_at": "2023-08-10T12:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Speed Finals",
+                    "stream_url": "https:\/\/youtu.be\/15GHkO478B0",
+                    "starts_at": "2023-08-10T20:00:00+02:00",
+                    "ends_at": "2023-08-10T23:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Boulder & Lead Final",
+                    "stream_url": "https:\/\/youtu.be\/ZZ33WCvMx_s",
+                    "starts_at": "2023-08-11T19:00:00+02:00",
+                    "ends_at": "2023-08-11T22:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Boulder & Lead Final",
+                    "stream_url": "https:\/\/youtu.be\/mc-vLiSU5ZE",
+                    "starts_at": "2023-08-12T16:00:00+02:00",
+                    "ends_at": "2023-08-12T19:00:00+02:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Jakob",
+                    "last_name": "SCHUBERT",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1214\/photo"
+                },
+                {
+                    "first_name": "Oceania",
+                    "last_name": "MACKENZIE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2501\/photo"
+                },
+                {
+                    "first_name": "Mattea",
+                    "last_name": "P\u00d6TZI",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1266\/photo"
+                },
+                {
+                    "first_name": "Campbell",
+                    "last_name": "HARRISON",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2493\/photo"
+                },
+                {
+                    "first_name": "Valentina",
+                    "last_name": "AGUADO",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3161\/photo"
+                },
+                {
+                    "first_name": "Kevin",
+                    "last_name": "AMON",
+                    "country": "AUT",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Lukas",
+                    "last_name": "KNAPP",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1263\/photo"
+                },
+                {
+                    "first_name": "Grace",
+                    "last_name": "CROWLEY",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Hayden",
+                    "last_name": "BARTON",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Dylan",
+                    "last_name": "PARKS",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/13853\/photo"
+                },
+                {
+                    "first_name": "Roxy",
+                    "last_name": "PERRY",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Maxim",
+                    "last_name": "PARE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2565\/photo"
+                },
+                {
+                    "first_name": "Rocio Ailen",
+                    "last_name": "BECERRA",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3160\/photo"
+                },
+                {
+                    "first_name": "Valentin",
+                    "last_name": "STERNIK",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3169\/photo"
+                },
+                {
+                    "first_name": "Zoe",
+                    "last_name": "GARCIA MOLINA",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11998\/photo"
+                },
+                {
+                    "first_name": "Aiden",
+                    "last_name": "YANEV",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Lautaro Nicol\u00e1s",
+                    "last_name": "SORIA SANCHEZ",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/14439\/photo"
+                },
+                {
+                    "first_name": "Dylan",
+                    "last_name": "SOIN",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Bautista",
+                    "last_name": "GREGORINI",
+                    "country": "ARG",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12026\/photo"
+                },
+                {
+                    "first_name": "Aaron",
+                    "last_name": "MATTES",
+                    "country": "AUS",
+                    "photo_url": null
+                }
+            ]
+        },
+        {
+            "id": 1302,
+            "season": 2023,
+            "name": "IFSC World Cup Koper 2023",
+            "country": "SLO",
+            "location": "Koper",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230908_Koper_WC\/Poster_KOP23_WC.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1302",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1302",
+            "disciplines": [
+                "lead"
+            ],
+            "starts_at": "2023-09-08T10:00:00+02:00",
+            "ends_at": "2023-09-09T10:00:00+02:00",
+            "timezone": "Europe\/Ljubljana",
+            "rounds": [
+                {
+                    "name": "Lead Qualifications",
+                    "stream_url": "",
+                    "starts_at": "2023-09-08T09:00:00+02:00",
+                    "ends_at": "2023-09-08T12:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Semi-finals",
+                    "stream_url": "https:\/\/youtu.be\/nn4NQtbeTgc",
+                    "starts_at": "2023-09-08T20:00:00+02:00",
+                    "ends_at": "2023-09-08T23:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Men's Lead Final",
+                    "stream_url": "https:\/\/youtu.be\/dro2rTDVleM",
+                    "starts_at": "2023-09-09T20:00:00+02:00",
+                    "ends_at": "2023-09-09T23:00:00+02:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Women's Lead Final",
+                    "stream_url": "https:\/\/youtu.be\/dro2rTDVleM",
+                    "starts_at": "2023-09-09T21:00:00+02:00",
+                    "ends_at": "2023-09-10T00:00:00+02:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Jessica",
+                    "last_name": "PILZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1226\/photo"
+                },
+                {
+                    "first_name": "Hannes",
+                    "last_name": "VAN DUYSEN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/373\/photo"
+                },
+                {
+                    "first_name": "Simon",
+                    "last_name": "LORENZI",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/318\/photo"
+                },
+                {
+                    "first_name": "Nicolas",
+                    "last_name": "COLLIN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/320\/photo"
+                },
+                {
+                    "first_name": "Stefan",
+                    "last_name": "SCHERZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1274\/photo"
+                },
+                {
+                    "first_name": "Mattea",
+                    "last_name": "P\u00d6TZI",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1266\/photo"
+                },
+                {
+                    "first_name": "Sean",
+                    "last_name": "MCCOLL",
+                    "country": "CAN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1559\/photo"
+                },
+                {
+                    "first_name": "Nikolay",
+                    "last_name": "RUSEV",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12329\/photo"
+                },
+                {
+                    "first_name": "Aleksandra",
+                    "last_name": "TOTKOVA",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11464\/photo"
+                },
+                {
+                    "first_name": "Alannah",
+                    "last_name": "YIP",
+                    "country": "CAN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1565\/photo"
+                },
+                {
+                    "first_name": "Campbell",
+                    "last_name": "HARRISON",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2493\/photo"
+                },
+                {
+                    "first_name": "Chloe",
+                    "last_name": "CAULIER",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/316\/photo"
+                },
+                {
+                    "first_name": "Slav",
+                    "last_name": "KIROV",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11500\/photo"
+                },
+                {
+                    "first_name": "Sandra",
+                    "last_name": "LETTNER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1270\/photo"
+                },
+                {
+                    "first_name": "Eva Maria",
+                    "last_name": "HAMMELM\u00dcLLER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1259\/photo"
+                },
+                {
+                    "first_name": "Felipe",
+                    "last_name": "HO FOGANHOLO",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3141\/photo"
+                },
+                {
+                    "first_name": "Anja",
+                    "last_name": "K\u00d6HLER ",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3204\/photo"
+                },
+                {
+                    "first_name": "Louis",
+                    "last_name": "GUNDOLF",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1277\/photo"
+                },
+                {
+                    "first_name": "Mateus",
+                    "last_name": "RODRIGUES BELLOTTO",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11836\/photo"
+                },
+                {
+                    "first_name": "Lucie",
+                    "last_name": "WATILLON",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/363\/photo"
+                }
+            ]
+        },
+        {
+            "id": 1303,
+            "season": 2023,
+            "name": "IFSC World Cup Wujiang 2023",
+            "country": "CHN",
+            "location": "Wujiang",
+            "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230922_Wujiang_WC\/Poster_WUJIANG23_WC_copy.jpg",
+            "site_url": "https:\/\/calendar.ifsc.stream\/view\/2023\/1303",
+            "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1303",
+            "disciplines": [
+                "lead",
+                "speed"
+            ],
+            "starts_at": "2023-09-22T16:00:00+08:00",
+            "ends_at": "2023-09-24T16:00:00+08:00",
+            "timezone": "Asia\/Chongqing",
+            "rounds": [
+                {
+                    "name": "Lead Qualifications",
+                    "stream_url": "https:\/\/youtu.be\/jSbrYuieLM8",
+                    "starts_at": "2023-09-22T09:00:00+08:00",
+                    "ends_at": "2023-09-22T12:00:00+08:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Speed Qualifications",
+                    "stream_url": "https:\/\/youtu.be\/3S_6IUR31sQ",
+                    "starts_at": "2023-09-22T17:00:00+08:00",
+                    "ends_at": "2023-09-22T20:00:00+08:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Semi-finals",
+                    "stream_url": "https:\/\/youtu.be\/TAs1sL84HnM",
+                    "starts_at": "2023-09-23T15:00:00+08:00",
+                    "ends_at": "2023-09-23T18:00:00+08:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Speed Finals",
+                    "stream_url": "https:\/\/youtu.be\/789CAu-o2BA",
+                    "starts_at": "2023-09-23T19:30:00+08:00",
+                    "ends_at": "2023-09-23T22:30:00+08:00",
+                    "schedule_confirmed": true
+                },
+                {
+                    "name": "Lead Finals",
+                    "stream_url": "https:\/\/youtu.be\/C7DkvNuYFs4",
+                    "starts_at": "2023-09-24T19:00:00+08:00",
+                    "ends_at": "2023-09-24T22:00:00+08:00",
+                    "schedule_confirmed": true
+                }
+            ],
+            "start_list": [
+                {
+                    "first_name": "Jessica",
+                    "last_name": "PILZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1226\/photo"
+                },
+                {
+                    "first_name": "Oceania",
+                    "last_name": "MACKENZIE",
+                    "country": "AUS",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/2501\/photo"
+                },
+                {
+                    "first_name": "Simon",
+                    "last_name": "LORENZI",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/318\/photo"
+                },
+                {
+                    "first_name": "Nicolas",
+                    "last_name": "COLLIN",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/320\/photo"
+                },
+                {
+                    "first_name": "Stefan",
+                    "last_name": "SCHERZ",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1274\/photo"
+                },
+                {
+                    "first_name": "Mattea",
+                    "last_name": "P\u00d6TZI",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1266\/photo"
+                },
+                {
+                    "first_name": "Sean",
+                    "last_name": "MCCOLL",
+                    "country": "CAN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1559\/photo"
+                },
+                {
+                    "first_name": "Nikolay",
+                    "last_name": "RUSEV",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/12329\/photo"
+                },
+                {
+                    "first_name": "Aleksandra",
+                    "last_name": "TOTKOVA",
+                    "country": "BUL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/11464\/photo"
+                },
+                {
+                    "first_name": "Alannah",
+                    "last_name": "YIP",
+                    "country": "CAN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1565\/photo"
+                },
+                {
+                    "first_name": "Mi",
+                    "last_name": "YANG",
+                    "country": "CHN",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Chloe",
+                    "last_name": "CAULIER",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/316\/photo"
+                },
+                {
+                    "first_name": "Kevin",
+                    "last_name": "AMON",
+                    "country": "AUT",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Lukas",
+                    "last_name": "KNAPP",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1263\/photo"
+                },
+                {
+                    "first_name": "Ties",
+                    "last_name": "VANCRAEYNEST",
+                    "country": "BEL",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/356\/photo"
+                },
+                {
+                    "first_name": "Michael",
+                    "last_name": "FINN-HENRY",
+                    "country": "CAN",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1843\/photo"
+                },
+                {
+                    "first_name": "Eva Maria",
+                    "last_name": "HAMMELM\u00dcLLER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1259\/photo"
+                },
+                {
+                    "first_name": "Felipe",
+                    "last_name": "HO FOGANHOLO",
+                    "country": "BRA",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/3141\/photo"
+                },
+                {
+                    "first_name": "Roxy",
+                    "last_name": "PERRY",
+                    "country": "AUS",
+                    "photo_url": null
+                },
+                {
+                    "first_name": "Tobias",
+                    "last_name": "PLANGGER",
+                    "country": "AUT",
+                    "photo_url": "https:\/\/ifsc.results.info\/athletes\/1278\/photo"
+                }
+            ]
+        }
+    ]
+}
