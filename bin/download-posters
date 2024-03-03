@@ -22,9 +22,14 @@ foreach ($json->events as $event) {
     if ($event->poster) {
         $basename = basename($event->poster);
         $saveAs = "public/img/posters/{$season}/{$basename}";
+        $dirName = dirname($saveAs);
 
         if (is_file($saveAs)) {
             continue;
+        }
+
+        if (!is_dir($dirName)) {
+            mkdir($dirName, 700);
         }
 
         if (copy($event->poster, $saveAs)) {
@@ -34,7 +39,7 @@ foreach ($json->events as $event) {
             $image->resizeToWidth(200);
             $image->save($saveAs);
         } else {
-            echo "[-] Error downloading poster '{$basename}'", PHP_EOL;
+            echo "[-] Error downloading poster '{$event->poster}'", PHP_EOL;
         }
     }
 }
