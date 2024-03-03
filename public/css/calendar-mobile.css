@@ -1,0 +1,93 @@
+.event-details {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0 10px;
+    position: absolute;
+}
+
+.event-details li {
+    float: left;
+    width: 270px;
+    margin: 0 0 0 10px;
+    height: 30px;
+    font-size: 14px;
+    padding-top: 6px;
+}
+
+.event-details li:last-child {
+    width: 400px;
+}
+
+.event-buttons {
+    margin: 190px 0 0 0;
+    width: 300px;
+}
+
+.top-header {
+    padding: 5px 5px;
+}
+
+.subheader-buttons {
+    padding: 5px 5px;
+}
+
+.youtube-thumbnail {
+
+}
+
+.ifsc-starts-in {
+    margin-top: 0;
+}
+
+.filters label {
+    width: 190px;
+}
+
+.header-buttons {
+    font-size: 12px;
+}
+
+.season-selector {
+    font-size: 12px;
+}
+
+.blocked-region {
+    display: none;
+    float: right;
+}
+
+.button-reminder {
+    font-size: 12px;
+}
+
+#ifsc-season .header-title h2 {
+    font-size: 17px;
+}
+
+#ifsc-season .header-title {
+    background-size: 55px;
+    background-position-y: -5px;
+    background-position-x: 5px;
+}
+
+.filters-button {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.watch-button {
+    position: absolute;
+    top: 0;
+    left: 250px;
+}
+
+.round-details {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    height: 300px;
+}
+
+li.ifsc-event {
+    height: 230px;
+}

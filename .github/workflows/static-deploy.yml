@@ -17,7 +17,7 @@ concurrency:
 
 env:
   IFSC_RSS_FEED_URL: "https://www.ifsc-climbing.org/news?format=feed&type=rss"
-  YEAR: 2023
+  YEAR: 2024
 
 jobs:
   deploy:

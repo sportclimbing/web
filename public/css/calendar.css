@@ -20,9 +20,18 @@ body {
     background-attachment: fixed;
 }
 
+.custom-tooltip {
+    --bs-tooltip-bg: var(--bs-primary);
+}
+
 img.bw {
     -webkit-filter: grayscale(40%); /* Safari 6.0 - 9.0 */
     filter: grayscale(40%);
+}
+
+.blocked-region {
+    display: none;
+    float: right;
 }
 
 .videoWrapper {
@@ -54,6 +63,29 @@ img.bw {
     -webkit-box-orient: vertical;
 }
 
+.youtube-thumbnail {
+    width: 200px;
+    float: left;
+    height: 110px;
+    border-radius: 3px;
+    background-size: cover;
+    background-position: center center;
+    -moz-border-radius: 3px;
+    border: 1px solid rgba(33,31,31,0.91);
+}
+
+.round-details {
+    padding-left: 0;
+    margin-top: 0;
+    line-height: 35px;
+}
+
+
+.event-details-tba {
+    padding: 20px;
+    text-align: center;
+}
+
 .jumbotron {
     padding-bottom: var(--jumbotron-padding-y);
     margin-bottom: 0;
@@ -80,24 +112,182 @@ img.bw {
 li.ifsc-event {
     border: none;
     border-bottom: 1px solid rgba(128, 128, 128, 0.33);
-    width: 100%
+    width: 100%;
+    height: 130px;
+    padding-left: 15px;
+    margin: 0;
+}
+
+.watch-button {
+    right: 20px;
+    position: absolute;
+}
+
+.ifsc-starts-in {
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.filters label {
+    width: 170px;
+}
+
+.filters input[type=checkbox] {
+    accent-color: #e6007e;
 }
 
 li.ifsc-event:last-child { border-bottom: none; }
 
-#ifsc-league-name {
+.event-name {
     font-weight: bold;
     color: #333131;
     text-decoration: none;
+    font-size: 17px;
+    padding: 5px 0;
+}
+
+.event-page {
+    background-color: #fff;
+    width: 130px;
+    margin-bottom: 10px;
+}
+
+#ifsc-season {
+    font-size: 18px;
+    max-width: 100%;
+    padding: 10px 0 0 0;
+    color: #ffffff;
+    background-color: rgb(27, 40, 57);
+}
+
+#ifsc-season .header-title {
+    max-width: 700px;
+    margin: auto;
+    padding-left: 60px;
+    background-image: url(../img/logo.png);
+    background-size: 65px;
+    background-position-y: -5px;
+    background-position-x: -10px;
+    background-repeat: no-repeat;
+}
+
+#ifsc-season .header-title h2 {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#ifsc-season .header-title p {
+    line-height: 15px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-size: 15px;
+    color: #d0d0d0;
+}
+
+#button-stream {
+    width: 120px;
+    margin-bottom: 5px;
+    background-color: rgb(27, 40, 57);
+}
+
+.button-results {
+    background-color: #fff;
+    width: 120px;
+}
+
+.button-reminder {
+    background-color: #e6007e;
+    border: 1px solid #ad0a68;
+    display: none;
+    width: 120px;
+    padding: 8px;
+}
+
+.button-reminder:hover {
+    background-color: #c7086e;
+    border: 1px solid #80074d;
+}
+
+.event-poster {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    width: 100px;
+    height: 135px;
+    margin-top: 10px;
+}
+
+.filters-button {
+    margin: 0 0 0 5px;
+    float: left;
+    font-weight: bold;
+    height: 39px;
+}
+
+.subheader-buttons {
+    max-width: 700px;
+    margin: 0 auto 0 auto;
+    padding: 5px 0;
+}
+
+.top-header {
+    background-color: rgb(27, 40, 57);
+    width: 100%;
+}
+
+.season-selector {
+    margin: 0;
+    float: left;
+    height: 39px;
+    padding: 0 10px;
+    font-weight: bold;
+}
+
+.ifsc-news {
+    background-color: rgb(27, 40, 57);
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+    margin: 15px 0 15px 0;
+}
+
+.btn-calendar {
+    background-color: #e6007e;
+    border: 1px solid #ad0a68;
+    margin: 10px 0;
+}
+
+.btn-calendar:hover {
+    background-color: #c7086e;
+    border: 1px solid #80074d;
+}
+
+#filter-modal input {
+    margin-left: 10px;
 }
 
 footer {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    max-width: 700px;
+    margin: 0 auto 10px auto;
+    padding: 5px;
+    font-size: 11px;
+}
+
+.buy-coffee {
+    margin-left: 0;
+}
+
+.buy-coffee a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-right: 5px;
 }
 
 footer p {
     margin-bottom: .25rem;
 }
 
-.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
