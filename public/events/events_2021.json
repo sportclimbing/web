@@ -2,8 +2,10 @@
     "events": [
         {
             "id": 1187,
+            "league_id": 388,
+            "league_name": "World Cups and World Championships",
             "season": 2021,
-            "name": "IFSC - Climbing World Cup (B) - Meiringen (SUI) 2021",
+            "name": "IFSC World Cup - Meiringen",
             "country": "SUI",
             "location": "Meiringen",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/jch-optimize\/ng\/images_Events_Posters__2021_IFSC__Meiringen__2021__Poster.webp",
@@ -18,45 +20,87 @@
             "rounds": [
                 {
                     "name": "Men's Boulder Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-04-16T10:00:00+02:00",
                     "ends_at": "2021-04-16T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Semi-Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/SA2K2o2kCCQ",
                     "starts_at": "2021-04-16T10:00:00+02:00",
                     "ends_at": "2021-04-16T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/sO7KPBUeDWY",
                     "starts_at": "2021-04-16T10:00:00+02:00",
                     "ends_at": "2021-04-16T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-04-16T10:00:00+02:00",
                     "ends_at": "2021-04-16T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Semi-Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/SA2K2o2kCCQ",
                     "starts_at": "2021-04-16T10:00:00+02:00",
                     "ends_at": "2021-04-16T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/sO7KPBUeDWY",
                     "starts_at": "2021-04-16T10:00:00+02:00",
                     "ends_at": "2021-04-16T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 }
             ],
             "start_list": [
@@ -184,8 +228,10 @@
         },
         {
             "id": 1190,
+            "league_id": 388,
+            "league_name": "World Cups and World Championships",
             "season": 2021,
-            "name": "IFSC - Climbing World Cup (B) - Salt Lake City (USA) 2021",
+            "name": "IFSC World Cup - Salt Lake City",
             "country": "USA",
             "location": "Salt Lake City",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/jch-optimize\/ng\/images_Events_Posters__2021_IFSC__WC__poster__40x60cm__2021__SaltLake.webp",
@@ -200,45 +246,87 @@
             "rounds": [
                 {
                     "name": "Men's Boulder Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-05-21T02:00:00-06:00",
                     "ends_at": "2021-05-21T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Semi-Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/DMr4n5vSgVQ",
                     "starts_at": "2021-05-21T02:00:00-06:00",
                     "ends_at": "2021-05-21T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/3yM1wjzE-ss",
                     "starts_at": "2021-05-21T02:00:00-06:00",
                     "ends_at": "2021-05-21T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-05-21T02:00:00-06:00",
                     "ends_at": "2021-05-21T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Semi-Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/DMr4n5vSgVQ",
                     "starts_at": "2021-05-21T02:00:00-06:00",
                     "ends_at": "2021-05-21T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/3yM1wjzE-ss",
                     "starts_at": "2021-05-21T02:00:00-06:00",
                     "ends_at": "2021-05-21T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 }
             ],
             "start_list": [
@@ -366,8 +454,10 @@
         },
         {
             "id": 1192,
+            "league_id": 388,
+            "league_name": "World Cups and World Championships",
             "season": 2021,
-            "name": "IFSC - Climbing World Cup (B,S) - Salt Lake City (USA) 2021",
+            "name": "IFSC World Cup - Salt Lake City",
             "country": "USA",
             "location": "Salt Lake City",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/jch-optimize\/ng\/images_Events_Posters__2021_IFSC__WC__poster__40x60cm__2021__SaltLake.webp",
@@ -383,73 +473,143 @@
             "rounds": [
                 {
                     "name": "Men's Boulder Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-05-28T02:00:00-06:00",
                     "ends_at": "2021-05-28T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Semi-Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/DMr4n5vSgVQ",
                     "starts_at": "2021-05-28T02:00:00-06:00",
                     "ends_at": "2021-05-28T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/3yM1wjzE-ss",
                     "starts_at": "2021-05-28T02:00:00-06:00",
                     "ends_at": "2021-05-28T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-05-28T02:00:00-06:00",
                     "ends_at": "2021-05-28T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Semi-Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/DMr4n5vSgVQ",
                     "starts_at": "2021-05-28T02:00:00-06:00",
                     "ends_at": "2021-05-28T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/3yM1wjzE-ss",
                     "starts_at": "2021-05-28T02:00:00-06:00",
                     "ends_at": "2021-05-28T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Speed Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-05-28T02:00:00-06:00",
                     "ends_at": "2021-05-28T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Speed Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/YghWdqeS01Q",
                     "starts_at": "2021-05-28T02:00:00-06:00",
                     "ends_at": "2021-05-28T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Speed Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-05-28T02:00:00-06:00",
                     "ends_at": "2021-05-28T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Speed Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/YghWdqeS01Q",
                     "starts_at": "2021-05-28T02:00:00-06:00",
                     "ends_at": "2021-05-28T05:00:00-06:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 }
             ],
             "start_list": [
@@ -577,8 +737,10 @@
         },
         {
             "id": 1193,
+            "league_id": 388,
+            "league_name": "World Cups and World Championships",
             "season": 2021,
-            "name": "IFSC - Climbing World Cup (B,L) - Innsbruck (AUT) 2021",
+            "name": "IFSC World Cup - Innsbruck",
             "country": "AUT",
             "location": "Innsbruck",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/jch-optimize\/ng\/images_Events_Posters__2021_IFSC__WC__2021__INNSBRUCK__v22.webp",
@@ -594,87 +756,171 @@
             "rounds": [
                 {
                     "name": "Men's Lead Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Semi-Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/L7ey_DZu_8g",
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/rdGBYBoGh_s",
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Semi-Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/L7ey_DZu_8g",
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/rdGBYBoGh_s",
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Semi-Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/J9J1piByzQY",
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/IpPQ1vE8a0k",
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Semi-Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/J9J1piByzQY",
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/IpPQ1vE8a0k",
                     "starts_at": "2021-06-23T10:00:00+02:00",
                     "ends_at": "2021-06-23T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 }
             ],
             "start_list": [
@@ -802,8 +1048,10 @@
         },
         {
             "id": 1194,
+            "league_id": 388,
+            "league_name": "World Cups and World Championships",
             "season": 2021,
-            "name": "IFSC - Climbing World Cup (L,S) - Villars (SUI) 2021",
+            "name": "IFSC World Cup - Villars",
             "country": "SUI",
             "location": "Villars",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/jch-optimize\/ng\/images_Events_Posters__2021_IFSC__WC__poster__40x60cm__2021__Villars2.webp",
@@ -819,73 +1067,143 @@
             "rounds": [
                 {
                     "name": "Men's Lead Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-07-01T10:00:00+02:00",
                     "ends_at": "2021-07-01T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Semi-Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/Fkwpnt_EKqc",
                     "starts_at": "2021-07-01T10:00:00+02:00",
                     "ends_at": "2021-07-01T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/g_L9edyj8VQ",
                     "starts_at": "2021-07-01T10:00:00+02:00",
                     "ends_at": "2021-07-01T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-07-01T10:00:00+02:00",
                     "ends_at": "2021-07-01T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Semi-Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/Fkwpnt_EKqc",
                     "starts_at": "2021-07-01T10:00:00+02:00",
                     "ends_at": "2021-07-01T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/g_L9edyj8VQ",
                     "starts_at": "2021-07-01T10:00:00+02:00",
                     "ends_at": "2021-07-01T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Speed Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-07-01T10:00:00+02:00",
                     "ends_at": "2021-07-01T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Speed Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/hRdxL6MYv6Q",
                     "starts_at": "2021-07-01T10:00:00+02:00",
                     "ends_at": "2021-07-01T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Speed Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-07-01T10:00:00+02:00",
                     "ends_at": "2021-07-01T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Speed Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/hRdxL6MYv6Q",
                     "starts_at": "2021-07-01T10:00:00+02:00",
                     "ends_at": "2021-07-01T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 }
             ],
             "start_list": [
@@ -1013,8 +1331,10 @@
         },
         {
             "id": 1195,
+            "league_id": 388,
+            "league_name": "World Cups and World Championships",
             "season": 2021,
-            "name": "IFSC - Climbing World Cup (L) - Chamonix (FRA) 2021",
+            "name": "IFSC World Cup - Chamonix",
             "country": "FRA",
             "location": "Chamonix",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/jch-optimize\/ng\/images_Events_Posters__2021_IFSC__WC__poster__40x60cm__2021__Chamonix.webp",
@@ -1029,45 +1349,87 @@
             "rounds": [
                 {
                     "name": "Men's Lead Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-07-12T10:00:00+02:00",
                     "ends_at": "2021-07-12T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Semi-Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/2RgP-kuQuJA",
                     "starts_at": "2021-07-12T10:00:00+02:00",
                     "ends_at": "2021-07-12T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/nN9pIpdFbtM",
                     "starts_at": "2021-07-12T10:00:00+02:00",
                     "ends_at": "2021-07-12T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-07-12T10:00:00+02:00",
                     "ends_at": "2021-07-12T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Semi-Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/2RgP-kuQuJA",
                     "starts_at": "2021-07-12T10:00:00+02:00",
                     "ends_at": "2021-07-12T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/nN9pIpdFbtM",
                     "starts_at": "2021-07-12T10:00:00+02:00",
                     "ends_at": "2021-07-12T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 }
             ],
             "start_list": [
@@ -1195,8 +1557,10 @@
         },
         {
             "id": 1196,
+            "league_id": 388,
+            "league_name": "World Cups and World Championships",
             "season": 2021,
-            "name": "IFSC - Climbing World Cup (L) - Brian\u00e7on (FRA) 2021",
+            "name": "IFSC World Cup - Brian\u00e7on",
             "country": "FRA",
             "location": "Brian\u00e7on",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/jch-optimize\/ng\/images_Events_Posters__2021_IFSC__WC__poster__40x60cm__2021__Briancon-2.webp",
@@ -1211,45 +1575,87 @@
             "rounds": [
                 {
                     "name": "Men's Lead Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-07-17T10:00:00+02:00",
                     "ends_at": "2021-07-17T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Semi-Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/CLe6Ofcs2fw",
                     "starts_at": "2021-07-17T10:00:00+02:00",
                     "ends_at": "2021-07-17T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/Zr8lbADTDus",
                     "starts_at": "2021-07-17T10:00:00+02:00",
                     "ends_at": "2021-07-17T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-07-17T10:00:00+02:00",
                     "ends_at": "2021-07-17T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Semi-Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/CLe6Ofcs2fw",
                     "starts_at": "2021-07-17T10:00:00+02:00",
                     "ends_at": "2021-07-17T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/Zr8lbADTDus",
                     "starts_at": "2021-07-17T10:00:00+02:00",
                     "ends_at": "2021-07-17T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 }
             ],
             "start_list": [
@@ -1377,8 +1783,10 @@
         },
         {
             "id": 1197,
+            "league_id": 388,
+            "league_name": "World Cups and World Championships",
             "season": 2021,
-            "name": "IFSC - Climbing World Cup (L) - Kranj (SLO) 2021",
+            "name": "IFSC World Cup - Ljubljana",
             "country": "SLO",
             "location": "Ljubljana",
             "poster": null,
@@ -1393,45 +1801,87 @@
             "rounds": [
                 {
                     "name": "Men's Lead Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-09-03T10:00:00+02:00",
                     "ends_at": "2021-09-03T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Semi-Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": null,
                     "starts_at": "2021-09-03T10:00:00+02:00",
                     "ends_at": "2021-09-03T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": null,
                     "starts_at": "2021-09-03T10:00:00+02:00",
                     "ends_at": "2021-09-03T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-09-03T10:00:00+02:00",
                     "ends_at": "2021-09-03T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Semi-Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": null,
                     "starts_at": "2021-09-03T10:00:00+02:00",
                     "ends_at": "2021-09-03T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": null,
                     "starts_at": "2021-09-03T10:00:00+02:00",
                     "ends_at": "2021-09-03T13:00:00+02:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 }
             ],
             "start_list": [
@@ -1559,8 +2009,10 @@
         },
         {
             "id": 1185,
+            "league_id": 388,
+            "league_name": "World Cups and World Championships",
             "season": 2021,
-            "name": "IFSC - Climbing World Championships (B,L,S) - Moscow 2021",
+            "name": "IFSC World Championships - Moscow",
             "country": "CFR",
             "location": "Moscow",
             "poster": null,
@@ -1577,129 +2029,257 @@
             "rounds": [
                 {
                     "name": "Men's Lead Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Semi-Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/zXmqgfLtRUo",
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Lead Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/EauI682ebv0",
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Semi-Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/zXmqgfLtRUo",
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Lead Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/EauI682ebv0",
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Speed Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Speed Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/nmrKMC4Fb5A",
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Speed Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Speed Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/nmrKMC4Fb5A",
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Semi-Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/InamGY_UhQ4",
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Boulder Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/bfVUTrZisPk",
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Semi-Final",
-                    "stream_url": "https:\/\/youtu.be\/InamGY_UhQ4",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
+                    "stream_url": "https:\/\/youtu.be\/GCTrQLxjTnk",
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Final",
-                    "stream_url": "https:\/\/youtu.be\/bfVUTrZisPk",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
+                    "stream_url": "https:\/\/youtu.be\/M5Qpj86XEsY",
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Combined Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder",
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Combined Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder",
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-09-16T11:00:00+03:00",
                     "ends_at": "2021-09-16T14:00:00+03:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 }
             ],
             "start_list": [
@@ -1827,8 +2407,10 @@
         },
         {
             "id": 1189,
+            "league_id": 388,
+            "league_name": "World Cups and World Championships",
             "season": 2021,
-            "name": "IFSC - Climbing World Cup (B,S) - Seoul (KOR) 2021 - CANCELLED",
+            "name": "IFSC World Cup - Seoul",
             "country": "KOR",
             "location": "Seoul",
             "poster": null,
@@ -1844,31 +2426,59 @@
             "rounds": [
                 {
                     "name": "Men's Boulder Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-10-01T17:00:00+09:00",
                     "ends_at": "2021-10-01T20:00:00+09:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Boulder Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-10-01T17:00:00+09:00",
                     "ends_at": "2021-10-01T20:00:00+09:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Men's Speed Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-10-01T17:00:00+09:00",
                     "ends_at": "2021-10-01T20:00:00+09:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 },
                 {
                     "name": "Women's Speed Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2021-10-01T17:00:00+09:00",
                     "ends_at": "2021-10-01T20:00:00+09:00",
-                    "schedule_confirmed": false
+                    "schedule_status": "estimated"
                 }
             ],
             "start_list": [
@@ -1994,5 +2604,9 @@
                 }
             ]
         }
-    ]
+    ],
+    "metadata": {
+        "updated_at": "2024-03-15T20:06:17+00:00",
+        "generated_by": "https:\/\/github.com\/sportclimbing\/ifsc-calendar"
+    }
 }
