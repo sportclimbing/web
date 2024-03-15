@@ -1,3 +1,19 @@
+let lastCalendarUpdate = null;
+
+function calendar_is_up_to_date(jsonData) {
+    let currentCalendarDate = jsonData.metadata.updated_at;
+
+    if (!lastCalendarUpdate) {
+        lastCalendarUpdate = currentCalendarDate;
+    } else {
+        if (currentCalendarDate !== lastCalendarUpdate) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 function event_is_streaming(event) {
     const now = dayjs();
     const eventStart = dayjs(event.starts_at);
@@ -10,12 +26,8 @@ function event_is_upcoming(event) {
 }
 
 function event_schedule_status(event) {
-    if (event.rounds.length === 0) {
-        return '❌ No events (adjust filters)';
-    }
-
     for (const round of event.rounds) {
-        if (!round.schedule_confirmed) {
+        if (round.schedule_status !== 'confirmed') {
             return '⏳ Unconfirmed Schedule';
         }
     }
@@ -99,45 +111,67 @@ function extract_youtube_video_id(url) {
 
 function load_config_from_modal() {
     return {
+        league: {
+            "cups": config_is_enabled('league[cups]'),
+            "paraclimbing": config_is_enabled('league[paraclimbing]'),
+            "games": config_is_enabled('league[games]'),
+        },
+        category: {
+            "women": config_is_enabled('category[women]'),
+            "men": config_is_enabled('category[men]'),
+        },
         disciplines: {
             "boulder": config_is_enabled('discipline[boulder]'),
             "lead": config_is_enabled('discipline[lead]'),
             "speed": config_is_enabled('discipline[speed]'),
         },
         rounds: {
-            "qualifications?": config_is_enabled('round[qualifications]'),
-            "semi[-\\s]?finals?": config_is_enabled('round[semifinals]'),
-            "[\\s]finals?": config_is_enabled('round[finals]'),
-        }
+            "qualification": config_is_enabled('round[qualifications]'),
+            "semi-final": config_is_enabled('round[semifinals]'),
+            "final": config_is_enabled('round[finals]'),
+        },
+        streamable: config_is_enabled('streamable')
     };
 }
 
 function restore_config() {
-    let config = window.localStorage.getItem('config');
+    let config = window.localStorage.getItem('config_v2');
     let json;
 
     if (config) {
         try {
             json = JSON.parse(config);
 
+            first_element_by_name('league[cups]').checked = json.league.cups;
+            first_element_by_name('league[paraclimbing]').checked = json.league.paraclimbing;
+            first_element_by_name('league[games]').checked = json.league.games;
+
+            first_element_by_name('category[women]').checked = json.category["women"];
+            first_element_by_name('category[men]').checked = json.category["men"];
+
             first_element_by_name("discipline[boulder]").checked = json.disciplines.boulder;
             first_element_by_name("discipline[lead]").checked = json.disciplines.lead;
             first_element_by_name("discipline[speed]").checked = json.disciplines.speed;
 
-            first_element_by_name("round[qualifications]").checked = json.rounds["qualifications?"];
-            first_element_by_name("round[semifinals]").checked = json.rounds["semi[-\\s]?finals?"];
-            first_element_by_name("round[finals]").checked = json.rounds["[\\s]finals?"];
+            first_element_by_name("round[qualifications]").checked = json.rounds["qualification"];
+            first_element_by_name("round[semifinals]").checked = json.rounds["semi-final"];
+            first_element_by_name("round[finals]").checked = json.rounds["final"];
+
+            first_element_by_name('streamable').checked = json.streamable;
         } catch (e) {
             window.localStorage.clear();
         }
     }
 }
 
+function config_selected_leagues() {
+    return $('#config-leagues input[type="checkbox"]:checked').map((a, b) => b.value).get();
+}
+
 function apply_search_filters(jsonData) {
     const disciplines = [];
-    let rounds = [];
+    let categories = [];
     let config = load_config_from_modal();
-    let disciplinesRegex;
 
     for (let discipline in config.disciplines) {
         if (config.disciplines[discipline]) {
@@ -145,32 +179,39 @@ function apply_search_filters(jsonData) {
         }
     }
 
-    if (disciplines.length !== config.disciplines.length) {
-        if (disciplines.includes('boulder') && disciplines.includes('lead')) {
-            disciplines.push('combined');
-        }
-
-        disciplinesRegex = new RegExp('(' + disciplines.join('|') + ')', 'i');
-    }
-
-    for (let round in config.rounds) {
-        if (config.rounds[round]) {
-            rounds.push(round);
+    for (let category in config.category) {
+        if (config.category[category]) {
+            categories.push(category);
         }
     }
 
-    const roundsRegex = new RegExp(rounds.join('|'), 'i');
+    const selectedLeagues = config_selected_leagues();
+
     let filteredEvents = [];
+    const hasMatchingDisciplines = (round) => round.disciplines.filter(value => disciplines.includes(value)).length > 0;
+    const hasMatchingCategories = (round) => round.categories.filter(value => categories.includes(value)).length > 0;
 
     jsonData.events.forEach((event) => {
         let filteredRounds = [];
 
+        if (!selectedLeagues.includes(event.league_name)) {
+            return;
+        }
+
         event.rounds.forEach((round) => {
-            if (disciplines && !disciplinesRegex.test(round.name)) {
+            if (config.streamable && !round.stream_url) {
                 return false;
             }
 
-            if (rounds && !roundsRegex.test(round.name)) {
+            if (!hasMatchingDisciplines(round)) {
+                return false;
+            }
+
+            if (!config.rounds[round.kind]) {
+                return false;
+            }
+
+            if (!hasMatchingCategories(round)) {
                 return false;
             }
 
@@ -189,7 +230,7 @@ function basename(path) {
 }
 
 function event_poster_path(event) {
-    return `img/posters/${event.starts_at.substring(0, 4)}/${basename(event.poster)}`;
+    return `img/posters/${event.starts_at.substring(0, 4)}/${event.id}.png`;
 }
 
 function set_background_image(event) {
@@ -217,7 +258,7 @@ function set_round_youtube_cover(element, round) {
     let youtubeVideoId = extract_youtube_video_id(round.stream_url);
 
     if (!youtubeVideoId) {
-        if (round.name.includes('Women')) {
+        if (round.categories.includes('women')) {
             youtubeVideoId = 'MQeQs6K_T5g';
         } else {
             youtubeVideoId = 'emrHdLsJTk4';
@@ -225,6 +266,28 @@ function set_round_youtube_cover(element, round) {
     }
 
     element.style.backgroundImage = `url(https://img.youtube.com/vi/${youtubeVideoId}/0.jpg)`;
+
+    let interval;
+    let counter = 0;
+
+    element.onmouseover = () => {
+        interval = window.setInterval(() => {
+            counter++;
+            if (counter > 3) {
+                counter = 1;
+            }
+            set_youtube_cover(element, counter);
+        }, 500);
+    };
+
+    element.onmouseout = () => {
+        window.clearInterval(interval);
+        set_youtube_cover(element, 0);
+    };
+}
+
+function set_youtube_cover(element, counter) {
+    element.style.backgroundImage = element.style.backgroundImage.replace(/[0-9]\.jpg/, `${counter}.jpg`);
 }
 
 function set_round_stream_button(element, round) {
@@ -333,7 +396,7 @@ function start_list_build(startList) {
     let list = [];
 
     for (const athlete of startList) {
-        list.push(athlete.first_name);
+        list.push(athlete.first_name + ' ' + athlete.last_name[0]);
 
         if (list.length === 2) {
             break;
@@ -344,12 +407,13 @@ function start_list_build(startList) {
         return '📋 Start List: Pending';
     }
 
-    return '📋 Start List: ' + list.slice(0, 2).join(', ') + ', etc...';
+    return '📋 ' + list.slice(0, 2).join(', ') + ',...';
 }
 
 function set_event_name(element, event) {
-    element.innerHTML = '🥇 ' + event.name.replace(/20\d{2}/, '').replace(/^IFSC - /, '').replace(/\([^)]+\)/g, '').replace('Climbing', 'IFSC').replace(' - ', '');
+    element.innerHTML = `🥇 ${event.name}`;
     element.setAttribute('data-target', `#event-${event.id}`);
+    element.setAttribute('href', `#/season/${selectedSeason}/event/${event.id}`);
 }
 
 function set_event_date(element, event) {

@@ -2,8 +2,10 @@
     "events": [
         {
             "id": 1291,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Hachioji 2023",
+            "name": "IFSC World Cup - Hachioji",
             "country": "JPN",
             "location": "Hachioji",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230422_Hachioji_WC\/a._Poster_HACH23.jpg",
@@ -12,44 +14,80 @@
             "disciplines": [
                 "boulder"
             ],
-            "starts_at": "2023-04-21T17:00:00+09:00",
-            "ends_at": "2023-04-23T17:00:00+09:00",
+            "starts_at": "2023-04-22T02:00:00+09:00",
+            "ends_at": "2023-04-24T02:00:00+09:00",
             "timezone": "Asia\/Tokyo",
             "rounds": [
                 {
                     "name": "Boulder Qualifications",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/MQeQs6K_T5g",
                     "starts_at": "2023-04-21T09:00:00+09:00",
                     "ends_at": "2023-04-21T12:00:00+09:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Semi-final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/kuE-qhRq7Fk",
                     "starts_at": "2023-04-22T11:00:00+09:00",
                     "ends_at": "2023-04-22T14:00:00+09:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/eNR77KOXi20",
                     "starts_at": "2023-04-22T17:00:00+09:00",
                     "ends_at": "2023-04-22T20:00:00+09:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Semi-final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/_D1hGBIEdQw",
                     "starts_at": "2023-04-23T11:00:00+09:00",
                     "ends_at": "2023-04-23T14:00:00+09:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/JX_-Ab7-IPY",
                     "starts_at": "2023-04-23T17:00:00+09:00",
                     "ends_at": "2023-04-23T20:00:00+09:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -177,8 +215,10 @@
         },
         {
             "id": 1292,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Seoul 2023",
+            "name": "IFSC World Cup - Seoul",
             "country": "KOR",
             "location": "Seoul",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230428_Seoul_WC\/230329_Poster_SEOUL23.jpg",
@@ -188,44 +228,82 @@
                 "boulder",
                 "speed"
             ],
-            "starts_at": "2023-04-28T17:00:00+09:00",
-            "ends_at": "2023-04-30T17:00:00+09:00",
+            "starts_at": "2023-04-29T02:00:00+09:00",
+            "ends_at": "2023-05-01T02:00:00+09:00",
             "timezone": "Asia\/Seoul",
             "rounds": [
                 {
                     "name": "Speed Qualifications",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/mC1RhpB4uuQ",
                     "starts_at": "2023-04-28T12:15:00+09:00",
                     "ends_at": "2023-04-28T15:15:00+09:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Speed Finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/eIa6VYrfqX8",
                     "starts_at": "2023-04-28T20:00:00+09:00",
                     "ends_at": "2023-04-28T23:00:00+09:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/dZVTyhrrfao",
                     "starts_at": "2023-04-29T15:30:00+09:00",
                     "ends_at": "2023-04-29T18:30:00+09:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/emrHdLsJTk4",
                     "starts_at": "2023-04-30T10:00:00+09:00",
                     "ends_at": "2023-04-30T13:00:00+09:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Boulder Finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/4ZfaojD52K4",
                     "starts_at": "2023-04-30T18:00:00+09:00",
                     "ends_at": "2023-04-30T21:00:00+09:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -353,8 +431,10 @@
         },
         {
             "id": 1293,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Jakarta 2023",
+            "name": "IFSC World Cup - Indonesia",
             "country": "INA",
             "location": "Indonesia",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230506_Jakarta_WC\/230415_Poster_JAK23v2.jpg",
@@ -363,23 +443,39 @@
             "disciplines": [
                 "speed"
             ],
-            "starts_at": "2023-05-06T15:00:00+07:00",
-            "ends_at": "2023-05-07T15:00:00+07:00",
+            "starts_at": "2023-05-06T22:00:00+07:00",
+            "ends_at": "2023-05-07T22:00:00+07:00",
             "timezone": "Asia\/Jakarta",
             "rounds": [
                 {
                     "name": "Speed Qualifications",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/zs9yALEofeQ",
                     "starts_at": "2023-05-06T18:15:00+07:00",
                     "ends_at": "2023-05-06T21:15:00+07:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Speed Finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/PSKWTWru-3A",
                     "starts_at": "2023-05-07T20:00:00+07:00",
                     "ends_at": "2023-05-07T23:00:00+07:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -507,8 +603,10 @@
         },
         {
             "id": 1294,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Salt Lake City 2023",
+            "name": "IFSC World Cup - Salt Lake City",
             "country": "USA",
             "location": "Salt Lake City",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230519_Salt_Lake_City_WC\/Poster_op_SLC23_WC.jpg",
@@ -518,79 +616,149 @@
                 "boulder",
                 "speed"
             ],
-            "starts_at": "2023-05-19T02:00:00-06:00",
-            "ends_at": "2023-05-21T02:00:00-06:00",
+            "starts_at": "2023-05-18T20:00:00-06:00",
+            "ends_at": "2023-05-20T20:00:00-06:00",
             "timezone": "America\/Denver",
             "rounds": [
                 {
                     "name": "Women's Boulder Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/Q9kmgyf880o",
                     "starts_at": "2023-05-19T09:00:00-06:00",
                     "ends_at": "2023-05-19T12:00:00-06:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/Q9kmgyf880o",
                     "starts_at": "2023-05-19T15:30:00-06:00",
                     "ends_at": "2023-05-19T18:30:00-06:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Semi-final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/_8id2biZ-j0",
                     "starts_at": "2023-05-20T10:00:00-06:00",
                     "ends_at": "2023-05-20T13:00:00-06:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Speed Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/n6YyV2ddbb4",
                     "starts_at": "2023-05-20T15:45:00-06:00",
                     "ends_at": "2023-05-20T18:45:00-06:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/MU2RQo273TY",
                     "starts_at": "2023-05-20T18:00:00-06:00",
                     "ends_at": "2023-05-20T21:00:00-06:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Speed Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/RMHaYgo9djM",
                     "starts_at": "2023-05-20T20:00:00-06:00",
                     "ends_at": "2023-05-20T23:00:00-06:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Semi-final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/L3hfbTCu7Lc",
                     "starts_at": "2023-05-21T10:00:00-06:00",
                     "ends_at": "2023-05-21T13:00:00-06:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Speed Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/fNhojRyf9do",
                     "starts_at": "2023-05-21T15:45:00-06:00",
                     "ends_at": "2023-05-21T18:45:00-06:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/BoMLaSywonc",
                     "starts_at": "2023-05-21T18:00:00-06:00",
                     "ends_at": "2023-05-21T21:00:00-06:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Speed Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/dRNb3xfZ16E",
                     "starts_at": "2023-05-21T20:00:00-06:00",
                     "ends_at": "2023-05-21T23:00:00-06:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -718,8 +886,10 @@
         },
         {
             "id": 1295,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Prague 2023",
+            "name": "IFSC World Cup - Prague",
             "country": "CZE",
             "location": "Prague",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230602_Prague_WC\/Poster_PRAGUE23.jpg",
@@ -728,51 +898,93 @@
             "disciplines": [
                 "boulder"
             ],
-            "starts_at": "2023-06-02T10:00:00+02:00",
-            "ends_at": "2023-06-04T10:00:00+02:00",
+            "starts_at": "2023-06-02T12:00:00+02:00",
+            "ends_at": "2023-06-04T12:00:00+02:00",
             "timezone": "Europe\/Prague",
             "rounds": [
                 {
                     "name": "Men's Boulder Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/N_vjATugAAI",
                     "starts_at": "2023-06-02T09:00:00+02:00",
                     "ends_at": "2023-06-02T12:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/N_vjATugAAI",
                     "starts_at": "2023-06-02T16:00:00+02:00",
                     "ends_at": "2023-06-02T19:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Semi-final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/2B_fZ2ViAOo",
                     "starts_at": "2023-06-03T12:00:00+02:00",
                     "ends_at": "2023-06-03T15:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/DkMHSYzeflQ",
                     "starts_at": "2023-06-03T20:00:00+02:00",
                     "ends_at": "2023-06-03T23:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Semi-final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/O88jFbeoZWM",
                     "starts_at": "2023-06-04T12:00:00+02:00",
                     "ends_at": "2023-06-04T15:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/HDT6sOLeB0I",
                     "starts_at": "2023-06-04T19:00:00+02:00",
                     "ends_at": "2023-06-04T22:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -900,8 +1112,10 @@
         },
         {
             "id": 1296,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Brixen 2023",
+            "name": "IFSC World Cup - Brixen",
             "country": "ITA",
             "location": "Brixen",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230609_Brixen_WC\/280323_IFSC_WC_BRIX_posterWB.jpg",
@@ -910,51 +1124,93 @@
             "disciplines": [
                 "boulder"
             ],
-            "starts_at": "2023-06-09T10:00:00+02:00",
-            "ends_at": "2023-06-11T10:00:00+02:00",
+            "starts_at": "2023-06-09T12:00:00+02:00",
+            "ends_at": "2023-06-11T12:00:00+02:00",
             "timezone": "Europe\/Rome",
             "rounds": [
                 {
                     "name": "Women's Boulder Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/CpAPoCZAjsQ",
                     "starts_at": "2023-06-09T09:00:00+02:00",
                     "ends_at": "2023-06-09T12:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/CpAPoCZAjsQ",
                     "starts_at": "2023-06-09T16:00:00+02:00",
                     "ends_at": "2023-06-09T19:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Semi-final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/ZPUvnWzWk-I",
                     "starts_at": "2023-06-10T11:00:00+02:00",
                     "ends_at": "2023-06-10T14:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/NJxLLzfduG4",
                     "starts_at": "2023-06-10T20:00:00+02:00",
                     "ends_at": "2023-06-10T23:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Semi-final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/JJsSAQTj_l4",
                     "starts_at": "2023-06-11T11:00:00+02:00",
                     "ends_at": "2023-06-11T14:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/iJ-FNcl6nbo",
                     "starts_at": "2023-06-11T20:00:00+02:00",
                     "ends_at": "2023-06-11T23:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -1082,8 +1338,10 @@
         },
         {
             "id": 1297,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Innsbruck 2023",
+            "name": "IFSC World Cup - Innsbruck",
             "country": "AUT",
             "location": "Innsbruck",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230614_Innsbruck_WC\/Poster_Innsbruck2023_eng.jpg",
@@ -1093,79 +1351,151 @@
                 "boulder",
                 "lead"
             ],
-            "starts_at": "2023-06-14T10:00:00+02:00",
-            "ends_at": "2023-06-18T10:00:00+02:00",
+            "starts_at": "2023-06-14T12:00:00+02:00",
+            "ends_at": "2023-06-18T12:00:00+02:00",
             "timezone": "Europe\/Vienna",
             "rounds": [
                 {
                     "name": "Women's Boulder Qualification",
-                    "stream_url": "",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
+                    "stream_url": null,
                     "starts_at": "2023-06-14T09:00:00+02:00",
                     "ends_at": "2023-06-14T12:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Semi-final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/9ZMpF6qNjfs",
                     "starts_at": "2023-06-14T19:30:00+02:00",
                     "ends_at": "2023-06-14T22:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Qualification",
-                    "stream_url": "",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
+                    "stream_url": null,
                     "starts_at": "2023-06-15T09:00:00+02:00",
                     "ends_at": "2023-06-15T12:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/GniLH6sXlXc",
                     "starts_at": "2023-06-15T19:30:00+02:00",
                     "ends_at": "2023-06-15T22:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Semi-final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/eqDnjXqy7oU",
                     "starts_at": "2023-06-16T13:00:00+02:00",
                     "ends_at": "2023-06-16T16:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/zt8OZx7qS8o",
                     "starts_at": "2023-06-16T19:30:00+02:00",
                     "ends_at": "2023-06-16T22:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Qualifications",
-                    "stream_url": "",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
+                    "stream_url": null,
                     "starts_at": "2023-06-17T08:00:00+02:00",
                     "ends_at": "2023-06-17T11:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Semi-finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/9-Gurj4CW_w",
                     "starts_at": "2023-06-17T19:00:00+02:00",
                     "ends_at": "2023-06-17T22:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Lead Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/T8PBP_xPH_4",
                     "starts_at": "2023-06-18T19:30:00+02:00",
                     "ends_at": "2023-06-18T22:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Lead Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/T8PBP_xPH_4",
                     "starts_at": "2023-06-18T20:30:00+02:00",
                     "ends_at": "2023-06-18T23:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -1293,8 +1623,10 @@
         },
         {
             "id": 1298,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Villars 2023",
+            "name": "IFSC World Cup - Villars-sur-Ollon",
             "country": "SUI",
             "location": "Villars-sur-Ollon",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230630_Villars_WC\/Poster_Villars23_WC.jpg",
@@ -1304,44 +1636,84 @@
                 "lead",
                 "speed"
             ],
-            "starts_at": "2023-06-30T10:00:00+02:00",
-            "ends_at": "2023-07-02T10:00:00+02:00",
+            "starts_at": "2023-06-30T12:00:00+02:00",
+            "ends_at": "2023-07-02T12:00:00+02:00",
             "timezone": "Europe\/Zurich",
             "rounds": [
                 {
                     "name": "Lead Qualifications",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/SA18mEBGT5E",
                     "starts_at": "2023-06-30T13:00:00+02:00",
                     "ends_at": "2023-06-30T16:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Semi-finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/n9lueaT5MJk",
                     "starts_at": "2023-07-01T12:00:00+02:00",
                     "ends_at": "2023-07-01T15:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/tXQqw_p_rpQ",
                     "starts_at": "2023-07-01T20:00:00+02:00",
                     "ends_at": "2023-07-01T23:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Speed Qualifications",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/uHmXKKeKsEw",
                     "starts_at": "2023-07-02T12:00:00+02:00",
                     "ends_at": "2023-07-02T15:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Speed Finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/bYAvgNJIefI",
                     "starts_at": "2023-07-02T18:00:00+02:00",
                     "ends_at": "2023-07-02T21:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -1469,8 +1841,10 @@
         },
         {
             "id": 1299,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Chamonix 2023",
+            "name": "IFSC World Cup - Chamonix",
             "country": "FRA",
             "location": "Chamonix",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230707_Chamonix_WC\/Poster_CHAMONIX23.jpg",
@@ -1480,51 +1854,97 @@
                 "lead",
                 "speed"
             ],
-            "starts_at": "2023-07-07T10:00:00+02:00",
-            "ends_at": "2023-07-09T10:00:00+02:00",
+            "starts_at": "2023-07-07T12:00:00+02:00",
+            "ends_at": "2023-07-09T12:00:00+02:00",
             "timezone": "Europe\/Paris",
             "rounds": [
                 {
                     "name": "Speed Qualifications",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/h6EYmiImp5g",
                     "starts_at": "2023-07-07T08:00:00+02:00",
                     "ends_at": "2023-07-07T11:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Qualifications",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/Bzesi3mciuw",
                     "starts_at": "2023-07-08T09:00:00+02:00",
                     "ends_at": "2023-07-08T12:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Speed Finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/3zfs3s06yPQ",
                     "starts_at": "2023-07-08T21:00:00+02:00",
                     "ends_at": "2023-07-09T00:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Semi-finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/iF_1fI21Z_w",
                     "starts_at": "2023-07-09T10:00:00+02:00",
                     "ends_at": "2023-07-09T13:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Lead Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/ZNgbe8vi2OI",
                     "starts_at": "2023-07-09T20:30:00+02:00",
                     "ends_at": "2023-07-09T23:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Lead Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/ZNgbe8vi2OI",
                     "starts_at": "2023-07-09T21:30:00+02:00",
                     "ends_at": "2023-07-10T00:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -1652,8 +2072,10 @@
         },
         {
             "id": 1300,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Brian\u00e7on 2023",
+            "name": "IFSC World Cup - Brian\u00e7on",
             "country": "FRA",
             "location": "Brian\u00e7on",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230714_Briancon_WC\/Poster_BRIAN2023.jpg",
@@ -1662,37 +2084,67 @@
             "disciplines": [
                 "lead"
             ],
-            "starts_at": "2023-07-14T10:00:00+02:00",
-            "ends_at": "2023-07-15T10:00:00+02:00",
+            "starts_at": "2023-07-14T12:00:00+02:00",
+            "ends_at": "2023-07-15T12:00:00+02:00",
             "timezone": "Europe\/Paris",
             "rounds": [
                 {
                     "name": "Lead Qualifications",
-                    "stream_url": "",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
+                    "stream_url": null,
                     "starts_at": "2023-07-14T09:00:00+02:00",
                     "ends_at": "2023-07-14T12:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Semi-finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/eTNDKfip2SY",
                     "starts_at": "2023-07-14T20:30:00+02:00",
                     "ends_at": "2023-07-14T23:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Lead Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/pOHRMCGtTJE",
                     "starts_at": "2023-07-15T20:30:00+02:00",
                     "ends_at": "2023-07-15T23:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Lead Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/pOHRMCGtTJE",
                     "starts_at": "2023-07-15T21:30:00+02:00",
                     "ends_at": "2023-07-16T00:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -1820,8 +2272,10 @@
         },
         {
             "id": 1301,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Championships Bern 2023",
+            "name": "IFSC World Championships - Bern",
             "country": "SUI",
             "location": "Bern",
             "poster": null,
@@ -1832,128 +2286,257 @@
                 "lead",
                 "speed"
             ],
-            "starts_at": "2023-08-01T10:00:00+02:00",
-            "ends_at": "2023-08-12T10:00:00+02:00",
+            "starts_at": "2023-08-01T12:00:00+02:00",
+            "ends_at": "2023-08-12T12:00:00+02:00",
             "timezone": "Europe\/Zurich",
             "rounds": [
                 {
                     "name": "Men's Boulder Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2023-08-01T09:00:00+02:00",
                     "ends_at": "2023-08-01T12:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Lead Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2023-08-02T11:00:00+02:00",
                     "ends_at": "2023-08-02T14:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Lead Qualification",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2023-08-03T08:30:00+02:00",
                     "ends_at": "2023-08-03T11:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Qualification",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "qualification",
                     "stream_url": null,
                     "starts_at": "2023-08-03T15:30:00+02:00",
                     "ends_at": "2023-08-03T18:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Semi-final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/XAIvMgZ4Amk",
                     "starts_at": "2023-08-04T10:00:00+02:00",
                     "ends_at": "2023-08-04T13:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/rej4PvBMzdE",
                     "starts_at": "2023-08-04T18:30:00+02:00",
                     "ends_at": "2023-08-04T21:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Semi-final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/Dfwjy3iNs5o",
                     "starts_at": "2023-08-05T10:00:00+02:00",
                     "ends_at": "2023-08-05T13:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/9QRsxEWRqFY",
                     "starts_at": "2023-08-05T18:30:00+02:00",
                     "ends_at": "2023-08-05T21:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Semi-finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/s_yWGbYAudo",
                     "starts_at": "2023-08-06T10:00:00+02:00",
                     "ends_at": "2023-08-06T13:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/-oX3AcDwJMc",
                     "starts_at": "2023-08-06T18:30:00+02:00",
                     "ends_at": "2023-08-06T21:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder & Lead Semi-final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder",
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/DN1Q403kUlQ",
                     "starts_at": "2023-08-09T09:00:00+02:00",
                     "ends_at": "2023-08-09T12:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder & Lead Semi-final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder",
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/DN1Q403kUlQ",
                     "starts_at": "2023-08-09T13:00:00+02:00",
                     "ends_at": "2023-08-09T16:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Boulder & Lead Semi-finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder",
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/DN1Q403kUlQ",
                     "starts_at": "2023-08-09T20:30:00+02:00",
                     "ends_at": "2023-08-09T23:30:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Speed Qualifications",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/hSDU0U4Atj4",
                     "starts_at": "2023-08-10T09:00:00+02:00",
                     "ends_at": "2023-08-10T12:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Speed Finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/15GHkO478B0",
                     "starts_at": "2023-08-10T20:00:00+02:00",
                     "ends_at": "2023-08-10T23:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Boulder & Lead Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "boulder",
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/ZZ33WCvMx_s",
                     "starts_at": "2023-08-11T19:00:00+02:00",
                     "ends_at": "2023-08-11T22:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Boulder & Lead Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "boulder",
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/mc-vLiSU5ZE",
                     "starts_at": "2023-08-12T16:00:00+02:00",
                     "ends_at": "2023-08-12T19:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -2081,8 +2664,10 @@
         },
         {
             "id": 1302,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Koper 2023",
+            "name": "IFSC World Cup - Koper",
             "country": "SLO",
             "location": "Koper",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230908_Koper_WC\/Poster_KOP23_WC.jpg",
@@ -2091,37 +2676,67 @@
             "disciplines": [
                 "lead"
             ],
-            "starts_at": "2023-09-08T10:00:00+02:00",
-            "ends_at": "2023-09-09T10:00:00+02:00",
+            "starts_at": "2023-09-08T12:00:00+02:00",
+            "ends_at": "2023-09-09T12:00:00+02:00",
             "timezone": "Europe\/Ljubljana",
             "rounds": [
                 {
                     "name": "Lead Qualifications",
-                    "stream_url": "",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
+                    "stream_url": null,
                     "starts_at": "2023-09-08T09:00:00+02:00",
                     "ends_at": "2023-09-08T12:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Semi-finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/nn4NQtbeTgc",
                     "starts_at": "2023-09-08T20:00:00+02:00",
                     "ends_at": "2023-09-08T23:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Men's Lead Final",
+                    "categories": [
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/dro2rTDVleM",
                     "starts_at": "2023-09-09T20:00:00+02:00",
                     "ends_at": "2023-09-09T23:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Women's Lead Final",
+                    "categories": [
+                        "women"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/dro2rTDVleM",
                     "starts_at": "2023-09-09T21:00:00+02:00",
                     "ends_at": "2023-09-10T00:00:00+02:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -2249,8 +2864,10 @@
         },
         {
             "id": 1303,
+            "league_id": 418,
+            "league_name": "World Cups and World Championships",
             "season": 2023,
-            "name": "IFSC World Cup Wujiang 2023",
+            "name": "IFSC World Cup - Wujiang",
             "country": "CHN",
             "location": "Wujiang",
             "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/2023\/230922_Wujiang_WC\/Poster_WUJIANG23_WC_copy.jpg",
@@ -2260,44 +2877,84 @@
                 "lead",
                 "speed"
             ],
-            "starts_at": "2023-09-22T16:00:00+08:00",
-            "ends_at": "2023-09-24T16:00:00+08:00",
+            "starts_at": "2023-09-23T00:00:00+08:00",
+            "ends_at": "2023-09-25T00:00:00+08:00",
             "timezone": "Asia\/Chongqing",
             "rounds": [
                 {
                     "name": "Lead Qualifications",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/jSbrYuieLM8",
                     "starts_at": "2023-09-22T09:00:00+08:00",
                     "ends_at": "2023-09-22T12:00:00+08:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Speed Qualifications",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "qualification",
                     "stream_url": "https:\/\/youtu.be\/3S_6IUR31sQ",
                     "starts_at": "2023-09-22T17:00:00+08:00",
                     "ends_at": "2023-09-22T20:00:00+08:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Semi-finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "semi-final",
                     "stream_url": "https:\/\/youtu.be\/TAs1sL84HnM",
                     "starts_at": "2023-09-23T15:00:00+08:00",
                     "ends_at": "2023-09-23T18:00:00+08:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Speed Finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "speed"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/789CAu-o2BA",
                     "starts_at": "2023-09-23T19:30:00+08:00",
                     "ends_at": "2023-09-23T22:30:00+08:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 },
                 {
                     "name": "Lead Finals",
+                    "categories": [
+                        "women",
+                        "men"
+                    ],
+                    "disciplines": [
+                        "lead"
+                    ],
+                    "kind": "final",
                     "stream_url": "https:\/\/youtu.be\/C7DkvNuYFs4",
                     "starts_at": "2023-09-24T19:00:00+08:00",
                     "ends_at": "2023-09-24T22:00:00+08:00",
-                    "schedule_confirmed": true
+                    "schedule_status": "confirmed"
                 }
             ],
             "start_list": [
@@ -2423,5 +3080,9 @@
                 }
             ]
         }
-    ]
+    ],
+    "metadata": {
+        "updated_at": "2024-03-15T19:36:51+00:00",
+        "generated_by": "https:\/\/github.com\/sportclimbing\/ifsc-calendar"
+    }
 }

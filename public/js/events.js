@@ -31,9 +31,14 @@ const fetchSeasons = (async () => {
     });
 });
 
-const refresh = (async () => {
+const refresh = (async (useCache) => {
     const response = await fetch(`events/events_${selectedSeason}.json?v=` + Math.floor(Math.random() * 10000));
     const jsonData = await response.json();
+
+    if (useCache && calendar_is_up_to_date(jsonData)) {
+        return;
+    }
+
     const events = apply_search_filters(jsonData);
     const nextEvent = get_next_event(events);
     const leagueTemplate = document.getElementById('ifsc-league');
@@ -59,6 +64,7 @@ const refresh = (async () => {
     let liveEvent = null;
     let lastEventFinished = false;
     let seasonHasUpcomingEvents = false;
+    let numRounds = 0;
 
     events.forEach((event) => {
         if (event.rounds.length === 0) {
@@ -86,6 +92,7 @@ const refresh = (async () => {
         accordion.appendChild(clone);
 
         event.rounds.forEach((round) => {
+            numRounds++;
             let clone = template.content.cloneNode(true);
             const streamButton = $('#button-stream', clone);
 
@@ -143,6 +150,14 @@ const refresh = (async () => {
         });
     });
 
+    if (numRounds === 0) {
+        const div = document.createElement('div');
+        div.innerHTML = '⚠️ No results. Please adjust filters above!';
+        div.className = 'no-results';
+
+        accordion.appendChild(div);
+    }
+
     let leagueElement = document.getElementById(`event-${selectedEvent}`);
 
     if (!allCollapsed) {
@@ -157,15 +172,17 @@ const refresh = (async () => {
     set_favicon(liveEvent);
 
     if (!seasonHasUpcomingEvents) {
-        set_background_image();
+  //      set_background_image();
     }
     set_background_image();
 });
 
 (() => {
+    restore_config();
+
     fetchSeasons().then();
-    refresh().then(() => {
-        window.setInterval(refresh, 1000 * 60);
+    refresh(false).then(() => {
+        window.setInterval(() => refresh(true), 1000 * 60);
 
         let leagueElement = document.getElementById(`event-${selectedEvent}`);
 
@@ -174,7 +191,6 @@ const refresh = (async () => {
         }
     });
 
-    restore_config();
     config = load_config_from_modal();
 
     addEventListener('hashchange', () => {
@@ -182,7 +198,7 @@ const refresh = (async () => {
 
         selectedSeason = season;
         selectedEvent = null;
-        refresh().then();
+        refresh(false).then();
 
         const seasonSelector = document.getElementById('ifsc-season');
         seasonSelector.innerHTML = seasonSelector.innerHTML.replace(/20\d{2}/, season);
@@ -194,12 +210,12 @@ const refresh = (async () => {
 
     $('#save-filters').on('click', () => {
         config = load_config_from_modal();
-        refresh().then();
+        refresh(false).then();
 
-        window.localStorage.setItem('config', JSON.stringify(config));
+        window.localStorage.setItem('config_v2', JSON.stringify(config));
     });
 
-    $('input[type="checkbox"]').on('change', refresh);
+    $('input[type="checkbox"]').on('change', () => refresh(false));
 
     if (document.location.hostname === 'ifsc.stream') {
         const img = new Image();
@@ -214,6 +230,10 @@ const refresh = (async () => {
         window.location = `#/season/${e.target.value}`;
     });
 
+    // Remove old config
+    window.localStorage.removeItem('config');
+
+    /*
     fetch('http://ip-api.com/json').then(async (response) => {
         let json = await response.json();
         let blocked = [
@@ -310,4 +330,5 @@ const refresh = (async () => {
             regionButton.hide();
         }
     })
+    */
 })();

@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>IFSC Calendar &amp; Live Streams 2024 - Boulder, Lead, &amp; Speed Climbing</title>
+    <title>IFSC Calendar &amp; Live Streams 2024 - Boulder, Lead, &amp; Speed Climbing Schedule</title>
 
-    <meta name="description" content="IFSC Calendar 2024 - Streams for all boulder, lead, and speed climbing events" />
+    <meta name="description" content="IFSC Calendar 2024 - Live-Streams for all boulder, lead, and speed climbing events. Full schedule" />
 
    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="css/calendar.css?v=2" />
     <link rel="stylesheet" href="css/calendar-desktop.css" media="screen and (min-width: 501px)" />
     <link rel="stylesheet" href="css/calendar-mobile.css" media="screen and (max-width: 500px)" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" />
 </head>
 <body>
 
@@ -45,7 +43,7 @@
             </div>
 
             <div class="watch-button">
-                <a class="btn btn-primary" href="" role="button" id="button-stream" target="_blank">🍿 Watch</a><br />
+                <a class="btn btn-primary" href="" role="button" id="button-stream" rel="noopener" target="_blank">🍿 Watch</a>
                 <a class="btn btn-primary button-reminder" href="https://github.com/sportclimbing/ifsc-calendar/wiki" rel="noopener" role="button" target="_blank" data-toggle="modal" data-target="#calendar-modal">📆 Set Reminder</a>
                 <a class="btn btn-outline-danger button-results" href="" role="button" target="_blank" rel="noopener">🏆 Results <img src="img/external-link.svg" alt="External link" /></a>
             </div>
@@ -89,7 +87,7 @@
 
 <div id="ifsc-season">
     <div class="header-title">
-        <h2>IFSC Calendar &amp; Live Streams 2024</h2>
+        <h2><a href="#">IFSC Calendar &amp; Live Streams 2024</a></h2>
         <p>Boulder, Lead &amp; Speed Live Streams</p>
     </div>
 </div>
@@ -218,7 +216,7 @@
     </div>
 </div>
 
-<div id="filter-modal" class="modal fade" role="dialog">
+<div id="filter-modal" class="modal fade filters-modal" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -226,27 +224,48 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <h4 style="margin-bottom: 10px;">Discipline</h4>
-                <p style="line-height: 12px;"><label>
+                <h4>League</h4>
+                <div id="config-leagues">
+                    <p><label><input type="checkbox" name="league[cups]" value="World Cups and World Championships" checked /> 🏆 World Cups &amp; World Championships</label></p>
+                    <p><label><input type="checkbox" name="league[games]" value="Games" checked /> 🎲 Games</label></p>
+                    <p><label><input type="checkbox" name="league[paraclimbing]" value="IFSC Paraclimbing" /> 🧑‍🦽 Paraclimbing</label></p>
+                </div>
+
+                <h4>Category</h4>
+                <p><label>
+                    <input type="checkbox" name="category[women]" value="1" checked>
+                    🙋‍♀️ Women</label></p>
+                <p><label>
+                    <input type="checkbox" name="category[men]" value="1" checked>
+                    🙋‍♂️️ Men</label></p>
+                <hr />
+                <h4>Discipline</h4>
+                <p><label>
                     <input type="checkbox" name="discipline[boulder]" value="1" checked>
                     🪨 Boulder</label></p>
-                <p style="line-height: 12px;"><label>
+                <p><label>
                     <input type="checkbox" name="discipline[lead]" value="1" checked>
                     🧗🏽‍♀️ Lead</label></p>
-                <p style="line-height: 12px;"><label>
+                <p><label>
                     <input type="checkbox" name="discipline[speed]" value="1" checked>
                     💨 Speed</label></p>
                 <hr />
-                <h4 style="margin-bottom: 10px;">Round</h4>
-                <p style="line-height: 12px;"><label>
+                <h4>Round</h4>
+                <p><label>
                     <input type="checkbox" name="round[qualifications]" value="1" checked>
                     🎯  Qualifications (usually not streamed)</label></p>
-                <p style="line-height: 12px;"><label>
+                <p><label>
                     <input type="checkbox" name="round[semifinals]" value="1" checked>
                     🥈 Semi-Finals</label></p>
-                <p style="line-height: 12px;"><label>
+                <p><label>
                     <input type="checkbox" name="round[finals]" value="1" checked>
                     🏆 Finals</label></p>
+                <hr />
+                <h4>Live-Streams Only</h4>
+                <p><label>
+                    <input type="checkbox" name="streamable">
+                    🔗 Only show events we found links to
+                </label></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-filters">Save</button>

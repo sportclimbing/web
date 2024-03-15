@@ -136,7 +136,22 @@ li.ifsc-event {
     accent-color: #e6007e;
 }
 
+.filters-modal h4 {
+    padding-bottom: 5px;
+}
+
 li.ifsc-event:last-child { border-bottom: none; }
+
+.no-results {
+    max-width: 700px;
+    background: #ffffff;
+    margin: auto;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #e9e9e9;
+    text-align: center;
+    font-weight: bold;
+}
 
 .event-name {
     font-weight: bold;
@@ -171,6 +186,11 @@ li.ifsc-event:last-child { border-bottom: none; }
     background-repeat: no-repeat;
 }
 
+.header-title a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
 #ifsc-season .header-title h2 {
     font-size: 22px;
     font-weight: bold;
@@ -197,6 +217,7 @@ li.ifsc-event:last-child { border-bottom: none; }
 
 .button-reminder {
     background-color: #e6007e;
+    font-size: 12px;
     border: 1px solid #ad0a68;
     display: none;
     width: 120px;
@@ -211,10 +232,10 @@ li.ifsc-event:last-child { border-bottom: none; }
 .event-poster {
     position: absolute;
     right: 20px;
-    top: 10px;
+    top: 15px;
     width: 100px;
     height: 135px;
-    margin-top: 10px;
+    margin-top: 40px;
 }
 
 .filters-button {

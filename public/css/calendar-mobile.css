@@ -32,7 +32,6 @@
 }
 
 .youtube-thumbnail {
-
 }
 
 .ifsc-starts-in {
@@ -56,10 +55,6 @@
     float: right;
 }
 
-.button-reminder {
-    font-size: 12px;
-}
-
 #ifsc-season .header-title h2 {
     font-size: 17px;
 }
@@ -77,17 +72,26 @@
 
 .watch-button {
     position: absolute;
-    top: 0;
-    left: 250px;
+    left: 10px;
+    top: 210px;
+    height: 50px;
+}
+
+.watch-button a {
+    float: left;
+    margin-right: 10px;
 }
 
 .round-details {
     position: absolute;
-    top: 30px;
     left: 0;
-    height: 300px;
+    height: 340px;
 }
 
 li.ifsc-event {
-    height: 230px;
+    height: 270px;
+}
+
+.event-poster {
+    top: 25px;
 }
