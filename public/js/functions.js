@@ -446,7 +446,7 @@ function set_event_streams(element, event) {
 }
 
 function set_event_page(element, event) {
-    element.href = `https://www.ifsc-climbing.org/component/ifsc/?view=event&WetId=${event.id}`;
+    element.href = event.event_url;
 }
 
 function set_event_start_list(element, event) {
