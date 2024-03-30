@@ -28,7 +28,7 @@ foreach ($json->events as $event) {
         }
 
         if (!is_dir($dirName)) {
-            mkdir($dirName, 700);
+            mkdir($dirName, 777);
         }
 
         if (copy($event->poster, $saveAs)) {
