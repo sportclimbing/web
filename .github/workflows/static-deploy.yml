@@ -34,12 +34,6 @@ jobs:
         with:
           php-version: '8.3'
 
-      - name: "Update RSS file"
-        run: curl -sS "${{ env.IFSC_RSS_FEED_URL }}" --output public/feed/rss.xml
-
-      - name: "Download news images"
-        run:  php bin/download-news-images "public/feed/rss.xml"
-
       - name: "Download latest calendar"
         run: |
           curl -sSL "https://calendar.ifsc.stream/?format=json&nocache=1" \
