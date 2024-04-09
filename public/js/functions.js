@@ -233,6 +233,32 @@ function event_poster_path(event) {
     return `img/posters/${event.starts_at.substring(0, 4)}/${event.id}.png`;
 }
 
+function set_round_details(clone, round) {
+    set_round_name(clone.querySelector('.round-name'), round);
+    set_round_date(clone.querySelector('.round-date'), round);
+    set_round_youtube_cover(clone.querySelector('.youtube-thumbnail'), round);
+    set_round_stream_button($('#button-stream', clone), round);
+}
+
+function set_next_event(round, event, isStreaming) {
+    const template = document.getElementById("ifsc-event");
+    const clone = template.content.cloneNode(true);
+
+    clone.querySelector('.button-results').style.display = 'none';
+    clone.querySelector('a[data-toggle="modal"]').style.display = 'inline';
+
+    set_round_details(clone, round);
+
+    let startsIn = $('#ifsc-starts-in', clone);
+    startsIn.text(`🟢 Next Event (starts ${pretty_starts_in(round)})`);
+    startsIn.removeClass('text-muted').addClass('fw-bold');
+
+    document.querySelector('#next-event-details').append(clone);
+    const title = isStreaming ? '🔴 Now Streaming' : '⏰ Next Event';
+
+    $('#next-event-title').text(`${title} - ${event.name}`);
+}
+
 function set_background_image(event) {
     let youTubeVideoId;
 

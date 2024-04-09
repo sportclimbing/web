@@ -146,14 +146,11 @@
 </section>
 
 <main role="main" style="max-width: 700px; margin: 0 auto;">
-    <div id="accordion" style="padding-top: 3px;"></div>
-
-    <h1 class="alert ifsc-news">Recent IFSC News</h1>
-    <div>
-        <div class="container" style="padding: 0;">
-            <div class="row" id="container"></div>
-        </div>
+    <div class="next-event">
+        <h1 id="next-event-title"></h1>
+        <div id="next-event-details"></div>
     </div>
+    <div id="accordion" style="padding-top: 3px;"></div>
 </main>
 
 <div id="calendar-modal" class="modal fade" role="dialog">
@@ -303,8 +300,8 @@
     </div>
 </div>
 
-<footer class="text-muted card">
-    <div class="container text-center">
+<footer>
+    <div>
         <p>&copy; 2024 by Nico Oelgart (<a href="https://github.com/sportclimbing" target="_blank" rel="noopener">@sportclimbing</a>) - <a href="https://www.reddit.com/r/CompetitionClimbing/comments/13bj7vx/i_made_a_better_ifsc_competition_calendar_you_can/" target="_blank" rel="noopener">Discuss on Reddit</a> </p>
         <p>Seasons:
             <a href="#/season/2020">2020</a>,
@@ -313,7 +310,7 @@
             <a href="#/season/2023">2023</a>,
             <a href="#/season/2024">2024</a>
         </p>
-        <p style="font-weight: bold;">In no way affiliated with, or endorsed by the <a href="https://www.ifsc-climbing.org/" target="_blank" rel="noopener">IFSC</a></p>
+        <p style="font-weight: bold; margin-top: 10px;">In no way affiliated with, or endorsed by the <a href="https://www.ifsc-climbing.org/" target="_blank" rel="noopener">IFSC</a></p>
     </div>
 </footer>
 

@@ -62,7 +62,7 @@ const refresh = (async (useCache) => {
 
     const template = document.getElementById("ifsc-event");
     let liveEvent = null;
-    let lastEventFinished = false;
+    let lastEventFinished = true;
     let seasonHasUpcomingEvents = false;
     let numRounds = 0;
 
@@ -96,10 +96,7 @@ const refresh = (async (useCache) => {
             let clone = template.content.cloneNode(true);
             const streamButton = $('#button-stream', clone);
 
-            set_round_name(clone.querySelector('.round-name'), round);
-            set_round_date(clone.querySelector('.round-date'), round);
-            set_round_youtube_cover(clone.querySelector('.youtube-thumbnail'), round);
-            set_round_stream_button($('#button-stream', clone), round);
+            set_round_details(clone, round);
 
             if (event_is_streaming(round)) {
                 clone.getElementById('ifsc-starts-in').innerText = `🔴 Live Now`;
@@ -108,10 +105,10 @@ const refresh = (async (useCache) => {
                 seasonHasUpcomingEvents = true;
 
                 clone.querySelector('.button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
-
                 document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
 
                 set_background_image(round);
+                set_next_event(round, event, true);
             } else if (event_is_upcoming(round)) {
                 let startsIn = clone.getElementById('ifsc-starts-in');
                 seasonHasUpcomingEvents = true;
@@ -119,25 +116,21 @@ const refresh = (async (useCache) => {
                 if (!liveEvent && lastEventFinished) {
                     lastEventFinished = false;
                     startsIn.innerText = `🟢 Next Event (starts ${pretty_starts_in(round)})`;
-
                     clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(193,241,241,0.4)';
 
                     set_background_image(round);
+                    set_next_event(round, event);
                     clone.querySelector('a[data-toggle="modal"]').style.display = 'inline';
-
-                    if (!round.stream_url) {
-                        streamButton.hide();
-                    }
                 } else {
                     startsIn.innerText = `⌛ Starts ${pretty_starts_in(round)}`;
                     poster.classList.add('bw');
-
-                    if (!round.stream_url) {
-                        streamButton.hide();
-                    }
-
                     clone.querySelector('a[data-toggle="modal"]').style.display = 'inline';
                 }
+
+                if (!round.stream_url) {
+                    streamButton.hide();
+                }
+
                 clone.querySelector('.button-results').style.display = 'none';
                 document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
             } else {
@@ -187,7 +180,7 @@ const refresh = (async (useCache) => {
         let leagueElement = document.getElementById(`event-${selectedEvent}`);
 
         if (leagueElement && !element_is_in_viewport(leagueElement)) {
-            leagueElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+     //       leagueElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
         }
     });
 
