@@ -241,6 +241,12 @@ function set_round_details(clone, round) {
 }
 
 function set_next_event(round, event, isStreaming) {
+    let eventDetails = document.querySelector('#next-event-details');
+
+    while (eventDetails.lastElementChild) {
+        eventDetails.removeChild(eventDetails.lastElementChild);
+    }
+
     const template = document.getElementById("ifsc-event");
     const clone = template.content.cloneNode(true);
 
@@ -248,12 +254,11 @@ function set_next_event(round, event, isStreaming) {
     clone.querySelector('a[data-toggle="modal"]').style.display = 'inline';
 
     set_round_details(clone, round);
-
     let startsIn = $('#ifsc-starts-in', clone);
     startsIn.text(`🟢 Next Event (starts ${pretty_starts_in(round)})`);
-    startsIn.removeClass('text-muted').addClass('fw-bold');
 
-    document.querySelector('#next-event-details').append(clone);
+    startsIn.removeClass('text-muted').addClass('fw-bold');
+    eventDetails.append(clone);
     const title = isStreaming ? '🔴 Now Streaming' : '⏰ Next Event';
 
     $('#next-event-title').text(`${title} - ${event.name}`);
