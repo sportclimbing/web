@@ -250,8 +250,8 @@ function set_next_event(round, event, isStreaming) {
     const template = document.getElementById("ifsc-event");
     const clone = template.content.cloneNode(true);
 
-    clone.querySelector('.button-results').style.display = 'none';
-    clone.querySelector('a[data-toggle="modal"]').style.display = 'inline';
+    clone.querySelector('.button-results').style.display = isStreaming ? 'block' : 'none';
+    clone.querySelector('a[data-toggle="modal"]').style.display = isStreaming ? 'none' : 'inline';
 
     set_round_details(clone, round);
     let startsIn = $('#ifsc-starts-in', clone);
