@@ -1,19 +1,3 @@
-let lastCalendarUpdate = null;
-
-function calendar_is_up_to_date(jsonData) {
-    let currentCalendarDate = jsonData.metadata.updated_at;
-
-    if (!lastCalendarUpdate) {
-        lastCalendarUpdate = currentCalendarDate;
-    } else {
-        if (currentCalendarDate !== lastCalendarUpdate) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
 function event_is_streaming(event) {
     const now = dayjs();
     const eventStart = dayjs(event.starts_at);
@@ -26,13 +10,31 @@ function event_is_upcoming(event) {
 }
 
 function event_schedule_status(event) {
+    const status = {
+        confirmed: '☑️ Confirmed Schedule',
+        provisional: '⏳ Provisional Schedule',
+        estimated: '⏳ Estimated Schedule',
+    };
+
+    let numNonQualificationRounds = 0;
+
     for (const round of event.rounds) {
-        if (round.schedule_status !== 'confirmed') {
-            return '⏳ Unconfirmed Schedule';
+        if (round.kind === 'qualification') {
+            continue;
+        }
+
+        numNonQualificationRounds++;
+
+        if (round.schedule_status === 'provisional') {
+            return status.provisional;
+        }
+
+        if (round.schedule_status === 'estimated') {
+            return status.estimated;
         }
     }
 
-    return '☑️ Confirmed Schedule';
+    return numNonQualificationRounds > 0 ? status.confirmed : status.provisional;
 }
 
 function pretty_starts_in(event) {
@@ -241,6 +243,7 @@ function set_round_details(clone, round) {
 }
 
 function set_next_event(round, event, isStreaming) {
+    document.querySelector('.next-event').style.display = '';
     let eventDetails = document.querySelector('#next-event-details');
 
     while (eventDetails.lastElementChild) {
@@ -309,6 +312,10 @@ function set_round_youtube_cover(element, round) {
     let counter = 0;
 
     element.onmouseover = () => {
+        if (event_is_streaming(round) || event_is_upcoming(round)) {
+            return;
+        }
+
         interval = window.setInterval(() => {
             counter++;
             if (counter > 3) {
@@ -319,8 +326,10 @@ function set_round_youtube_cover(element, round) {
     };
 
     element.onmouseout = () => {
-        window.clearInterval(interval);
-        set_youtube_cover(element, 0);
+        if (interval) {
+            window.clearInterval(interval);
+            set_youtube_cover(element, 0);
+        }
     };
 }
 
