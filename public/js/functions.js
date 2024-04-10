@@ -254,8 +254,14 @@ function set_next_event(round, event, isStreaming) {
     clone.querySelector('a[data-toggle="modal"]').style.display = isStreaming ? 'none' : 'inline';
 
     set_round_details(clone, round);
+
     let startsIn = $('#ifsc-starts-in', clone);
-    startsIn.text(`🟢 Next Event (starts ${pretty_starts_in(round)})`);
+
+    if (isStreaming) {
+        startsIn.text(`🔴 Live now (${pretty_started_ago(round)})`);
+    } else {
+        startsIn.text(`🟢 Next Event (Starts ${pretty_starts_in(round)})`);
+    }
 
     startsIn.removeClass('text-muted').addClass('fw-bold');
     eventDetails.append(clone);
