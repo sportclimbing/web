@@ -259,6 +259,7 @@ function set_next_event(round, event, isStreaming) {
 
     if (isStreaming) {
         startsIn.text(`🔴 Live now (${pretty_started_ago(round)})`);
+        clone.querySelector('.button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
     } else {
         startsIn.text(`🟢 Next Event (Starts ${pretty_starts_in(round)})`);
     }
