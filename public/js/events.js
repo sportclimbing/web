@@ -31,14 +31,9 @@ const fetchSeasons = (async () => {
     });
 });
 
-const refresh = (async (useCache) => {
+const refresh = (async () => {
     const response = await fetch(`events/events_${selectedSeason}.json?v=` + Math.floor(Math.random() * 10000));
     const jsonData = await response.json();
-
-    if (useCache && calendar_is_up_to_date(jsonData)) {
-        return;
-    }
-
     const events = apply_search_filters(jsonData);
     const nextEvent = get_next_event(events);
     const leagueTemplate = document.getElementById('ifsc-league');
@@ -174,8 +169,8 @@ const refresh = (async (useCache) => {
     restore_config();
 
     fetchSeasons().then();
-    refresh(false).then(() => {
-        window.setInterval(() => refresh(true), 1000 * 60);
+    refresh().then(() => {
+        window.setInterval(() => refresh(), 1000 * 10);
 
         let leagueElement = document.getElementById(`event-${selectedEvent}`);
 
@@ -191,7 +186,7 @@ const refresh = (async (useCache) => {
 
         selectedSeason = season;
         selectedEvent = null;
-        refresh(false).then();
+        refresh().then();
 
         const seasonSelector = document.getElementById('ifsc-season');
         seasonSelector.innerHTML = seasonSelector.innerHTML.replace(/20\d{2}/, season);
@@ -203,12 +198,12 @@ const refresh = (async (useCache) => {
 
     $('#save-filters').on('click', () => {
         config = load_config_from_modal();
-        refresh(false).then();
+        refresh().then();
 
         window.localStorage.setItem('config_v2', JSON.stringify(config));
     });
 
-    $('input[type="checkbox"]').on('change', () => refresh(false));
+    $('input[type="checkbox"]').on('change', () => refresh());
 
     if (document.location.hostname === 'ifsc.stream') {
         const img = new Image();
