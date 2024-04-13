@@ -1,8 +1,9 @@
 function event_is_streaming(event) {
     const now = dayjs();
     const eventStart = dayjs(event.starts_at);
+    const eventEnd = dayjs(event.ends_at);
 
-    return eventStart.isBetween(now, now.subtract(3, 'hour'));
+    return now.isBetween(eventStart, eventEnd);
 }
 
 function event_is_upcoming(event) {
