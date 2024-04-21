@@ -206,8 +206,9 @@ const refresh = (async () => {
     $('input[type="checkbox"]').on('change', () => refresh());
 
     if (document.location.hostname === 'ifsc.stream') {
+        const normalize = (referrer) => encodeURIComponent(referrer.replace('https://', '').replace(/\/$/, ''));
         const img = new Image();
-        img.src = 'https://calendar.ifsc.stream/pixel.gif?' + (document.referrer ? `r=${encodeURIComponent(document.referrer)}` : '');
+        img.src = 'https://calendar.ifsc.stream/pixel.gif' + (document.referrer ? `?r=${normalize(document.referrer)}` : '');
         img.width = 1;
         img.height = 1;
 
