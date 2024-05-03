@@ -17,6 +17,7 @@ concurrency:
 
 env:
   IFSC_RSS_FEED_URL: "https://www.ifsc-climbing.org/news?format=feed&type=rss"
+  LATEST_CALENDAR_URL: "https://github.com/sportclimbing/ifsc-calendar/releases/latest/download/IFSC-World-Cups-and-World-Championships.json"
   YEAR: 2024
 
 jobs:
@@ -36,7 +37,7 @@ jobs:
 
       - name: "Download latest calendar"
         run: |
-          curl -sSL "https://calendar.ifsc.stream/?format=json&nocache=1" \
+          curl -sSL "${{ env.LATEST_CALENDAR_URL }}" \
               --output "public/events/events_${YEAR}.json" \
               --max-time 15
 
