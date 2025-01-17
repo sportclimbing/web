@@ -1,7 +1,7 @@
 /.idea/
 .DS_Store
 
-/public/events/events_2024.json
+/public/events/events_2025.json
 /public/feed/rss.xml
 /public/img/news
 /composer.lock
