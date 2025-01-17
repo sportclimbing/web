@@ -1,7 +1,7 @@
 dayjs.extend(window.dayjs_plugin_relativeTime);
 dayjs.extend(window.dayjs_plugin_isBetween);
 
-const DEFAULT_SEASON = '2024';
+const DEFAULT_SEASON = '2025';
 const DEFAULT_POSTER = 'img/posters/2023/default.jpg';
 const DEFAULT_BACKGROUND_IMAGE_ID = 'eTNDKfip2SY';
 
