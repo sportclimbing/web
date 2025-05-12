@@ -296,7 +296,7 @@ function set_background_image(event) {
     img.onerror = () => document.body.style.backgroundImage = `url(${backgroundImageFallback})`;
 }
 
-function set_round_youtube_cover(element, round) {
+function video_id_from_stream(round) {
     let youtubeVideoId = extract_youtube_video_id(round.stream_url);
 
     if (!youtubeVideoId) {
@@ -307,6 +307,11 @@ function set_round_youtube_cover(element, round) {
         }
     }
 
+    return youtubeVideoId;
+}
+
+function set_round_youtube_cover(element, round) {
+    let youtubeVideoId = video_id_from_stream(round);
     element.style.backgroundImage = `url(https://img.youtube.com/vi/${youtubeVideoId}/0.jpg)`;
 
     let interval;
@@ -477,14 +482,10 @@ function set_event_discipline(element, event) {
 }
 
 function set_event_poster(element, event) {
-    if (event.poster) {
-        element.src = event_poster_path(event);
-    } else {
-        element.src = DEFAULT_POSTER;
-    }
+    let round = event.rounds.slice(-1)[0];
+    let youTubeVideoId = video_id_from_stream(round);
 
-    element.alt = event.name;
-    element.title = event.name;
+    element.style.backgroundImage = `url(https://img.youtube.com/vi/${youTubeVideoId}/hqdefault.jpg)`;
 }
 
 function set_event_streams(element, event) {

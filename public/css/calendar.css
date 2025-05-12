@@ -231,10 +231,13 @@ li.ifsc-event:last-child { border-bottom: none; }
 
 .event-poster {
     position: absolute;
+    background-position: center center;
+    background-size: cover;
     right: 20px;
     top: 15px;
-    width: 100px;
-    height: 135px;
+    border: 1px solid #ad0a68;
+    width: 180px;
+    height: 100px;
     margin-top: 40px;
 }
 

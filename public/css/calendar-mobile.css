@@ -93,5 +93,7 @@ li.ifsc-event {
 }
 
 .event-poster {
-    top: 25px;
+    top: 45px;
+    width: 130px;
+    height: 74px;
 }
