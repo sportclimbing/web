@@ -138,7 +138,7 @@ function load_config_from_modal() {
 }
 
 function restore_config() {
-    let config = window.localStorage.getItem('config_v2');
+    let config = window.localStorage.getItem('config_v3');
     let json;
 
     if (config) {
