@@ -18,7 +18,7 @@ concurrency:
 env:
   IFSC_RSS_FEED_URL: "https://www.ifsc-climbing.org/news?format=feed&type=rss"
   LATEST_CALENDAR_URL: "https://github.com/sportclimbing/ifsc-calendar/releases/latest/download/IFSC-World-Cups-and-World-Championships.json"
-  YEAR: 2025
+  YEAR: 2026
 
 jobs:
   deploy:
