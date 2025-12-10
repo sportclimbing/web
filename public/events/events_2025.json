@@ -1,0 +1,1797 @@
+{
+  "events": [
+    {
+      "id": 1477,
+      "league_name": "IFSC Paraclimbing",
+      "season": 2026,
+      "name": "IFSC: World Cup - Salt Lake City",
+      "country": "USA",
+      "location": "Salt Lake City",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1477",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-para-climbing-world-cup-salt-lake-city-2026",
+      "disciplines": [
+        "lead"
+      ],
+      "starts_at": "2026-05-15T02:00:00-06:00",
+      "ends_at": "2026-05-16T10:00:00-06:00",
+      "timezone": "America\/Denver",
+      "rounds": [
+        {
+          "name": "Men B1's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men B2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men B3's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women B1's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women B2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women B3's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AL1's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AL1's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AL2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AL2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AU2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AU2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men RP1's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men RP2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men RP3's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women RP1's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women RP2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women RP3's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AU3's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AU3's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-15T02:00:00-06:00",
+          "ends_at": "2026-05-15T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1478,
+      "league_name": "World Cups and World Championships",
+      "season": 2026,
+      "name": "IFSC: World Cup - Bern",
+      "country": "SUI",
+      "location": "Bern",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1478",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-climbing-world-cup-bern-2026",
+      "disciplines": [
+        "boulder"
+      ],
+      "starts_at": "2026-05-22T10:00:00+02:00",
+      "ends_at": "2026-05-24T18:00:00+02:00",
+      "timezone": "Europe\/Zurich",
+      "rounds": [
+        {
+          "name": "Men's Boulder Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-22T10:00:00+02:00",
+          "ends_at": "2026-05-22T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Boulder Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-22T10:00:00+02:00",
+          "ends_at": "2026-05-22T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1479,
+      "league_name": "World Cups and World Championships",
+      "season": 2026,
+      "name": "IFSC: World Cup - Alcobendas",
+      "country": "ESP",
+      "location": "Alcobendas",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1479",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-climbing-world-cup-comunidad-de-madrid-2026",
+      "disciplines": [
+        "boulder",
+        "speed"
+      ],
+      "starts_at": "2026-05-28T10:00:00+02:00",
+      "ends_at": "2026-05-31T18:00:00+02:00",
+      "timezone": "Europe\/Madrid",
+      "rounds": [
+        {
+          "name": "Men's Boulder Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-28T10:00:00+02:00",
+          "ends_at": "2026-05-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Boulder Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-28T10:00:00+02:00",
+          "ends_at": "2026-05-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men's Speed Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-28T10:00:00+02:00",
+          "ends_at": "2026-05-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Speed Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-05-28T10:00:00+02:00",
+          "ends_at": "2026-05-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1480,
+      "league_name": "World Cups and World Championships",
+      "season": 2026,
+      "name": "IFSC: World Cup - Prague",
+      "country": "CZE",
+      "location": "Prague",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1480",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-climbing-world-cup-prague-2026",
+      "disciplines": [
+        "boulder",
+        "lead"
+      ],
+      "starts_at": "2026-06-03T10:00:00+02:00",
+      "ends_at": "2026-06-07T18:00:00+02:00",
+      "timezone": "Europe\/Prague",
+      "rounds": [
+        {
+          "name": "Men's Boulder Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-03T10:00:00+02:00",
+          "ends_at": "2026-06-03T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Boulder Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-03T10:00:00+02:00",
+          "ends_at": "2026-06-03T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-03T10:00:00+02:00",
+          "ends_at": "2026-06-03T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-03T10:00:00+02:00",
+          "ends_at": "2026-06-03T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1481,
+      "league_name": "IFSC Paraclimbing",
+      "season": 2026,
+      "name": "IFSC: World Cup - Innsbruck",
+      "country": "AUT",
+      "location": "Innsbruck",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1481",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-para-climbing-world-cup-innsbruck-2026",
+      "disciplines": [
+        "lead"
+      ],
+      "starts_at": "2026-06-15T10:00:00+02:00",
+      "ends_at": "2026-06-16T18:00:00+02:00",
+      "timezone": "Europe\/Vienna",
+      "rounds": [
+        {
+          "name": "Men B1's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men B2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men B3's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women B1's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women B2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women B3's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AL1's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AL1's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AL2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AL2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AU2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AU2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men RP1's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men RP2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men RP3's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women RP1's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women RP2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women RP3's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AU3's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AU3's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-15T10:00:00+02:00",
+          "ends_at": "2026-06-15T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1482,
+      "league_name": "World Cups and World Championships",
+      "season": 2026,
+      "name": "IFSC: World Cup - Innsbruck",
+      "country": "AUT",
+      "location": "Innsbruck",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1482",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-climbing-world-cup-innsbruck-2026",
+      "disciplines": [
+        "lead",
+        "boulder"
+      ],
+      "starts_at": "2026-06-17T10:00:00+02:00",
+      "ends_at": "2026-06-21T18:00:00+02:00",
+      "timezone": "Europe\/Vienna",
+      "rounds": [
+        {
+          "name": "Men's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-17T10:00:00+02:00",
+          "ends_at": "2026-06-17T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-17T10:00:00+02:00",
+          "ends_at": "2026-06-17T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men's Boulder Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-17T10:00:00+02:00",
+          "ends_at": "2026-06-17T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Boulder Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-06-17T10:00:00+02:00",
+          "ends_at": "2026-06-17T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1483,
+      "league_name": "World Cups and World Championships",
+      "season": 2026,
+      "name": "IFSC: World Cup - Krakow",
+      "country": "POL",
+      "location": "Krakow",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1483",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-climbing-world-cup-krakow-2026",
+      "disciplines": [
+        "speed"
+      ],
+      "starts_at": "2026-07-03T10:00:00+02:00",
+      "ends_at": "2026-07-05T18:00:00+02:00",
+      "timezone": "Europe\/Warsaw",
+      "rounds": [
+        {
+          "name": "Men's Speed Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-03T10:00:00+02:00",
+          "ends_at": "2026-07-03T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Speed Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-03T10:00:00+02:00",
+          "ends_at": "2026-07-03T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1484,
+      "league_name": "World Cups and World Championships",
+      "season": 2026,
+      "name": "IFSC: World Cup - Chamonix",
+      "country": "FRA",
+      "location": "Chamonix",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1484",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-climbing-world-cup-chamonix-2026",
+      "disciplines": [
+        "speed",
+        "lead"
+      ],
+      "starts_at": "2026-07-10T10:00:00+02:00",
+      "ends_at": "2026-07-12T18:00:00+02:00",
+      "timezone": "Europe\/Paris",
+      "rounds": [
+        {
+          "name": "Men's Speed Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-10T10:00:00+02:00",
+          "ends_at": "2026-07-10T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Speed Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-10T10:00:00+02:00",
+          "ends_at": "2026-07-10T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-10T10:00:00+02:00",
+          "ends_at": "2026-07-10T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-10T10:00:00+02:00",
+          "ends_at": "2026-07-10T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1485,
+      "league_name": "World Cups and World Championships",
+      "season": 2026,
+      "name": "IFSC: World Championships - Arco",
+      "country": "ITA",
+      "location": "Arco",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1485",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-climbing-youth-world-championships-arco-2026",
+      "disciplines": [
+        "lead",
+        "speed",
+        "boulder"
+      ],
+      "starts_at": "2026-07-18T10:00:00+02:00",
+      "ends_at": "2026-07-25T18:00:00+02:00",
+      "timezone": "Europe\/Rome",
+      "rounds": [
+        {
+          "name": "Men's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-18T10:00:00+02:00",
+          "ends_at": "2026-07-18T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-18T10:00:00+02:00",
+          "ends_at": "2026-07-18T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men's Speed Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-18T10:00:00+02:00",
+          "ends_at": "2026-07-18T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Speed Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-18T10:00:00+02:00",
+          "ends_at": "2026-07-18T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men's Boulder Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-18T10:00:00+02:00",
+          "ends_at": "2026-07-18T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Boulder Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-07-18T10:00:00+02:00",
+          "ends_at": "2026-07-18T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1486,
+      "league_name": "IFSC Paraclimbing",
+      "season": 2026,
+      "name": "IFSC: World Cup - Laval",
+      "country": "FRA",
+      "location": "Laval",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1486",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-para-climbing-world-cup-laval-2026",
+      "disciplines": [
+        "lead"
+      ],
+      "starts_at": "2026-08-28T10:00:00+02:00",
+      "ends_at": "2026-08-29T18:00:00+02:00",
+      "timezone": "Europe\/Paris",
+      "rounds": [
+        {
+          "name": "Men B1's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men B2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men B3's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women B1's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women B2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women B3's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AL1's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AL1's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AL2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AL2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AU2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AU2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men RP1's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men RP2's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men RP3's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women RP1's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women RP2's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women RP3's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men AU3's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women AU3's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-08-28T10:00:00+02:00",
+          "ends_at": "2026-08-28T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1487,
+      "league_name": "World Cups and World Championships",
+      "season": 2026,
+      "name": "IFSC: World Cup - Koper",
+      "country": "SLO",
+      "location": "Koper",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1487",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-climbing-world-cup-koper-2026",
+      "disciplines": [
+        "lead"
+      ],
+      "starts_at": "2026-09-04T10:00:00+02:00",
+      "ends_at": "2026-09-05T18:00:00+02:00",
+      "timezone": "Europe\/Ljubljana",
+      "rounds": [
+        {
+          "name": "Men's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-09-04T10:00:00+02:00",
+          "ends_at": "2026-09-04T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-09-04T10:00:00+02:00",
+          "ends_at": "2026-09-04T11:30:00+02:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1490,
+      "league_name": "Games",
+      "season": 2026,
+      "name": "IFSC: Asian Games Aichi-Nagoya 2026 - Nagoya",
+      "country": "JPN",
+      "location": "Nagoya",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1490",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/asian-games-aichi-nagoya-2026",
+      "disciplines": [
+        "lead",
+        "speed",
+        "boulder"
+      ],
+      "starts_at": "2026-09-19T17:00:00+09:00",
+      "ends_at": "2026-10-05T01:00:00+09:00",
+      "timezone": "Asia\/Tokyo",
+      "rounds": [
+        {
+          "name": "Men's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-09-19T17:00:00+09:00",
+          "ends_at": "2026-09-19T18:30:00+09:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-09-19T17:00:00+09:00",
+          "ends_at": "2026-09-19T18:30:00+09:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men's Speed Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-09-19T17:00:00+09:00",
+          "ends_at": "2026-09-19T18:30:00+09:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Speed Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-09-19T17:00:00+09:00",
+          "ends_at": "2026-09-19T18:30:00+09:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men's Boulder Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-09-19T17:00:00+09:00",
+          "ends_at": "2026-09-19T18:30:00+09:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Boulder Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-09-19T17:00:00+09:00",
+          "ends_at": "2026-09-19T18:30:00+09:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1488,
+      "league_name": "World Cups and World Championships",
+      "season": 2026,
+      "name": "IFSC: World Cup - Salt Lake City",
+      "country": "USA",
+      "location": "Salt Lake City",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1488",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-climbing-world-cup-salt-lake-city-2026",
+      "disciplines": [
+        "boulder"
+      ],
+      "starts_at": "2026-10-16T02:00:00-06:00",
+      "ends_at": "2026-10-18T10:00:00-06:00",
+      "timezone": "America\/Denver",
+      "rounds": [
+        {
+          "name": "Men's Boulder Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-10-16T02:00:00-06:00",
+          "ends_at": "2026-10-16T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Boulder Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "boulder"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-10-16T02:00:00-06:00",
+          "ends_at": "2026-10-16T03:30:00-06:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    },
+    {
+      "id": 1489,
+      "league_name": "World Cups and World Championships",
+      "season": 2026,
+      "name": "IFSC: World Cup - Santiago",
+      "country": "CHI",
+      "location": "Santiago",
+      "poster": null,
+      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2026\/1489",
+      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-climbing-world-cup-santiago-2026",
+      "disciplines": [
+        "speed",
+        "lead"
+      ],
+      "starts_at": "2026-10-23T05:00:00-03:00",
+      "ends_at": "2026-10-25T13:00:00-03:00",
+      "timezone": "America\/Santiago",
+      "rounds": [
+        {
+          "name": "Men's Speed Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-10-23T05:00:00-03:00",
+          "ends_at": "2026-10-23T06:30:00-03:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Speed Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "speed"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-10-23T05:00:00-03:00",
+          "ends_at": "2026-10-23T06:30:00-03:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Men's Lead Qualification",
+          "categories": [
+            "men"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-10-23T05:00:00-03:00",
+          "ends_at": "2026-10-23T06:30:00-03:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        },
+        {
+          "name": "Women's Lead Qualification",
+          "categories": [
+            "women"
+          ],
+          "disciplines": [
+            "lead"
+          ],
+          "kind": "qualification",
+          "starts_at": "2026-10-23T05:00:00-03:00",
+          "ends_at": "2026-10-23T06:30:00-03:00",
+          "schedule_status": "estimated",
+          "stream_url": null,
+          "stream_blocked_regions": []
+        }
+      ],
+      "start_list": []
+    }
+  ],
+  "metadata": {
+    "updated_at": "2025-12-10T20:50:33+00:00",
+    "generated_by": "https:\/\/github.com\/sportclimbing\/ifsc-calendar"
+  }
+}
