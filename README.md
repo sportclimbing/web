@@ -13,8 +13,8 @@ Playwright is used for browser-level integration tests in [`tests/integration`](
 - `make test-local` runs the suite on the host machine (requires Node.js).
 
 ### Todo
-- [ ] Add VPN note and link (to ProtonVPN?)
-- [ ] Move inline css
+- [x] Add VPN note and link (to ProtonVPN?)
+- [x] Move inline css
 - [x] Change favicon when an event started streaming
 - [x] Resize downloaded posters
 - [x] Download posters and save them locally
