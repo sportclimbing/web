@@ -2,21 +2,99 @@ dayjs.extend(window.dayjs_plugin_relativeTime);
 dayjs.extend(window.dayjs_plugin_isBetween);
 
 const DEFAULT_SEASON = '2026';
-const DEFAULT_POSTER = 'img/posters/2023/default.jpg';
-const DEFAULT_BACKGROUND_IMAGE_ID = 'eTNDKfip2SY';
+const EVENTS_CACHE_OPTIONS = { cache: 'no-cache' };
+const TOOLTIP_TEMPLATE = '<div class="tooltip sync-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>';
+const SEASON_SELECTOR = 'select[name="season-selector"]';
+const STRUCTURED_DATA_EVENTS_SCRIPT_ID = 'structured-data-events';
 
 let config;
 
+const set_local_timezone_message = () => {
+    const timezoneElement = document.getElementById('footer-timezone-name');
+
+    if (!timezoneElement) {
+        return;
+    }
+
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    timezoneElement.textContent = timezone || 'your timezone';
+};
+
 let selectedSeason = get_selected_season();
 let selectedEvent = get_selected_event();
+let filteredEventsById = new Map();
+let lastEventsVersionBySeason = new Map();
+let pendingHashEventNavigation = Boolean(selectedEvent);
+let seasonTimeline = {
+    liveRound: null,
+    liveEvent: null,
+    nextRound: null,
+    nextEvent: null,
+    seasonHasUpcomingEvents: false,
+};
 
-const fetchSeasons = (async () => {
-    let seasonTitle = document.getElementById('ifsc-season');
-    seasonTitle.innerHTML = seasonTitle.innerHTML.replace(/20\d{2}/, selectedSeason);
+const clear_element_children = (element) => {
+    if (!element) {
+        return;
+    }
+
+    while (element.lastElementChild) {
+        element.removeChild(element.lastElementChild);
+    }
+};
+
+const update_season_label = (season) => {
+    const heroKicker = document.getElementById('hero-kicker');
+
+    if (heroKicker) {
+        heroKicker.textContent = `Live Schedule ${season}`;
+    }
+};
+
+const ensure_structured_data_events_script = () => {
+    let script = document.getElementById(STRUCTURED_DATA_EVENTS_SCRIPT_ID);
+
+    if (script) {
+        return script;
+    }
+
+    script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = STRUCTURED_DATA_EVENTS_SCRIPT_ID;
+    document.head.appendChild(script);
+
+    return script;
+};
+
+const update_structured_data_events = async (season) => {
+    const script = ensure_structured_data_events_script();
+    const path = `structured-data/events_${season}.json`;
+
+    try {
+        const response = await fetch(path, EVENTS_CACHE_OPTIONS);
+
+        if (!response.ok) {
+            throw new Error(`Structured data not found at ${path}`);
+        }
+
+        script.textContent = await response.text();
+    } catch (error) {
+        console.warn(error);
+        script.textContent = '{}';
+        return;
+    }
+};
+
+const fetch_seasons = (async () => {
+    update_season_label(selectedSeason);
 
     const response = await fetch(`events/seasons.json`);
     const jsonData = await response.json();
-    const seasonSelector = document.querySelector('select[name="season-selector"]');
+    const seasonSelector = document.querySelector(SEASON_SELECTOR);
+
+    if (!seasonSelector) {
+        return;
+    }
 
     jsonData.seasons.forEach((season) => {
         let option = document.createElement('option');
@@ -31,196 +109,646 @@ const fetchSeasons = (async () => {
     });
 });
 
-const refresh = (async () => {
-    const response = await fetch(`events/events_${selectedSeason}.json?v=` + Math.floor(Math.random() * 10000));
-    const jsonData = await response.json();
-    const events = apply_search_filters(jsonData);
-    const nextEvent = get_next_event(events);
-    const leagueTemplate = document.getElementById('ifsc-league');
-    const accordion = document.getElementById('accordion');
-    const currentOpenElement = document.querySelector('div#accordion .show');
-    let currentOpenId = null;
+const reset_next_event = () => {
+    const nextEventContainer = document.querySelector('.next-event');
+    const nextEventDetails = document.getElementById('next-event-details');
+    const nextEventTitle = document.getElementById('next-event-title');
 
-    if (currentOpenElement) {
-        currentOpenId = currentOpenElement.getAttribute('id');
+    if (nextEventDetails) {
+        release_lazy_backgrounds(nextEventDetails);
+        clear_element_children(nextEventDetails);
     }
 
+    if (nextEventTitle) {
+        nextEventTitle.innerText = '';
+    }
+
+    if (nextEventContainer) {
+        nextEventContainer.style.display = 'none';
+    }
+};
+
+const compute_season_timeline = (events) => {
+    const entries = [];
+
+    events.forEach((event) => {
+        event.rounds.forEach((round) => {
+            entries.push({ event, round });
+        });
+    });
+
+    entries.sort((a, b) => new Date(a.round.starts_at) - new Date(b.round.starts_at));
+
+    const liveEntry = entries.find(({ round }) => event_is_streaming(round)) || null;
+    const nextEntry = entries.find(({ round }) => event_is_upcoming(round)) || null;
+
+    return {
+        liveRound: liveEntry ? liveEntry.round : null,
+        liveEvent: liveEntry ? liveEntry.event : null,
+        nextRound: liveEntry ? null : (nextEntry ? nextEntry.round : null),
+        nextEvent: liveEntry ? null : (nextEntry ? nextEntry.event : null),
+        seasonHasUpcomingEvents: Boolean(liveEntry || nextEntry),
+    };
+};
+
+const compute_next_event_timeline = (filteredEvents, allEvents) => {
+    const filteredTimeline = compute_season_timeline(filteredEvents);
+
+    if (filteredTimeline.liveRound || filteredTimeline.nextRound) {
+        return filteredTimeline;
+    }
+
+    return compute_season_timeline(allEvents);
+};
+
+const render_event_rounds = (eventId) => {
+    const parsedEventId = parseInt(eventId, 10);
+
+    if (Number.isNaN(parsedEventId)) {
+        return;
+    }
+
+    const eventElement = document.getElementById(`event-${parsedEventId}`);
+
+    if (!eventElement || eventElement.dataset.roundsRendered === '1') {
+        return;
+    }
+
+    const event = filteredEventsById.get(parsedEventId);
+    const roundsList = eventElement.getElementsByTagName('ul')[0];
+    const roundTemplate = document.getElementById('ifsc-event');
+    const poster = document.querySelector(`#heading_${parsedEventId} .event-poster`);
+
+    if (!event || !roundsList || !roundTemplate) {
+        return;
+    }
+
+    event.rounds.forEach((round) => {
+        let clone = roundTemplate.content.cloneNode(true);
+        const streamButton = $('.round-stream-button', clone);
+        const startsIn = clone.querySelector('.js-starts-in');
+        clone.querySelector('.ifsc-event').classList.add('event-round-card');
+
+        set_round_details(clone, round);
+
+        if (event_is_streaming(round)) {
+            if (startsIn) {
+                startsIn.innerText = `🔴 Live Now`;
+            }
+            clone.querySelector('.button-results').style.setProperty('display', 'inline-grid', 'important');
+            clone.querySelector('.button-results').href = `https://ifsc.results.info/event/${event.id}`;
+        } else if (event_is_upcoming(round)) {
+            const isNextRound = !seasonTimeline.liveRound && seasonTimeline.nextRound === round;
+
+            if (startsIn) {
+                if (isNextRound) {
+                    startsIn.innerText = `🟢 Next Event (starts ${pretty_starts_in(round)})`;
+                } else {
+                    startsIn.innerText = `⌛ Starts ${pretty_starts_in(round)}`;
+                }
+            }
+
+            if (!isNextRound) {
+                if (poster) {
+                    poster.classList.add('bw');
+                }
+            }
+
+            clone.querySelector('.button-reminder').style.setProperty('display', 'inline-grid', 'important');
+
+            if (!round.stream_url) {
+                streamButton.hide();
+            }
+
+            clone.querySelector('.button-results').style.setProperty('display', 'none', 'important');
+        } else {
+            if (startsIn) {
+                startsIn.innerText = `🏁 ${pretty_finished_ago(round)}`;
+            }
+            clone.querySelector('.button-results').style.setProperty('display', 'inline-grid', 'important');
+            clone.querySelector('.button-results').href = `https://ifsc.results.info/event/${event.id}`;
+        }
+
+        roundsList.appendChild(clone);
+    });
+
+    eventElement.dataset.roundsRendered = '1';
+};
+
+const get_events_version = (headers) => headers.get('etag') || headers.get('last-modified');
+
+const fetch_events_for_selected_season = async ({ skipUnchanged = false } = {}) => {
+    const eventsUrl = `events/events_${selectedSeason}.json`;
+
+    if (skipUnchanged) {
+        const headResponse = await fetch(eventsUrl, {
+            method: 'HEAD',
+            cache: EVENTS_CACHE_OPTIONS.cache,
+        });
+        const currentVersion = get_events_version(headResponse.headers);
+        const previousVersion = lastEventsVersionBySeason.get(selectedSeason);
+
+        if (currentVersion && previousVersion === currentVersion) {
+            return null;
+        }
+    }
+
+    const response = await fetch(eventsUrl, EVENTS_CACHE_OPTIONS);
+    const jsonData = await response.json();
+    const currentVersion = get_events_version(response.headers);
+
+    if (currentVersion) {
+        lastEventsVersionBySeason.set(selectedSeason, currentVersion);
+    }
+
+    return jsonData;
+};
+
+const get_accordion_state = (accordion) => {
+    const currentOpenElement = accordion.querySelector('.show');
+    const currentOpenId = currentOpenElement ? currentOpenElement.getAttribute('id') : null;
     const allCollapsed = accordion.childElementCount > 0 && !currentOpenId;
 
-    if (!selectedEvent && nextEvent) {
-        selectedEvent = nextEvent.id;
+    return {
+        currentOpenId,
+        allCollapsed,
+    };
+};
+
+const update_next_event_panel = () => {
+    reset_next_event();
+
+    if (seasonTimeline.liveRound && seasonTimeline.liveEvent) {
+        set_next_event(seasonTimeline.liveRound, seasonTimeline.liveEvent, true);
+        return;
     }
 
-    while (accordion.lastElementChild) {
-        accordion.removeChild(accordion.lastElementChild);
+    if (seasonTimeline.nextRound && seasonTimeline.nextEvent) {
+        set_next_event(seasonTimeline.nextRound, seasonTimeline.nextEvent);
     }
+};
 
-    const template = document.getElementById("ifsc-event");
-    let liveEvent = null;
-    let lastEventFinished = true;
-    let seasonHasUpcomingEvents = false;
-    let numRounds = 0;
+const hide_static_event_fallback = () => {
+    const fallback = document.getElementById('static-event-fallback');
+
+    if (fallback) {
+        fallback.setAttribute('hidden', 'hidden');
+    }
+};
+
+const clear_accordion = (accordion) => {
+    release_lazy_backgrounds(accordion);
+    clear_element_children(accordion);
+};
+
+const build_event_card = (leagueTemplate, event) => {
+    const clone = leagueTemplate.content.cloneNode(true);
+
+    set_event_name(clone.querySelector('.event-name'), event);
+    set_event_date(clone.querySelector('.event-date'), event);
+    set_event_country(clone.querySelector('.event-country'), event);
+    set_event_discipline(clone.querySelector('.event-disciplines'), event);
+    set_event_streams(clone.querySelector('.event-status'), event);
+    set_event_page(clone.querySelector('.event-page'), event);
+    set_event_start_list(clone.querySelector('.event-start-list'), event);
+    set_event_schedule_status(clone.querySelector('.event-schedule-status'), event);
+    set_event_poster(clone.querySelector('.event-poster'), event);
+
+    const eventPanel = clone.getElementById('event-n');
+    const heading = clone.getElementById('heading_id');
+    const eventNameButton = clone.querySelector('.event-name');
+    const eventWatchButton = clone.querySelector('.event-watch-button');
+    const headingId = `heading_${event.id}`;
+    const eventToggleId = `event-toggle-${event.id}`;
+    const panelId = `event-${event.id}`;
+
+    heading.id = headingId;
+    eventNameButton.id = eventToggleId;
+    eventNameButton.setAttribute('aria-controls', panelId);
+    eventPanel.setAttribute('aria-labelledby', eventToggleId);
+    eventPanel.id = panelId;
+    eventPanel.dataset.roundsRendered = '0';
+    eventWatchButton.setAttribute('data-target', `#${panelId}`);
+    eventWatchButton.setAttribute('aria-controls', panelId);
+
+    return clone;
+};
+
+const append_no_results_message = (accordion) => {
+    const div = document.createElement('div');
+    div.className = 'no-results';
+    div.innerHTML = '<span class="no-results-icon" aria-hidden="true">⚠️</span><span class="no-results-text">No results. Please adjust filters above!</span>';
+
+    accordion.appendChild(div);
+};
+
+const render_event_cards = (events, leagueTemplate, accordion) => {
+    let roundCount = 0;
 
     events.forEach((event) => {
         if (event.rounds.length === 0) {
             return;
         }
 
-        let clone = leagueTemplate.content.cloneNode(true);
-        let poster = clone.querySelector('.event-poster');
-
-        set_event_name(clone.querySelector('.event-name'), event);
-        set_event_date(clone.querySelector('.event-date'), event);
-        set_event_country(clone.querySelector('.event-country'), event);
-        set_event_discipline(clone.querySelector('.event-disciplines'), event);
-        set_event_streams(clone.querySelector('.event-status'), event);
-        set_event_page(clone.querySelector('.event-page'), event);
-        set_event_start_list(clone.querySelector('.event-start-list'), event);
-        set_event_schedule_status(clone.querySelector('.event-schedule-status'), event);
-        set_event_poster(poster, event);
-
-        clone.getElementById('heading_id').id = `heading_${event.id}`;
-        clone.getElementById('event-n').setAttribute('aria-labelledby', `event-${event.id}`);
-        clone.getElementById('event-n').id = `event-${event.id}`;
-        clone.querySelector('.event-watch-button').setAttribute('data-target', `#event-${event.id}`);
-
-        accordion.appendChild(clone);
-
-        event.rounds.forEach((round) => {
-            numRounds++;
-            let clone = template.content.cloneNode(true);
-            const streamButton = $('#button-stream', clone);
-
-            set_round_details(clone, round);
-
-            if (event_is_streaming(round)) {
-                clone.getElementById('ifsc-starts-in').innerText = `🔴 Live Now`;
-                clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(193,241,241,0.4)';
-                liveEvent = round;
-                seasonHasUpcomingEvents = true;
-
-                clone.querySelector('.button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
-                document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
-
-                set_background_image(round);
-                set_next_event(round, event, true);
-            } else if (event_is_upcoming(round)) {
-                let startsIn = clone.getElementById('ifsc-starts-in');
-                seasonHasUpcomingEvents = true;
-
-                if (!liveEvent && lastEventFinished) {
-                    lastEventFinished = false;
-                    startsIn.innerText = `🟢 Next Event (starts ${pretty_starts_in(round)})`;
-                    clone.getRootNode().firstChild.nextSibling.style.backgroundColor = 'rgba(193,241,241,0.4)';
-
-                    set_background_image(round);
-                    set_next_event(round, event);
-                    clone.querySelector('a[data-toggle="modal"]').style.display = 'inline';
-                } else {
-                    startsIn.innerText = `⌛ Starts ${pretty_starts_in(round)}`;
-                    poster.classList.add('bw');
-                    clone.querySelector('a[data-toggle="modal"]').style.display = 'inline';
-                }
-
-                if (!round.stream_url) {
-                    streamButton.hide();
-                }
-
-                clone.querySelector('.button-results').style.display = 'none';
-                document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
-            } else {
-                clone.getElementById('ifsc-starts-in').innerText = `🏁 ${pretty_finished_ago(round)}`;
-                clone.querySelector('.button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
-
-                lastEventFinished = true;
-                document.getElementById(`event-${event.id}`).getElementsByTagName('ul')[0].appendChild(clone);
-            }
-        });
+        filteredEventsById.set(event.id, event);
+        roundCount += event.rounds.length;
+        accordion.appendChild(build_event_card(leagueTemplate, event));
     });
 
-    if (numRounds === 0) {
-        const div = document.createElement('div');
-        div.innerHTML = '⚠️ No results. Please adjust filters above!';
-        div.className = 'no-results';
+    if (roundCount === 0) {
+        append_no_results_message(accordion);
+    }
+};
 
-        accordion.appendChild(div);
+const restore_open_accordion_panel = (currentOpenId, allCollapsed) => {
+    const selectedEventElement = document.getElementById(`event-${selectedEvent}`);
+
+    if (allCollapsed) {
+        return null;
     }
 
-    let leagueElement = document.getElementById(`event-${selectedEvent}`);
+    if (currentOpenId) {
+        const currentOpenElement = document.getElementById(currentOpenId);
 
-    if (!allCollapsed) {
-        let currentOpenElement = document.getElementById(currentOpenId);
-        if (currentOpenId && currentOpenElement) {
+        if (currentOpenElement) {
             currentOpenElement.classList.add('show');
-        } else if (leagueElement) {
-            leagueElement.classList.add('show');
+            return currentOpenId.replace('event-', '');
         }
     }
 
-    set_favicon(liveEvent);
-
-    if (!seasonHasUpcomingEvents) {
-  //      set_background_image();
+    if (selectedEventElement) {
+        selectedEventElement.classList.add('show');
+        return selectedEvent;
     }
-    set_background_image();
+
+    return null;
+};
+
+const expand_and_scroll_to_event_panel = (eventId) => {
+    if (!eventId) {
+        return false;
+    }
+
+    const eventPanel = document.getElementById(`event-${eventId}`);
+
+    if (!eventPanel) {
+        return false;
+    }
+
+    const $eventPanel = $(eventPanel);
+    const heading = document.getElementById(`heading_${eventId}`) || eventPanel.closest('.ifsc-league-card') || eventPanel;
+    const scroll_to_panel = () => {
+        window.requestAnimationFrame(() => {
+            heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    };
+
+    if ($eventPanel.length && !$eventPanel.hasClass('show')) {
+        $eventPanel.one('shown.bs.collapse', () => {
+            render_event_rounds(eventId);
+            scroll_to_panel();
+        });
+
+        const triggerSelector = `.event-name[data-target="#event-${eventId}"], .event-watch-button[data-target="#event-${eventId}"]`;
+        const trigger = document.querySelector(triggerSelector);
+
+        if (trigger) {
+            trigger.click();
+        } else {
+            $eventPanel.collapse('show');
+        }
+
+        if (!$eventPanel.hasClass('show')) {
+            eventPanel.classList.add('show');
+        }
+
+        window.setTimeout(scroll_to_panel, 0);
+        return true;
+    }
+
+    eventPanel.classList.add('show');
+    render_event_rounds(eventId);
+    scroll_to_panel();
+    return true;
+};
+
+const refresh = (async (options = {}) => {
+    const jsonData = await fetch_events_for_selected_season(options);
+
+    if (!jsonData) {
+        return;
+    }
+
+    const allEvents = jsonData.events || [];
+    const events = apply_search_filters(jsonData);
+    const nextEvent = get_next_event(events);
+    const leagueTemplate = document.getElementById('ifsc-league');
+    const accordion = document.getElementById('accordion');
+
+    if (!leagueTemplate || !accordion) {
+        return;
+    }
+
+    const { currentOpenId, allCollapsed } = get_accordion_state(accordion);
+    const hashEventId = get_selected_event();
+
+    if (hashEventId) {
+        selectedEvent = hashEventId;
+    }
+
+    if (!selectedEvent && nextEvent) {
+        selectedEvent = nextEvent.id;
+    }
+
+    filteredEventsById = new Map();
+    seasonTimeline = compute_next_event_timeline(events, allEvents);
+    clear_event_start_list_modal_data();
+    update_next_event_panel();
+    clear_accordion(accordion);
+    render_event_cards(events, leagueTemplate, accordion);
+    hide_static_event_fallback();
+    update_structured_data_events(selectedSeason).then();
+
+    const eventIdToRender = restore_open_accordion_panel(currentOpenId, allCollapsed);
+
+    if (eventIdToRender !== null) {
+        render_event_rounds(eventIdToRender);
+    }
+
+    if (pendingHashEventNavigation && selectedEvent) {
+        const didNavigate = expand_and_scroll_to_event_panel(selectedEvent);
+        pendingHashEventNavigation = !didNavigate;
+    }
+
+    set_favicon(seasonTimeline.liveRound);
 });
 
-(() => {
-    restore_config();
+const setup_season_header_toggle = () => {
+    const seasonHeader = document.querySelector('.season-header');
+    const $navbarHeader = $('#navbarHeader');
 
-    fetchSeasons().then();
-    refresh().then(() => {
-        window.setInterval(() => refresh(), 1000 * 10);
+    if (!$navbarHeader.length || !seasonHeader) {
+        return;
+    }
 
-        let leagueElement = document.getElementById(`event-${selectedEvent}`);
+    const set_open_state = (isOpen) => {
+        seasonHeader.classList.toggle('is-open', isOpen);
+    };
 
-        if (leagueElement && !element_is_in_viewport(leagueElement)) {
-     //       leagueElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+    set_open_state($navbarHeader.hasClass('show'));
+    $navbarHeader.on('show.bs.collapse shown.bs.collapse', () => set_open_state(true));
+    $navbarHeader.on('hide.bs.collapse hidden.bs.collapse', () => set_open_state(false));
+};
+
+const reset_collapsed_rounds = (eventElement) => {
+    release_lazy_backgrounds(eventElement);
+
+    const roundsList = eventElement.getElementsByTagName('ul')[0];
+
+    if (!roundsList) {
+        return;
+    }
+
+    clear_element_children(roundsList);
+    eventElement.dataset.roundsRendered = '0';
+};
+
+const update_event_route = (eventId) => {
+    const parsedEventId = parseInt(eventId, 10);
+
+    if (Number.isNaN(parsedEventId)) {
+        return;
+    }
+
+    selectedEvent = parsedEventId;
+
+    const targetUrl = `/#/season/${selectedSeason}/event/${parsedEventId}`;
+    const currentUrl = `${window.location.pathname}${window.location.hash}`;
+
+    if (currentUrl === targetUrl) {
+        return;
+    }
+
+    if (window.history && typeof window.history.replaceState === 'function') {
+        window.history.replaceState(null, '', targetUrl);
+        return;
+    }
+
+    window.location = targetUrl;
+};
+
+const update_season_route = () => {
+    const targetUrl = `/#/season/${selectedSeason}`;
+    const currentUrl = `${window.location.pathname}${window.location.hash}`;
+
+    if (currentUrl === targetUrl) {
+        return;
+    }
+
+    if (window.history && typeof window.history.replaceState === 'function') {
+        window.history.replaceState(null, '', targetUrl);
+        return;
+    }
+
+    window.location = targetUrl;
+};
+
+const handle_event_name_click = (event) => {
+    const panelTarget = event.currentTarget.getAttribute('data-target') || '';
+    const eventId = panelTarget.replace('#event-', '');
+
+    if (!eventId) {
+        return;
+    }
+
+    update_event_route(eventId);
+};
+
+const handle_event_watch_button_click = (event) => {
+    const panelTarget = event.currentTarget.getAttribute('data-target') || '';
+    const eventId = panelTarget.replace('#event-', '');
+
+    if (!eventId) {
+        return;
+    }
+
+    update_event_route(eventId);
+};
+
+const handle_event_panel_hidden = (eventElement, accordionElement) => {
+    reset_collapsed_rounds(eventElement);
+
+    window.setTimeout(() => {
+        if (!accordionElement) {
+            return;
         }
-    });
 
-    config = load_config_from_modal();
+        const hasOpenPanels = Boolean(accordionElement.querySelector('.collapse.show, .collapse.collapsing'));
 
-    addEventListener('hashchange', () => {
-        let season = get_selected_season();
+        if (hasOpenPanels) {
+            return;
+        }
 
-        selectedSeason = season;
         selectedEvent = null;
-        refresh().then();
+        update_season_route();
+    }, 0);
+};
 
-        const seasonSelector = document.getElementById('ifsc-season');
-        seasonSelector.innerHTML = seasonSelector.innerHTML.replace(/20\d{2}/, season);
+const setup_accordion_handlers = () => {
+    const $accordion = $('#accordion');
+    const accordionElement = $accordion.get(0);
+
+    $accordion.on('click', '.event-name', handle_event_name_click);
+    $accordion.on('click', '.event-watch-button', handle_event_watch_button_click);
+    $accordion.on('show.bs.collapse', '.collapse', function () {
+        render_event_rounds(this.id.replace('event-', ''));
     });
+    $accordion.on('hidden.bs.collapse', '.collapse', function () {
+        handle_event_panel_hidden(this, accordionElement);
+    });
+    $accordion.on('click', '.js-round-stream', handle_round_stream_click);
+    $accordion.on('click', '.event-start-list-trigger', handle_start_list_trigger_click);
+    $('.next-event').on('click', '.js-round-stream', handle_round_stream_click);
+};
 
+const setup_layout_handlers = () => {
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => schedule_fit_mobile_hero_title());
+    }
+
+    addEventListener('resize', () => schedule_fit_mobile_hero_title());
+};
+
+const handle_hash_change = () => {
+    const season = get_selected_season();
+    const event = get_selected_event();
+
+    selectedSeason = season;
+    selectedEvent = null;
+    pendingHashEventNavigation = Boolean(event);
+    refresh().then();
+    update_season_label(season);
+    schedule_fit_mobile_hero_title();
+};
+
+const setup_filter_handlers = () => {
     $('#video-modal').on('hide.bs.modal', () => {
         $('#youtube-video').attr('src', 'about:blank');
-    })
+    });
 
     $('#save-filters').on('click', () => {
         config = load_config_from_modal();
         refresh().then();
-
-        window.localStorage.setItem('config_v2', JSON.stringify(config));
+        window.localStorage.setItem('config', JSON.stringify(config));
     });
 
     $('input[type="checkbox"]').on('change', () => refresh());
+};
 
-    if (document.location.hostname === 'ifsc.stream') {
-        const normalize = (referrer) => encodeURIComponent(referrer.replace('https://', '').replace(/\/$/, ''));
-        const img = new Image();
-        img.src = 'https://calendar.ifsc.stream/pixel.gif' + (document.referrer ? `?r=${normalize(document.referrer)}` : '');
-        img.width = 1;
-        img.height = 1;
-
-        document.body.appendChild(img);
+const setup_tracking_pixel = () => {
+    if (document.location.hostname !== 'ifsc.stream') {
+        return;
     }
 
-    $('select[name="season-selector"]').on('change', (e) => {
-        window.location = `#/season/${e.target.value}`;
+    const normalize = (referrer) => encodeURIComponent(referrer.replace('https://', '').replace(/\/$/, ''));
+    const img = new Image();
+    img.src = 'https://calendar.ifsc.stream/pixel.gif' + (document.referrer ? `?r=${normalize(document.referrer)}` : '');
+    img.width = 1;
+    img.height = 1;
+
+    document.body.appendChild(img);
+};
+
+const setup_season_picker_click_target = () => {
+    const seasonLabel = document.querySelector('.season-label');
+    const seasonSelect = document.querySelector(SEASON_SELECTOR);
+
+    if (!seasonLabel || !seasonSelect) {
+        return;
+    }
+
+    seasonLabel.addEventListener('click', (event) => {
+        event.preventDefault();
+        seasonSelect.focus();
+
+        if (typeof seasonSelect.showPicker === 'function') {
+            seasonSelect.showPicker();
+            return;
+        }
+
+        seasonSelect.dispatchEvent(new MouseEvent('mousedown', {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+        }));
+    });
+};
+
+const setup_tooltips = () => {
+    const tooltipOptions = {
+        container: 'body',
+        placement: 'bottom',
+        trigger: 'hover',
+        template: TOOLTIP_TEMPLATE,
+    };
+
+    $('.calendar-sync-tooltip').tooltip(tooltipOptions);
+    $('.footer-action-tooltip').tooltip(tooltipOptions);
+
+    $('.calendar-sync-tooltip, .footer-action-tooltip').on('click', function () {
+        $(this).tooltip('hide');
+        this.blur();
     });
 
-    // Remove old config
-    window.localStorage.removeItem('config');
+    $(document).on('click', '.button-reminder', function () {
+        this.blur();
+    });
+};
+
+const setup_theme_handlers = (systemThemeQuery) => {
+    $('#theme-toggle').on('click', () => {
+        toggle_theme();
+        $('#theme-toggle').tooltip('hide');
+    });
+
+    if (typeof systemThemeQuery.addEventListener === 'function') {
+        systemThemeQuery.addEventListener('change', sync_system_theme);
+    } else if (typeof systemThemeQuery.addListener === 'function') {
+        systemThemeQuery.addListener(sync_system_theme);
+    }
+};
+
+const setup_season_navigation = () => {
+    $(SEASON_SELECTOR).on('change', (event) => {
+        window.location = `#/season/${event.target.value}`;
+    });
+};
+
+(() => {
+    restore_theme();
+    restore_config();
+    set_local_timezone_message();
+    schedule_fit_mobile_hero_title();
+
+    const systemThemeQuery = window.matchMedia('(prefers-color-scheme: light)');
+
+    fetch_seasons().then();
+    refresh().then(() => {
+        window.setInterval(() => refresh({ skipUnchanged: true }), 1000 * 60);
+        schedule_fit_mobile_hero_title();
+    });
+
+    setup_season_header_toggle();
+    setup_accordion_handlers();
+    config = load_config_from_modal();
+    setup_layout_handlers();
+    addEventListener('hashchange', handle_hash_change);
+    setup_filter_handlers();
+    setup_tracking_pixel();
+    setup_season_picker_click_target();
+    setup_tooltips();
+    setup_theme_handlers(systemThemeQuery);
+    setup_season_navigation();
 
     /*
     fetch('http://ip-api.com/json').then(async (response) => {

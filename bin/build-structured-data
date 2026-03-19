@@ -1,0 +1,269 @@
+#!/usr/bin/php
+<?php declare(strict_types=1);
+
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+const EVENT_SCHEDULED = 'https://schema.org/EventScheduled';
+const EVENT_IN_PROGRESS = 'https://schema.org/EventInProgress';
+const EVENT_COMPLETED = 'https://schema.org/EventCompleted';
+
+function schema_event_status(string $startsAt, string $endsAt, DateTimeImmutable $now): string
+{
+    try {
+        $eventStart = new DateTimeImmutable($startsAt);
+        $eventEnd = new DateTimeImmutable($endsAt);
+    } catch (Exception) {
+        return EVENT_SCHEDULED;
+    }
+
+    if ($now < $eventStart) {
+        return EVENT_SCHEDULED;
+    }
+
+    if ($now > $eventEnd) {
+        return EVENT_COMPLETED;
+    }
+
+    return EVENT_IN_PROGRESS;
+}
+
+function schema_event_location(array $event): array
+{
+    $locationName = is_string($event['location'] ?? null) ? trim($event['location']) : '';
+    $country = is_string($event['country'] ?? null) ? trim($event['country']) : '';
+    $name = implode(', ', array_filter([$locationName, $country]));
+
+    $location = [
+        '@type' => 'Place',
+        'name' => $name !== '' ? $name : 'TBA',
+    ];
+
+    if ($country !== '') {
+        $location['address'] = [
+            '@type' => 'PostalAddress',
+            'addressCountry' => $country,
+        ];
+    }
+
+    return $location;
+}
+
+function schema_event_fallback_url(array $event, string $siteUrl, string $season): string
+{
+    $eventId = (string) ($event['id'] ?? '');
+
+    return "{$siteUrl}/#/season/{$season}/event/{$eventId}";
+}
+
+function schema_round_url(array $event, array $round, string $siteUrl, string $season): string
+{
+    $streamUrl = is_string($round['stream_url'] ?? null) ? trim($round['stream_url']) : '';
+
+    if ($streamUrl !== '') {
+        return $streamUrl;
+    }
+
+    return schema_event_fallback_url($event, $siteUrl, $season);
+}
+
+function schema_round_name(array $event, array $round): string
+{
+    $eventName = is_string($event['name'] ?? null) ? trim($event['name']) : '';
+    $roundName = is_string($round['name'] ?? null) ? trim($round['name']) : '';
+
+    if ($eventName !== '' && $roundName !== '') {
+        return "{$eventName} - {$roundName}";
+    }
+
+    if ($roundName !== '') {
+        return $roundName;
+    }
+
+    return $eventName !== '' ? $eventName : 'IFSC Round';
+}
+
+function schema_keywords(array $event, array $round): string
+{
+    $keywords = [];
+
+    foreach ([$round['disciplines'] ?? [], $round['categories'] ?? [], $event['disciplines'] ?? []] as $values) {
+        foreach (is_array($values) ? $values : [] as $value) {
+            if (is_string($value) && trim($value) !== '') {
+                $keywords[] = trim($value);
+            }
+        }
+    }
+
+    if (is_string($round['kind'] ?? null) && trim($round['kind']) !== '') {
+        $keywords[] = trim($round['kind']);
+    }
+
+    if (is_string($event['league_name'] ?? null) && trim($event['league_name']) !== '') {
+        $keywords[] = trim($event['league_name']);
+    }
+
+    $keywords = array_values(array_unique($keywords));
+
+    return implode(', ', $keywords);
+}
+
+$eventsDirectory = rtrim($argv[1] ?? 'public/events', '/');
+$outputDirectory = rtrim($argv[2] ?? 'public/structured-data', '/');
+$siteUrl = rtrim($argv[3] ?? 'https://ifsc.stream', '/');
+$organizationId = "{$siteUrl}/#organization";
+$now = new DateTimeImmutable('now');
+
+if (!is_dir($eventsDirectory)) {
+    fwrite(STDERR, "Events directory not found: {$eventsDirectory}" . PHP_EOL);
+    exit(1);
+}
+
+if (!is_dir($outputDirectory) && !mkdir($outputDirectory, 0777, true) && !is_dir($outputDirectory)) {
+    fwrite(STDERR, "Could not create output directory: {$outputDirectory}" . PHP_EOL);
+    exit(1);
+}
+
+$eventFiles = glob("{$eventsDirectory}/events_*.json");
+
+if ($eventFiles === false || count($eventFiles) === 0) {
+    fwrite(STDERR, "No event files found in {$eventsDirectory}" . PHP_EOL);
+    exit(1);
+}
+
+sort($eventFiles, SORT_STRING);
+
+foreach ($eventFiles as $eventFile) {
+    if (!preg_match('/events_(\d{4})\.json$/', $eventFile, $matches)) {
+        continue;
+    }
+
+    $season = $matches[1];
+
+    try {
+        $payload = json_decode((string) file_get_contents($eventFile), true, flags: JSON_THROW_ON_ERROR);
+    } catch (JsonException $exception) {
+        fwrite(STDERR, "Could not parse {$eventFile}: {$exception->getMessage()}" . PHP_EOL);
+        exit(1);
+    }
+
+    $events = array_values(array_filter(
+        $payload['events'] ?? [],
+        static fn($event): bool => is_array($event)
+            && isset($event['id'], $event['name'])
+    ));
+
+    if (count($events) === 0) {
+        continue;
+    }
+
+    $seriesStartDate = null;
+    $seriesEndDate = null;
+    $seriesStart = null;
+    $seriesEnd = null;
+    $sportsEvents = [];
+    $subEvents = [];
+
+    foreach ($events as $event) {
+        $eventId = (string) $event['id'];
+        $rounds = is_array($event['rounds'] ?? null) ? $event['rounds'] : [];
+
+        foreach ($rounds as $roundIndex => $round) {
+            if (!is_array($round) || !isset($round['starts_at'], $round['ends_at'])) {
+                continue;
+            }
+
+            $startsAt = (string) $round['starts_at'];
+            $endsAt = (string) $round['ends_at'];
+            $schemaId = "{$siteUrl}/#round-{$season}-{$eventId}-" . ($roundIndex + 1);
+
+            try {
+                $roundStart = new DateTimeImmutable($startsAt);
+                $roundEnd = new DateTimeImmutable($endsAt);
+            } catch (Exception) {
+                fwrite(STDERR, "Skipping round " . ($roundIndex + 1) . " for event {$eventId} in season {$season}: invalid dates" . PHP_EOL);
+                continue;
+            }
+
+            if ($seriesStart === null || $roundStart < $seriesStart) {
+                $seriesStart = $roundStart;
+                $seriesStartDate = $startsAt;
+            }
+
+            if ($seriesEnd === null || $roundEnd > $seriesEnd) {
+                $seriesEnd = $roundEnd;
+                $seriesEndDate = $endsAt;
+            }
+
+            $schemaEvent = [
+                '@type' => 'SportsEvent',
+                '@id' => $schemaId,
+                'name' => schema_round_name($event, $round),
+                'sport' => 'Sport climbing',
+                'startDate' => $startsAt,
+                'endDate' => $endsAt,
+                'eventStatus' => schema_event_status($startsAt, $endsAt, $now),
+                'eventAttendanceMode' => 'https://schema.org/MixedEventAttendanceMode',
+                'organizer' => [
+                    '@id' => $organizationId,
+                ],
+                'location' => schema_event_location($event),
+                'url' => schema_round_url($event, $round, $siteUrl, $season),
+            ];
+
+            if (is_string($event['league_name'] ?? null) && trim($event['league_name']) !== '') {
+                $schemaEvent['eventType'] = trim($event['league_name']);
+            } elseif (is_string($round['kind'] ?? null) && trim($round['kind']) !== '') {
+                $schemaEvent['eventType'] = trim($round['kind']);
+            }
+
+            $keywords = schema_keywords($event, $round);
+
+            if ($keywords !== '') {
+                $schemaEvent['keywords'] = $keywords;
+            }
+
+            if (is_string($event['event_url'] ?? null) && $event['event_url'] !== '' && $event['event_url'] !== $schemaEvent['url']) {
+                $schemaEvent['sameAs'] = $event['event_url'];
+            }
+
+            $sportsEvents[] = $schemaEvent;
+            $subEvents[] = [
+                '@id' => $schemaId,
+            ];
+        }
+    }
+
+    if (count($sportsEvents) === 0) {
+        continue;
+    }
+
+    $seasonSchemaId = "{$siteUrl}/#season-{$season}";
+    $graph = [
+        '@context' => 'https://schema.org',
+        '@graph' => array_merge(
+            [
+                [
+                    '@type' => 'EventSeries',
+                    '@id' => $seasonSchemaId,
+                    'name' => "World Climbing Season {$season}",
+                    'description' => "Competition climbing season schedule and live stream links for {$season}.",
+                    'url' => "{$siteUrl}/#/season/{$season}",
+                    'organizer' => [
+                        '@id' => $organizationId,
+                    ],
+                    'startDate' => $seriesStartDate,
+                    'endDate' => $seriesEndDate,
+                    'subEvent' => $subEvents,
+                ],
+            ],
+            $sportsEvents
+        ),
+    ];
+
+    $outputFile = "{$outputDirectory}/events_{$season}.json";
+    $outputJson = json_encode($graph, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+    file_put_contents($outputFile, $outputJson . PHP_EOL);
+
+    echo "[+] Built structured data for season {$season}: {$outputFile}" . PHP_EOL;
+}

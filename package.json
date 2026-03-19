@@ -1,0 +1,11 @@
+{
+  "name": "ifsc-stream-frontend-tests",
+  "private": true,
+  "scripts": {
+    "test:integration": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.54.1",
+    "http-server": "14.1.1"
+  }
+}

@@ -1,17 +1,18 @@
 .event-details {
     list-style: none;
     padding: 0;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 2px;
     position: absolute;
 }
 
 .event-details li {
     float: left;
     width: 270px;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 2px;
     height: 30px;
     font-size: 14px;
     padding-top: 6px;
+    color: #e0e0e0;
 }
 
 .event-details li:last-child {
@@ -19,8 +20,13 @@
 }
 
 .event-buttons {
-    margin: 100px 0 0 0;
-    width: 300px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin: 110px 0 14px 0;
+    padding: 0;
+    width: fit-content;
 }
 
 .watch-button {
@@ -33,4 +39,10 @@
 
 .watch-button a {
     float: left;
+}
+
+.next-event .watch-button {
+    top: 42% !important;
+    transform: translateY(-60%) !important;
+    left: 586px;
 }
