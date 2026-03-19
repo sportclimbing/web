@@ -1,0 +1,100 @@
+#!/usr/bin/php
+<?php declare(strict_types=1);
+
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+function season_priority(int $index, int $count): float
+{
+    $minPriority = 0.40;
+    $maxPriority = 0.90;
+
+    if ($count <= 1) {
+        return $maxPriority;
+    }
+
+    return $minPriority + (($maxPriority - $minPriority) * ($index / ($count - 1)));
+}
+
+$eventsDirectory = rtrim($argv[1] ?? 'public/events', '/');
+$outputFile = $argv[2] ?? 'public/sitemap.xml';
+$siteUrl = rtrim($argv[3] ?? 'https://ifsc.stream', '/');
+
+if (!is_dir($eventsDirectory)) {
+    fwrite(STDERR, "Events directory not found: {$eventsDirectory}" . PHP_EOL);
+    exit(1);
+}
+
+$eventFiles = glob("{$eventsDirectory}/events_*.json");
+
+if ($eventFiles === false || count($eventFiles) === 0) {
+    fwrite(STDERR, "No season event files found in {$eventsDirectory}" . PHP_EOL);
+    exit(1);
+}
+
+$seasons = [];
+
+foreach ($eventFiles as $eventFile) {
+    if (preg_match('/events_(\d{4})\.json$/', $eventFile, $matches) === 1) {
+        $seasons[] = (int) $matches[1];
+    }
+}
+
+$seasons = array_values(array_unique($seasons));
+sort($seasons, SORT_NUMERIC);
+
+if (count($seasons) === 0) {
+    fwrite(STDERR, "No valid season files matched events_YYYY.json in {$eventsDirectory}" . PHP_EOL);
+    exit(1);
+}
+
+$latestSeason = max($seasons);
+$seasonCount = count($seasons);
+
+$entries = [
+    [
+        'loc' => "{$siteUrl}/",
+        'changefreq' => 'hourly',
+        'priority' => '1.00',
+    ],
+];
+
+foreach ($seasons as $index => $season) {
+    $entries[] = [
+        'loc' => "{$siteUrl}/#/season/{$season}",
+        'changefreq' => $season === $latestSeason ? 'hourly' : 'weekly',
+        'priority' => number_format(season_priority($index, $seasonCount), 2, '.', ''),
+    ];
+}
+
+$document = new DOMDocument('1.0', 'UTF-8');
+$document->formatOutput = true;
+
+$urlset = $document->createElement('urlset');
+$urlset->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
+$document->appendChild($urlset);
+
+foreach ($entries as $entry) {
+    $url = $document->createElement('url');
+    $urlset->appendChild($url);
+
+    $url->appendChild($document->createElement('loc', $entry['loc']));
+    $url->appendChild($document->createElement('changefreq', $entry['changefreq']));
+    $url->appendChild($document->createElement('priority', $entry['priority']));
+}
+
+$outputDirectory = dirname($outputFile);
+
+if (!is_dir($outputDirectory) && !mkdir($outputDirectory, 0777, true) && !is_dir($outputDirectory)) {
+    fwrite(STDERR, "Could not create output directory: {$outputDirectory}" . PHP_EOL);
+    exit(1);
+}
+
+$bytes = file_put_contents($outputFile, $document->saveXML());
+
+if ($bytes === false) {
+    fwrite(STDERR, "Could not write sitemap file: {$outputFile}" . PHP_EOL);
+    exit(1);
+}
+
+echo "[+] Built sitemap with {$seasonCount} seasons: {$outputFile}" . PHP_EOL;

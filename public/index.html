@@ -2,64 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>IFSC Calendar &amp; Live Streams 2026 - Boulder, Lead, &amp; Speed Climbing Schedule</title>
+    <title>World Climbing (IFSC) Calendar &amp; Live Streams 2026 - Boulder, Lead, &amp; Speed Climbing Schedule</title>
 
-    <meta name="description" content="IFSC Calendar 2026 - Live-Streams for all boulder, lead, and speed climbing events. Full schedule" />
-   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <meta name="description" content="World Climbing (IFSC) Schedule 2026 - Live-Streams for all boulder, lead, and speed climbing events" />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="canonical" href="https://ifsc.stream/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ifsc.stream/" />
+    <meta property="og:site_name" content="ifsc.stream" />
+    <meta property="og:title" content="World Climbing (IFSC) Calendar &amp; Live Streams 2026" />
+    <meta property="og:description" content="Live streams, schedule, and results for IFSC boulder, lead, and speed events." />
+    <meta property="og:image" content="https://ifsc.stream/img/logo.png" />
+    <meta property="og:image:alt" content="ifsc.stream logo" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="World Climbing (IFSC) Calendar &amp; Live Streams 2026" />
+    <meta name="twitter:description" content="Live streams, schedule, and results for IFSC boulder, lead, and speed events." />
+    <meta name="twitter:image" content="https://ifsc.stream/img/logo.png" />
+    <script type="application/ld+json" id="structured-data-organization">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "@id": "https://ifsc.stream/#organization",
+            "name": "ifsc.stream",
+            "url": "https://ifsc.stream/",
+            "logo": "https://ifsc.stream/img/logo.png",
+            "sameAs": [
+                "https://github.com/sportclimbing/ifsc-calendar",
+                "https://www.instagram.com/nicoswd/"
+            ]
+        }
+    </script>
+    <script type="application/ld+json" id="structured-data-events">{}</script>
 
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png" id="favicon" />
-
+    <link rel="stylesheet" href="css/fonts-local.css" />
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/calendar.css?v=4" />
-    <link rel="stylesheet" href="css/calendar-desktop.css?v=4" media="screen and (min-width: 501px)" />
-    <link rel="stylesheet" href="css/calendar-mobile.css?v=4" media="screen and (max-width: 500px)" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" />
+    <link rel="stylesheet" href="css/calendar.css?v=7" />
+    <link rel="stylesheet" href="css/calendar-desktop.css?v=7" media="screen and (min-width: 501px)" />
+    <link rel="stylesheet" href="css/calendar-mobile.css?v=7" media="screen and (max-width: 500px)" />
 </head>
 <body>
 
-<template id="news-item-template">
-    <div class="col-md-4">
-        <div class="card mb-4 box-shadow">
-            <img class="card-img-top" id="ifsc-image" loading="lazy" src="" alt="">
-            <div class="card-body" style="padding: 5px; min-height: 80px;">
-                <p class="card-text news-title" style="font-size: 12px; height: 35px;"><a class="link-secondary" id="ifsc-title" href="" target="_blank"></a></p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <span id="ifsc-date" style="font-size: 11px;">📆 Posted </span>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
 <template id="ifsc-event">
     <li class="list-group-item justify-content-between align-items-center ifsc-event">
-        <div class="youtube-thumbnail"></div>
+        <div class="youtube-thumbnail media-shadow-soft">
+            <button class="youtube-play-button" type="button" aria-label="Watch stream"></button>
+        </div>
 
         <div class="d-flex align-items-center round-details">
-            <div class="ms-3" style="float: left; margin-right: 20px; width: 300px;">
-                <h6 class="fw-bold mb-1 round-name" style="font-size: 15px; padding-bottom: 3px;"></h6>
-                <h6 class="fw-bold mb-1 round-date" style="font-size: 14px; padding-bottom: 2px; width: 500px"></h6>
-                <p class="text-muted ifsc-starts-in" id="ifsc-starts-in"></p>
+            <div class="ms-3 round-copy">
+                <h6 class="fw-bold mb-1 round-name round-copy-line round-copy-line-title"></h6>
+                <h6 class="fw-bold mb-1 round-date round-copy-line round-copy-line-wide"></h6>
+                <h6 class="fw-bold mb-1 round-time round-copy-line round-copy-line-wide"></h6>
+                <p class="text-muted ifsc-starts-in js-starts-in"></p>
             </div>
 
             <div class="watch-button">
-                <a class="btn btn-primary" href="" role="button" id="button-stream" rel="noopener" target="_blank">🍿 Watch</a>
-                <a class="btn btn-primary button-reminder" href="https://github.com/sportclimbing/ifsc-calendar/wiki" rel="noopener" role="button" target="_blank" data-toggle="modal" data-target="#calendar-modal">📆 Set Reminder</a>
-                <a class="btn btn-outline-danger button-results" href="" role="button" target="_blank" rel="noopener">🏆 Results <img src="img/external-link.svg" alt="External link" /></a>
+                <a class="ifsc-action-button ifsc-action-button-primary event-watch-button round-stream-button" href="" rel="noopener" target="_blank">🍿 Watch</a>
+                <a class="ifsc-action-button ifsc-action-button-primary button-reminder" href="https://github.com/sportclimbing/ifsc-calendar/wiki" rel="noopener" role="button" target="_blank" data-toggle="modal" data-target="#calendar-modal">📆 Set Reminder</a>
+                <a class="ifsc-action-button ifsc-action-button-primary button-results" href="" role="button" target="_blank" rel="noopener">🏆 Results</a>
             </div>
         </div>
     </li>
 </template>
 
 <template id="ifsc-league">
-    <div class="card container-xl" style="padding: 0; margin-bottom: 1px;">
+    <div class="card container-xl ifsc-league-card">
         <div class="card-header" id="heading_id">
-            <div class="rounded-2 event-poster"></div>
+            <div class="rounded-2 event-poster media-shadow-soft"></div>
 
             <div>
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed event-name" style="font-size: 22px; font-size-adjust: 0.4;" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo"></button>
+                    <button class="btn btn-link collapsed event-name" data-toggle="collapse" data-target="#event-n" aria-expanded="false" aria-controls="event-n"></button>
                 </h5>
 
                 <ul class="event-details">
@@ -72,15 +91,15 @@
                 </ul>
             </div>
 
-            <div style="clear: both"></div>
+            <div class="event-details-clear"></div>
 
-            <div style="" class="event-buttons">
-                <a class="btn btn-primary event-watch-button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" href="#" role="button" target="_blank" style="background-color: rgb(27, 40, 57); border: 1px solid rgb(41,58,86); width: 130px; margin-bottom: 10px;">🍿 Watch</a>
-                <a class="btn btn-outline-danger event-page" href="" role="button" target="_blank">Event Page <img src="img/external-link.svg" alt="External link" /></a>
+            <div class="event-buttons">
+                <button type="button" class="ifsc-action-button ifsc-action-button-primary event-watch-button" data-toggle="collapse" data-target="#event-n" aria-expanded="false" aria-controls="event-n">🍿 Watch</button>
+                <a class="ifsc-action-button ifsc-action-button-primary event-page" href="" role="button" target="_blank" rel="noopener">Event Page <img src="img/external-link.svg" alt="External link" /></a>
             </div>
 
         <div id="event-n" class="collapse" aria-labelledby="heading_id" data-parent="#accordion">
-            <ul class="card-body list-group" style="padding: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block;"></ul>
+            <ul class="card-body list-group"></ul>
         </div>
         </div>
     </div>
@@ -88,13 +107,31 @@
 
 <div id="ifsc-season">
     <div class="header-title">
-        <h2><a href="#">IFSC Calendar &amp; Live Streams 2026</a></h2>
+        <div class="hero-top">
+            <span class="hero-kicker" id="hero-kicker">Live Schedule 2026</span>
+            <span id="season-github-button-slot">
+                <a class="github-button season-github-button" href="https://github.com/sportclimbing/ifsc-calendar" target="_blank" rel="noopener" data-size="large" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-show-count="true" aria-label="Star sportclimbing/ifsc-calendar on GitHub">Star</a>
+            </span>
+        </div>
+        <h2><a href="/#/">World Climbing Calendar &amp; Live Streams</a></h2>
         <p>Boulder, Lead &amp; Speed Live Streams</p>
+        <p class="header-caption">Auto-updating event schedule, stream links, results, and reminders in one place.</p>
+
+        <div class="season-footer">
+            <div class="hero-actions">
+                <a class="ifsc-action-button ifsc-action-button-secondary calendar-sync-tooltip" href="https://github.com/sportclimbing/ifsc-calendar/wiki" rel="noopener" role="button" target="_blank" data-toggle="modal" data-target="#calendar-modal" title="Sync with your device's calendar">📆 Add to Calendar</a>
+                <a class="ifsc-action-button ifsc-action-button-primary footer-action-tooltip" href="https://www.buymeacoffee.com/sportclimbing" target="_blank" rel="noopener" title="Support this project"><img class="footer-action-avatar" src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" width="16" alt="buy me a coffee" /> Buy me a Coffee</a>
+                <a class="ifsc-action-button ifsc-action-button-primary footer-action-tooltip" href="https://www.instagram.com/nicoswd/" target="_blank" rel="noopener" title="Follow me on Instagram"><img class="footer-action-avatar" src="img/nico.png" width="20" alt="Nico" /> @nicoswd</a>
+            </div>
+            <button class="navbar-toggler season-menu-toggle" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
     </div>
 </div>
 
-<header class="navbar sticky-top" style="width: 100%; padding: 0; margin: 0; background: rgb(33, 37, 41);">
-    <div class="collapse bg-dark " id="navbarHeader" style="margin: auto;max-width: 700px;">
+<header class="navbar sticky-top season-header">
+    <div class="collapse" id="navbarHeader">
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-md-7 py-4">
@@ -106,77 +143,60 @@
                 <div class="col-sm-4 offset-md-1 py-4">
                     <h4 class="text-white">Links</h4>
                     <ul class="list-unstyled">
-                        <li><a href="https://instagram.com/nicoswd" target="_blank" rel="noopener" class="text-white">Follow me on Instagram</a></li>
-                        <li><a href="https://discord.gg/JvXNsR9W8R" class="text-white" target="_blank" rel="noopener">Join Discord</a></li>
-                        <li><a href="https://github.com/sportclimbing/ifsc-calendar/issues" target="_blank" rel="noopener" class="text-white">Report an issue</a></li>
-                        <li><a href="https://github.com/sportclimbing" target="_blank" rel="noopener" class="text-white">View project on GitHub</a></li>
+                        <li><a href="https://www.instagram.com/nicoswd/" target="_blank" rel="noopener" class="text-white">📸 Follow me on Instagram</a></li>
+                        <li><a href="https://discord.gg/JvXNsR9W8R" class="text-white" target="_blank" rel="noopener">💬 Join Discord</a></li>
+                        <li><a href="https://github.com/sportclimbing/ifsc-calendar/issues" target="_blank" rel="noopener" class="text-white">🛠 Report an issue</a></li>
+                        <li><a href="https://github.com/sportclimbing" target="_blank" rel="noopener" class="text-white">⭐ View project on GitHub</a></li>
                     </ul>
-                    <a class="github-button" href="https://github.com/sportclimbing/ifsc-calendar" target="_blank" rel="noopener" data-size="large" data-show-count="true" aria-label="Star sportclimbing/ifsc-calendar on GitHub">Star</a>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="navbar navbar-dark box-shadow top-header">
-        <div class="container d-flex justify-content-between" style="max-width: 700px; padding: 0;">
-
-
-            <div class="float-start header-buttons">
-                <a class="btn btn-primary btn-calendar header-buttons" href="https://github.com/sportclimbing/ifsc-calendar/wiki" rel="noopener" role="button" target="_blank" data-toggle="modal" data-target="#calendar-modal">📆 Add to Calendar</a>
-                <button class="btn btn-secondary buy-coffee header-buttons"><a href="https://www.buymeacoffee.com/sportclimbing" target="_blank" rel="noopener"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" width="11" alt="buy me a coffee" /> Buy me a Coffee</a></button>
-            </div>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
         </div>
     </div>
 </header>
 
 <section class="subheader-buttons">
-    <button type="button" class="btn btn-secondary blocked-region" data-toggle="modal" data-target="#region-modal">
-        ⚠️
-        <span class="badge rounded-pill badge-notification bg-danger notification"></span>
-    </button>
-
-    <select name="season-selector" class="btn btn-primary season-selector"></select>
-    <button class="btn btn-primary filters-button" data-toggle="modal" data-target="#filter-modal">🔍 Filters</button>
-    <div style="clear: both;"></div>
+    <div class="subheader-controls">
+        <div class="season-control">
+            <label class="season-label" for="season-selector">Season</label>
+            <select id="season-selector" name="season-selector" class="btn btn-primary season-selector"></select>
+        </div>
+        <button class="btn btn-primary filters-button" data-toggle="modal" data-target="#filter-modal">🔍 Filters</button>
+    </div>
 </section>
 
-<main role="main" style="max-width: 700px; margin: 0 auto;">
-    <div class="next-event" style="display:none;">
+<main role="main">
+    <div class="next-event">
         <h1 id="next-event-title"></h1>
         <div id="next-event-details"></div>
     </div>
-    <div id="accordion" style="padding-top: 3px;"></div>
+    <div id="accordion"></div>
 </main>
 
-<div id="calendar-modal" class="modal fade" role="dialog">
+<div id="calendar-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="calendar-modal-title">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">📆 Free Calendar Subscription</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="calendar-modal-title">📆 Free Calendar Subscription</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body">
                 <h5>For Mobile and Desktop</h5>
                 <p>Automatically updating calendar for apps like Outlook, iOS &amp; macOS Calendar</p>
-                <a class="btn btn-primary" href="webcal://calendar.ifsc.stream" role="button" rel="noopener">Add to Device's Calendar</a>
-                <hr style="margin: 20px 0 20px 0;" />
+                <a class="ifsc-action-button ifsc-action-button-secondary" href="webcal://calendar.ifsc.stream" role="button" rel="noopener">Add to Device's Calendar</a>
+                <hr />
 
                 <h5>For Google Calendar</h5>
                 <p>Automatically updating calendar for Google</p>
-                <a class="btn btn-primary" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream" target="_blank" rel="noopener" role="button">Add to Google Calendar</a>
-                <hr style="margin: 20px 0 20px 0;" />
+                <a class="ifsc-action-button ifsc-action-button-secondary" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream" target="_blank" rel="noopener" role="button">Add to Google Calendar</a>
+                <hr />
 
                 <h5>Download <code>.ics</code> file</h5>
                 <p>Non-updating calendar (<code>.ics</code>) for calendars that can’t handle updating subscriptions</p>
-                <a class="btn btn-primary" href="https://calendar.ifsc.stream" target="_blank" role="button">Download .ics</a>
-                <a class="btn btn-primary" href="https://github.com/sportclimbing/ifsc-calendar/wiki" role="button" target="_blank" rel="noopener">View Tutorial</a>
-                <hr style="margin: 20px 0 20px 0;" />
+                <a class="ifsc-action-button ifsc-action-button-secondary" href="https://calendar.ifsc.stream" target="_blank" rel="noopener" role="button">Download .ics</a>
+                <a class="ifsc-action-button ifsc-action-button-secondary" href="https://github.com/sportclimbing/ifsc-calendar/wiki" role="button" target="_blank" rel="noopener">View Tutorial</a>
+                <hr />
 
-                <p class="small">This calendar will auto-update and be ready for future seasons as well. And it's fully <a href="https://github.com/sportclimbing/ifsc-calendar">open source</a>.</p>
+                <p class="small">This calendar will auto-update and be ready for future seasons as well. And it's fully <a href="https://github.com/sportclimbing">open source</a>.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -185,18 +205,18 @@
     </div>
 </div>
 
-<div id="video-modal" class="modal fade" role="dialog">
+<div id="video-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="youtube-video-title">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="youtube-video-title"></h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body videoWrapper">
-                <iframe id="youtube-video" src="" allow="autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe id="youtube-video" src="" title="Event livestream player" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
 
-            <div id="live-chat" style="display: none; background-color: rgba(42,40,40,0.99);">
+            <div id="live-chat">
                 <widgetbot
                         server="1086875588087787561"
                         channel="1087079770023546951"
@@ -206,20 +226,79 @@
             </div>
 
             <div class="modal-footer">
-                <a class="btn btn-info" style="color: #fff; background-color: #e6007e; left: 10px; position: absolute;" href="https://protonvpn.com/free-vpn" role="button" target="_blank">Video blocked? Free VPN</a>
-                <a class="btn btn-primary" style="left: 225px; position: absolute; display: none;" role="button" target="_blank" id="chat-toggle" onclick="handle_chat_toggle(this);">Hide Chat</a>
+                <a class="ifsc-action-button ifsc-action-button-secondary video-modal-vpn-link" href="https://protonvpn.com/free-vpn" role="button" target="_blank" rel="noopener">Video blocked? Free VPN</a>
+                <button type="button" class="ifsc-action-button ifsc-action-button-secondary video-modal-chat-toggle" id="chat-toggle" onclick="handle_chat_toggle(this);">Hide Chat</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-<div id="filter-modal" class="modal fade filters-modal" role="dialog">
+<div id="start-list-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="start-list-modal-title">
+    <div class="modal-dialog start-list-modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="start-list-modal-title">📋 Start List</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <ul id="start-list-modal-list" class="start-list-modal-list"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="event-not-started-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-not-started-modal-title">
+    <div class="modal-dialog modal-dialog-centered compact-modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="event-not-started-modal-title">⏳ Event Not Started</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-body-tight-copy">The event has not started yet, and we couldn't find a link to it. Come back later or check the previous streams in the meantime!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="event-link-missing-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-link-missing-modal-title">
+    <div class="modal-dialog modal-dialog-centered compact-modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="event-link-missing-modal-title">🔗 Link Not Found</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-body-tight-copy">We could not find a link for this event. Do you want to check World Climbing's YouTube channel?</p>
+                <p class="modal-body-note"><strong>Note:</strong> Qualification rounds are typically not streamed, with speed climbing as the primary exception.</p>
+            </div>
+            <div class="modal-footer">
+                <a
+                    id="event-link-missing-modal-youtube"
+                    class="ifsc-action-button ifsc-action-button-secondary"
+                    href="https://www.youtube.com/@worldclimbing/streams"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >Check YouTube channel</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="filter-modal" class="modal fade filters-modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="filter-modal-title">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">⚙️ Configure Filters</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="filter-modal-title">⚙️ Configure Filters</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body">
                 <h4>League</h4>
@@ -272,46 +351,28 @@
     </div>
 </div>
 
-<div id="region-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">⚠️ Unsupported Region</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="blocked">
-                    <p></p>
-                    <p>IFSC events are <strong>only</strong> streamed for free on YouTube, but they're geo-restricted.
-                        Unfortunately, your region is not supported.</p>
-                    <p>You have three options:</p>
-                    <ol style="line-height: 30px;">
-                        <li>Get a <a href="https://protonvpn.com/free-vpn" target="_blank" rel="noopener">free VPN</a> (and connect to a US server)</li>
-                        <li>Get a paid <a href="https://www.eurosport.com/watch/climbing/" rel="noopener">EuroSport</a> subscription</li>
-                        <li>Get a paid <a href="https://www.discoveryplus.com" rel="noopener">Discovery+</a> subscription</li>
-                    </ol>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <footer>
-    <div>
-        <p>&copy; 2026 by <a href="https://nico.es/">@nicoswd</a> (<a href="https://github.com/sportclimbing" target="_blank" rel="noopener">@sportclimbing</a>) - <a href="https://www.reddit.com/r/CompetitionClimbing/comments/13bj7vx/i_made_a_better_ifsc_competition_calendar_you_can/" target="_blank" rel="noopener">Discuss on Reddit</a> </p>
-        <p>Seasons:
-            <a href="#/season/2020">2020</a>,
-            <a href="#/season/2021">2021</a>,
-            <a href="#/season/2022">2022</a>,
-            <a href="#/season/2023">2023</a>,
-            <a href="#/season/2024">2024</a>
-            <a href="#/season/2025">2025</a>
-            <a href="#/season/2026">2026</a>
-        </p>
-        <p style="font-weight: bold; margin-top: 10px;">In no way affiliated with, or endorsed by the <a href="https://www.ifsc-climbing.org/" target="_blank" rel="noopener">IFSC</a></p>
+    <div class="footer-content">
+        <div class="footer-copy">
+            <p>&copy; 2026 by <a href="https://nico.es/">@nicoswd</a> (<a href="https://github.com/sportclimbing" target="_blank" rel="noopener">@sportclimbing</a>) - <a href="https://www.reddit.com/r/CompetitionClimbing/comments/13bj7vx/i_made_a_better_ifsc_competition_calendar_you_can/" target="_blank" rel="noopener">Discuss on Reddit</a> </p>
+            <p id="footer-timezone-message">Times are displayed in your local timezone (<span id="footer-timezone-name">your timezone</span>).</p>
+            <p>Seasons:
+                <a href="/#/season/2020">2020</a>,
+                <a href="/#/season/2021">2021</a>,
+                <a href="/#/season/2022">2022</a>,
+                <a href="/#/season/2023">2023</a>,
+                <a href="/#/season/2024">2024</a>,
+                <a href="/#/season/2025">2025</a>,
+                <a href="/#/season/2026">2026</a>
+            </p>
+            <p class="footer-disclaimer">In no way affiliated with, or endorsed by <a href="https://www.worldclimbing.com/" target="_blank" rel="noopener">WoRLd CliMbiNg</a></p>
+        </div>
+
+        <div class="footer-actions">
+            <button type="button" class="ifsc-action-button ifsc-action-button-primary footer-theme-toggle footer-action-tooltip" id="theme-toggle">
+                ◐ System Mode
+            </button>
+        </div>
     </div>
 </footer>
 
@@ -319,12 +380,10 @@
 <script src="js/relativeTime.js"></script>
 <script src="js/isBetween.js"></script>
 <script src="js/popper.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script src="js/functions.js?v=1"></script>
-<script src="js/events.js?v=1"></script>
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="js/functions.js?v=3"></script>
+<script src="js/events.js?v=3"></script>
 <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
 <!--
 <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>

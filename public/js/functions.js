@@ -1,3 +1,29 @@
+const ROUND_SCHEDULE_STATUS = {
+    confirmed: '☑️ Confirmed Schedule',
+    provisional: '⏳ Provisional Schedule',
+    estimated: '⏳ Estimated Schedule',
+};
+
+const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
+const YOUTUBE_EMBED_BASE_URL = 'https://www.youtube-nocookie.com/embed';
+const GITHUB_BUTTON_SCRIPT_SRC = 'https://buttons.github.io/buttons.js';
+const GITHUB_BUTTON_SLOT_ID = 'season-github-button-slot';
+
+const CONFIG_CHECKBOX_BINDINGS = [
+    { inputName: 'league[cups]', path: ['league', 'cups'] },
+    { inputName: 'league[paraclimbing]', path: ['league', 'paraclimbing'] },
+    { inputName: 'league[games]', path: ['league', 'games'] },
+    { inputName: 'category[women]', path: ['category', 'women'] },
+    { inputName: 'category[men]', path: ['category', 'men'] },
+    { inputName: 'discipline[boulder]', path: ['disciplines', 'boulder'] },
+    { inputName: 'discipline[lead]', path: ['disciplines', 'lead'] },
+    { inputName: 'discipline[speed]', path: ['disciplines', 'speed'] },
+    { inputName: 'round[qualifications]', path: ['rounds', 'qualification'] },
+    { inputName: 'round[semifinals]', path: ['rounds', 'semi-final'] },
+    { inputName: 'round[finals]', path: ['rounds', 'final'] },
+    { inputName: 'streamable', path: ['streamable'] },
+];
+
 function event_is_streaming(event) {
     const now = dayjs();
     const eventStart = dayjs(event.starts_at);
@@ -11,12 +37,6 @@ function event_is_upcoming(event) {
 }
 
 function event_schedule_status(event) {
-    const status = {
-        confirmed: '☑️ Confirmed Schedule',
-        provisional: '⏳ Provisional Schedule',
-        estimated: '⏳ Estimated Schedule',
-    };
-
     let numNonQualificationRounds = 0;
 
     for (const round of event.rounds) {
@@ -27,15 +47,15 @@ function event_schedule_status(event) {
         numNonQualificationRounds++;
 
         if (round.schedule_status === 'provisional') {
-            return status.provisional;
+            return ROUND_SCHEDULE_STATUS.provisional;
         }
 
         if (round.schedule_status === 'estimated') {
-            return status.estimated;
+            return ROUND_SCHEDULE_STATUS.estimated;
         }
     }
 
-    return numNonQualificationRounds > 0 ? status.confirmed : status.provisional;
+    return numNonQualificationRounds > 0 ? ROUND_SCHEDULE_STATUS.confirmed : ROUND_SCHEDULE_STATUS.provisional;
 }
 
 function pretty_starts_in(event) {
@@ -62,15 +82,62 @@ function get_next_event(events) {
     }
 }
 
-function element_is_in_viewport(el) {
-    const rect = el.getBoundingClientRect();
+let mobileHeroTitleFitFrame = null;
 
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
+function fit_mobile_hero_title() {
+    const heading = document.querySelector('#ifsc-season .header-title h2');
+
+    if (!heading) {
+        return;
+    }
+
+    const isMobile = window.matchMedia('(max-width: 500px)').matches;
+
+    if (!isMobile) {
+        heading.style.removeProperty('font-size');
+        heading.style.removeProperty('white-space');
+
+        return;
+    }
+
+    const minFontSize = 11;
+    const maxFontSize = 28;
+    const precision = 0.1;
+    const availableWidth = heading.clientWidth || heading.parentElement?.clientWidth || 0;
+
+    if (!availableWidth) {
+        return;
+    }
+
+    heading.style.whiteSpace = 'nowrap';
+
+    let low = minFontSize;
+    let high = maxFontSize;
+    let best = minFontSize;
+
+    while ((high - low) > precision) {
+        const mid = (low + high) / 2;
+        heading.style.fontSize = `${mid}px`;
+
+        if (heading.scrollWidth <= availableWidth) {
+            best = mid;
+            low = mid;
+        } else {
+            high = mid;
+        }
+    }
+
+    heading.style.fontSize = `${best.toFixed(2)}px`;
+}
+
+function schedule_fit_mobile_hero_title() {
+    if (mobileHeroTitleFitFrame) {
+        window.cancelAnimationFrame(mobileHeroTitleFitFrame);
+    }
+
+    mobileHeroTitleFitFrame = window.requestAnimationFrame(() => {
+        fit_mobile_hero_title();
+    });
 }
 
 function get_selected_season() {
@@ -81,12 +148,163 @@ function get_selected_event() {
     return get_id_from_hash('event');
 }
 
-function first_element_by_name(name){
+function first_element_by_name(name) {
     return document.getElementsByName(name)[0];
+}
+
+function get_cookie(name) {
+    const parts = document.cookie.split(';');
+
+    for (const part of parts) {
+        const cookie = part.trim();
+
+        if (cookie.startsWith(`${name}=`)) {
+            return decodeURIComponent(cookie.substring(name.length + 1));
+        }
+    }
+
+    return '';
+}
+
+function set_cookie(name, value, days = 365) {
+    const expiresAt = new Date(Date.now() + (days * 24 * 60 * 60 * 1000));
+
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expiresAt.toUTCString()}; path=/; SameSite=Lax`;
+}
+
+function get_system_theme() {
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+}
+
+function resolve_theme(theme) {
+    return theme === 'system' ? get_system_theme() : theme;
+}
+
+function update_theme_toggle(theme) {
+    const toggle = document.getElementById('theme-toggle');
+
+    if (!toggle) {
+        return;
+    }
+
+    const labels = {
+        dark: '🌙 Dark Mode',
+        light: '☀ Light Mode',
+        system: '◐ System Mode',
+    };
+
+    toggle.innerText = labels[theme] || labels.system;
+    toggle.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+    toggle.setAttribute('title', 'Cycle theme: System, Dark, Light');
+    toggle.setAttribute('data-original-title', 'Cycle theme: System, Dark, Light');
+}
+
+function update_github_button_theme(theme) {
+    const buttonSlot = document.getElementById(GITHUB_BUTTON_SLOT_ID);
+
+    if (!buttonSlot || !document.body) {
+        return;
+    }
+
+    const colorScheme = `no-preference: ${theme}; light: ${theme}; dark: ${theme};`;
+    const githubButton = document.createElement('a');
+
+    githubButton.className = 'github-button season-github-button';
+    githubButton.href = 'https://github.com/sportclimbing/ifsc-calendar';
+    githubButton.target = '_blank';
+    githubButton.rel = 'noopener';
+    githubButton.dataset.size = 'large';
+    githubButton.dataset.colorScheme = colorScheme;
+    githubButton.dataset.showCount = 'true';
+    githubButton.setAttribute('aria-label', 'Star sportclimbing/ifsc-calendar on GitHub');
+    githubButton.textContent = 'Star';
+
+    remove_all_children(buttonSlot);
+    buttonSlot.appendChild(githubButton);
+
+    document
+        .querySelectorAll('script[data-github-button-loader="true"]')
+        .forEach((script) => script.remove());
+
+    const githubButtonScript = document.createElement('script');
+    githubButtonScript.async = true;
+    githubButtonScript.defer = true;
+    githubButtonScript.src = GITHUB_BUTTON_SCRIPT_SRC;
+    githubButtonScript.dataset.githubButtonLoader = 'true';
+
+    githubButtonScript.addEventListener('load', () => githubButtonScript.remove());
+    githubButtonScript.addEventListener('error', () => githubButtonScript.remove());
+
+    document.body.appendChild(githubButtonScript);
+}
+
+function apply_theme(theme) {
+    const selectedTheme = ['dark', 'light', 'system'].includes(theme) ? theme : 'system';
+    const resolvedTheme = resolve_theme(selectedTheme);
+
+    document.body.classList.toggle('theme-light', resolvedTheme === 'light');
+    document.body.dataset.theme = resolvedTheme;
+    document.body.dataset.themePreference = selectedTheme;
+    update_theme_toggle(selectedTheme);
+    update_github_button_theme(resolvedTheme);
+}
+
+function sync_system_theme() {
+    if (document.body.dataset.themePreference === 'system') {
+        apply_theme('system');
+    }
+}
+
+function toggle_theme() {
+    const currentTheme = document.body.dataset.themePreference || 'system';
+    const nextTheme = {
+        system: 'dark',
+        dark: 'light',
+        light: 'system',
+    }[currentTheme];
+
+    apply_theme(nextTheme);
+    set_cookie('ifsc_theme', nextTheme);
+}
+
+function restore_theme() {
+    apply_theme(get_cookie('ifsc_theme') || 'system');
 }
 
 function config_is_enabled(name) {
     return first_element_by_name(name).checked;
+}
+
+function remove_all_children(element) {
+    if (!element) {
+        return;
+    }
+
+    while (element.lastElementChild) {
+        element.removeChild(element.lastElementChild);
+    }
+}
+
+function get_enabled_filter_keys(filterGroup) {
+    return Object.keys(filterGroup).filter((key) => filterGroup[key]);
+}
+
+function has_intersection(values, selectedValuesSet) {
+    return values.some((value) => selectedValuesSet.has(value));
+}
+
+function read_nested_value(object, path) {
+    return path.reduce((current, key) => (current ? current[key] : undefined), object);
+}
+
+function set_checkbox_checked(inputName, checked) {
+    const checkbox = first_element_by_name(inputName);
+
+    if (!checkbox) {
+        return;
+    }
+
+    checkbox.checked = Boolean(checked);
 }
 
 function get_id_from_hash(name) {
@@ -138,32 +356,20 @@ function load_config_from_modal() {
 }
 
 function restore_config() {
-    let config = window.localStorage.getItem('config_v3');
-    let json;
+    const configRaw = window.localStorage.getItem('config');
 
-    if (config) {
-        try {
-            json = JSON.parse(config);
+    if (!configRaw) {
+        return;
+    }
 
-            first_element_by_name('league[cups]').checked = json.league.cups;
-            first_element_by_name('league[paraclimbing]').checked = json.league.paraclimbing;
-            first_element_by_name('league[games]').checked = json.league.games;
+    try {
+        const config = JSON.parse(configRaw);
 
-            first_element_by_name('category[women]').checked = json.category["women"];
-            first_element_by_name('category[men]').checked = json.category["men"];
-
-            first_element_by_name("discipline[boulder]").checked = json.disciplines.boulder;
-            first_element_by_name("discipline[lead]").checked = json.disciplines.lead;
-            first_element_by_name("discipline[speed]").checked = json.disciplines.speed;
-
-            first_element_by_name("round[qualifications]").checked = json.rounds["qualification"];
-            first_element_by_name("round[semifinals]").checked = json.rounds["semi-final"];
-            first_element_by_name("round[finals]").checked = json.rounds["final"];
-
-            first_element_by_name('streamable').checked = json.streamable;
-        } catch (e) {
-            window.localStorage.clear();
-        }
+        CONFIG_CHECKBOX_BINDINGS.forEach(({ inputName, path }) => {
+            set_checkbox_checked(inputName, read_nested_value(config, path));
+        });
+    } catch (error) {
+        window.localStorage.clear();
     }
 }
 
@@ -172,192 +378,318 @@ function config_selected_leagues() {
 }
 
 function apply_search_filters(jsonData) {
-    const disciplines = [];
-    let categories = [];
-    let config = load_config_from_modal();
+    const config = load_config_from_modal();
+    const enabledDisciplines = new Set(get_enabled_filter_keys(config.disciplines));
+    const enabledCategories = new Set(get_enabled_filter_keys(config.category));
+    const selectedLeagues = new Set(config_selected_leagues());
 
-    for (let discipline in config.disciplines) {
-        if (config.disciplines[discipline]) {
-            disciplines.push(discipline);
+    const round_matches_filters = (round) => {
+        if (config.streamable && !round.stream_url) {
+            return false;
         }
+
+        if (!has_intersection(round.disciplines, enabledDisciplines)) {
+            return false;
+        }
+
+        if (!config.rounds[round.kind]) {
+            return false;
+        }
+
+        if (!has_intersection(round.categories, enabledCategories)) {
+            return false;
+        }
+
+        return true;
+    };
+
+    return jsonData.events
+        .filter((event) => selectedLeagues.has(event.league_name))
+        .map((event) => ({
+            ...event,
+            rounds: event.rounds.filter(round_matches_filters),
+        }));
+}
+
+let lazyBackgroundObserver = null;
+
+function get_lazy_background_observer() {
+    if (!('IntersectionObserver' in window)) {
+        return null;
     }
 
-    for (let category in config.category) {
-        if (config.category[category]) {
-            categories.push(category);
-        }
-    }
+    if (!lazyBackgroundObserver) {
+        lazyBackgroundObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
 
-    const selectedLeagues = config_selected_leagues();
+                const element = entry.target;
+                const bgSrc = element.dataset.bgSrc;
 
-    let filteredEvents = [];
-    const hasMatchingDisciplines = (round) => round.disciplines.filter(value => disciplines.includes(value)).length > 0;
-    const hasMatchingCategories = (round) => round.categories.filter(value => categories.includes(value)).length > 0;
-
-    jsonData.events.forEach((event) => {
-        let filteredRounds = [];
-
-        if (!selectedLeagues.includes(event.league_name)) {
-            return;
-        }
-
-        event.rounds.forEach((round) => {
-            if (config.streamable && !round.stream_url) {
-                return false;
-            }
-
-            if (!hasMatchingDisciplines(round)) {
-                return false;
-            }
-
-            if (!config.rounds[round.kind]) {
-                return false;
-            }
-
-            if (!hasMatchingCategories(round)) {
-                return false;
-            }
-
-            filteredRounds.push(round);
+                if (bgSrc) {
+                    set_background_image_now(element, bgSrc);
+                } else {
+                    observer.unobserve(element);
+                }
+            });
+        }, {
+            rootMargin: '200px 0px',
         });
+    }
 
-        event.rounds = filteredRounds;
-        filteredEvents.push(event);
-    });
-
-    return filteredEvents;
+    return lazyBackgroundObserver;
 }
 
-function basename(path) {
-    return path.split('/').reverse()[0];
+function set_background_image_now(element, url) {
+    if (!element || !url) {
+        return;
+    }
+
+    element.classList.add('lazy-background');
+    element.dataset.bgSrc = url;
+    element.dataset.bgLoaded = '1';
+    element.style.backgroundImage = `url(${url})`;
+
+    const observer = get_lazy_background_observer();
+
+    if (observer) {
+        observer.unobserve(element);
+    }
 }
 
-function event_poster_path(event) {
-    return `img/posters/${event.starts_at.substring(0, 4)}/${event.id}.png`;
+function lazy_set_background_image(element, url) {
+    if (!element || !url) {
+        return;
+    }
+
+    element.classList.add('lazy-background');
+    element.dataset.bgSrc = url;
+    delete element.dataset.bgLoaded;
+    element.style.backgroundImage = '';
+
+    const observer = get_lazy_background_observer();
+
+    if (!observer) {
+        set_background_image_now(element, url);
+
+        return;
+    }
+
+    observer.observe(element);
+}
+
+function release_lazy_backgrounds(root) {
+    if (!root || typeof root.querySelectorAll !== 'function') {
+        return;
+    }
+
+    const observer = get_lazy_background_observer();
+
+    if (!observer) {
+        return;
+    }
+
+    if (root.classList && root.classList.contains('lazy-background')) {
+        observer.unobserve(root);
+    }
+
+    root.querySelectorAll('.lazy-background').forEach((element) => observer.unobserve(element));
+}
+
+function youtube_cover_url(videoId, frame = 0) {
+    return `https://img.youtube.com/vi/${videoId}/${frame}.jpg`;
 }
 
 function set_round_details(clone, round) {
     set_round_name(clone.querySelector('.round-name'), round);
     set_round_date(clone.querySelector('.round-date'), round);
+    set_round_time(clone.querySelector('.round-time'), round);
     set_round_youtube_cover(clone.querySelector('.youtube-thumbnail'), round);
-    set_round_stream_button($('#button-stream', clone), round);
+    set_round_stream_button($('.round-stream-button', clone), round);
+    set_round_stream_button($('.youtube-play-button', clone), round);
 }
 
-function set_next_event(round, event, isStreaming) {
-    document.querySelector('.next-event').style.display = '';
-    let eventDetails = document.querySelector('#next-event-details');
+function set_round_action_buttons_visibility(clone, isStreaming) {
+    const resultsButton = clone.querySelector('.button-results');
+    const reminderButton = clone.querySelector('.button-reminder');
 
-    while (eventDetails.lastElementChild) {
-        eventDetails.removeChild(eventDetails.lastElementChild);
+    if (isStreaming) {
+        resultsButton.style.setProperty('display', 'inline-grid', 'important');
+        reminderButton.style.setProperty('display', 'none', 'important');
+
+        return;
     }
 
-    const template = document.getElementById("ifsc-event");
-    const clone = template.content.cloneNode(true);
+    resultsButton.style.setProperty('display', 'none', 'important');
+    reminderButton.style.setProperty('display', 'inline-grid', 'important');
+}
 
-    clone.querySelector('.button-results').style.display = isStreaming ? 'block' : 'none';
-    clone.querySelector('a[data-toggle="modal"]').style.display = isStreaming ? 'none' : 'inline';
-
-    set_round_details(clone, round);
-
-    let startsIn = $('#ifsc-starts-in', clone);
+function set_next_event_starts_in_label(clone, round, event, isStreaming) {
+    const startsIn = $('.js-starts-in', clone);
 
     if (isStreaming) {
         startsIn.text(`🔴 Live now (${pretty_started_ago(round)})`);
-        clone.querySelector('.button-results').href = `https://ifsc.results.info/#/event/${event.id}`;
+        clone.querySelector('.button-results').href = `https://ifsc.results.info/event/${event.id}`;
     } else {
         startsIn.text(`🟢 Next Event (Starts ${pretty_starts_in(round)})`);
     }
 
     startsIn.removeClass('text-muted').addClass('fw-bold');
-    eventDetails.append(clone);
-    const title = isStreaming ? '🔴 Now Streaming' : '⏰ Next Event';
-
-    $('#next-event-title').text(`${title} - ${event.name}`);
 }
 
-function set_background_image(event) {
-    let youTubeVideoId;
+function set_next_event(round, event, isStreaming) {
+    const nextEventContainer = document.querySelector('.next-event');
+    const eventDetails = document.querySelector('#next-event-details');
+    const template = document.getElementById('ifsc-event');
 
-    if (event && event.stream_url) {
-        youTubeVideoId = extract_youtube_video_id(event.stream_url);
+    if (!nextEventContainer || !eventDetails || !template) {
+        return;
     }
 
-    if (!youTubeVideoId) {
-        youTubeVideoId = DEFAULT_BACKGROUND_IMAGE_ID;
-    }
+    nextEventContainer.style.display = 'block';
 
-    const backgroundImage = `img/covers/${youTubeVideoId}.jpg`;
-    const backgroundImageFallback = `img/covers/${DEFAULT_BACKGROUND_IMAGE_ID}.jpg`;
+    release_lazy_backgrounds(eventDetails);
+    remove_all_children(eventDetails);
+    const clone = template.content.cloneNode(true);
 
-    document.body.style.backgroundImage = `url(${backgroundImage})`;
+    set_round_action_buttons_visibility(clone, isStreaming);
+    set_round_details(clone, round);
+    set_next_event_starts_in_label(clone, round, event, isStreaming);
+    eventDetails.append(clone);
 
-    const img = new Image();
-    img.src = backgroundImage;
-    img.onerror = () => document.body.style.backgroundImage = `url(${backgroundImageFallback})`;
+    const title = isStreaming ? '🔴 Now Streaming' : '⏰ Next Event';
+
+    $('#next-event-title').text(`${title}: ${event.name}`);
 }
 
 function video_id_from_stream(round) {
-    let youtubeVideoId = extract_youtube_video_id(round.stream_url);
+    const youtubeVideoId = extract_youtube_video_id(round.stream_url);
 
-    if (!youtubeVideoId) {
-        if (round.categories.includes('women')) {
-            youtubeVideoId = 'MQeQs6K_T5g';
-        } else {
-            youtubeVideoId = 'emrHdLsJTk4';
-        }
+    if (youtubeVideoId) {
+        return youtubeVideoId;
     }
 
-    return youtubeVideoId;
+    return round.categories.includes('women') ? 'MQeQs6K_T5g' : 'emrHdLsJTk4';
 }
 
-function set_round_youtube_cover(element, round) {
-    let youtubeVideoId = video_id_from_stream(round);
-    element.style.backgroundImage = `url(https://img.youtube.com/vi/${youtubeVideoId}/0.jpg)`;
+function set_youtube_cover_rotation(element, initialFrame = 0) {
+    let interval = null;
+    let frame = initialFrame;
 
-    let interval;
-    let counter = 0;
+    const stop_rotation = () => {
+        if (interval) {
+            window.clearInterval(interval);
+            interval = null;
+        }
+    };
 
     element.onmouseover = () => {
-        if (event_is_streaming(round) || event_is_upcoming(round)) {
-            return;
+        if (interval) {
+            stop_rotation();
         }
 
         interval = window.setInterval(() => {
-            counter++;
-            if (counter > 3) {
-                counter = 1;
+            frame += 1;
+
+            if (frame > 3) {
+                frame = 1;
             }
-            set_youtube_cover(element, counter);
+
+            set_youtube_cover(element, frame);
         }, 500);
     };
 
     element.onmouseout = () => {
-        if (interval) {
-            window.clearInterval(interval);
-            set_youtube_cover(element, 0);
-        }
+        stop_rotation();
+        frame = initialFrame;
+        set_youtube_cover(element, initialFrame);
     };
 }
 
+function set_round_youtube_cover(element, round) {
+    const youtubeVideoId = video_id_from_stream(round);
+    element.dataset.youtubeVideoId = youtubeVideoId;
+    lazy_set_background_image(element, youtube_cover_url(youtubeVideoId, 0));
+
+    if (event_is_streaming(round) || event_is_upcoming(round)) {
+        element.onmouseover = null;
+        element.onmouseout = null;
+
+        return;
+    }
+
+    set_youtube_cover_rotation(element, 0);
+}
+
 function set_youtube_cover(element, counter) {
-    element.style.backgroundImage = element.style.backgroundImage.replace(/[0-9]\.jpg/, `${counter}.jpg`);
+    const youtubeVideoId = element.dataset.youtubeVideoId;
+
+    if (!youtubeVideoId) {
+        return;
+    }
+
+    set_background_image_now(element, youtube_cover_url(youtubeVideoId, counter));
+}
+
+function set_round_stream_metadata(element, round) {
+    element.attr('data-round-name', round.name || '');
+    element.attr('data-round-starts-at', round.starts_at || '');
+    element.attr('data-round-ends-at', round.ends_at || '');
+    element.addClass('js-round-stream');
+}
+
+function round_from_stream_button(element) {
+    return {
+        name: element.dataset.roundName || '',
+        starts_at: element.dataset.roundStartsAt || '',
+        ends_at: element.dataset.roundEndsAt || '',
+    };
 }
 
 function set_round_stream_button(element, round) {
+    const tagName = element.prop('tagName');
+    const streamUrl = round.stream_url || '';
+    const fallbackUrl = streamUrl || STREAMS_FALLBACK_URL;
+
+    set_round_stream_metadata(element, round);
+    element.attr('data-round-stream-url', streamUrl);
+    element.attr('data-round-fallback-url', fallbackUrl);
+
     if (round.stream_url) {
-        element.attr('href', round.stream_url);
-        element.on('click', handle_watch_event(round));
+        element.attr('data-round-has-stream-url', '1');
     } else {
-        element.attr('href', 'https://www.youtube.com/@sportclimbing/streams');
-        element.on('click', handle_watch_event_no_url(round));
+        element.attr('data-round-has-stream-url', '0');
     }
+
+    if (tagName === 'A') {
+        element.attr('href', fallbackUrl);
+
+        return;
+    }
+
+    element.removeAttr('href');
+}
+
+function round_stream_url_from_target(target) {
+    return target.dataset.roundStreamUrl || target.href || '';
+}
+
+function round_fallback_url_from_target(target) {
+    return target.dataset.roundFallbackUrl || target.href || STREAMS_FALLBACK_URL;
 }
 
 function set_round_date(element, round) {
-    element.innerText = '📆 ' + dayjs(round.starts_at).format('ddd, D MMMM, YYYY [at] hh:mm A');
+    element.innerText = '📅 ' + dayjs(round.starts_at).format('ddd, D MMMM, YYYY');
 }
+
+function set_round_time(element, round) {
+    element.innerText = '⏰ ' + dayjs(round.starts_at).format('hh:mm A');
+}
+
 function set_round_name(element, round) {
-    element.innerText = `🏆 ${round.name}`;
+    element.innerText = round.name;
 }
 
 function set_favicon(liveEvent) {
@@ -400,43 +732,52 @@ function beautify_disciplines(disciplines) {
     return disciplines.join(', ') + ' &amp; ' + last;
 }
 
-const handle_watch_event = (event) => (e) => {
-    const youTubeVideoId = extract_youtube_video_id(e.currentTarget.href);
+function handle_watch_event(e) {
+    const round = round_from_stream_button(e.currentTarget);
+    const streamUrl = round_stream_url_from_target(e.currentTarget);
+    const youTubeVideoId = extract_youtube_video_id(streamUrl);
 
-    if (youTubeVideoId) {
-        e.preventDefault();
-
-        const streamButton = $(e.currentTarget);
-        streamButton.attr('data-target', "#video-modal");
-        streamButton.attr('data-toggle', "modal");
-
-        let chat = $('#live-chat');
-        let chatToggle = $('#chat-toggle');
-
-        if (event_is_streaming(event) || event_is_upcoming(event)) {
-            chat.show();
-            chatToggle.show();
-        } else {
-            chat.hide();
-            chatToggle.hide();
-        }
-
-        $('#youtube-video').attr('src', `https://www.youtube.com/embed/${youTubeVideoId}?autoplay=1`);
-        $('#youtube-video-title').html(`🍿 ${event.name}`);
+    if (!youTubeVideoId) {
+        return;
     }
-};
 
-const handle_watch_event_no_url = (event) => (e) => {
     e.preventDefault();
 
-    if (event_is_upcoming(event) && !event_is_streaming(event)) {
-        alert('The event has not started yet, and we couldn\'t find a link to it. Come back later, or check the previous streams!');
+    const streamButton = $(e.currentTarget);
+    streamButton.attr('data-target', '#video-modal');
+    streamButton.attr('data-toggle', 'modal');
+
+    const showChat = event_is_streaming(round) || event_is_upcoming(round);
+    $('#live-chat').toggle(showChat);
+    $('#chat-toggle').toggle(showChat);
+
+    $('#youtube-video').attr('src', `${YOUTUBE_EMBED_BASE_URL}/${youTubeVideoId}?autoplay=1`);
+    $('#youtube-video-title').html(`🍿 ${round.name}`);
+}
+
+function handle_watch_event_no_url(e) {
+    const round = round_from_stream_button(e.currentTarget);
+    e.preventDefault();
+
+    if (event_is_upcoming(round) && !event_is_streaming(round)) {
+        $('#event-not-started-modal').modal('show');
     } else {
-        if (confirm('We could not find a link for this event. Do you want to check IFSC\'s YouTube channel?')) {
-            window.open($(e.targetElement).attr('href'), '_blank', '');
-        }
+        const fallbackUrl = round_fallback_url_from_target(e.currentTarget);
+
+        $('#event-link-missing-modal-youtube').attr('href', fallbackUrl);
+        $('#event-link-missing-modal').modal('show');
     }
-};
+}
+
+function handle_round_stream_click(e) {
+    if (e.currentTarget.dataset.roundHasStreamUrl === '1') {
+        handle_watch_event(e);
+
+        return;
+    }
+
+    handle_watch_event_no_url(e);
+}
 
 Object.defineProperty(String.prototype, 'capitalize', {
     value: function() {
@@ -446,10 +787,10 @@ Object.defineProperty(String.prototype, 'capitalize', {
 });
 
 function start_list_build(startList) {
-    let list = [];
+    const list = [];
 
     for (const athlete of startList) {
-        list.push(athlete.first_name + ' ' + athlete.last_name[0]);
+        list.push(`${athlete.first_name} ${athlete.last_name[0]}`);
 
         if (list.length === 2) {
             break;
@@ -463,10 +804,95 @@ function start_list_build(startList) {
     return '📋 ' + list.slice(0, 2).join(', ') + ',...';
 }
 
+function athlete_name_build(athlete) {
+    return `${athlete.first_name} ${athlete.last_name}`;
+}
+
+function athlete_initials_build(athlete) {
+    return `${athlete.first_name[0] || ''}${athlete.last_name[0] || ''}`;
+}
+
+function escape_html(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function start_list_modal_build(startList) {
+    if (!startList.length) {
+        return '<li class="start-list-modal-empty">Start list pending.</li>';
+    }
+
+    return startList.map((athlete) => {
+        const athleteName = escape_html(athlete_name_build(athlete));
+        const country = athlete.country ? `<span class="start-list-athlete-country">${escape_html(athlete.country)}</span>` : '';
+        const photo = athlete.photo_url
+            ? `<img class="start-list-athlete-photo" src="${escape_html(athlete.photo_url)}" alt="${athleteName}" loading="lazy" referrerpolicy="no-referrer" />`
+            : `<div class="start-list-athlete-photo start-list-athlete-photo-fallback" aria-hidden="true">${escape_html(athlete_initials_build(athlete))}</div>`;
+
+        return `
+            <li class="start-list-athlete">
+                ${photo}
+                <div class="start-list-athlete-meta">
+                    <span class="start-list-athlete-name">${athleteName}</span>
+                    ${country}
+                </div>
+            </li>
+        `;
+    }).join('');
+}
+
+function set_start_list_modal(event) {
+    const title = document.getElementById('start-list-modal-title');
+    const list = document.getElementById('start-list-modal-list');
+
+    if (!title || !list) {
+        return;
+    }
+
+    title.innerText = `📋 ${event.name} Start List`;
+    list.innerHTML = start_list_modal_build(event.start_list || []);
+}
+
+const eventStartListModalData = new Map();
+
+function clear_event_start_list_modal_data() {
+    eventStartListModalData.clear();
+}
+
+function register_event_start_list_modal_data(event) {
+    eventStartListModalData.set(String(event.id), {
+        name: event.name,
+        start_list: event.start_list || [],
+    });
+}
+
+function set_start_list_modal_by_event_id(eventId) {
+    const event = eventStartListModalData.get(String(eventId));
+
+    if (!event) {
+        return;
+    }
+
+    set_start_list_modal(event);
+}
+
+function handle_start_list_trigger_click(e) {
+    const eventId = e.currentTarget.dataset.eventId;
+
+    if (!eventId) {
+        return;
+    }
+
+    set_start_list_modal_by_event_id(eventId);
+}
+
 function set_event_name(element, event) {
-    element.innerHTML = `🥇 ${event.name}`;
+    element.textContent = event.name;
     element.setAttribute('data-target', `#event-${event.id}`);
-    element.setAttribute('href', `#/season/${selectedSeason}/event/${event.id}`);
 }
 
 function set_event_date(element, event) {
@@ -482,10 +908,10 @@ function set_event_discipline(element, event) {
 }
 
 function set_event_poster(element, event) {
-    let round = event.rounds.slice(-1)[0];
-    let youTubeVideoId = video_id_from_stream(round);
+    const round = event.rounds.slice(-1)[0];
+    const youTubeVideoId = video_id_from_stream(round);
 
-    element.style.backgroundImage = `url(https://img.youtube.com/vi/${youTubeVideoId}/hqdefault.jpg)`;
+    lazy_set_background_image(element, `https://img.youtube.com/vi/${youTubeVideoId}/hqdefault.jpg`);
 }
 
 function set_event_streams(element, event) {
@@ -498,8 +924,32 @@ function set_event_page(element, event) {
     element.href = event.event_url;
 }
 
+function build_event_start_list_button(eventId, startList) {
+    const button = document.createElement('button');
+
+    button.type = 'button';
+    button.className = 'event-start-list-trigger';
+    button.innerHTML = start_list_build(startList);
+    button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '#start-list-modal');
+    button.dataset.eventId = String(eventId);
+
+    return button;
+}
+
 function set_event_start_list(element, event) {
-    element.innerHTML = start_list_build(event.start_list);
+    const startList = event.start_list || [];
+    register_event_start_list_modal_data(event);
+
+    if (!startList.length) {
+        element.innerHTML = start_list_build(startList);
+
+        return;
+    }
+
+    const button = build_event_start_list_button(event.id, startList);
+    element.innerHTML = '';
+    element.appendChild(button);
 }
 
 function set_event_schedule_status(element, event) {

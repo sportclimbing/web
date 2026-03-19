@@ -16,24 +16,21 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  IFSC_RSS_FEED_URL: "https://www.ifsc-climbing.org/news?format=feed&type=rss"
   LATEST_CALENDAR_URL: "https://github.com/sportclimbing/ifsc-calendar/releases/latest/download/IFSC-World-Cups-and-World-Championships.json"
   YEAR: 2026
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: "Setup PHP"
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
+          extensions: dom
 
       - name: "Download latest calendar"
         run: |
@@ -41,20 +38,53 @@ jobs:
               --output "public/events/events_${YEAR}.json" \
               --max-time 15
 
-      - name: "Download posters"
-        run: php bin/download-posters "${YEAR}" "public/events/events_${YEAR}.json"
+      - name: "Setup Node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-      - name: "Copy video covers"
+      - name: "Install frontend test dependencies"
+        run: npm install --no-package-lock
+
+      - name: "Install Playwright browser"
+        run: npx playwright install --with-deps chromium
+
+      - name: "Run frontend integration tests"
+        run: npx playwright test
+
+  deploy:
+    needs: test
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v6
+
+      - name: "Setup PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: dom
+
+      - name: "Download latest calendar"
         run: |
-          composer install
-          cp vendor/sportclimbing/ifsc-youtube-videos/data/covers/original/*.jpg public/img/covers/ || true
-          cp vendor/sportclimbing/ifsc-youtube-videos/data/covers/optimized/*.jpg public/img/covers/ || true
+          curl -sSL "${{ env.LATEST_CALENDAR_URL }}" \
+              --output "public/events/events_${YEAR}.json" \
+              --max-time 15
+
+      - name: "Build structured data"
+        run: php bin/build-structured-data
+
+      - name: "Build sitemap"
+        run: php bin/build-sitemap
 
       - name: "Setup Pages"
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v5
 
       - name: "Upload artifact"
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: 'public/'
 
