@@ -242,6 +242,11 @@ li.ifsc-event.event-round-card:last-child {
     border-radius: 8px;
 }
 
+.youtube-thumbnail:hover,
+.event-round-card .youtube-thumbnail:hover {
+    transform: none;
+}
+
 .round-details {
     position: static;
     display: block !important;
