@@ -1,0 +1,35 @@
+name: Pull Request Tests
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  LATEST_CALENDAR_URL: "https://github.com/sportclimbing/ifsc-calendar/releases/latest/download/IFSC-World-Cups-and-World-Championships.json"
+  YEAR: 2026
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v6
+
+      - name: "Setup Node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: "Download latest calendar"
+        run: |
+          curl -sSL "${{ env.LATEST_CALENDAR_URL }}" \
+              --output "public/events/events_${YEAR}.json" \
+              --max-time 15
+
+      - name: "Install Playwright browser"
+        run: npx playwright install --with-deps chromium
+
+      - name: "Run tests"
+        run: make test
