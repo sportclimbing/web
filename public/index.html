@@ -354,17 +354,10 @@
 <footer>
     <div class="footer-content">
         <div class="footer-copy">
-            <p>&copy; 2026 by <a href="https://nico.es/">@nicoswd</a> (<a href="https://github.com/sportclimbing" target="_blank" rel="noopener">@sportclimbing</a>) - <a href="https://www.reddit.com/r/CompetitionClimbing/comments/13bj7vx/i_made_a_better_ifsc_competition_calendar_you_can/" target="_blank" rel="noopener">Discuss on Reddit</a> </p>
-            <p id="footer-timezone-message">Times are displayed in your local timezone (<span id="footer-timezone-name">your timezone</span>).</p>
-            <p>Seasons:
-                <a href="/#/season/2020">2020</a>,
-                <a href="/#/season/2021">2021</a>,
-                <a href="/#/season/2022">2022</a>,
-                <a href="/#/season/2023">2023</a>,
-                <a href="/#/season/2024">2024</a>,
-                <a href="/#/season/2025">2025</a>,
-                <a href="/#/season/2026">2026</a>
+            <p class="footer-seasons">
+                <span class="footer-seasons-nav" id="footer-seasons-nav" aria-label="Season links"></span>
             </p>
+            <p class="footer-credits">&copy; <span id="footer-copyright-year">2026</span> by <a href="https://nico.es/">@nicoswd</a> (<a href="https://github.com/sportclimbing" target="_blank" rel="noopener">@sportclimbing</a>) - <a href="https://www.reddit.com/r/CompetitionClimbing/comments/13bj7vx/i_made_a_better_ifsc_competition_calendar_you_can/" target="_blank" rel="noopener">Discuss on Reddit</a> </p>
             <p class="footer-disclaimer">In no way affiliated with, or endorsed by <a href="https://www.worldclimbing.com/" target="_blank" rel="noopener">WoRLd CliMbiNg</a></p>
         </div>
 
@@ -372,6 +365,22 @@
             <button type="button" class="ifsc-action-button ifsc-action-button-primary footer-theme-toggle footer-action-tooltip" id="theme-toggle">
                 ◐ System Mode
             </button>
+        </div>
+        <div class="footer-meta">
+            <table class="footer-meta-table" aria-label="Footer metadata">
+                <tbody>
+                <tr>
+                    <th scope="row">timezone</th>
+                    <td class="footer-meta-sep">:</td>
+                    <td><span class="footer-meta-value" id="footer-timezone-name">Europe/Madrid</span></td>
+                </tr>
+                <tr>
+                    <th scope="row">build</th>
+                    <td class="footer-meta-sep">:</td>
+                    <td><span class="footer-meta-value footer-build-value">__ASSET_VERSION__</span></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </footer>
