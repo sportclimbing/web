@@ -7,6 +7,7 @@ const EVENTS_CACHE_OPTIONS = { cache: 'no-cache' };
 const TOOLTIP_TEMPLATE = '<div class="tooltip sync-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>';
 const SEASON_SELECTOR = 'select[name="season-selector"]';
 const STRUCTURED_DATA_EVENTS_SCRIPT_ID = 'structured-data-events';
+const MOBILE_VIEWPORT_MEDIA_QUERY = '(max-width: 500px)';
 
 let config;
 
@@ -42,6 +43,8 @@ let seasonTimeline = {
     nextEvent: null,
     seasonHasUpcomingEvents: false,
 };
+
+const is_mobile_viewport = () => window.matchMedia(MOBILE_VIEWPORT_MEDIA_QUERY).matches;
 
 const clear_element_children = (element) => {
     if (!element) {
@@ -755,6 +758,14 @@ const setup_season_picker_click_target = () => {
 };
 
 const setup_tooltips = () => {
+    $(document).on('click', '.button-reminder', function () {
+        this.blur();
+    });
+
+    if (is_mobile_viewport()) {
+        return;
+    }
+
     const tooltipOptions = {
         container: 'body',
         placement: 'bottom',
@@ -769,16 +780,15 @@ const setup_tooltips = () => {
         $(this).tooltip('hide');
         this.blur();
     });
-
-    $(document).on('click', '.button-reminder', function () {
-        this.blur();
-    });
 };
 
 const setup_theme_handlers = (systemThemeQuery) => {
     $('#theme-toggle').on('click', () => {
         toggle_theme();
-        $('#theme-toggle').tooltip('hide');
+
+        if (!is_mobile_viewport()) {
+            $('#theme-toggle').tooltip('hide');
+        }
     });
 
     if (typeof systemThemeQuery.addEventListener === 'function') {
