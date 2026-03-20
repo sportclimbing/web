@@ -559,7 +559,7 @@ function set_next_event(round, event, isStreaming) {
     set_next_event_starts_in_label(clone, round, event, isStreaming);
     eventDetails.append(clone);
 
-    const title = isStreaming ? '🔴 Now Streaming' : '⏰ Next Event';
+    const title = isStreaming ? '🔴 Now Streaming' : 'Next Event';
 
     $('#next-event-title').text(`${title}: ${event.name}`);
 }

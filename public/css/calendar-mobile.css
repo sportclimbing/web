@@ -3,7 +3,8 @@
 }
 
 .subheader-buttons {
-    padding: 6px 8px 2px;
+    margin-bottom: 4px;
+    padding: 6px 8px 0;
 }
 
 .subheader-controls {
@@ -171,7 +172,7 @@ main[role="main"] {
     position: static;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
     padding: 0;
     margin: 8px 0 0;
 }
@@ -196,6 +197,10 @@ main[role="main"] {
     max-width: 100%;
 }
 
+#start-list-modal .start-list-athlete-name {
+    font-size: 17px;
+}
+
 .event-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -216,6 +221,12 @@ main[role="main"] {
     padding-top: 0 !important;
 }
 
+#accordion .collapse > .card-body.list-group,
+#accordion .collapse.show > .card-body.list-group,
+#accordion .collapsing > .card-body.list-group {
+    padding-bottom: 0.3rem;
+}
+
 li.ifsc-event {
     height: auto;
     min-height: 0;
@@ -234,6 +245,12 @@ li.ifsc-event.event-round-card,
 li.ifsc-event.event-round-card:first-child,
 li.ifsc-event.event-round-card:last-child {
     border-radius: 12px;
+}
+
+#accordion .collapse > .card-body.list-group > li.ifsc-event.event-round-card:last-child,
+#accordion .collapse.show > .card-body.list-group > li.ifsc-event.event-round-card:last-child,
+#accordion .collapsing > .card-body.list-group > li.ifsc-event.event-round-card:last-child {
+    margin-bottom: 0;
 }
 
 .event-round-card::before {
@@ -276,6 +293,10 @@ li.ifsc-event.event-round-card:last-child {
     font-size: 14px;
 }
 
+.round-name.round-copy-line.round-copy-line-title {
+    padding-left: 4px;
+}
+
 .ifsc-starts-in {
     margin-top: 8px;
 }
@@ -314,6 +335,69 @@ li.ifsc-event.event-round-card:last-child {
     width: 100%;
 }
 
+.event-round-card {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    column-gap: 10px;
+    row-gap: 6px;
+}
+
+.event-round-card .round-details {
+    display: contents !important;
+}
+
+.event-round-card .youtube-thumbnail {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 0;
+}
+
+.event-round-card .watch-button {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    margin-top: 0;
+}
+
+.event-round-card .watch-button > a {
+    width: 100%;
+}
+
+.event-round-card .round-copy {
+    display: contents;
+}
+
+.event-round-card .round-name {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    margin: 0 !important;
+}
+
+.event-round-card .round-date {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin: 8px 0 0 6px !important;
+}
+
+.event-round-card .round-time {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    margin: 0 0 0 6px !important;
+}
+
+.event-round-card .ifsc-starts-in {
+    grid-column: 1 / -1;
+    grid-row: 5;
+    margin-top: 4px;
+    margin-bottom: 0;
+    width: fit-content;
+    justify-self: start;
+}
+
 .next-event {
     margin-top: 8px;
     margin-bottom: 10px;
@@ -336,16 +420,25 @@ li.ifsc-event.event-round-card:last-child {
     padding-bottom: 14px;
 }
 
+.next-event .ifsc-starts-in {
+    margin-top: 6px;
+    margin-bottom: 4px;
+}
+
 .next-event .round-copy {
     margin-left: 6px !important;
 }
 
+.next-event .round-name.round-copy-line.round-copy-line-title {
+    padding-left: 0;
+}
+
 .next-event .youtube-thumbnail {
-    width: 100%;
+    width: calc(100% - 8px);
     max-width: none;
     height: auto;
     aspect-ratio: 16 / 9;
-    margin: 0 0 10px;
+    margin: 0 0 10px 8px;
 }
 
 .next-event .watch-button {

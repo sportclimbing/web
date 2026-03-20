@@ -46,3 +46,9 @@
     transform: translateY(-60%) !important;
     left: 586px;
 }
+
+.subheader-buttons {
+    margin-bottom: 4px;
+    padding-top: 6px;
+    padding-bottom: 2px;
+}
