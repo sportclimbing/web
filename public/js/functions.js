@@ -832,6 +832,10 @@ function start_list_modal_build(startList) {
         const photo = athlete.photo_url
             ? `<img class="start-list-athlete-photo" src="${escape_html(athlete.photo_url)}" alt="${athleteName}" loading="lazy" referrerpolicy="no-referrer" />`
             : `<div class="start-list-athlete-photo start-list-athlete-photo-fallback" aria-hidden="true">${escape_html(athlete_initials_build(athlete))}</div>`;
+        const hasAthleteId = athlete.athlete_id !== undefined && athlete.athlete_id !== null && athlete.athlete_id !== '';
+        const athleteProfile = hasAthleteId
+            ? `<a class="ifsc-action-button ifsc-action-button-primary start-list-athlete-profile" href="${escape_html(`https://ifsc.results.info/athlete/${encodeURIComponent(String(athlete.athlete_id))}`)}" target="_blank" rel="noopener">Profile <img src="img/external-link.svg" alt="" aria-hidden="true" /></a>`
+            : '';
 
         return `
             <li class="start-list-athlete">
@@ -840,6 +844,7 @@ function start_list_modal_build(startList) {
                     <span class="start-list-athlete-name">${athleteName}</span>
                     ${country}
                 </div>
+                ${athleteProfile}
             </li>
         `;
     }).join('');
@@ -854,6 +859,7 @@ function set_start_list_modal(event) {
     }
 
     title.innerText = `📋 ${event.name} Start List`;
+    title.setAttribute('title', title.innerText);
     list.innerHTML = start_list_modal_build(event.start_list || []);
 }
 

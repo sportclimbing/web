@@ -126,6 +126,15 @@ main[role="main"] {
     min-height: 38px;
 }
 
+#navbarHeader .py-4 {
+    padding-top: 0.85rem !important;
+    padding-bottom: 0.85rem !important;
+}
+
+#navbarHeader .py-4 + .py-4 {
+    padding-top: 0.35rem !important;
+}
+
 .card-header {
     padding: 14px 14px 16px;
 }
