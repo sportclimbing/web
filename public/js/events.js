@@ -2,12 +2,23 @@ dayjs.extend(window.dayjs_plugin_relativeTime);
 dayjs.extend(window.dayjs_plugin_isBetween);
 
 const DEFAULT_SEASON = '2026';
+const EVENT_TIMEZONE = 'Europe/Madrid';
 const EVENTS_CACHE_OPTIONS = { cache: 'no-cache' };
 const TOOLTIP_TEMPLATE = '<div class="tooltip sync-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>';
 const SEASON_SELECTOR = 'select[name="season-selector"]';
 const STRUCTURED_DATA_EVENTS_SCRIPT_ID = 'structured-data-events';
 
 let config;
+
+const set_footer_copyright_year = () => {
+    const yearElement = document.getElementById('footer-copyright-year');
+
+    if (!yearElement) {
+        return;
+    }
+
+    yearElement.textContent = String(new Date().getFullYear());
+};
 
 const set_local_timezone_message = () => {
     const timezoneElement = document.getElementById('footer-timezone-name');
@@ -16,8 +27,7 @@ const set_local_timezone_message = () => {
         return;
     }
 
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    timezoneElement.textContent = timezone || 'your timezone';
+    timezoneElement.textContent = EVENT_TIMEZONE;
 };
 
 let selectedSeason = get_selected_season();
@@ -49,6 +59,57 @@ const update_season_label = (season) => {
     if (heroKicker) {
         heroKicker.textContent = `Live Schedule ${season}`;
     }
+};
+
+const render_footer_season_links = (seasons) => {
+    const seasonNav = document.getElementById('footer-seasons-nav');
+
+    if (!seasonNav) {
+        return;
+    }
+
+    const sortedSeasons = [...seasons].sort((a, b) => Number(a) - Number(b));
+
+    clear_element_children(seasonNav);
+
+    sortedSeasons.forEach((season) => {
+        const link = document.createElement('a');
+        link.className = 'footer-season-link';
+        link.href = `/#/season/${season}`;
+        link.dataset.seasonLink = '';
+        link.dataset.season = season;
+        link.textContent = season;
+        seasonNav.appendChild(link);
+    });
+
+    update_footer_season_links(selectedSeason);
+};
+
+const sync_season_selector = (season) => {
+    const seasonSelector = document.querySelector(SEASON_SELECTOR);
+
+    if (!seasonSelector || !season || seasonSelector.value === season) {
+        return;
+    }
+
+    seasonSelector.value = season;
+};
+
+const update_footer_season_links = (season) => {
+    const seasonLinks = document.querySelectorAll('[data-season-link]');
+
+    seasonLinks.forEach((link) => {
+        const isActive = link.dataset.season === season;
+
+        link.classList.toggle('is-active', isActive);
+
+        if (isActive) {
+            link.setAttribute('aria-current', 'page');
+            return;
+        }
+
+        link.removeAttribute('aria-current');
+    });
 };
 
 const ensure_structured_data_events_script = () => {
@@ -87,16 +148,20 @@ const update_structured_data_events = async (season) => {
 
 const fetch_seasons = (async () => {
     update_season_label(selectedSeason);
+    update_footer_season_links(selectedSeason);
 
     const response = await fetch(`events/seasons.json`);
     const jsonData = await response.json();
+    const seasons = Array.isArray(jsonData.seasons) ? jsonData.seasons : [];
     const seasonSelector = document.querySelector(SEASON_SELECTOR);
+
+    render_footer_season_links(seasons);
 
     if (!seasonSelector) {
         return;
     }
 
-    jsonData.seasons.forEach((season) => {
+    seasons.forEach((season) => {
         let option = document.createElement('option');
         option.value = season;
         option.innerText = season;
@@ -107,6 +172,8 @@ const fetch_seasons = (async () => {
 
         seasonSelector.appendChild(option);
     });
+
+    sync_season_selector(selectedSeason);
 });
 
 const reset_next_event = () => {
@@ -624,10 +691,12 @@ const handle_hash_change = () => {
     const event = get_selected_event();
 
     selectedSeason = season;
+    sync_season_selector(season);
+    update_footer_season_links(season);
+    update_season_label(season);
     selectedEvent = null;
     pendingHashEventNavigation = Boolean(event);
     refresh().then();
-    update_season_label(season);
     schedule_fit_mobile_hero_title();
 };
 
@@ -720,13 +789,38 @@ const setup_theme_handlers = (systemThemeQuery) => {
 
 const setup_season_navigation = () => {
     $(SEASON_SELECTOR).on('change', (event) => {
-        window.location = `#/season/${event.target.value}`;
+        const season = event.target.value;
+
+        selectedSeason = season;
+        sync_season_selector(season);
+        update_footer_season_links(season);
+        update_season_label(season);
+        window.location = `#/season/${season}`;
+    });
+};
+
+const setup_footer_season_navigation = () => {
+    $(document).on('click', '[data-season-link]', (event) => {
+        const season = event.currentTarget.dataset.season;
+        const isModifiedClick = event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.which === 2;
+
+        if (!season || isModifiedClick) {
+            return;
+        }
+
+        event.preventDefault();
+        selectedSeason = season;
+        sync_season_selector(season);
+        update_footer_season_links(season);
+        update_season_label(season);
+        window.location = `#/season/${season}`;
     });
 };
 
 (() => {
     restore_theme();
     restore_config();
+    set_footer_copyright_year();
     set_local_timezone_message();
     schedule_fit_mobile_hero_title();
 
@@ -749,6 +843,7 @@ const setup_season_navigation = () => {
     setup_tooltips();
     setup_theme_handlers(systemThemeQuery);
     setup_season_navigation();
+    setup_footer_season_navigation();
 
     /*
     fetch('http://ip-api.com/json').then(async (response) => {
