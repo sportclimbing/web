@@ -97,9 +97,10 @@ const sync_season_selector = (season) => {
 
 const update_footer_season_links = (season) => {
     const seasonLinks = document.querySelectorAll('[data-season-link]');
+    const normalizedSeason = String(season);
 
     seasonLinks.forEach((link) => {
-        const isActive = link.dataset.season === season;
+        const isActive = link.dataset.season === normalizedSeason;
 
         link.classList.toggle('is-active', isActive);
 

@@ -368,6 +368,7 @@ li.ifsc-event.event-round-card:last-child {
 .footer-copy {
     width: 100%;
     padding-right: 0;
+    text-align: center;
 }
 
 .footer-actions {
