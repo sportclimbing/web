@@ -1932,6 +1932,14 @@ body:not(.theme-light) .modal-body .start-list-athlete-profile:focus {
     color: #17314a;
 }
 
+body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button,
+body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:link,
+body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:visited,
+body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:hover,
+body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
+    color: #ffffff !important;
+}
+
 .modal .close {
     display: inline-flex;
     align-items: center;
@@ -2264,6 +2272,26 @@ body:not(.theme-light) .modal-body .start-list-athlete-profile:focus {
     border-color: rgba(89, 126, 160, 0.22) !important;
     background: linear-gradient(180deg, rgba(243, 248, 252, 0.98), rgba(220, 230, 239, 0.98)) !important;
     box-shadow: none !important;
+}
+
+body:not(.theme-light) .next-event .watch-button .round-stream-button,
+body:not(.theme-light) .next-event .watch-button .button-reminder {
+    border-color: rgba(255, 120, 170, 0.5) !important;
+    background: linear-gradient(135deg, rgba(91, 14, 63, 0.94), rgba(230, 0, 126, 0.62)) !important;
+    color: #ffffff !important;
+}
+
+body:not(.theme-light) .next-event .watch-button .round-stream-button:hover,
+body:not(.theme-light) .next-event .watch-button .round-stream-button:focus,
+body:not(.theme-light) .next-event .watch-button .button-reminder:hover,
+body:not(.theme-light) .next-event .watch-button .button-reminder:focus {
+    border-color: rgba(255, 182, 213, 0.72) !important;
+    background: linear-gradient(135deg, rgba(112, 22, 80, 0.98), rgba(255, 68, 150, 0.76)) !important;
+    box-shadow: none !important;
+}
+
+body:not(.theme-light) .next-event .watch-button .button-reminder {
+    background: linear-gradient(135deg, rgba(82, 20, 62, 0.88), rgba(198, 31, 122, 0.54)) !important;
 }
 
 .button-results:hover,

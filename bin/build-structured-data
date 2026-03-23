@@ -7,6 +7,8 @@ ini_set('display_errors', '1');
 const EVENT_SCHEDULED = 'https://schema.org/EventScheduled';
 const EVENT_IN_PROGRESS = 'https://schema.org/EventInProgress';
 const EVENT_COMPLETED = 'https://schema.org/EventCompleted';
+const DEFAULT_YOUTUBE_VIDEO_ID = 'emrHdLsJTk4';
+const YOUTUBE_IMAGE_RESOLUTIONS = ['default', 'mqdefault', 'hqdefault'];
 
 function schema_event_status(string $startsAt, string $endsAt, DateTimeImmutable $now): string
 {
@@ -32,7 +34,7 @@ function schema_event_location(array $event): array
 {
     $locationName = is_string($event['location'] ?? null) ? trim($event['location']) : '';
     $country = is_string($event['country'] ?? null) ? trim($event['country']) : '';
-    $name = implode(', ', array_filter([$locationName, $country]));
+    $name = $locationName !== '' ? $locationName : $country;
 
     $location = [
         '@type' => 'Place',
@@ -83,29 +85,178 @@ function schema_round_name(array $event, array $round): string
     return $eventName !== '' ? $eventName : 'IFSC Round';
 }
 
+function schema_round_description(array $event, array $round): string
+{
+    $name = schema_round_name($event, $round);
+    $locationName = is_string($event['location'] ?? null) ? trim($event['location']) : '';
+    $country = is_string($event['country'] ?? null) ? trim($event['country']) : '';
+    $location = implode(', ', array_filter([$locationName, $country]));
+
+    if ($location !== '') {
+        return "{$name} in {$location}. Live stream links and schedule on ifsc.stream.";
+    }
+
+    return "{$name}. Live stream links and schedule on ifsc.stream.";
+}
+
+function schema_performer_name(array $performer): string
+{
+    $firstName = is_string($performer['first_name'] ?? null) ? trim($performer['first_name']) : '';
+    $lastName = is_string($performer['last_name'] ?? null) ? trim($performer['last_name']) : '';
+    $name = implode(' ', array_filter([$firstName, $lastName]));
+
+    if ($name !== '') {
+        return $name;
+    }
+
+    return is_string($performer['name'] ?? null) ? trim($performer['name']) : '';
+}
+
+function schema_event_athletes(array $event): array
+{
+    $startList = is_array($event['start_list'] ?? null) ? $event['start_list'] : [];
+    $athletes = [];
+
+    foreach ($startList as $startListAthlete) {
+        if (!is_array($startListAthlete)) {
+            continue;
+        }
+
+        $name = schema_performer_name($startListAthlete);
+
+        if ($name === '') {
+            continue;
+        }
+
+        $athletes[] = [
+            '@type' => 'Person',
+            'name' => $name,
+        ];
+
+        if (count($athletes) >= 5) {
+            break;
+        }
+    }
+
+    return $athletes;
+}
+
+function schema_event_performer_team(array $event): ?array
+{
+    $athletes = schema_event_athletes($event);
+
+    if (count($athletes) === 0) {
+        return null;
+    }
+
+    $eventName = is_string($event['name'] ?? null) ? trim($event['name']) : '';
+    $teamName = $eventName !== '' ? "{$eventName} athletes" : 'Athletes';
+
+    return [
+        '@type' => 'SportsTeam',
+        'name' => $teamName,
+        'athlete' => $athletes,
+    ];
+}
+
+function youtube_video_id_from_url(string $url): ?string
+{
+    $url = trim($url);
+
+    if ($url === '') {
+        return null;
+    }
+
+    if (preg_match(
+        '/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|live\/|embed\/|shorts\/))(?<video_id>[A-Za-z0-9_-]{10,})/i',
+        $url,
+        $matches
+    ) !== 1) {
+        return null;
+    }
+
+    return is_string($matches['video_id'] ?? null) ? $matches['video_id'] : null;
+}
+
+function schema_round_images(array $round): array
+{
+    $streamUrl = is_string($round['stream_url'] ?? null) ? trim($round['stream_url']) : '';
+    $videoId = youtube_video_id_from_url($streamUrl) ?? DEFAULT_YOUTUBE_VIDEO_ID;
+    $images = [];
+
+    foreach (YOUTUBE_IMAGE_RESOLUTIONS as $resolution) {
+        $images[] = "https://img.youtube.com/vi/{$videoId}/{$resolution}.jpg";
+    }
+
+    return $images;
+}
+
+function schema_normalize_keyword(string $keyword): string
+{
+    $keyword = trim($keyword);
+
+    if ($keyword === '') {
+        return '';
+    }
+
+    if (function_exists('mb_strtolower')) {
+        return mb_strtolower($keyword, 'UTF-8');
+    }
+
+    return strtolower($keyword);
+}
+
 function schema_keywords(array $event, array $round): string
 {
-    $keywords = [];
+    $keywords = [schema_normalize_keyword('climbing')];
 
     foreach ([$round['disciplines'] ?? [], $round['categories'] ?? [], $event['disciplines'] ?? []] as $values) {
         foreach (is_array($values) ? $values : [] as $value) {
             if (is_string($value) && trim($value) !== '') {
-                $keywords[] = trim($value);
+                $keywords[] = schema_normalize_keyword($value);
             }
         }
     }
 
     if (is_string($round['kind'] ?? null) && trim($round['kind']) !== '') {
-        $keywords[] = trim($round['kind']);
+        $keywords[] = schema_normalize_keyword($round['kind']);
     }
 
     if (is_string($event['league_name'] ?? null) && trim($event['league_name']) !== '') {
-        $keywords[] = trim($event['league_name']);
+        $keywords[] = schema_normalize_keyword($event['league_name']);
+    }
+
+    if (is_string($event['location'] ?? null) && trim($event['location']) !== '') {
+        $keywords[] = schema_normalize_keyword($event['location']);
+    }
+
+    if (is_string($event['country'] ?? null) && trim($event['country']) !== '') {
+        $keywords[] = schema_normalize_keyword($event['country']);
     }
 
     $keywords = array_values(array_unique($keywords));
 
     return implode(', ', $keywords);
+}
+
+function schema_same_as_urls(array $event, string $schemaEventUrl): array
+{
+    $sameAs = [];
+    $eventId = is_scalar($event['id'] ?? null) ? trim((string) $event['id']) : '';
+
+    if ($eventId !== '') {
+        $sameAs[] = "https://ifsc.results.info/event/{$eventId}/";
+    }
+
+    if (is_string($event['event_url'] ?? null) && trim($event['event_url']) !== '') {
+        $eventUrl = trim($event['event_url']);
+
+        if ($eventUrl !== $schemaEventUrl) {
+            $sameAs[] = $eventUrl;
+        }
+    }
+
+    return array_values(array_unique($sameAs));
 }
 
 $eventsDirectory = rtrim($argv[1] ?? 'public/events', '/');
@@ -167,6 +318,7 @@ foreach ($eventFiles as $eventFile) {
     foreach ($events as $event) {
         $eventId = (string) $event['id'];
         $rounds = is_array($event['rounds'] ?? null) ? $event['rounds'] : [];
+        $eventPerformerTeam = schema_event_performer_team($event);
 
         foreach ($rounds as $roundIndex => $round) {
             if (!is_array($round) || !isset($round['starts_at'], $round['ends_at'])) {
@@ -199,6 +351,7 @@ foreach ($eventFiles as $eventFile) {
                 '@type' => 'SportsEvent',
                 '@id' => $schemaId,
                 'name' => schema_round_name($event, $round),
+                'description' => schema_round_description($event, $round),
                 'sport' => 'Sport climbing',
                 'startDate' => $startsAt,
                 'endDate' => $endsAt,
@@ -208,8 +361,13 @@ foreach ($eventFiles as $eventFile) {
                     '@id' => $organizationId,
                 ],
                 'location' => schema_event_location($event),
+                'image' => schema_round_images($round),
                 'url' => schema_round_url($event, $round, $siteUrl, $season),
             ];
+
+            if ($eventPerformerTeam !== null) {
+                $schemaEvent['performer'] = $eventPerformerTeam;
+            }
 
             if (is_string($event['league_name'] ?? null) && trim($event['league_name']) !== '') {
                 $schemaEvent['eventType'] = trim($event['league_name']);
@@ -223,8 +381,10 @@ foreach ($eventFiles as $eventFile) {
                 $schemaEvent['keywords'] = $keywords;
             }
 
-            if (is_string($event['event_url'] ?? null) && $event['event_url'] !== '' && $event['event_url'] !== $schemaEvent['url']) {
-                $schemaEvent['sameAs'] = $event['event_url'];
+            $sameAs = schema_same_as_urls($event, $schemaEvent['url']);
+
+            if (count($sameAs) > 0) {
+                $schemaEvent['sameAs'] = $sameAs;
             }
 
             $sportsEvents[] = $schemaEvent;
