@@ -1932,6 +1932,14 @@ body:not(.theme-light) .modal-body .start-list-athlete-profile:focus {
     color: #17314a;
 }
 
+body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button,
+body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:link,
+body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:visited,
+body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:hover,
+body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
+    color: #ffffff !important;
+}
+
 .modal .close {
     display: inline-flex;
     align-items: center;
