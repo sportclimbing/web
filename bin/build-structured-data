@@ -7,6 +7,8 @@ ini_set('display_errors', '1');
 const EVENT_SCHEDULED = 'https://schema.org/EventScheduled';
 const EVENT_IN_PROGRESS = 'https://schema.org/EventInProgress';
 const EVENT_COMPLETED = 'https://schema.org/EventCompleted';
+const DEFAULT_YOUTUBE_VIDEO_ID = 'emrHdLsJTk4';
+const YOUTUBE_IMAGE_RESOLUTIONS = ['default', 'mqdefault', 'hqdefault'];
 
 function schema_event_status(string $startsAt, string $endsAt, DateTimeImmutable $now): string
 {
@@ -81,6 +83,94 @@ function schema_round_name(array $event, array $round): string
     }
 
     return $eventName !== '' ? $eventName : 'IFSC Round';
+}
+
+function schema_round_description(array $event, array $round): string
+{
+    $name = schema_round_name($event, $round);
+    $locationName = is_string($event['location'] ?? null) ? trim($event['location']) : '';
+    $country = is_string($event['country'] ?? null) ? trim($event['country']) : '';
+    $location = implode(', ', array_filter([$locationName, $country]));
+
+    if ($location !== '') {
+        return "{$name} in {$location}. Live stream links and schedule on ifsc.stream.";
+    }
+
+    return "{$name}. Live stream links and schedule on ifsc.stream.";
+}
+
+function schema_performer_name(array $performer): string
+{
+    $firstName = is_string($performer['first_name'] ?? null) ? trim($performer['first_name']) : '';
+    $lastName = is_string($performer['last_name'] ?? null) ? trim($performer['last_name']) : '';
+    $name = implode(' ', array_filter([$firstName, $lastName]));
+
+    if ($name !== '') {
+        return $name;
+    }
+
+    return is_string($performer['name'] ?? null) ? trim($performer['name']) : '';
+}
+
+function schema_event_performers(array $event): array
+{
+    $startList = is_array($event['start_list'] ?? null) ? $event['start_list'] : [];
+    $performers = [];
+
+    foreach ($startList as $athlete) {
+        if (!is_array($athlete)) {
+            continue;
+        }
+
+        $name = schema_performer_name($athlete);
+
+        if ($name === '') {
+            continue;
+        }
+
+        $performers[] = [
+            '@type' => 'Person',
+            'name' => $name,
+        ];
+
+        if (count($performers) >= 5) {
+            break;
+        }
+    }
+
+    return $performers;
+}
+
+function youtube_video_id_from_url(string $url): ?string
+{
+    $url = trim($url);
+
+    if ($url === '') {
+        return null;
+    }
+
+    if (preg_match(
+        '/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|live\/|embed\/|shorts\/))(?<video_id>[A-Za-z0-9_-]{10,})/i',
+        $url,
+        $matches
+    ) !== 1) {
+        return null;
+    }
+
+    return is_string($matches['video_id'] ?? null) ? $matches['video_id'] : null;
+}
+
+function schema_round_images(array $round): array
+{
+    $streamUrl = is_string($round['stream_url'] ?? null) ? trim($round['stream_url']) : '';
+    $videoId = youtube_video_id_from_url($streamUrl) ?? DEFAULT_YOUTUBE_VIDEO_ID;
+    $images = [];
+
+    foreach (YOUTUBE_IMAGE_RESOLUTIONS as $resolution) {
+        $images[] = "https://img.youtube.com/vi/{$videoId}/{$resolution}.jpg";
+    }
+
+    return $images;
 }
 
 function schema_keywords(array $event, array $round): string
@@ -167,6 +257,7 @@ foreach ($eventFiles as $eventFile) {
     foreach ($events as $event) {
         $eventId = (string) $event['id'];
         $rounds = is_array($event['rounds'] ?? null) ? $event['rounds'] : [];
+        $eventPerformers = schema_event_performers($event);
 
         foreach ($rounds as $roundIndex => $round) {
             if (!is_array($round) || !isset($round['starts_at'], $round['ends_at'])) {
@@ -199,6 +290,7 @@ foreach ($eventFiles as $eventFile) {
                 '@type' => 'SportsEvent',
                 '@id' => $schemaId,
                 'name' => schema_round_name($event, $round),
+                'description' => schema_round_description($event, $round),
                 'sport' => 'Sport climbing',
                 'startDate' => $startsAt,
                 'endDate' => $endsAt,
@@ -208,8 +300,13 @@ foreach ($eventFiles as $eventFile) {
                     '@id' => $organizationId,
                 ],
                 'location' => schema_event_location($event),
+                'image' => schema_round_images($round),
                 'url' => schema_round_url($event, $round, $siteUrl, $season),
             ];
+
+            if (count($eventPerformers) > 0) {
+                $schemaEvent['performer'] = $eventPerformers;
+            }
 
             if (is_string($event['league_name'] ?? null) && trim($event['league_name']) !== '') {
                 $schemaEvent['eventType'] = trim($event['league_name']);
