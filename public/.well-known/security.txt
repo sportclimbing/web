@@ -1,0 +1,4 @@
+Contact: mailto:security@ifsc.stream
+Expires: 2027-03-24T00:00:00.000Z
+Canonical: https://ifsc.stream/.well-known/security.txt
+Preferred-Languages: en

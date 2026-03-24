@@ -210,8 +210,9 @@ const compute_season_timeline = (events) => {
 
     entries.sort((a, b) => new Date(a.round.starts_at) - new Date(b.round.starts_at));
 
-    const liveEntry = entries.find(({ round }) => event_is_streaming(round)) || null;
-    const nextEntry = entries.find(({ round }) => event_is_upcoming(round)) || null;
+    const timelineEntries = entries.filter(({ round }) => !round_is_non_speed_qualification(round));
+    const liveEntry = timelineEntries.find(({ round }) => event_is_streaming(round)) || null;
+    const nextEntry = timelineEntries.find(({ round }) => event_is_upcoming(round)) || null;
 
     return {
         liveRound: liveEntry ? liveEntry.round : null,
@@ -272,7 +273,9 @@ const render_event_rounds = (eventId) => {
             const isNextRound = !seasonTimeline.liveRound && seasonTimeline.nextRound === round;
 
             if (startsIn) {
-                if (isNextRound) {
+                if (round_is_non_speed_qualification(round)) {
+                    startsIn.innerText = '🟡 Qualification will not be streamed';
+                } else if (isNextRound) {
                     startsIn.innerText = `🟢 Next Event (starts ${pretty_starts_in(round)})`;
                 } else {
                     startsIn.innerText = `⌛ Starts ${pretty_starts_in(round)}`;

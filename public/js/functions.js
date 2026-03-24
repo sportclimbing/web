@@ -70,11 +70,21 @@ function pretty_finished_ago(event) {
     return `Streamed ${dayjs(event.starts_at).fromNow()}`;
 }
 
+function round_is_non_speed_qualification(round) {
+    const disciplines = Array.isArray(round.disciplines) ? round.disciplines : [];
+
+    return round.kind === 'qualification' && !disciplines.includes('speed');
+}
+
 function get_next_event(events) {
     const now = new Date();
 
     for (const event of events) {
         for (const round of event.rounds) {
+            if (round_is_non_speed_qualification(round)) {
+                continue;
+            }
+
             if (new Date(round.starts_at) >= now || event_is_streaming(round)) {
                 return event;
             }
@@ -533,6 +543,8 @@ function set_next_event_starts_in_label(clone, round, event, isStreaming) {
     if (isStreaming) {
         startsIn.text(`🔴 Live now (${pretty_started_ago(round)})`);
         clone.querySelector('.button-results').href = `https://ifsc.results.info/event/${event.id}`;
+    } else if (round_is_non_speed_qualification(round)) {
+        startsIn.text('🟡 Event will not be streamed');
     } else {
         startsIn.text(`🟢 Next Event (Starts ${pretty_starts_in(round)})`);
     }
@@ -992,9 +1004,10 @@ function set_event_poster(element, event) {
 }
 
 function set_event_streams(element, event) {
-    const streams = event.rounds.length === 1 ? 'Stream' : 'Streams';
+    const streamableRoundsCount = event.rounds.filter((round) => !round_is_non_speed_qualification(round)).length;
+    const streams = streamableRoundsCount === 1 ? 'Stream' : 'Streams';
 
-    element.innerHTML = `💻 ${event.rounds.length} ${streams}`;
+    element.innerHTML = `💻 ${streamableRoundsCount} ${streams}`;
 }
 
 function set_event_page(element, event) {
