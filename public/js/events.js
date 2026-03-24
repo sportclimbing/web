@@ -709,6 +709,10 @@ const setup_filter_handlers = () => {
         $('#youtube-video').attr('src', 'about:blank');
     });
 
+    $('#event-not-started-modal').on('hide.bs.modal', () => {
+        stop_event_not_started_countdown();
+    });
+
     $('#save-filters').on('click', () => {
         config = load_config_from_modal();
         refresh().then();

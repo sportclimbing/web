@@ -83,6 +83,7 @@ function get_next_event(events) {
 }
 
 let mobileHeroTitleFitFrame = null;
+let eventNotStartedCountdownIntervalId = null;
 
 function fit_mobile_hero_title() {
     const heading = document.querySelector('#ifsc-season .header-title h2');
@@ -755,13 +756,83 @@ function handle_watch_event(e) {
     $('#youtube-video-title').html(`🍿 ${round.name}`);
 }
 
+function event_not_started_countdown_parts(startsAt) {
+    if (!startsAt) {
+        return null;
+    }
+
+    const eventStart = dayjs(startsAt);
+
+    if (!eventStart.isValid()) {
+        return null;
+    }
+
+    const diffInMilliseconds = Math.max(0, eventStart.valueOf() - Date.now());
+    const totalMinutes = Math.floor(diffInMilliseconds / (60 * 1000));
+    const days = Math.floor(totalMinutes / (24 * 60));
+    const hours = Math.floor((totalMinutes % (24 * 60)) / 60);
+    const minutes = totalMinutes % 60;
+
+    return { days, hours, minutes };
+}
+
+function render_event_not_started_countdown(startsAt) {
+    const countdown = document.getElementById('event-not-started-countdown');
+    const label = document.getElementById('event-not-started-countdown-label');
+    const daysElement = document.getElementById('event-not-started-countdown-days');
+    const hoursElement = document.getElementById('event-not-started-countdown-hours');
+    const minutesElement = document.getElementById('event-not-started-countdown-minutes');
+
+    if (!countdown || !daysElement || !hoursElement || !minutesElement || !label) {
+        return;
+    }
+
+    const countdownParts = event_not_started_countdown_parts(startsAt);
+
+    if (!countdownParts) {
+        countdown.hidden = true;
+
+        return;
+    }
+
+    daysElement.innerText = String(countdownParts.days);
+    hoursElement.innerText = String(countdownParts.hours).padStart(2, '0');
+    minutesElement.innerText = String(countdownParts.minutes).padStart(2, '0');
+    label.innerText = countdownParts.days || countdownParts.hours || countdownParts.minutes ? 'Starts in' : 'Starting now';
+    countdown.hidden = false;
+}
+
+function stop_event_not_started_countdown() {
+    if (eventNotStartedCountdownIntervalId) {
+        window.clearInterval(eventNotStartedCountdownIntervalId);
+        eventNotStartedCountdownIntervalId = null;
+    }
+}
+
+function start_event_not_started_countdown(round) {
+    const startsAt = round.starts_at || '';
+
+    stop_event_not_started_countdown();
+    render_event_not_started_countdown(startsAt);
+
+    if (!event_not_started_countdown_parts(startsAt)) {
+        return;
+    }
+
+    eventNotStartedCountdownIntervalId = window.setInterval(() => {
+        render_event_not_started_countdown(startsAt);
+    }, 60 * 1000);
+}
+
 function handle_watch_event_no_url(e) {
     const round = round_from_stream_button(e.currentTarget);
     e.preventDefault();
 
     if (event_is_upcoming(round) && !event_is_streaming(round)) {
+        start_event_not_started_countdown(round);
         $('#event-not-started-modal').modal('show');
     } else {
+        stop_event_not_started_countdown();
         const fallbackUrl = round_fallback_url_from_target(e.currentTarget);
 
         $('#event-link-missing-modal-youtube').attr('href', fallbackUrl);
