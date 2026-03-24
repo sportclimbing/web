@@ -259,6 +259,23 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body">
+                <div class="event-not-started-countdown" id="event-not-started-countdown" aria-live="polite" aria-atomic="true" hidden>
+                    <p class="event-not-started-countdown-label" id="event-not-started-countdown-label">Starts in</p>
+                    <div class="event-not-started-countdown-grid">
+                        <div class="event-not-started-countdown-chip">
+                            <span class="event-not-started-countdown-value" id="event-not-started-countdown-days">0</span>
+                            <span class="event-not-started-countdown-unit">Days</span>
+                        </div>
+                        <div class="event-not-started-countdown-chip">
+                            <span class="event-not-started-countdown-value" id="event-not-started-countdown-hours">00</span>
+                            <span class="event-not-started-countdown-unit">Hours</span>
+                        </div>
+                        <div class="event-not-started-countdown-chip">
+                            <span class="event-not-started-countdown-value" id="event-not-started-countdown-minutes">00</span>
+                            <span class="event-not-started-countdown-unit">Minutes</span>
+                        </div>
+                    </div>
+                </div>
                 <p class="modal-body-tight-copy">The event has not started yet, and we couldn't find a link to it. Come back later or check the previous streams in the meantime!</p>
             </div>
             <div class="modal-footer">
