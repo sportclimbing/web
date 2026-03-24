@@ -544,7 +544,7 @@ function set_next_event_starts_in_label(clone, round, event, isStreaming) {
         startsIn.text(`🔴 Live now (${pretty_started_ago(round)})`);
         clone.querySelector('.button-results').href = `https://ifsc.results.info/event/${event.id}`;
     } else if (round_is_non_speed_qualification(round)) {
-        startsIn.text('🟡 Event will not be streamed');
+        startsIn.text('🟡 Qualification will not be streamed');
     } else {
         startsIn.text(`🟢 Next Event (Starts ${pretty_starts_in(round)})`);
     }
