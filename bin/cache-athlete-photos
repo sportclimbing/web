@@ -1,0 +1,294 @@
+#!/usr/bin/php
+<?php declare(strict_types=1);
+
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+const DEFAULT_IMAGE_SIZE = 128;
+const DEFAULT_IMAGE_QUALITY = 82;
+const DEFAULT_HTTP_TIMEOUT_SECONDS = 20;
+
+function usage(string $script): string
+{
+    return <<<TXT
+Usage:
+  php {$script} <season> [events-dir] [images-dir] [image-size]
+
+Arguments:
+  season               Required 4-digit season year (example: 2026)
+  events-dir           Directory containing events_YYYY.json (default: public/events)
+  images-dir           Base directory for local images (default: public/img/athletes)
+  image-size           Square output size in px (default: 128)
+
+Example:
+  php {$script} 2026
+TXT;
+}
+
+function normalize_season(string $season): string
+{
+    if (preg_match('/^\d{4}$/', $season) !== 1) {
+        throw new InvalidArgumentException('Season must be a 4-digit year, for example: 2026');
+    }
+
+    return $season;
+}
+
+function normalize_athlete_id(mixed $athleteId): string
+{
+    if (!is_scalar($athleteId)) {
+        return '';
+    }
+
+    $athleteIdString = trim((string) $athleteId);
+
+    if ($athleteIdString === '') {
+        return '';
+    }
+
+    if (preg_match('/^\d+$/', $athleteIdString) === 1) {
+        return $athleteIdString;
+    }
+
+    return '';
+}
+
+function decode_events_file(string $eventsFile): array
+{
+    if (!is_file($eventsFile)) {
+        throw new RuntimeException("Events file not found: {$eventsFile}");
+    }
+
+    $contents = file_get_contents($eventsFile);
+
+    if ($contents === false) {
+        throw new RuntimeException("Could not read events file: {$eventsFile}");
+    }
+
+    try {
+        $payload = json_decode($contents, true, flags: JSON_THROW_ON_ERROR);
+    } catch (JsonException $exception) {
+        throw new RuntimeException("Could not parse {$eventsFile}: {$exception->getMessage()}");
+    }
+
+    if (!is_array($payload)) {
+        throw new RuntimeException("Events payload is not a JSON object: {$eventsFile}");
+    }
+
+    return $payload;
+}
+
+function fetch_binary(string $url): string
+{
+    $url = trim($url);
+
+    if ($url === '') {
+        throw new RuntimeException('Photo URL is empty');
+    }
+
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+
+        if ($ch === false) {
+            throw new RuntimeException('Could not initialize curl');
+        }
+
+        curl_setopt_array($ch, [
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_CONNECTTIMEOUT => DEFAULT_HTTP_TIMEOUT_SECONDS,
+            CURLOPT_TIMEOUT => DEFAULT_HTTP_TIMEOUT_SECONDS,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FAILONERROR => false,
+            CURLOPT_HTTPHEADER => [
+                'Accept: image/*',
+                'User-Agent: ifsc.stream-athlete-photo-cache/1.0',
+            ],
+        ]);
+
+        $body = curl_exec($ch);
+        $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $error = curl_error($ch);
+
+        if ($body === false) {
+            throw new RuntimeException("Download failed: {$error}");
+        }
+
+        if ($status < 200 || $status >= 300) {
+            throw new RuntimeException("Unexpected HTTP status {$status}");
+        }
+
+        return $body;
+    }
+
+    $context = stream_context_create([
+        'http' => [
+            'method' => 'GET',
+            'timeout' => DEFAULT_HTTP_TIMEOUT_SECONDS,
+            'header' => "Accept: image/*\r\nUser-Agent: ifsc.stream-athlete-photo-cache/1.0\r\n",
+        ],
+    ]);
+
+    $body = file_get_contents($url, false, $context);
+
+    if ($body === false) {
+        throw new RuntimeException('Download failed');
+    }
+
+    return $body;
+}
+
+function save_resized_square_jpeg(string $binary, string $destination, int $size, int $quality): void
+{
+    $sourceImage = @imagecreatefromstring($binary);
+
+    if ($sourceImage === false) {
+        throw new RuntimeException('Unsupported or invalid image format');
+    }
+
+    $sourceWidth = imagesx($sourceImage);
+    $sourceHeight = imagesy($sourceImage);
+
+    if ($sourceWidth <= 0 || $sourceHeight <= 0) {
+        throw new RuntimeException('Image dimensions are invalid');
+    }
+
+    $cropSize = min($sourceWidth, $sourceHeight);
+    $sourceX = (int) floor(($sourceWidth - $cropSize) / 2);
+    $sourceY = (int) floor(($sourceHeight - $cropSize) / 2);
+
+    $targetImage = imagecreatetruecolor($size, $size);
+
+    if ($targetImage === false) {
+        throw new RuntimeException('Could not allocate output image');
+    }
+
+    imagecopyresampled(
+        $targetImage,
+        $sourceImage,
+        0,
+        0,
+        $sourceX,
+        $sourceY,
+        $size,
+        $size,
+        $cropSize,
+        $cropSize
+    );
+
+    if (!imagejpeg($targetImage, $destination, $quality)) {
+        throw new RuntimeException("Could not write image: {$destination}");
+    }
+}
+
+function athlete_photo_map(array $payload): array
+{
+    $events = $payload['events'] ?? [];
+
+    if (!is_array($events)) {
+        return [];
+    }
+
+    $photoByAthleteId = [];
+
+    foreach ($events as $event) {
+        if (!is_array($event)) {
+            continue;
+        }
+
+        $startList = $event['start_list'] ?? [];
+
+        if (!is_array($startList)) {
+            continue;
+        }
+
+        foreach ($startList as $athlete) {
+            if (!is_array($athlete)) {
+                continue;
+            }
+
+            $athleteId = normalize_athlete_id($athlete['athlete_id'] ?? null);
+            $photoUrl = is_string($athlete['photo_url'] ?? null) ? trim($athlete['photo_url']) : '';
+
+            if ($athleteId === '' || $photoUrl === '') {
+                continue;
+            }
+
+            if (!array_key_exists($athleteId, $photoByAthleteId)) {
+                $photoByAthleteId[$athleteId] = $photoUrl;
+            }
+        }
+    }
+
+    return $photoByAthleteId;
+}
+
+if (!extension_loaded('gd')) {
+    fwrite(STDERR, "GD extension is required (missing 'gd')." . PHP_EOL);
+    exit(1);
+}
+
+if (!isset($argv[1])) {
+    fwrite(STDERR, usage($argv[0] ?? 'bin/cache-athlete-photos') . PHP_EOL);
+    exit(1);
+}
+
+try {
+    $season = normalize_season((string) $argv[1]);
+    $eventsDirectory = rtrim($argv[2] ?? 'public/events', '/');
+    $imagesDirectory = rtrim($argv[3] ?? 'public/img/athletes', '/');
+    $imageSize = (int) ($argv[4] ?? (string) DEFAULT_IMAGE_SIZE);
+
+    if ($imageSize < 32 || $imageSize > 1024) {
+        throw new InvalidArgumentException('Image size must be between 32 and 1024 pixels');
+    }
+} catch (Throwable $exception) {
+    fwrite(STDERR, $exception->getMessage() . PHP_EOL);
+    fwrite(STDERR, usage($argv[0] ?? 'bin/cache-athlete-photos') . PHP_EOL);
+    exit(1);
+}
+
+$eventsFile = "{$eventsDirectory}/events_{$season}.json";
+$seasonImagesDirectory = "{$imagesDirectory}/{$season}";
+
+if (!is_dir($seasonImagesDirectory) && !mkdir($seasonImagesDirectory, 0777, true) && !is_dir($seasonImagesDirectory)) {
+    fwrite(STDERR, "Could not create output directory: {$seasonImagesDirectory}" . PHP_EOL);
+    exit(1);
+}
+
+try {
+    $payload = decode_events_file($eventsFile);
+} catch (Throwable $exception) {
+    fwrite(STDERR, $exception->getMessage() . PHP_EOL);
+    exit(1);
+}
+
+$photoByAthleteId = athlete_photo_map($payload);
+$candidateCount = count($photoByAthleteId);
+
+if ($candidateCount === 0) {
+    echo "[+] No start-list athlete photos found in {$eventsFile}" . PHP_EOL;
+    exit(0);
+}
+
+$downloadedCount = 0;
+$failedCount = 0;
+
+foreach ($photoByAthleteId as $athleteId => $photoUrl) {
+    $destination = "{$seasonImagesDirectory}/{$athleteId}.jpg";
+
+    try {
+        $binary = fetch_binary($photoUrl);
+        save_resized_square_jpeg($binary, $destination, $imageSize, DEFAULT_IMAGE_QUALITY);
+        $downloadedCount++;
+        echo "[+] Cached athlete {$athleteId} -> {$destination}" . PHP_EOL;
+    } catch (Throwable $exception) {
+        $failedCount++;
+        fwrite(STDERR, "[!] Could not cache athlete {$athleteId}: {$exception->getMessage()}" . PHP_EOL);
+    }
+}
+
+if ($downloadedCount === 0) {
+    fwrite(STDERR, "[!] Failed to cache all {$candidateCount} athlete photos." . PHP_EOL);
+    exit(1);
+}
+echo "[+] Cached {$downloadedCount}/{$candidateCount} athlete photos for season {$season} ({$failedCount} failed)." . PHP_EOL;
