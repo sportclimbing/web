@@ -1,9 +1,4 @@
-const fs = require('node:fs');
-const path = require('node:path');
 const { test, expect } = require('@playwright/test');
-
-const jqueryFilePath = path.resolve(__dirname, '../../public/js/jquery-3.2.1.slim.min.js');
-const jqueryBody = fs.readFileSync(jqueryFilePath, 'utf8');
 
 const waitForEventCards = async (page) => {
   await expect(page.locator('#accordion .ifsc-league-card').first()).toBeVisible({ timeout: 20000 });
@@ -12,14 +7,14 @@ const waitForEventCards = async (page) => {
 const switchSeason = async (page, season) => {
   const firstWatchButton = page.locator('#accordion .ifsc-league-card .event-watch-button').first();
   await expect(firstWatchButton).toBeVisible();
-  const previousTarget = await firstWatchButton.getAttribute('data-target');
+  const previousTarget = await firstWatchButton.getAttribute('data-bs-target');
 
   await page.selectOption('#season-selector', season);
   await expect.poll(() => new URL(page.url()).hash).toContain(`/season/${season}`);
 
   if (previousTarget) {
     await expect(
-      page.locator(`#accordion .ifsc-league-card .event-watch-button[data-target="${previousTarget}"]`)
+      page.locator(`#accordion .ifsc-league-card .event-watch-button[data-bs-target="${previousTarget}"]`)
     ).toHaveCount(0, { timeout: 20000 });
   }
 
@@ -36,14 +31,19 @@ const openFirstEventPanel = async (page) => {
   const eventWatchTrigger = page.locator('#accordion .ifsc-league-card .event-watch-button').first();
   await expect(eventWatchTrigger).toBeVisible();
 
-  const panelTarget = await eventWatchTrigger.getAttribute('data-target');
+  const panelTarget = await eventWatchTrigger.getAttribute('data-bs-target');
   if (!panelTarget) {
     throw new Error('Missing event panel target');
   }
 
   const eventPanel = page.locator(panelTarget);
   await page.evaluate((selector) => {
-    window.$(selector).collapse('show');
+    const panel = document.querySelector(selector);
+    if (!panel || !window.bootstrap || !window.bootstrap.Collapse) {
+      return;
+    }
+
+    window.bootstrap.Collapse.getOrCreateInstance(panel, { toggle: false }).show();
   }, panelTarget);
   await expect(eventPanel).toHaveClass(/show/);
   await expect(eventPanel.locator('.event-round-card').first()).toBeVisible();
@@ -52,13 +52,6 @@ const openFirstEventPanel = async (page) => {
 };
 
 test.beforeEach(async ({ page }) => {
-  await page.route('**/ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js', (route) => {
-    return route.fulfill({
-      body: jqueryBody,
-      contentType: 'application/javascript'
-    });
-  });
-
   await page.route('**/cdn.jsdelivr.net/npm/@widgetbot/html-embed', (route) => {
     return route.fulfill({
       status: 200,

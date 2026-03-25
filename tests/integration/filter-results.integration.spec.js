@@ -1,9 +1,4 @@
-const fs = require('node:fs');
-const path = require('node:path');
 const { test, expect } = require('@playwright/test');
-
-const jqueryFilePath = path.resolve(__dirname, '../../public/js/jquery-3.2.1.slim.min.js');
-const jqueryBody = fs.readFileSync(jqueryFilePath, 'utf8');
 
 const waitForEventCards = async (page) => {
   await expect(page.locator('#accordion .ifsc-league-card').first()).toBeVisible({ timeout: 20000 });
@@ -51,13 +46,6 @@ const setDisciplineFilters = async (page, selectedDiscipline) => {
 };
 
 test.beforeEach(async ({ page }) => {
-  await page.route('**/ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js', (route) => {
-    return route.fulfill({
-      body: jqueryBody,
-      contentType: 'application/javascript'
-    });
-  });
-
   await page.route('**/cdn.jsdelivr.net/npm/@widgetbot/html-embed', (route) => {
     return route.fulfill({
       status: 200,
