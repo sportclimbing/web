@@ -4,10 +4,11 @@ dayjs.extend(window.dayjs_plugin_isBetween);
 const DEFAULT_SEASON = '2026';
 const EVENT_TIMEZONE = 'Europe/Madrid';
 const EVENTS_CACHE_OPTIONS = { cache: 'no-cache' };
-const TOOLTIP_TEMPLATE = '<div class="tooltip sync-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>';
+const TOOLTIP_TEMPLATE = '<div class="tooltip sync-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>';
 const SEASON_SELECTOR = 'select[name="season-selector"]';
 const STRUCTURED_DATA_EVENTS_SCRIPT_ID = 'structured-data-events';
 const MOBILE_VIEWPORT_MEDIA_QUERY = '(max-width: 500px)';
+const MONTH_NAV_LEFT_CSS_VAR = '--season-month-nav-left';
 
 let config;
 
@@ -281,7 +282,7 @@ const render_event_rounds = (eventId) => {
 
     event.rounds.forEach((round) => {
         let clone = roundTemplate.content.cloneNode(true);
-        const streamButton = $('.round-stream-button', clone);
+        const streamButton = clone.querySelector('.round-stream-button');
         const startsIn = clone.querySelector('.js-starts-in');
         clone.querySelector('.ifsc-event').classList.add('event-round-card');
 
@@ -315,7 +316,7 @@ const render_event_rounds = (eventId) => {
             clone.querySelector('.button-reminder').style.setProperty('display', 'inline-grid', 'important');
 
             if (!round.stream_url) {
-                streamButton.hide();
+                streamButton.style.display = 'none';
             }
 
             clone.querySelector('.button-results').style.setProperty('display', 'none', 'important');
@@ -432,7 +433,7 @@ const build_event_card = (leagueTemplate, event) => {
     eventPanel.setAttribute('aria-labelledby', eventToggleId);
     eventPanel.id = panelId;
     eventPanel.dataset.roundsRendered = '0';
-    eventWatchButton.setAttribute('data-target', `#${panelId}`);
+    eventWatchButton.setAttribute('data-bs-target', `#${panelId}`);
     eventWatchButton.setAttribute('aria-controls', panelId);
 
     return clone;
@@ -499,7 +500,6 @@ const expand_and_scroll_to_event_panel = (eventId) => {
         return false;
     }
 
-    const $eventPanel = $(eventPanel);
     const heading = document.getElementById(`heading_${eventId}`) || eventPanel.closest('.ifsc-league-card') || eventPanel;
     const scroll_to_panel = () => {
         window.requestAnimationFrame(() => {
@@ -507,22 +507,24 @@ const expand_and_scroll_to_event_panel = (eventId) => {
         });
     };
 
-    if ($eventPanel.length && !$eventPanel.hasClass('show')) {
-        $eventPanel.one('shown.bs.collapse', () => {
+    if (!eventPanel.classList.contains('show')) {
+        const on_shown = () => {
             render_event_rounds(eventId);
             scroll_to_panel();
-        });
+        };
+        eventPanel.addEventListener('shown.bs.collapse', on_shown, { once: true });
 
-        const triggerSelector = `.event-name[data-target="#event-${eventId}"], .event-watch-button[data-target="#event-${eventId}"]`;
+        const triggerSelector = `.event-name[data-bs-target="#event-${eventId}"], .event-watch-button[data-bs-target="#event-${eventId}"]`;
         const trigger = document.querySelector(triggerSelector);
 
         if (trigger) {
             trigger.click();
-        } else {
-            $eventPanel.collapse('show');
+        } else if (window.bootstrap && window.bootstrap.Collapse) {
+            const eventCollapse = window.bootstrap.Collapse.getOrCreateInstance(eventPanel, { toggle: false });
+            eventCollapse.show();
         }
 
-        if (!$eventPanel.hasClass('show')) {
+        if (!eventPanel.classList.contains('show')) {
             eventPanel.classList.add('show');
         }
 
@@ -572,6 +574,7 @@ const refresh = (async (options = {}) => {
     render_event_cards(events, leagueTemplate, accordion);
     setup_start_list_avatar_tooltips();
     update_month_navigation_state();
+    schedule_month_nav_horizontal_position_sync();
     hide_static_event_fallback();
     update_structured_data_events(selectedSeason).then();
 
@@ -591,9 +594,9 @@ const refresh = (async (options = {}) => {
 
 const setup_season_header_toggle = () => {
     const seasonHeader = document.querySelector('.season-header');
-    const $navbarHeader = $('#navbarHeader');
+    const navbarHeader = document.getElementById('navbarHeader');
 
-    if (!$navbarHeader.length || !seasonHeader) {
+    if (!navbarHeader || !seasonHeader) {
         return;
     }
 
@@ -601,9 +604,11 @@ const setup_season_header_toggle = () => {
         seasonHeader.classList.toggle('is-open', isOpen);
     };
 
-    set_open_state($navbarHeader.hasClass('show'));
-    $navbarHeader.on('show.bs.collapse shown.bs.collapse', () => set_open_state(true));
-    $navbarHeader.on('hide.bs.collapse hidden.bs.collapse', () => set_open_state(false));
+    set_open_state(navbarHeader.classList.contains('show'));
+    navbarHeader.addEventListener('show.bs.collapse', () => set_open_state(true));
+    navbarHeader.addEventListener('shown.bs.collapse', () => set_open_state(true));
+    navbarHeader.addEventListener('hide.bs.collapse', () => set_open_state(false));
+    navbarHeader.addEventListener('hidden.bs.collapse', () => set_open_state(false));
 };
 
 const reset_collapsed_rounds = (eventElement) => {
@@ -660,7 +665,7 @@ const update_season_route = () => {
 };
 
 const handle_event_name_click = (event) => {
-    const panelTarget = event.currentTarget.getAttribute('data-target') || '';
+    const panelTarget = event.currentTarget.getAttribute('data-bs-target') || '';
     const eventId = panelTarget.replace('#event-', '');
 
     if (!eventId) {
@@ -671,7 +676,7 @@ const handle_event_name_click = (event) => {
 };
 
 const handle_event_watch_button_click = (event) => {
-    const panelTarget = event.currentTarget.getAttribute('data-target') || '';
+    const panelTarget = event.currentTarget.getAttribute('data-bs-target') || '';
     const eventId = panelTarget.replace('#event-', '');
 
     if (!eventId) {
@@ -701,21 +706,96 @@ const handle_event_panel_hidden = (eventElement, accordionElement) => {
 };
 
 const setup_accordion_handlers = () => {
-    const $accordion = $('#accordion');
-    const accordionElement = $accordion.get(0);
+    const accordionElement = document.getElementById('accordion');
+    const nextEventElement = document.querySelector('.next-event');
 
-    $accordion.on('click', '.event-name', handle_event_name_click);
-    $accordion.on('click', '.event-watch-button', handle_event_watch_button_click);
-    $accordion.on('show.bs.collapse', '.collapse', function () {
-        render_event_rounds(this.id.replace('event-', ''));
+    if (!accordionElement) {
+        return;
+    }
+
+    accordionElement.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target : null;
+
+        if (!target) {
+            return;
+        }
+
+        const eventName = target.closest('.event-name');
+
+        if (eventName) {
+            handle_event_name_click({ currentTarget: eventName });
+            return;
+        }
+
+        const streamTrigger = target.closest('.js-round-stream');
+
+        if (streamTrigger) {
+            handle_round_stream_click({
+                currentTarget: streamTrigger,
+                preventDefault: () => event.preventDefault(),
+            });
+            return;
+        }
+
+        const eventWatchButton = target.closest('.event-watch-button');
+
+        if (eventWatchButton) {
+            handle_event_watch_button_click({ currentTarget: eventWatchButton });
+            return;
+        }
+
+        const startListTrigger = target.closest('.event-start-list-trigger');
+
+        if (startListTrigger) {
+            handle_start_list_trigger_click({ currentTarget: startListTrigger });
+        }
     });
-    $accordion.on('hidden.bs.collapse', '.collapse', function () {
-        handle_event_panel_hidden(this, accordionElement);
+
+    accordionElement.addEventListener('show.bs.collapse', (event) => {
+        const collapseElement = event.target;
+
+        if (!(collapseElement instanceof Element) || !collapseElement.classList.contains('collapse')) {
+            return;
+        }
+
+        render_event_rounds(collapseElement.id.replace('event-', ''));
     });
-    $accordion.on('click', '.js-round-stream', handle_round_stream_click);
-    $accordion.on('click', '.event-start-list-trigger', handle_start_list_trigger_click);
-    $('.next-event').on('click', '.js-round-stream', handle_round_stream_click);
-    $('.next-event').on('click', '.event-start-list-trigger', handle_start_list_trigger_click);
+
+    accordionElement.addEventListener('hidden.bs.collapse', (event) => {
+        const collapseElement = event.target;
+
+        if (!(collapseElement instanceof Element) || !collapseElement.classList.contains('collapse')) {
+            return;
+        }
+
+        handle_event_panel_hidden(collapseElement, accordionElement);
+    });
+
+    if (nextEventElement) {
+        nextEventElement.addEventListener('click', (event) => {
+            const target = event.target instanceof Element ? event.target : null;
+
+            if (!target) {
+                return;
+            }
+
+            const streamTrigger = target.closest('.js-round-stream');
+
+            if (streamTrigger) {
+                handle_round_stream_click({
+                    currentTarget: streamTrigger,
+                    preventDefault: () => event.preventDefault(),
+                });
+                return;
+            }
+
+            const startListTrigger = target.closest('.event-start-list-trigger');
+
+            if (startListTrigger) {
+                handle_start_list_trigger_click({ currentTarget: startListTrigger });
+            }
+        });
+    }
 };
 
 const setup_layout_handlers = () => {
@@ -747,21 +827,36 @@ const handle_hash_change = () => {
 };
 
 const setup_filter_handlers = () => {
-    $('#video-modal').on('hide.bs.modal', () => {
-        $('#youtube-video').attr('src', 'about:blank');
-    });
+    const videoModal = document.getElementById('video-modal');
+    const eventNotStartedModal = document.getElementById('event-not-started-modal');
+    const saveFiltersButton = document.getElementById('save-filters');
+    const youtubeVideo = document.getElementById('youtube-video');
 
-    $('#event-not-started-modal').on('hide.bs.modal', () => {
-        stop_event_not_started_countdown();
-    });
+    if (videoModal) {
+        videoModal.addEventListener('hide.bs.modal', () => {
+            if (youtubeVideo) {
+                youtubeVideo.setAttribute('src', 'about:blank');
+            }
+        });
+    }
 
-    $('#save-filters').on('click', () => {
-        config = load_config_from_modal();
-        refresh().then();
-        window.localStorage.setItem('config', JSON.stringify(config));
-    });
+    if (eventNotStartedModal) {
+        eventNotStartedModal.addEventListener('hide.bs.modal', () => {
+            stop_event_not_started_countdown();
+        });
+    }
 
-    $('input[type="checkbox"]').on('change', () => refresh());
+    if (saveFiltersButton) {
+        saveFiltersButton.addEventListener('click', () => {
+            config = load_config_from_modal();
+            refresh().then();
+            window.localStorage.setItem('config', JSON.stringify(config));
+        });
+    }
+
+    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.addEventListener('change', () => refresh());
+    });
 };
 
 const setup_tracking_pixel = () => {
@@ -803,9 +898,49 @@ const setup_season_picker_click_target = () => {
     });
 };
 
+const get_bootstrap_tooltip = (element) => {
+    if (!element || !window.bootstrap || !window.bootstrap.Tooltip) {
+        return null;
+    }
+
+    return window.bootstrap.Tooltip.getInstance(element);
+};
+
+const setup_tooltip_instance = (element, options) => {
+    if (!element || !window.bootstrap || !window.bootstrap.Tooltip) {
+        return null;
+    }
+
+    return window.bootstrap.Tooltip.getOrCreateInstance(element, options);
+};
+
 const setup_tooltips = () => {
-    $(document).on('click', '.button-reminder', function () {
-        this.blur();
+    document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target : null;
+
+        if (!target) {
+            return;
+        }
+
+        const reminderButton = target.closest('.button-reminder');
+
+        if (reminderButton) {
+            reminderButton.blur();
+        }
+
+        const tooltipTrigger = target.closest('.calendar-sync-tooltip, .footer-action-tooltip');
+
+        if (!tooltipTrigger) {
+            return;
+        }
+
+        const tooltip = get_bootstrap_tooltip(tooltipTrigger);
+
+        if (tooltip) {
+            tooltip.hide();
+        }
+
+        tooltipTrigger.blur();
     });
 
     if (is_mobile_viewport()) {
@@ -819,38 +954,54 @@ const setup_tooltips = () => {
         template: TOOLTIP_TEMPLATE,
     };
 
-    $('.calendar-sync-tooltip').tooltip(tooltipOptions);
-    $('.footer-action-tooltip').tooltip(tooltipOptions);
-
-    $('.calendar-sync-tooltip, .footer-action-tooltip').on('click', function () {
-        $(this).tooltip('hide');
-        this.blur();
+    document.querySelectorAll('.calendar-sync-tooltip, .footer-action-tooltip').forEach((element) => {
+        setup_tooltip_instance(element, tooltipOptions);
     });
 };
 
 const setup_start_list_avatar_tooltips = () => {
-    $('.event-start-list-avatar-tooltip').tooltip('dispose');
+    document.querySelectorAll('.event-start-list-avatar-tooltip').forEach((element) => {
+        const tooltip = get_bootstrap_tooltip(element);
+
+        if (tooltip) {
+            tooltip.dispose();
+        }
+    });
 
     if (is_mobile_viewport()) {
         return;
     }
 
-    $('.event-start-list-avatar-tooltip').tooltip({
+    const tooltipOptions = {
         container: 'body',
         placement: 'bottom',
         trigger: 'hover',
         template: TOOLTIP_TEMPLATE,
+    };
+
+    document.querySelectorAll('.event-start-list-avatar-tooltip').forEach((element) => {
+        setup_tooltip_instance(element, tooltipOptions);
     });
 };
 
 const setup_theme_handlers = (systemThemeQuery) => {
-    $('#theme-toggle').on('click', () => {
-        toggle_theme();
+    const themeToggle = document.getElementById('theme-toggle');
 
-        if (!is_mobile_viewport()) {
-            $('#theme-toggle').tooltip('hide');
-        }
-    });
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            toggle_theme();
+
+            if (is_mobile_viewport()) {
+                return;
+            }
+
+            const tooltip = get_bootstrap_tooltip(themeToggle);
+
+            if (tooltip) {
+                tooltip.hide();
+            }
+        });
+    }
 
     if (typeof systemThemeQuery.addEventListener === 'function') {
         systemThemeQuery.addEventListener('change', sync_system_theme);
@@ -860,7 +1011,13 @@ const setup_theme_handlers = (systemThemeQuery) => {
 };
 
 const setup_season_navigation = () => {
-    $(SEASON_SELECTOR).on('change', (event) => {
+    const seasonSelector = document.querySelector(SEASON_SELECTOR);
+
+    if (!seasonSelector) {
+        return;
+    }
+
+    seasonSelector.addEventListener('change', (event) => {
         const season = event.target.value;
 
         selectedSeason = season;
@@ -872,9 +1029,21 @@ const setup_season_navigation = () => {
 };
 
 const setup_footer_season_navigation = () => {
-    $(document).on('click', '[data-season-link]', (event) => {
-        const season = event.currentTarget.dataset.season;
-        const isModifiedClick = event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.which === 2;
+    document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target : null;
+
+        if (!target) {
+            return;
+        }
+
+        const seasonLink = target.closest('[data-season-link]');
+
+        if (!seasonLink) {
+            return;
+        }
+
+        const season = seasonLink.dataset.season;
+        const isModifiedClick = event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button === 1;
 
         if (!season || isModifiedClick) {
             return;
@@ -987,6 +1156,40 @@ const schedule_month_navigation_sync = () => {
     });
 };
 
+const sync_month_nav_horizontal_position = () => {
+    const monthNav = document.getElementById('season-month-nav');
+    const mainContent = document.querySelector('main[role="main"]');
+
+    if (!monthNav || !mainContent) {
+        return;
+    }
+
+    if (!window.matchMedia('(min-width: 1040px)').matches) {
+        monthNav.style.removeProperty(MONTH_NAV_LEFT_CSS_VAR);
+        return;
+    }
+
+    const navWidth = monthNav.getBoundingClientRect().width || 132;
+    const desiredGap = 32;
+    const mainLeft = mainContent.getBoundingClientRect().left;
+    const monthNavLeft = Math.max(8, Math.round(mainLeft - navWidth - desiredGap));
+
+    monthNav.style.setProperty(MONTH_NAV_LEFT_CSS_VAR, `${monthNavLeft}px`);
+};
+
+const schedule_month_nav_horizontal_position_sync = () => {
+    window.requestAnimationFrame(sync_month_nav_horizontal_position);
+};
+
+const setup_modal_layout_handlers = () => {
+    document.addEventListener('show.bs.modal', schedule_month_nav_horizontal_position_sync);
+    document.addEventListener('shown.bs.modal', schedule_month_nav_horizontal_position_sync);
+    document.addEventListener('hide.bs.modal', schedule_month_nav_horizontal_position_sync);
+    document.addEventListener('hidden.bs.modal', schedule_month_nav_horizontal_position_sync);
+    addEventListener('resize', schedule_month_nav_horizontal_position_sync);
+    sync_month_nav_horizontal_position();
+};
+
 const update_month_navigation_state = () => {
     const monthNav = document.getElementById('season-month-nav');
 
@@ -1070,104 +1273,7 @@ const setup_month_navigation = () => {
     setup_theme_handlers(systemThemeQuery);
     setup_season_navigation();
     setup_footer_season_navigation();
+    setup_modal_layout_handlers();
     setup_month_navigation();
 
-    /*
-    fetch('http://ip-api.com/json').then(async (response) => {
-        let json = await response.json();
-        let blocked = [
-            "AD",
-            "AL",
-            "AM",
-            "AR",
-            "AT",
-            "AZ",
-            "BA",
-            "BE",
-            "BG",
-            "BO",
-            "BR",
-            "BY",
-            "BZ",
-            "CH",
-            "CL",
-            "CO",
-            "CR",
-            "CY",
-            "CZ",
-            "DE",
-            "DK",
-            "EC",
-            "EE",
-            "ES",
-            "FI",
-            "FR",
-            "GB",
-            "GE",
-            "GF",
-            "GR",
-            "GT",
-            "GY",
-            "HN",
-            "HR",
-            "HU",
-            "IE",
-            "IL",
-            "IS",
-            "IT",
-            "KG",
-            "KZ",
-            "LI",
-            "LT",
-            "LU",
-            "LV",
-            "MC",
-            "MD",
-            "ME",
-            "MK",
-            "MT",
-            "MX",
-            "NI",
-            "NL",
-            "NO",
-            "PA",
-            "PE",
-            "PL",
-            "PT",
-            "PY",
-            "RO",
-            "RS",
-            "RU",
-            "SE",
-            "SI",
-            "SK",
-            "SM",
-            "SR",
-            "SV",
-            "TJ",
-            "TM",
-            "TR",
-            "UA",
-            "UY",
-            "UZ",
-            "VA",
-            "VE"
-        ];
-
-        const regionButton = $('.blocked-region')
-
-        if (blocked.includes(json.countryCode)) {
-            window.setTimeout(() => {
-                let regionBlocked = $('.blocked');
-                const message = window.screen.width > 500 ? 'Unsupported Region' : 'Unsupported Region';
-                $('.notification').html(message);
-                regionButton.show();
-
-                $("p:first", regionBlocked).html(`Live Streams are Geo-Blocked in <strong>${json.country}</strong>!`);
-            }, 3000);
-        } else {
-            regionButton.hide();
-        }
-    })
-    */
 })();

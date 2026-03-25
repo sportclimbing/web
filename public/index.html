@@ -64,7 +64,7 @@
 
             <div class="watch-button">
                 <a class="ifsc-action-button ifsc-action-button-primary event-watch-button round-stream-button" href="" rel="noopener" target="_blank">🍿 Watch</a>
-                <a class="ifsc-action-button ifsc-action-button-primary button-reminder" href="https://github.com/sportclimbing/ifsc-calendar/wiki" rel="noopener" role="button" target="_blank" data-toggle="modal" data-target="#calendar-modal">📆 Set Reminder</a>
+                <a class="ifsc-action-button ifsc-action-button-primary button-reminder" href="https://github.com/sportclimbing/ifsc-calendar/wiki" rel="noopener" role="button" target="_blank" data-bs-toggle="modal" data-bs-target="#calendar-modal">📆 Set Reminder</a>
                 <a class="ifsc-action-button ifsc-action-button-primary button-results" href="" role="button" target="_blank" rel="noopener">🏆 Results</a>
             </div>
         </div>
@@ -78,7 +78,7 @@
 
             <div>
                 <h5 class="mb-0">
-                    <button class="btn btn-link collapsed event-name" data-toggle="collapse" data-target="#event-n" aria-expanded="false" aria-controls="event-n"></button>
+                    <button class="btn btn-link collapsed event-name" data-bs-toggle="collapse" data-bs-target="#event-n" aria-expanded="false" aria-controls="event-n"></button>
                 </h5>
 
                 <ul class="event-details">
@@ -94,11 +94,11 @@
             <div class="event-details-clear"></div>
 
             <div class="event-buttons">
-                <button type="button" class="ifsc-action-button ifsc-action-button-primary event-watch-button" data-toggle="collapse" data-target="#event-n" aria-expanded="false" aria-controls="event-n">🍿 Watch</button>
+                <button type="button" class="ifsc-action-button ifsc-action-button-primary event-watch-button" data-bs-toggle="collapse" data-bs-target="#event-n" aria-expanded="false" aria-controls="event-n">🍿 Watch</button>
                 <a class="ifsc-action-button ifsc-action-button-primary event-page" href="" role="button" target="_blank" rel="noopener">Event Page <img src="img/external-link.svg" alt="External link" /></a>
             </div>
 
-        <div id="event-n" class="collapse" aria-labelledby="heading_id" data-parent="#accordion">
+        <div id="event-n" class="collapse" aria-labelledby="heading_id" data-bs-parent="#accordion">
             <ul class="card-body list-group"></ul>
         </div>
         </div>
@@ -119,11 +119,11 @@
 
         <div class="season-footer">
             <div class="hero-actions">
-                <a class="ifsc-action-button ifsc-action-button-secondary calendar-sync-tooltip" href="https://github.com/sportclimbing/ifsc-calendar/wiki" rel="noopener" role="button" target="_blank" data-toggle="modal" data-target="#calendar-modal" title="Sync with your device's calendar">📆 Add to Calendar</a>
+                <a class="ifsc-action-button ifsc-action-button-secondary calendar-sync-tooltip" href="https://github.com/sportclimbing/ifsc-calendar/wiki" rel="noopener" role="button" target="_blank" data-bs-toggle="modal" data-bs-target="#calendar-modal" title="Sync with your device's calendar">📆 Add to Calendar</a>
                 <a class="ifsc-action-button ifsc-action-button-primary footer-action-tooltip" href="https://www.buymeacoffee.com/sportclimbing" target="_blank" rel="noopener" title="Support this project"><img class="footer-action-avatar" src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" width="16" alt="buy me a coffee" /> Buy me a Coffee</a>
                 <a class="ifsc-action-button ifsc-action-button-primary footer-action-tooltip" href="https://www.instagram.com/nicoswd/" target="_blank" rel="noopener" title="Follow me on Instagram"><img class="footer-action-avatar" src="img/nico.png" width="20" alt="Nico" /> @nicoswd</a>
             </div>
-            <button class="navbar-toggler season-menu-toggle" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler season-menu-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
@@ -160,7 +160,7 @@
             <label class="season-label" for="season-selector">Season</label>
             <select id="season-selector" name="season-selector" class="btn btn-primary season-selector"></select>
         </div>
-        <button class="btn btn-primary filters-button" data-toggle="modal" data-target="#filter-modal">🔍 Filters</button>
+        <button class="btn btn-primary filters-button" data-bs-toggle="modal" data-bs-target="#filter-modal">🔍 Filters</button>
     </div>
 </section>
 
@@ -212,7 +212,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="calendar-modal-title">📆 Free Calendar Subscription</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body">
                 <h5>For Mobile and Desktop</h5>
@@ -234,7 +234,7 @@
                 <p class="small">This calendar will auto-update and be ready for future seasons as well. And it's fully <a href="https://github.com/sportclimbing">open source</a>.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -245,7 +245,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="youtube-video-title"></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body videoWrapper">
                 <iframe id="youtube-video" src="" title="Event livestream player" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -263,7 +263,7 @@
             <div class="modal-footer">
                 <a class="ifsc-action-button ifsc-action-button-secondary video-modal-vpn-link" href="https://protonvpn.com/free-vpn" role="button" target="_blank" rel="noopener">Video blocked? Free VPN</a>
                 <button type="button" class="ifsc-action-button ifsc-action-button-secondary video-modal-chat-toggle" id="chat-toggle" onclick="handle_chat_toggle(this);">Hide Chat</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -274,13 +274,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="start-list-modal-title">📋 Start List</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body">
                 <ul id="start-list-modal-list" class="start-list-modal-list"></ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -291,7 +291,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="event-not-started-modal-title">⏳ Event Not Started</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="event-not-started-countdown" id="event-not-started-countdown" aria-live="polite" aria-atomic="true" hidden>
@@ -314,7 +314,7 @@
                 <p class="modal-body-tight-copy">The event has not started yet, and we couldn't find a link to it. Come back later or check the previous streams in the meantime!</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -325,7 +325,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="event-link-missing-modal-title">🔗 Link Not Found</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body">
                 <p class="modal-body-tight-copy">We could not find a link for this event. Do you want to check World Climbing's YouTube channel?</p>
@@ -339,7 +339,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >Check YouTube channel</a>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -350,7 +350,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="filter-modal-title">⚙️ Configure Filters</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
             </div>
             <div class="modal-body">
                 <h4>League</h4>
@@ -398,7 +398,7 @@
                 </label></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-filters">Apply</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="save-filters">Apply</button>
             </div>
         </div>
     </div>
@@ -441,8 +441,6 @@
 <script src="js/dayjs.min.js"></script>
 <script src="js/relativeTime.js"></script>
 <script src="js/isBetween.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/functions.js?v=__ASSET_VERSION__"></script>
 <script src="js/events.js?v=__ASSET_VERSION__"></script>

@@ -432,7 +432,8 @@ function restore_config() {
 }
 
 function config_selected_leagues() {
-    return $('#config-leagues input[type="checkbox"]:checked').map((a, b) => b.value).get();
+    return Array.from(document.querySelectorAll('#config-leagues input[type="checkbox"]:checked'))
+        .map((checkbox) => checkbox.value);
 }
 
 function apply_search_filters(jsonData) {
@@ -565,8 +566,8 @@ function set_round_details(clone, round) {
     set_round_date(clone.querySelector('.round-date'), round);
     set_round_time(clone.querySelector('.round-time'), round);
     set_round_youtube_cover(clone.querySelector('.youtube-thumbnail'), round);
-    set_round_stream_button($('.round-stream-button', clone), round);
-    set_round_stream_button($('.youtube-play-button', clone), round);
+    set_round_stream_button(clone.querySelector('.round-stream-button'), round);
+    set_round_stream_button(clone.querySelector('.youtube-play-button'), round);
 }
 
 function set_round_action_buttons_visibility(clone, isStreaming) {
@@ -665,7 +666,11 @@ function set_next_event(round, event, isStreaming) {
 
     const title = isStreaming ? '🔴 Now Streaming' : 'Next Event';
 
-    $('#next-event-title').text(`${title}: ${event.name}`);
+    const nextEventTitle = document.getElementById('next-event-title');
+
+    if (nextEventTitle) {
+        nextEventTitle.textContent = `${title}: ${event.name}`;
+    }
 }
 
 function video_id_from_stream(round) {
@@ -738,10 +743,14 @@ function set_youtube_cover(element, counter) {
 }
 
 function set_round_stream_metadata(element, round) {
-    element.attr('data-round-name', round.name || '');
-    element.attr('data-round-starts-at', round.starts_at || '');
-    element.attr('data-round-ends-at', round.ends_at || '');
-    element.addClass('js-round-stream');
+    if (!element) {
+        return;
+    }
+
+    element.dataset.roundName = round.name || '';
+    element.dataset.roundStartsAt = round.starts_at || '';
+    element.dataset.roundEndsAt = round.ends_at || '';
+    element.classList.add('js-round-stream');
 }
 
 function round_from_stream_button(element) {
@@ -753,27 +762,31 @@ function round_from_stream_button(element) {
 }
 
 function set_round_stream_button(element, round) {
-    const tagName = element.prop('tagName');
+    if (!element) {
+        return;
+    }
+
+    const tagName = element.tagName;
     const streamUrl = round.stream_url || '';
     const fallbackUrl = streamUrl || STREAMS_FALLBACK_URL;
 
     set_round_stream_metadata(element, round);
-    element.attr('data-round-stream-url', streamUrl);
-    element.attr('data-round-fallback-url', fallbackUrl);
+    element.dataset.roundStreamUrl = streamUrl;
+    element.dataset.roundFallbackUrl = fallbackUrl;
 
     if (round.stream_url) {
-        element.attr('data-round-has-stream-url', '1');
+        element.dataset.roundHasStreamUrl = '1';
     } else {
-        element.attr('data-round-has-stream-url', '0');
+        element.dataset.roundHasStreamUrl = '0';
     }
 
     if (tagName === 'A') {
-        element.attr('href', fallbackUrl);
+        element.setAttribute('href', fallbackUrl);
 
         return;
     }
 
-    element.removeAttr('href');
+    element.removeAttribute('href');
 }
 
 function round_stream_url_from_target(target) {
@@ -813,13 +826,17 @@ function set_favicon(liveEvent) {
 }
 
 function handle_chat_toggle(button) {
-    const chat = $('#live-chat');
+    const chat = document.getElementById('live-chat');
 
-    if (chat.is(':hidden')) {
-        chat.show();
+    if (!chat) {
+        return;
+    }
+
+    if (chat.style.display === 'none') {
+        chat.style.display = 'block';
         button.innerText = 'Hide Chat';
     } else {
-        chat.hide();
+        chat.style.display = 'none';
         button.innerText = 'Show Chat';
     }
 }
@@ -847,16 +864,33 @@ function handle_watch_event(e) {
 
     e.preventDefault();
 
-    const streamButton = $(e.currentTarget);
-    streamButton.attr('data-target', '#video-modal');
-    streamButton.attr('data-toggle', 'modal');
-
     const showChat = event_is_streaming(round) || event_is_upcoming(round);
-    $('#live-chat').toggle(showChat);
-    $('#chat-toggle').toggle(showChat);
+    const liveChat = document.getElementById('live-chat');
+    const chatToggle = document.getElementById('chat-toggle');
+    const youtubeVideo = document.getElementById('youtube-video');
+    const youtubeVideoTitle = document.getElementById('youtube-video-title');
+    const videoModalElement = document.getElementById('video-modal');
 
-    $('#youtube-video').attr('src', `${YOUTUBE_EMBED_BASE_URL}/${youTubeVideoId}?autoplay=1`);
-    $('#youtube-video-title').html(`🍿 ${round.name}`);
+    if (liveChat) {
+        liveChat.style.display = showChat ? 'block' : 'none';
+    }
+
+    if (chatToggle) {
+        chatToggle.style.display = showChat ? 'block' : 'none';
+    }
+
+    if (youtubeVideo) {
+        youtubeVideo.setAttribute('src', `${YOUTUBE_EMBED_BASE_URL}/${youTubeVideoId}?autoplay=1`);
+    }
+
+    if (youtubeVideoTitle) {
+        youtubeVideoTitle.textContent = `🍿 ${round.name}`;
+    }
+
+    if (videoModalElement && window.bootstrap && window.bootstrap.Modal) {
+        const videoModal = window.bootstrap.Modal.getOrCreateInstance(videoModalElement);
+        videoModal.show();
+    }
 }
 
 function event_not_started_countdown_parts(startsAt) {
@@ -1008,13 +1042,24 @@ function handle_watch_event_no_url(e) {
 
     if (event_is_upcoming(round) && !event_is_streaming(round)) {
         start_event_not_started_countdown(round);
-        $('#event-not-started-modal').modal('show');
+        const eventNotStartedModal = document.getElementById('event-not-started-modal');
+
+        if (eventNotStartedModal && window.bootstrap && window.bootstrap.Modal) {
+            window.bootstrap.Modal.getOrCreateInstance(eventNotStartedModal).show();
+        }
     } else {
         stop_event_not_started_countdown();
         const fallbackUrl = round_fallback_url_from_target(e.currentTarget);
+        const eventLinkMissingModalYoutube = document.getElementById('event-link-missing-modal-youtube');
+        const eventLinkMissingModal = document.getElementById('event-link-missing-modal');
 
-        $('#event-link-missing-modal-youtube').attr('href', fallbackUrl);
-        $('#event-link-missing-modal').modal('show');
+        if (eventLinkMissingModalYoutube) {
+            eventLinkMissingModalYoutube.setAttribute('href', fallbackUrl);
+        }
+
+        if (eventLinkMissingModal && window.bootstrap && window.bootstrap.Modal) {
+            window.bootstrap.Modal.getOrCreateInstance(eventLinkMissingModal).show();
+        }
     }
 }
 
@@ -1218,7 +1263,7 @@ function handle_start_list_trigger_click(e) {
 
 function set_event_name(element, event) {
     element.textContent = event.name;
-    element.setAttribute('data-target', `#event-${event.id}`);
+    element.setAttribute('data-bs-target', `#event-${event.id}`);
 }
 
 function set_event_date(element, event) {
@@ -1257,8 +1302,8 @@ function build_event_start_list_button(eventId, startList, season, maxAthletesWi
     button.type = 'button';
     button.className = 'event-start-list-trigger';
     button.innerHTML = start_list_build(startList, season, maxAthletesWithPhoto);
-    button.setAttribute('data-toggle', 'modal');
-    button.setAttribute('data-target', '#start-list-modal');
+    button.setAttribute('data-bs-toggle', 'modal');
+    button.setAttribute('data-bs-target', '#start-list-modal');
     button.dataset.eventId = String(eventId);
 
     return button;

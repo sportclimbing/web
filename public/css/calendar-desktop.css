@@ -49,7 +49,8 @@
         display: block;
         position: fixed;
         top: calc(50% - 70px);
-        right: calc(50vw + 432px);
+        left: var(--season-month-nav-left, calc(50vw - 564px));
+        right: auto;
         transform: translateY(-50%);
         width: 132px;
         box-sizing: border-box;
