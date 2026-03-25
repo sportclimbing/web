@@ -1,3 +1,85 @@
+.season-month-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.season-month-nav-link {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    text-align: right;
+    border: 0;
+    background: transparent;
+    color: #ff6db9;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 2px 0;
+    white-space: nowrap;
+    text-shadow: 0 1px 10px rgba(255, 109, 185, 0.3);
+    transition: transform 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+}
+
+.season-month-nav-link.is-empty {
+    opacity: 0.4;
+}
+
+.season-month-nav-link:hover {
+    color: #ffc3e4;
+    transform: scale(1.12);
+    transform-origin: right center;
+}
+
+.season-month-nav-link.is-active {
+    color: #ffc3e4;
+    transform: scale(1.12);
+    transform-origin: right center;
+}
+
+.season-month-nav-link:focus-visible {
+    color: #ffc3e4;
+    transform: scale(1.12);
+    transform-origin: right center;
+}
+
+@media (min-width: 1040px) {
+    .season-month-nav {
+        display: block;
+        position: fixed;
+        top: calc(50% - 70px);
+        right: calc(50vw + 432px);
+        transform: translateY(-50%);
+        width: 132px;
+        box-sizing: border-box;
+        z-index: 20;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
+    }
+
+    body.theme-light .season-month-nav-link {
+        color: #d94b96;
+        text-shadow: 0 1px 10px rgba(217, 75, 150, 0.24);
+    }
+
+    body.theme-light .season-month-nav-link.is-empty {
+        opacity: 0.36;
+    }
+
+    body.theme-light .season-month-nav-link:hover,
+    body.theme-light .season-month-nav-link:focus-visible {
+        color: #b13779;
+    }
+
+    body.theme-light .season-month-nav-link.is-active {
+        color: #b13779;
+    }
+}
+
 .event-details {
     list-style: none;
     padding: 0;
@@ -13,6 +95,13 @@
     font-size: 14px;
     padding-top: 6px;
     color: #e0e0e0;
+}
+
+.event-details li.event-start-list.event-start-list-has-avatars {
+    height: 40px;
+    padding-top: 0;
+    display: flex;
+    align-items: center;
 }
 
 .event-details li:last-child {

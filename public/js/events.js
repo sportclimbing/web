@@ -11,6 +11,22 @@ const MOBILE_VIEWPORT_MEDIA_QUERY = '(max-width: 500px)';
 
 let config;
 
+const month_index_from_starts_at = (startsAt) => {
+    const match = /^(\d{4})-(\d{2})-/.exec(startsAt || '');
+
+    if (!match) {
+        return null;
+    }
+
+    const monthIndex = parseInt(match[2], 10) - 1;
+
+    if (monthIndex < 0 || monthIndex > 11) {
+        return null;
+    }
+
+    return monthIndex;
+};
+
 const set_footer_copyright_year = () => {
     const yearElement = document.getElementById('footer-copyright-year');
 
@@ -43,6 +59,7 @@ let seasonTimeline = {
     nextEvent: null,
     seasonHasUpcomingEvents: false,
 };
+let monthNavigationFrameId = null;
 
 const is_mobile_viewport = () => window.matchMedia(MOBILE_VIEWPORT_MEDIA_QUERY).matches;
 
@@ -182,8 +199,11 @@ const fetch_seasons = (async () => {
 
 const reset_next_event = () => {
     const nextEventContainer = document.querySelector('.next-event');
+    const nextEventDividers = document.querySelectorAll('.next-event-divider');
     const nextEventDetails = document.getElementById('next-event-details');
     const nextEventTitle = document.getElementById('next-event-title');
+
+    stop_next_event_countdown();
 
     if (nextEventDetails) {
         release_lazy_backgrounds(nextEventDetails);
@@ -197,6 +217,10 @@ const reset_next_event = () => {
     if (nextEventContainer) {
         nextEventContainer.style.display = 'none';
     }
+
+    nextEventDividers.forEach((divider) => {
+        divider.style.display = 'none';
+    });
 };
 
 const compute_season_timeline = (events) => {
@@ -377,6 +401,8 @@ const clear_accordion = (accordion) => {
 
 const build_event_card = (leagueTemplate, event) => {
     const clone = leagueTemplate.content.cloneNode(true);
+    const leagueCard = clone.querySelector('.ifsc-league-card');
+    const eventStartMonth = month_index_from_starts_at(event.starts_at);
 
     set_event_name(clone.querySelector('.event-name'), event);
     set_event_date(clone.querySelector('.event-date'), event);
@@ -395,6 +421,10 @@ const build_event_card = (leagueTemplate, event) => {
     const headingId = `heading_${event.id}`;
     const eventToggleId = `event-toggle-${event.id}`;
     const panelId = `event-${event.id}`;
+
+    if (leagueCard && eventStartMonth !== null) {
+        leagueCard.dataset.eventStartMonth = String(eventStartMonth);
+    }
 
     heading.id = headingId;
     eventNameButton.id = eventToggleId;
@@ -540,6 +570,8 @@ const refresh = (async (options = {}) => {
     update_next_event_panel();
     clear_accordion(accordion);
     render_event_cards(events, leagueTemplate, accordion);
+    setup_start_list_avatar_tooltips();
+    update_month_navigation_state();
     hide_static_event_fallback();
     update_structured_data_events(selectedSeason).then();
 
@@ -683,14 +715,21 @@ const setup_accordion_handlers = () => {
     $accordion.on('click', '.js-round-stream', handle_round_stream_click);
     $accordion.on('click', '.event-start-list-trigger', handle_start_list_trigger_click);
     $('.next-event').on('click', '.js-round-stream', handle_round_stream_click);
+    $('.next-event').on('click', '.event-start-list-trigger', handle_start_list_trigger_click);
 };
 
 const setup_layout_handlers = () => {
     if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => schedule_fit_mobile_hero_title());
+        document.fonts.ready.then(() => {
+            schedule_fit_mobile_hero_title();
+            schedule_next_event_mobile_countdown_height_sync();
+        });
     }
 
-    addEventListener('resize', () => schedule_fit_mobile_hero_title());
+    addEventListener('resize', () => {
+        schedule_fit_mobile_hero_title();
+        schedule_next_event_mobile_countdown_height_sync();
+    });
 };
 
 const handle_hash_change = () => {
@@ -789,6 +828,21 @@ const setup_tooltips = () => {
     });
 };
 
+const setup_start_list_avatar_tooltips = () => {
+    $('.event-start-list-avatar-tooltip').tooltip('dispose');
+
+    if (is_mobile_viewport()) {
+        return;
+    }
+
+    $('.event-start-list-avatar-tooltip').tooltip({
+        container: 'body',
+        placement: 'bottom',
+        trigger: 'hover',
+        template: TOOLTIP_TEMPLATE,
+    });
+};
+
 const setup_theme_handlers = (systemThemeQuery) => {
     $('#theme-toggle').on('click', () => {
         toggle_theme();
@@ -835,6 +889,160 @@ const setup_footer_season_navigation = () => {
     });
 };
 
+const scroll_to_first_event_starting_in_month = (monthIndex) => {
+    const firstEventInMonth = document.querySelector(`#accordion .ifsc-league-card[data-event-start-month="${monthIndex}"]`);
+
+    if (!firstEventInMonth) {
+        return;
+    }
+
+    firstEventInMonth.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+    });
+};
+
+const get_month_index_from_dataset_value = (monthIndexValue) => {
+    if (monthIndexValue === undefined) {
+        return null;
+    }
+
+    const monthIndex = parseInt(monthIndexValue, 10);
+
+    if (Number.isNaN(monthIndex) || monthIndex < 0 || monthIndex > 11) {
+        return null;
+    }
+
+    return monthIndex;
+};
+
+const set_active_month_navigation_link = (monthIndex) => {
+    const monthNav = document.getElementById('season-month-nav');
+    const activeMonthIndex = monthIndex === null ? null : String(monthIndex);
+
+    if (!monthNav) {
+        return;
+    }
+
+    monthNav.querySelectorAll('.season-month-nav-link[data-month-index]').forEach((button) => {
+        const isActive = activeMonthIndex !== null && button.dataset.monthIndex === activeMonthIndex;
+        button.classList.toggle('is-active', isActive);
+
+        if (isActive) {
+            button.setAttribute('aria-current', 'true');
+            return;
+        }
+
+        button.removeAttribute('aria-current');
+    });
+};
+
+const get_active_month_index_from_visible_events = () => {
+    const cards = Array.from(document.querySelectorAll('#accordion .ifsc-league-card[data-event-start-month]'));
+
+    if (cards.length === 0) {
+        return null;
+    }
+
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+    const referenceLine = Math.min(Math.max(Math.round(viewportHeight * 0.2), 88), 220);
+
+    for (const card of cards) {
+        const rect = card.getBoundingClientRect();
+
+        if (rect.top <= referenceLine && rect.bottom > referenceLine) {
+            return get_month_index_from_dataset_value(card.dataset.eventStartMonth);
+        }
+    }
+
+    for (const card of cards) {
+        const rect = card.getBoundingClientRect();
+
+        if (rect.top < viewportHeight && rect.bottom > 0) {
+            return get_month_index_from_dataset_value(card.dataset.eventStartMonth);
+        }
+    }
+
+    const lastCard = cards[cards.length - 1];
+
+    if (lastCard.getBoundingClientRect().bottom <= referenceLine) {
+        return get_month_index_from_dataset_value(lastCard.dataset.eventStartMonth);
+    }
+
+    return null;
+};
+
+const sync_active_month_navigation_link = () => {
+    set_active_month_navigation_link(get_active_month_index_from_visible_events());
+};
+
+const schedule_month_navigation_sync = () => {
+    if (monthNavigationFrameId !== null) {
+        return;
+    }
+
+    monthNavigationFrameId = window.requestAnimationFrame(() => {
+        monthNavigationFrameId = null;
+        sync_active_month_navigation_link();
+    });
+};
+
+const update_month_navigation_state = () => {
+    const monthNav = document.getElementById('season-month-nav');
+
+    if (!monthNav) {
+        return;
+    }
+
+    const monthsWithEvents = new Set(
+        Array.from(document.querySelectorAll('#accordion .ifsc-league-card[data-event-start-month]'))
+            .map((card) => card.dataset.eventStartMonth)
+            .filter((monthIndex) => monthIndex !== undefined)
+    );
+
+    monthNav.querySelectorAll('.season-month-nav-link[data-month-index]').forEach((button) => {
+        const hasEvents = monthsWithEvents.has(button.dataset.monthIndex);
+        button.classList.toggle('is-empty', !hasEvents);
+        button.setAttribute('aria-disabled', hasEvents ? 'false' : 'true');
+    });
+
+    sync_active_month_navigation_link();
+};
+
+const setup_month_navigation = () => {
+    const monthNav = document.getElementById('season-month-nav');
+
+    if (!monthNav) {
+        return;
+    }
+
+    monthNav.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target : null;
+
+        if (!target) {
+            return;
+        }
+
+        const trigger = target.closest('[data-month-index]');
+
+        if (!trigger) {
+            return;
+        }
+
+        const monthIndex = parseInt(trigger.dataset.monthIndex, 10);
+
+        if (Number.isNaN(monthIndex)) {
+            return;
+        }
+
+        event.preventDefault();
+        scroll_to_first_event_starting_in_month(monthIndex);
+    });
+
+    addEventListener('scroll', schedule_month_navigation_sync, { passive: true });
+    addEventListener('resize', schedule_month_navigation_sync);
+};
+
 (() => {
     restore_theme();
     restore_config();
@@ -862,6 +1070,7 @@ const setup_footer_season_navigation = () => {
     setup_theme_handlers(systemThemeQuery);
     setup_season_navigation();
     setup_footer_season_navigation();
+    setup_month_navigation();
 
     /*
     fetch('http://ip-api.com/json').then(async (response) => {
