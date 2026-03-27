@@ -870,6 +870,7 @@ const setup_tracking_pixel = () => {
     img.src = 'https://calendar.ifsc.stream/pixel.gif' + (document.referrer ? `?r=${normalize(document.referrer)}` : '');
     img.width = 1;
     img.height = 1;
+    img.alt = 'pixel';
 
     document.body.appendChild(img);
 };
