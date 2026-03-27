@@ -749,6 +749,7 @@ li.ifsc-event.event-round-card:last-child {
 
 .event-start-list-avatar {
     position: relative;
+    z-index: var(--stack-index, 1);
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -765,7 +766,7 @@ li.ifsc-event.event-round-card:last-child {
 .event-start-list-avatar:hover {
     transform: translateY(-3px) scale(1.18);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.36);
-    z-index: 1;
+    z-index: 100;
 }
 
 .event-page {
@@ -1837,12 +1838,14 @@ body:not(.theme-light) .footer-copy .footer-credits a:focus {
 }
 
 .theme-light .ifsc-league-card .event-start-list-avatar {
-    border-color: rgba(242, 246, 251, 0.95);
+    border-color: rgba(72, 96, 124, 0.7);
+    border-width: 1px;
     box-shadow: 0 8px 16px rgba(18, 33, 53, 0.2);
 }
 
 .theme-light .next-event .event-start-list-avatar {
-    border-color: rgba(242, 246, 251, 0.95);
+    border-color: rgba(72, 96, 124, 0.7);
+    border-width: 1px;
     box-shadow: 0 8px 16px rgba(18, 33, 53, 0.2);
 }
 

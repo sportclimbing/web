@@ -1080,31 +1080,61 @@ Object.defineProperty(String.prototype, 'capitalize', {
     enumerable: false
 });
 
-function season_year_build(season) {
-    const seasonYear = String(season || '').trim();
+function photo_filename_from_url_build(photoUrl) {
+    const url = String(photoUrl || '').trim();
 
-    return /^\d{4}$/.test(seasonYear) ? seasonYear : '';
-}
-
-function athlete_local_photo_url_build(athlete, season) {
-    const seasonYear = season_year_build(season);
-    const athleteId = String(athlete && athlete.athlete_id !== undefined ? athlete.athlete_id : '').trim();
-
-    if (!seasonYear || !/^\d+$/.test(athleteId)) {
+    if (!url) {
         return '';
     }
 
-    return `img/athletes/${seasonYear}/${athleteId}.jpg`;
+    let pathname = '';
+
+    try {
+        pathname = new URL(url).pathname || '';
+    } catch (error) {
+        pathname = url.split(/[?#]/)[0] || '';
+    }
+
+    const pathParts = pathname.split('/').filter(Boolean);
+
+    if (!pathParts.length) {
+        return '';
+    }
+
+    const fileName = pathParts[pathParts.length - 1];
+
+    if (!fileName || fileName === '.' || fileName === '..') {
+        return '';
+    }
+
+    const extensionIndex = fileName.lastIndexOf('.');
+    const baseName = extensionIndex > 0 ? fileName.slice(0, extensionIndex) : fileName;
+
+    if (!baseName || baseName === '.' || baseName === '..') {
+        return '';
+    }
+
+    return `${baseName}.jpg`;
 }
 
-function athlete_photo_sources_build(athlete, season) {
+function athlete_local_photo_url_build(photoUrl) {
+    const fileName = photo_filename_from_url_build(photoUrl);
+
+    if (!fileName) {
+        return '';
+    }
+
+    return `img/athletes/${fileName}`;
+}
+
+function athlete_photo_sources_build(athlete) {
     const remotePhotoUrl = typeof athlete.photo_url === 'string' ? athlete.photo_url.trim() : '';
 
     if (!remotePhotoUrl) {
         return null;
     }
 
-    const localPhotoUrl = athlete_local_photo_url_build(athlete, season);
+    const localPhotoUrl = athlete_local_photo_url_build(remotePhotoUrl);
 
     if (!localPhotoUrl) {
         return {
@@ -1146,11 +1176,12 @@ function start_list_build(startList, season, maxAthletesWithPhoto = 6) {
         return '📋 Start List';
     }
 
-    const avatars = athletesWithPhoto.map((athlete) => {
+    const avatars = athletesWithPhoto.map((athlete, index) => {
         const athleteName = escape_html(athlete_name_build(athlete));
         const country = athlete.country ? escape_html(athlete.country) : '';
         const tooltip = country ? `${athleteName} (${country})` : athleteName;
-        const photoSources = athlete_photo_sources_build(athlete, season);
+        const photoSources = athlete_photo_sources_build(athlete);
+        const stackIndex = athletesWithPhoto.length - index;
 
         if (!photoSources) {
             return '';
@@ -1161,7 +1192,7 @@ function start_list_build(startList, season, maxAthletesWithPhoto = 6) {
             ? ` data-fallback-src="${escape_html(photoSources.fallbackSrc)}" onerror="handle_start_list_photo_error(this)"`
             : '';
 
-        return `<img class="event-start-list-avatar event-start-list-avatar-tooltip" src="${photoUrl}" alt="${athleteName}" title="${tooltip}" loading="lazy" referrerpolicy="no-referrer"${fallbackAttribute} />`;
+        return `<img class="event-start-list-avatar event-start-list-avatar-tooltip" src="${photoUrl}" alt="${athleteName}" title="${tooltip}" loading="lazy" referrerpolicy="no-referrer" style="--stack-index: ${stackIndex};"${fallbackAttribute} />`;
     }).join('');
 
     return `<span class="event-start-list-avatars" aria-label="Start list athletes with profile photos">${avatars}</span>`;
@@ -1192,7 +1223,7 @@ function start_list_modal_build(startList, season) {
     return startList.map((athlete) => {
         const athleteName = escape_html(athlete_name_build(athlete));
         const country = athlete.country ? `<span class="start-list-athlete-country">${escape_html(athlete.country)}</span>` : '';
-        const photoSources = athlete_photo_sources_build(athlete, season);
+        const photoSources = athlete_photo_sources_build(athlete);
         const photo = photoSources
             ? `<img class="start-list-athlete-photo" src="${escape_html(photoSources.src)}" alt="${athleteName}" loading="lazy" referrerpolicy="no-referrer"${photoSources.fallbackSrc ? ` data-fallback-src="${escape_html(photoSources.fallbackSrc)}" onerror="handle_start_list_photo_error(this)"` : ''} />`
             : `<div class="start-list-athlete-photo start-list-athlete-photo-fallback" aria-hidden="true">${escape_html(athlete_initials_build(athlete))}</div>`;

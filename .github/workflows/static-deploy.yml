@@ -83,7 +83,7 @@ jobs:
               --max-time 15
 
       - name: "Cache athlete start-list photos"
-        run: php bin/cache-athlete-photos "${YEAR}"
+        run: php bin/cache-athlete-photos
 
       - name: "Build structured data"
         run: php bin/build-structured-data
