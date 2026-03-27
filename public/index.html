@@ -255,6 +255,7 @@
                 <iframe id="youtube-video" src="" title="Event livestream player" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
 
+            <!--
             <div id="live-chat">
                 <widgetbot
                         server="1086875588087787561"
@@ -263,6 +264,7 @@
                         height="280"
                 ></widgetbot>
             </div>
+            -->
 
             <div class="modal-footer">
                 <a class="ifsc-action-button ifsc-action-button-secondary video-modal-vpn-link" href="https://protonvpn.com/free-vpn" role="button" target="_blank" rel="noopener">Video blocked? Free VPN</a>
@@ -442,12 +444,13 @@
     </div>
 </footer>
 
-<script src="js/dayjs.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="js/dayjs.min.js?v=__ASSET_VERSION__"></script>
+<script src="js/bootstrap.min.js?v=__ASSET_VERSION__"></script>
 <script src="js/functions.js?v=__ASSET_VERSION__"></script>
 <script src="js/events.js?v=__ASSET_VERSION__"></script>
-<script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
 <!--
+<script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
 
     const button = new Crate({
