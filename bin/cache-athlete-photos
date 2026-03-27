@@ -12,26 +12,16 @@ function usage(string $script): string
 {
     return <<<TXT
 Usage:
-  php {$script} <season> [events-dir] [images-dir] [image-size]
+  php {$script} [events-dir] [images-dir] [image-size]
 
 Arguments:
-  season               Required 4-digit season year (example: 2026)
   events-dir           Directory containing events_YYYY.json (default: public/events)
-  images-dir           Base directory for local images (default: public/img/athletes)
+  images-dir           Output directory for local images (default: public/img/athletes)
   image-size           Square output size in px (default: 128)
 
 Example:
-  php {$script} 2026
+  php {$script}
 TXT;
-}
-
-function normalize_season(string $season): string
-{
-    if (preg_match('/^\d{4}$/', $season) !== 1) {
-        throw new InvalidArgumentException('Season must be a 4-digit year, for example: 2026');
-    }
-
-    return $season;
 }
 
 function normalize_athlete_id(mixed $athleteId): string
@@ -180,7 +170,7 @@ function save_resized_square_jpeg(string $binary, string $destination, int $size
     }
 }
 
-function athlete_photo_map(array $payload): array
+function start_list_photo_entries(array $payload): array
 {
     $events = $payload['events'] ?? [];
 
@@ -188,7 +178,7 @@ function athlete_photo_map(array $payload): array
         return [];
     }
 
-    $photoByAthleteId = [];
+    $entries = [];
 
     foreach ($events as $event) {
         if (!is_array($event)) {
@@ -209,17 +199,73 @@ function athlete_photo_map(array $payload): array
             $athleteId = normalize_athlete_id($athlete['athlete_id'] ?? null);
             $photoUrl = is_string($athlete['photo_url'] ?? null) ? trim($athlete['photo_url']) : '';
 
-            if ($athleteId === '' || $photoUrl === '') {
+            if ($photoUrl === '') {
                 continue;
             }
 
-            if (!array_key_exists($athleteId, $photoByAthleteId)) {
-                $photoByAthleteId[$athleteId] = $photoUrl;
-            }
+            $entries[] = [
+                'athlete_id' => $athleteId,
+                'photo_url' => $photoUrl,
+            ];
         }
     }
 
-    return $photoByAthleteId;
+    return $entries;
+}
+
+function local_filename_from_photo_url(string $photoUrl): string
+{
+    $path = parse_url($photoUrl, PHP_URL_PATH);
+
+    if (!is_string($path) || $path === '') {
+        throw new RuntimeException("Could not extract a file path from photo URL: {$photoUrl}");
+    }
+
+    $fileName = trim(basename($path));
+
+    if ($fileName === '' || $fileName === '.' || $fileName === '..') {
+        throw new RuntimeException("Could not extract a valid filename from photo URL: {$photoUrl}");
+    }
+
+    if (str_contains($fileName, "\0")) {
+        throw new RuntimeException("Invalid filename extracted from photo URL: {$photoUrl}");
+    }
+
+    $baseName = pathinfo($fileName, PATHINFO_FILENAME);
+
+    if ($baseName === '' || $baseName === '.' || $baseName === '..') {
+        $baseName = $fileName;
+    }
+
+    return "{$baseName}.jpg";
+}
+
+function discover_event_files(string $eventsDirectory): array
+{
+    $eventFiles = glob("{$eventsDirectory}/events_*.json");
+
+    if ($eventFiles === false || count($eventFiles) === 0) {
+        throw new RuntimeException("No events_YYYY.json files found in {$eventsDirectory}");
+    }
+
+    $eventFileBySeason = [];
+
+    foreach ($eventFiles as $eventFile) {
+        if (preg_match('/events_(\d{4})\.json$/', basename($eventFile), $matches) !== 1) {
+            continue;
+        }
+
+        $eventFileBySeason[$matches[1]] = $eventFile;
+    }
+
+    if (count($eventFileBySeason) === 0) {
+        throw new RuntimeException("No valid events_YYYY.json files found in {$eventsDirectory}");
+    }
+
+    // Prefer latest-season data when the same photo filename appears across seasons.
+    krsort($eventFileBySeason, SORT_NUMERIC);
+
+    return $eventFileBySeason;
 }
 
 if (!extension_loaded('gd')) {
@@ -227,16 +273,14 @@ if (!extension_loaded('gd')) {
     exit(1);
 }
 
-if (!isset($argv[1])) {
-    fwrite(STDERR, usage($argv[0] ?? 'bin/cache-athlete-photos') . PHP_EOL);
-    exit(1);
-}
-
 try {
-    $season = normalize_season((string) $argv[1]);
-    $eventsDirectory = rtrim($argv[2] ?? 'public/events', '/');
-    $imagesDirectory = rtrim($argv[3] ?? 'public/img/athletes', '/');
-    $imageSize = (int) ($argv[4] ?? (string) DEFAULT_IMAGE_SIZE);
+    if (count($argv) > 4) {
+        throw new InvalidArgumentException('Too many arguments provided');
+    }
+
+    $eventsDirectory = rtrim($argv[1] ?? 'public/events', '/');
+    $imagesDirectory = rtrim($argv[2] ?? 'public/img/athletes', '/');
+    $imageSize = (int) ($argv[3] ?? (string) DEFAULT_IMAGE_SIZE);
 
     if ($imageSize < 32 || $imageSize > 1024) {
         throw new InvalidArgumentException('Image size must be between 32 and 1024 pixels');
@@ -247,48 +291,100 @@ try {
     exit(1);
 }
 
-$eventsFile = "{$eventsDirectory}/events_{$season}.json";
-$seasonImagesDirectory = "{$imagesDirectory}/{$season}";
-
-if (!is_dir($seasonImagesDirectory) && !mkdir($seasonImagesDirectory, 0777, true) && !is_dir($seasonImagesDirectory)) {
-    fwrite(STDERR, "Could not create output directory: {$seasonImagesDirectory}" . PHP_EOL);
-    exit(1);
-}
-
 try {
-    $payload = decode_events_file($eventsFile);
+    $eventFileBySeason = discover_event_files($eventsDirectory);
 } catch (Throwable $exception) {
     fwrite(STDERR, $exception->getMessage() . PHP_EOL);
     exit(1);
 }
 
-$photoByAthleteId = athlete_photo_map($payload);
-$candidateCount = count($photoByAthleteId);
+$photoCandidates = [];
+$deduplicatedByFilenameCount = 0;
+$invalidFilenameCount = 0;
 
-if ($candidateCount === 0) {
-    echo "[+] No start-list athlete photos found in {$eventsFile}" . PHP_EOL;
-    exit(0);
-}
-
-$downloadedCount = 0;
-$failedCount = 0;
-
-foreach ($photoByAthleteId as $athleteId => $photoUrl) {
-    $destination = "{$seasonImagesDirectory}/{$athleteId}.jpg";
-
+foreach ($eventFileBySeason as $season => $eventsFile) {
     try {
-        $binary = fetch_binary($photoUrl);
-        save_resized_square_jpeg($binary, $destination, $imageSize, DEFAULT_IMAGE_QUALITY);
-        $downloadedCount++;
-        echo "[+] Cached athlete {$athleteId} -> {$destination}" . PHP_EOL;
+        $payload = decode_events_file($eventsFile);
     } catch (Throwable $exception) {
-        $failedCount++;
-        fwrite(STDERR, "[!] Could not cache athlete {$athleteId}: {$exception->getMessage()}" . PHP_EOL);
+        fwrite(STDERR, $exception->getMessage() . PHP_EOL);
+        exit(1);
+    }
+
+    foreach (start_list_photo_entries($payload) as $entry) {
+        $photoUrl = $entry['photo_url'];
+        $athleteId = $entry['athlete_id'];
+        $fileName = '';
+
+        try {
+            $fileName = local_filename_from_photo_url($photoUrl);
+        } catch (Throwable $exception) {
+            $invalidFilenameCount++;
+            fwrite(STDERR, "[!] Skipping photo URL {$photoUrl}: {$exception->getMessage()}" . PHP_EOL);
+            continue;
+        }
+
+        if (!array_key_exists($fileName, $photoCandidates)) {
+            $photoCandidates[$fileName] = [
+                'season' => $season,
+                'athlete_id' => $athleteId,
+                'photo_url' => $photoUrl,
+                'file_name' => $fileName,
+            ];
+            continue;
+        }
+
+        if ($photoCandidates[$fileName]['photo_url'] !== $photoUrl) {
+            $deduplicatedByFilenameCount++;
+        }
+
+        if ($photoCandidates[$fileName]['athlete_id'] === '' && $athleteId !== '') {
+            $photoCandidates[$fileName]['athlete_id'] = $athleteId;
+        }
     }
 }
 
-if ($downloadedCount === 0) {
+$candidateCount = count($photoCandidates);
+
+if ($candidateCount === 0) {
+    echo "[+] No start-list athlete photos found in " . count($eventFileBySeason) . " events_YYYY.json files." . PHP_EOL;
+    exit(0);
+}
+
+$writtenCount = 0;
+$downloadedCount = 0;
+$failedCount = 0;
+
+if (!is_dir($imagesDirectory) && !mkdir($imagesDirectory, 0777, true) && !is_dir($imagesDirectory)) {
+    fwrite(STDERR, "Could not create output directory: {$imagesDirectory}" . PHP_EOL);
+    exit(1);
+}
+
+foreach ($photoCandidates as $candidate) {
+    $season = $candidate['season'];
+    $athleteId = $candidate['athlete_id'];
+    $photoUrl = $candidate['photo_url'];
+    $destinationFileName = $candidate['file_name'];
+
+    try {
+        $destination = "{$imagesDirectory}/{$destinationFileName}";
+
+        $binary = fetch_binary($photoUrl);
+        save_resized_square_jpeg($binary, $destination, $imageSize, DEFAULT_IMAGE_QUALITY);
+        $writtenCount++;
+        $downloadedCount++;
+        $label = $athleteId !== '' ? "athlete {$athleteId}" : "photo {$destinationFileName}";
+        echo "[+] Cached {$label} (season {$season}) -> {$destination}" . PHP_EOL;
+    } catch (Throwable $exception) {
+        $failedCount++;
+        $label = $athleteId !== '' ? "athlete {$athleteId}" : "photo URL {$photoUrl}";
+        fwrite(STDERR, "[!] Could not cache {$label} (season {$season}): {$exception->getMessage()}" . PHP_EOL);
+    }
+}
+
+if ($writtenCount === 0) {
     fwrite(STDERR, "[!] Failed to cache all {$candidateCount} athlete photos." . PHP_EOL);
     exit(1);
 }
-echo "[+] Cached {$downloadedCount}/{$candidateCount} athlete photos for season {$season} ({$failedCount} failed)." . PHP_EOL;
+
+$seasonCount = count($eventFileBySeason);
+echo "[+] Cached {$writtenCount}/{$candidateCount} unique photos across {$seasonCount} seasons ({$downloadedCount} downloaded, {$failedCount} failed, {$deduplicatedByFilenameCount} filename duplicates omitted, {$invalidFilenameCount} invalid URLs skipped)." . PHP_EOL;

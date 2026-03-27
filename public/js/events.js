@@ -61,6 +61,7 @@ let seasonTimeline = {
     seasonHasUpcomingEvents: false,
 };
 let monthNavigationFrameId = null;
+let monthNavHorizontalFrameId = null;
 
 const is_mobile_viewport = () => window.matchMedia(MOBILE_VIEWPORT_MEDIA_QUERY).matches;
 
@@ -1178,7 +1179,14 @@ const sync_month_nav_horizontal_position = () => {
 };
 
 const schedule_month_nav_horizontal_position_sync = () => {
-    window.requestAnimationFrame(sync_month_nav_horizontal_position);
+    if (monthNavHorizontalFrameId !== null) {
+        return;
+    }
+
+    monthNavHorizontalFrameId = window.requestAnimationFrame(() => {
+        monthNavHorizontalFrameId = null;
+        sync_month_nav_horizontal_position();
+    });
 };
 
 const setup_modal_layout_handlers = () => {
