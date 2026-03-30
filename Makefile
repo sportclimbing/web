@@ -19,3 +19,6 @@ test-local:
 
 test-docker:
 	$(DOCKER_RUN) $(PLAYWRIGHT_IMAGE) sh -lc "npm install --no-package-lock && npx playwright test"
+
+serve:
+    php -S 127.0.0.1:8000 -t public

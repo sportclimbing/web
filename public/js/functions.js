@@ -8,7 +8,7 @@ const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
 const YOUTUBE_EMBED_BASE_URL = 'https://www.youtube-nocookie.com/embed';
 const GITHUB_BUTTON_SCRIPT_SRC = 'https://buttons.github.io/buttons.js';
 const GITHUB_BUTTON_SLOT_ID = 'season-github-button-slot';
-const NEXT_EVENT_START_LIST_AVATAR_LIMIT = 10;
+const NEXT_EVENT_START_LIST_AVATAR_LIMIT = 9;
 
 const CONFIG_CHECKBOX_BINDINGS = [
     { inputName: 'league[cups]', path: ['league', 'cups'] },
@@ -94,6 +94,7 @@ function get_next_event(events) {
 }
 
 let mobileHeroTitleFitFrame = null;
+let modalTitleFitFrame = null;
 let nextEventMobileCountdownSyncFrame = null;
 let eventNotStartedCountdownIntervalId = null;
 let nextEventCountdownIntervalId = null;
@@ -151,6 +152,65 @@ function schedule_fit_mobile_hero_title() {
 
     mobileHeroTitleFitFrame = window.requestAnimationFrame(() => {
         fit_mobile_hero_title();
+    });
+}
+
+function fit_modal_titles() {
+    const modalTitles = document.querySelectorAll('.modal .modal-title');
+
+    if (!modalTitles.length) {
+        return;
+    }
+
+    const minFontSize = 9;
+    const precision = 0.1;
+
+    modalTitles.forEach((title) => {
+        if (!(title instanceof HTMLElement)) {
+            return;
+        }
+
+        const availableWidth = title.clientWidth || Math.round(title.getBoundingClientRect().width);
+
+        if (!availableWidth) {
+            return;
+        }
+
+        title.style.whiteSpace = 'nowrap';
+        title.style.overflow = 'visible';
+        title.style.textOverflow = 'clip';
+        title.style.removeProperty('font-size');
+
+        const computedFontSize = Number.parseFloat(window.getComputedStyle(title).fontSize);
+        const maxFontSize = Number.isFinite(computedFontSize) ? computedFontSize : minFontSize;
+        let low = minFontSize;
+        let high = Math.max(minFontSize, maxFontSize);
+        let best = minFontSize;
+
+        while ((high - low) > precision) {
+            const mid = (low + high) / 2;
+            title.style.fontSize = `${mid}px`;
+
+            if (title.scrollWidth <= availableWidth) {
+                best = mid;
+                low = mid;
+            } else {
+                high = mid;
+            }
+        }
+
+        title.style.fontSize = `${best.toFixed(2)}px`;
+    });
+}
+
+function schedule_fit_modal_titles() {
+    if (modalTitleFitFrame !== null) {
+        window.cancelAnimationFrame(modalTitleFitFrame);
+    }
+
+    modalTitleFitFrame = window.requestAnimationFrame(() => {
+        modalTitleFitFrame = null;
+        fit_modal_titles();
     });
 }
 
@@ -885,6 +945,7 @@ function handle_watch_event(e) {
 
     if (youtubeVideoTitle) {
         youtubeVideoTitle.textContent = `🍿 ${round.name}`;
+        schedule_fit_modal_titles();
     }
 
     if (videoModalElement && window.bootstrap && window.bootstrap.Modal) {
@@ -1192,7 +1253,7 @@ function start_list_build(startList, season, maxAthletesWithPhoto = 6) {
             ? ` data-fallback-src="${escape_html(photoSources.fallbackSrc)}" onerror="handle_start_list_photo_error(this)"`
             : '';
 
-        return `<img class="event-start-list-avatar event-start-list-avatar-tooltip" src="${photoUrl}" alt="${athleteName}" title="${tooltip}" loading="lazy" referrerpolicy="no-referrer" style="--stack-index: ${stackIndex};"${fallbackAttribute} />`;
+        return `<span class="event-start-list-avatar-chip" style="--stack-index: ${stackIndex};"><img class="event-start-list-avatar event-start-list-avatar-tooltip" src="${photoUrl}" width="31" height="31" alt="${athleteName}" title="${tooltip}" loading="lazy" referrerpolicy="no-referrer"${fallbackAttribute} /></span>`;
     }).join('');
 
     return `<span class="event-start-list-avatars" aria-label="Start list athletes with profile photos">${avatars}</span>`;
@@ -1225,11 +1286,11 @@ function start_list_modal_build(startList, season) {
         const country = athlete.country ? `<span class="start-list-athlete-country">${escape_html(athlete.country)}</span>` : '';
         const photoSources = athlete_photo_sources_build(athlete);
         const photo = photoSources
-            ? `<img class="start-list-athlete-photo" src="${escape_html(photoSources.src)}" alt="${athleteName}" loading="lazy" referrerpolicy="no-referrer"${photoSources.fallbackSrc ? ` data-fallback-src="${escape_html(photoSources.fallbackSrc)}" onerror="handle_start_list_photo_error(this)"` : ''} />`
+            ? `<img class="start-list-athlete-photo" src="${escape_html(photoSources.src)}" width="52" height="52" alt="${athleteName}" loading="lazy" referrerpolicy="no-referrer"${photoSources.fallbackSrc ? ` data-fallback-src="${escape_html(photoSources.fallbackSrc)}" onerror="handle_start_list_photo_error(this)"` : ''} />`
             : `<div class="start-list-athlete-photo start-list-athlete-photo-fallback" aria-hidden="true">${escape_html(athlete_initials_build(athlete))}</div>`;
         const hasAthleteId = athlete.athlete_id !== undefined && athlete.athlete_id !== null && athlete.athlete_id !== '';
         const athleteProfile = hasAthleteId
-            ? `<a class="ifsc-action-button ifsc-action-button-primary start-list-athlete-profile" href="${escape_html(`https://ifsc.results.info/athlete/${encodeURIComponent(String(athlete.athlete_id))}`)}" target="_blank" rel="noopener">Profile <img src="img/external-link.svg" alt="" aria-hidden="true" /></a>`
+            ? `<a class="ifsc-action-button ifsc-action-button-primary start-list-athlete-profile" href="${escape_html(`https://ifsc.results.info/athlete/${encodeURIComponent(String(athlete.athlete_id))}`)}" target="_blank" rel="noopener">Profile <img src="img/external-link.svg" width="12" height="12" alt="" aria-hidden="true" /></a>`
             : '';
 
         return `
@@ -1255,6 +1316,7 @@ function set_start_list_modal(event) {
 
     title.innerText = `📋 ${event.name} Start List`;
     title.setAttribute('title', title.innerText);
+    schedule_fit_modal_titles();
     list.innerHTML = start_list_modal_build(event.start_list || [], event.season);
 }
 

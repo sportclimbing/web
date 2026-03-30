@@ -197,8 +197,34 @@ main[role="main"] {
     max-width: 100%;
 }
 
+.event-start-list-avatars {
+    min-height: 30px;
+}
+
+.event-start-list-avatar-chip {
+    width: 23px;
+    height: 23px;
+    padding: 1px;
+}
+
+.event-start-list-avatar-chip + .event-start-list-avatar-chip {
+    margin-left: -5px;
+}
+
+.event-start-list-avatar {
+    object-position: center 26%;
+}
+
 #start-list-modal .start-list-athlete-name {
     font-size: 17px;
+}
+
+#start-list-modal-title {
+    font-size: clamp(0.95rem, 4.5vw, 1.2rem);
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
 }
 
 .event-buttons {
@@ -224,6 +250,7 @@ main[role="main"] {
 #accordion .collapse > .card-body.list-group,
 #accordion .collapse.show > .card-body.list-group,
 #accordion .collapsing > .card-body.list-group {
+    padding-left: 0.2rem;
     padding-bottom: 0.3rem;
 }
 
@@ -237,7 +264,7 @@ li.ifsc-event {
 
 .event-round-card {
     margin-bottom: 10px;
-    padding: 12px 12px 14px;
+    padding: 12px 12px 14px 10px;
     border-radius: 12px;
 }
 
@@ -552,11 +579,6 @@ li.ifsc-event.event-round-card:last-child {
 .next-event .watch-button .button-reminder,
 .next-event .watch-button .button-results {
     width: 100% !important;
-}
-
-.filters label {
-    width: 100%;
-    display: block;
 }
 
 .ifsc-action-button {
