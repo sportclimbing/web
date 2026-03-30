@@ -803,6 +803,7 @@ const setup_layout_handlers = () => {
     if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => {
             schedule_fit_mobile_hero_title();
+            schedule_fit_modal_titles();
             schedule_next_event_mobile_countdown_height_sync();
         });
     }
@@ -1195,8 +1196,13 @@ const setup_modal_layout_handlers = () => {
     document.addEventListener('shown.bs.modal', schedule_month_nav_horizontal_position_sync);
     document.addEventListener('hide.bs.modal', schedule_month_nav_horizontal_position_sync);
     document.addEventListener('hidden.bs.modal', schedule_month_nav_horizontal_position_sync);
+    document.addEventListener('show.bs.modal', schedule_fit_modal_titles);
+    document.addEventListener('shown.bs.modal', schedule_fit_modal_titles);
+    document.addEventListener('hidden.bs.modal', schedule_fit_modal_titles);
     addEventListener('resize', schedule_month_nav_horizontal_position_sync);
+    addEventListener('resize', schedule_fit_modal_titles);
     sync_month_nav_horizontal_position();
+    schedule_fit_modal_titles();
 };
 
 const update_month_navigation_state = () => {
