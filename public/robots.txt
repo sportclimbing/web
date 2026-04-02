@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /start-list-modals/
 
 Sitemap: https://ifsc.stream/sitemap.xml

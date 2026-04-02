@@ -6,18 +6,18 @@
       "league_name": "World Cups and World Championships",
       "season": 2020,
       "name": "IFSC Continental Championships - Los Angeles",
+      "slug": "ifsc-continental-championships-los-angeles",
       "country": "USA",
-      "location": "Los Angeles",
-      "poster": "https://www.ifsc-climbing.org/images/ifsc/visuel/70/image.jpg",
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2020\/70",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=70",
+      "location": "Los Angeles, United States",
+      "site_url": "https://calendar.ifsc.stream/view/2020/70",
+      "event_url": "https://www.worldclimbing.com/events/ifsc-continental-championships-los-angeles-2020",
       "disciplines": [
         "boulder",
         "lead"
       ],
       "starts_at": "2020-02-23T16:00:00-08:00",
       "ends_at": "2020-02-29T16:00:00-08:00",
-      "timezone": "America\/Los_Angeles",
+      "timezone": "America/Los_Angeles",
       "rounds": [
         {
           "name": "Men's Combined Qualification",
@@ -44,7 +44,7 @@
             "lead"
           ],
           "kind": "final",
-          "stream_url": "https:\/\/youtu.be\/8_F2lJ5HhNA",
+          "stream_url": "https://youtu.be/8_F2lJ5HhNA",
           "starts_at": "2020-02-24T00:00:00-08:00",
           "ends_at": "2020-02-24T03:00:00-08:00",
           "schedule_status": "estimated"
@@ -74,7 +74,7 @@
             "lead"
           ],
           "kind": "final",
-          "stream_url": "https:\/\/youtu.be\/PDHTgJI8NE4",
+          "stream_url": "https://youtu.be/PDHTgJI8NE4",
           "starts_at": "2020-02-24T00:00:00-08:00",
           "ends_at": "2020-02-24T03:00:00-08:00",
           "schedule_status": "estimated"
@@ -85,7 +85,7 @@
           "first_name": "Emma",
           "last_name": "HUNT",
           "country": "USA",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1999\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1999/photo"
         },
         {
           "first_name": "Zach",
@@ -97,67 +97,67 @@
           "first_name": "Andrea",
           "last_name": "ROJAS",
           "country": "ECU",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/3209\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/3209/photo"
         },
         {
           "first_name": "Carlos Felipe",
           "last_name": "GRANJA LOPEZ",
           "country": "ECU",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/3211\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/3211/photo"
         },
         {
           "first_name": "Alannah",
           "last_name": "YIP",
           "country": "CAN",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1565\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1565/photo"
         },
         {
           "first_name": "Valentina",
           "last_name": "AGUADO",
           "country": "ARG",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/3161\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/3161/photo"
         },
         {
           "first_name": "Rebecca",
           "last_name": "FRANGOS",
           "country": "CAN",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1577\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1577/photo"
         },
         {
           "first_name": "Valeria",
           "last_name": "MACIAS FERREIRA",
           "country": "MEX",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/4221\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/4221/photo"
         },
         {
           "first_name": "Alejandra",
           "last_name": "CONTRERAS",
           "country": "CHI",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/3911\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/3911/photo"
         },
         {
           "first_name": "Felipe",
           "last_name": "HO FOGANHOLO",
           "country": "BRA",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/3141\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/3141/photo"
         },
         {
           "first_name": "Arantza",
           "last_name": "LUNA VELASCO",
           "country": "MEX",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/4206\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/4206/photo"
         },
         {
           "first_name": "Bianca",
           "last_name": "DE MAGALHAES DE CASTRO",
           "country": "BRA",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/11614\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/11614/photo"
         },
         {
           "first_name": "Diego",
           "last_name": "LEQUERICA BUSCAGLIA",
           "country": "PER",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/4397\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/4397/photo"
         },
         {
           "first_name": "Carmen",
@@ -167,39 +167,39 @@
         },
         {
           "first_name": "Arantza",
-          "last_name": "FERN\u00c1NDEZ GUTIERREZ",
+          "last_name": "FERNÁNDEZ GUTIERREZ",
           "country": "MEX",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/4227\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/4227/photo"
         },
         {
-          "first_name": "Mar\u00eda Fernanda",
-          "last_name": "GONZ\u00c1LEZ R\u00c1MIREZ",
+          "first_name": "María Fernanda",
+          "last_name": "GONZÁLEZ RÁMIREZ",
           "country": "MEX",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/4215\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/4215/photo"
         },
         {
           "first_name": "Hector",
           "last_name": "LOPEZ VALDEZ",
           "country": "MEX",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/6393\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/6393/photo"
         },
         {
           "first_name": "Muykuay",
           "last_name": "SILVA",
           "country": "CHI",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/3900\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/3900/photo"
         },
         {
           "first_name": "Sofia Alejandra",
           "last_name": "HERRERA VEGA CENTENO",
           "country": "PER",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/11650\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/11650/photo"
         },
         {
           "first_name": "Benjamin",
           "last_name": "AYALA",
           "country": "CHI",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/3903\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/3903/photo"
         }
       ]
     },
@@ -208,18 +208,18 @@
       "league_id": 14,
       "league_name": "World Cups and World Championships",
       "season": 2020,
-      "name": "IFSC World Cup - Brian\u00e7on",
+      "name": "IFSC World Cup - Briançon",
+      "slug": "ifsc-world-cup-briancon",
       "country": "FRA",
-      "location": "Brian\u00e7on",
-      "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/Events\/Posters2020\/Briancon-IFSC-event-poster-2020-HD-GB-1.png",
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2020\/65",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=65",
+      "location": "Briançon, France",
+      "site_url": "https://calendar.ifsc.stream/view/2020/65",
+      "event_url": "https://www.worldclimbing.com/events/ifsc-world-cup-briancon-2020",
       "disciplines": [
         "lead"
       ],
       "starts_at": "2020-08-21T12:00:00+02:00",
       "ends_at": "2020-08-22T12:00:00+02:00",
-      "timezone": "Europe\/Paris",
+      "timezone": "Europe/Paris",
       "rounds": [
         {
           "name": "Men's Lead Qualification",
@@ -244,7 +244,7 @@
             "lead"
           ],
           "kind": "semi-final",
-          "stream_url": "https:\/\/youtu.be\/GjrIoztmA-o",
+          "stream_url": "https://youtu.be/GjrIoztmA-o",
           "starts_at": "2020-08-21T10:00:00+02:00",
           "ends_at": "2020-08-21T13:00:00+02:00",
           "schedule_status": "estimated"
@@ -258,7 +258,7 @@
             "lead"
           ],
           "kind": "final",
-          "stream_url": "https:\/\/youtu.be\/aurno28Q4cA",
+          "stream_url": "https://youtu.be/aurno28Q4cA",
           "starts_at": "2020-08-21T10:00:00+02:00",
           "ends_at": "2020-08-21T13:00:00+02:00",
           "schedule_status": "estimated"
@@ -286,7 +286,7 @@
             "lead"
           ],
           "kind": "semi-final",
-          "stream_url": "https:\/\/youtu.be\/GjrIoztmA-o",
+          "stream_url": "https://youtu.be/GjrIoztmA-o",
           "starts_at": "2020-08-21T10:00:00+02:00",
           "ends_at": "2020-08-21T13:00:00+02:00",
           "schedule_status": "estimated"
@@ -300,7 +300,7 @@
             "lead"
           ],
           "kind": "final",
-          "stream_url": "https:\/\/youtu.be\/aurno28Q4cA",
+          "stream_url": "https://youtu.be/aurno28Q4cA",
           "starts_at": "2020-08-21T10:00:00+02:00",
           "ends_at": "2020-08-21T13:00:00+02:00",
           "schedule_status": "estimated"
@@ -311,67 +311,67 @@
           "first_name": "Jessica",
           "last_name": "PILZ",
           "country": "AUT",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1226\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1226/photo"
         },
         {
           "first_name": "Jakob",
           "last_name": "SCHUBERT",
           "country": "AUT",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1214\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1214/photo"
         },
         {
           "first_name": "Adam",
           "last_name": "ONDRA",
           "country": "CZE",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1364\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1364/photo"
         },
         {
           "first_name": "Nicolas",
           "last_name": "COLLIN",
           "country": "BEL",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/320\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/320/photo"
         },
         {
           "first_name": "Eliska",
           "last_name": "ADAMOVSKA",
           "country": "CZE",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1400\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1400/photo"
         },
         {
           "first_name": "Stefan",
           "last_name": "SCHERZ",
           "country": "AUT",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1274\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1274/photo"
         },
         {
           "first_name": "Mattea",
-          "last_name": "P\u00d6TZI",
+          "last_name": "PÖTZI",
           "country": "AUT",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1266\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1266/photo"
         },
         {
           "first_name": "Martin",
           "last_name": "STRANIK",
           "country": "CZE",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1361\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1361/photo"
         },
         {
           "first_name": "Michaela",
           "last_name": "SMETANOVA",
           "country": "CZE",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1438\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1438/photo"
         },
         {
           "first_name": "Ties",
           "last_name": "VANCRAEYNEST",
           "country": "BEL",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/356\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/356/photo"
         },
         {
           "first_name": "Eva Maria",
-          "last_name": "HAMMELM\u00dcLLER",
+          "last_name": "HAMMELMÜLLER",
           "country": "AUT",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1259\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1259/photo"
         },
         {
           "first_name": "Tereza",
@@ -383,7 +383,7 @@
           "first_name": "Mathias",
           "last_name": "POSCH",
           "country": "AUT",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1251\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1251/photo"
         },
         {
           "first_name": "Simon",
@@ -401,13 +401,13 @@
           "first_name": "Bianca",
           "last_name": "DE MAGALHAES DE CASTRO",
           "country": "BRA",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/11614\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/11614/photo"
         },
         {
           "first_name": "Lucie",
           "last_name": "WATILLON",
           "country": "BEL",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/363\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/363/photo"
         },
         {
           "first_name": "Arno",
@@ -419,7 +419,7 @@
           "first_name": "Julia",
           "last_name": "FISER",
           "country": "AUT",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1239\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1239/photo"
         },
         {
           "first_name": "Stepan",
@@ -435,11 +435,11 @@
       "league_name": "World Cups and World Championships",
       "season": 2020,
       "name": "IFSC Continental Championships - Moscow",
+      "slug": "ifsc-continental-championships-moscow",
       "country": "RUS",
-      "location": "Moscow",
-      "poster": "https://www.ifsc-climbing.org/images/ifsc/visuel/1166/image.jpg",
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2020\/1166",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1166",
+      "location": "Moscow, Russia",
+      "site_url": "https://calendar.ifsc.stream/view/2020/1166",
+      "event_url": "https://www.worldclimbing.com/events/ifsc-continental-championships-moscow-2020",
       "disciplines": [
         "lead",
         "speed",
@@ -447,7 +447,7 @@
       ],
       "starts_at": "2020-11-21T14:00:00+03:00",
       "ends_at": "2020-11-29T14:00:00+03:00",
-      "timezone": "Europe\/Moscow",
+      "timezone": "Europe/Moscow",
       "rounds": [
         {
           "name": "Men's Lead Qualification",
@@ -698,7 +698,7 @@
             "lead"
           ],
           "kind": "final",
-          "stream_url": "https:\/\/youtu.be\/1nZB-YeGJuY",
+          "stream_url": "https://youtu.be/1nZB-YeGJuY",
           "starts_at": "2020-11-21T11:00:00+03:00",
           "ends_at": "2020-11-21T14:00:00+03:00",
           "schedule_status": "estimated"
@@ -728,7 +728,7 @@
             "lead"
           ],
           "kind": "final",
-          "stream_url": "https:\/\/youtu.be\/1nZB-YeGJuY",
+          "stream_url": "https://youtu.be/1nZB-YeGJuY",
           "starts_at": "2020-11-21T11:00:00+03:00",
           "ends_at": "2020-11-21T14:00:00+03:00",
           "schedule_status": "estimated"
@@ -739,91 +739,91 @@
           "first_name": "Molly",
           "last_name": "THOMPSON-SMITH",
           "country": "GBR",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/642\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/642/photo"
         },
         {
           "first_name": "Ayala",
           "last_name": "KEREM",
           "country": "ISR",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/4017\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/4017/photo"
         },
         {
           "first_name": "Hannah",
           "last_name": "MEUL",
           "country": "GER",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/3113\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/3113/photo"
         },
         {
           "first_name": "Simon",
           "last_name": "LORENZI",
           "country": "BEL",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/318\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/318/photo"
         },
         {
           "first_name": "Nicolas",
           "last_name": "COLLIN",
           "country": "BEL",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/320\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/320/photo"
         },
         {
           "first_name": "Eliska",
           "last_name": "ADAMOVSKA",
           "country": "CZE",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1400\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1400/photo"
         },
         {
           "first_name": "Lucia",
-          "last_name": "D\u00d6RFFEL",
+          "last_name": "DÖRFFEL",
           "country": "GER",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/4330\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/4330/photo"
         },
         {
           "first_name": "Martin",
           "last_name": "STRANIK",
           "country": "CZE",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1361\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1361/photo"
         },
         {
           "first_name": "Noa",
           "last_name": "SHIRAN",
           "country": "ISR",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/4002\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/4002/photo"
         },
         {
           "first_name": "Michaela",
           "last_name": "SMETANOVA",
           "country": "CZE",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1438\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1438/photo"
         },
         {
           "first_name": "Alex",
           "last_name": "KHAZANOV",
           "country": "ISR",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/3983\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/3983/photo"
         },
         {
           "first_name": "Afra",
-          "last_name": "H\u00d6NIG",
+          "last_name": "HÖNIG",
           "country": "GER",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/3354\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/3354/photo"
         },
         {
           "first_name": "Geva",
           "last_name": "LEVIN",
           "country": "ISR",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/4019\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/4019/photo"
         },
         {
           "first_name": "Chloe",
           "last_name": "CAULIER",
           "country": "BEL",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/316\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/316/photo"
         },
         {
           "first_name": "Ram",
           "last_name": "LEVIN",
           "country": "ISR",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/3991\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/3991/photo"
         },
         {
           "first_name": "Tereza",
@@ -835,7 +835,7 @@
           "first_name": "Jan",
           "last_name": "KRIZ",
           "country": "CZE",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1372\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1372/photo"
         },
         {
           "first_name": "Simon",
@@ -863,18 +863,18 @@
       "league_name": "World Cups and World Championships",
       "season": 2020,
       "name": "IFSC Continental Championships - Cape Town",
+      "slug": "ifsc-continental-championships-cape-town",
       "country": "RSA",
-      "location": "Cape Town",
-      "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/jch-optimize\/ng\/images_Events_Poster-IFSC-Continental-2020-Cape-Town.webp",
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2020\/1168",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1168",
+      "location": "Cape Town, South Africa",
+      "site_url": "https://calendar.ifsc.stream/view/2020/1168",
+      "event_url": "https://www.worldclimbing.com/events/ifsc-continental-championships-cape-town-2020",
       "disciplines": [
         "boulder",
         "lead"
       ],
       "starts_at": "2020-12-17T12:00:00+02:00",
       "ends_at": "2020-12-20T12:00:00+02:00",
-      "timezone": "Africa\/Johannesburg",
+      "timezone": "Africa/Johannesburg",
       "rounds": [
         {
           "name": "Men's Combined Qualification",
@@ -942,25 +942,25 @@
           "first_name": "Christopher",
           "last_name": "COSSER",
           "country": "RSA",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1058\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1058/photo"
         },
         {
           "first_name": "Tegwen",
           "last_name": "OATES",
           "country": "RSA",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/12308\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/12308/photo"
         },
         {
           "first_name": "Joshua",
           "last_name": "BRUYNS",
           "country": "RSA",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/12310\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/12310/photo"
         },
         {
           "first_name": "Alyssa",
           "last_name": "MEYER",
           "country": "RSA",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/1068\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/1068/photo"
         }
       ]
     },
@@ -970,18 +970,18 @@
       "league_name": "World Cups and World Championships",
       "season": 2020,
       "name": "IFSC Continental Championships - Sydney",
+      "slug": "ifsc-continental-championships-sydney",
       "country": "AUS",
-      "location": "Sydney",
-      "poster": "https:\/\/cdn.ifsc-climbing.org\/images\/jch-optimize\/ng\/images_Events_Posters2020_Poster-IFSC-Continental-2020-Sydney-v6.webp",
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2020\/1167",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/component\/ifsc\/?view=event&WetId=1167",
+      "location": "Sydney, Australia",
+      "site_url": "https://calendar.ifsc.stream/view/2020/1167",
+      "event_url": "https://www.worldclimbing.com/events/ifsc-continental-championships-sydney-2020",
       "disciplines": [
         "boulder",
         "lead"
       ],
       "starts_at": "2020-12-20T06:00:00+11:00",
       "ends_at": "2020-12-21T06:00:00+11:00",
-      "timezone": "Australia\/Sydney",
+      "timezone": "Australia/Sydney",
       "rounds": [
         {
           "name": "Men's Combined Qualification",
@@ -1049,13 +1049,13 @@
           "first_name": "Oceania",
           "last_name": "MACKENZIE",
           "country": "AUS",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/2501\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/2501/photo"
         },
         {
           "first_name": "Campbell",
           "last_name": "HARRISON",
           "country": "AUS",
-          "photo_url": "https:\/\/ifsc.results.info\/athletes\/2493\/photo"
+          "photo_url": "https://ifsc.results.info/athletes/2493/photo"
         },
         {
           "first_name": "Roxy",
@@ -1068,6 +1068,6 @@
   ],
   "metadata": {
     "updated_at": "2024-03-15T19:42:18+00:00",
-    "generated_by": "https:\/\/github.com\/sportclimbing\/ifsc-calendar"
+    "generated_by": "https://github.com/sportclimbing/ifsc-calendar"
   }
 }

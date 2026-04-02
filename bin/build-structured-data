@@ -51,14 +51,12 @@ function schema_event_location(array $event): array
     return $location;
 }
 
-function schema_event_fallback_url(array $event, string $siteUrl, string $season): string
+function schema_event_fallback_url(string $siteUrl, string $season): string
 {
-    $eventId = (string) ($event['id'] ?? '');
-
-    return "{$siteUrl}/#/season/{$season}/event/{$eventId}";
+    return "{$siteUrl}/season/{$season}";
 }
 
-function schema_round_url(array $event, array $round, string $siteUrl, string $season): string
+function schema_round_url(array $round, string $siteUrl, string $season): string
 {
     $streamUrl = is_string($round['stream_url'] ?? null) ? trim($round['stream_url']) : '';
 
@@ -66,7 +64,7 @@ function schema_round_url(array $event, array $round, string $siteUrl, string $s
         return $streamUrl;
     }
 
-    return schema_event_fallback_url($event, $siteUrl, $season);
+    return schema_event_fallback_url($siteUrl, $season);
 }
 
 function schema_round_name(array $event, array $round): string
@@ -93,10 +91,10 @@ function schema_round_description(array $event, array $round): string
     $location = implode(', ', array_filter([$locationName, $country]));
 
     if ($location !== '') {
-        return "{$name} in {$location}. Live stream links and schedule on ifsc.stream.";
+        return "{$name} in {$location}. Live stream links and schedule";
     }
 
-    return "{$name}. Live stream links and schedule on ifsc.stream.";
+    return "{$name}. Live stream links and schedule";
 }
 
 function schema_performer_name(array $performer): string
@@ -128,10 +126,41 @@ function schema_event_athletes(array $event): array
             continue;
         }
 
-        $athletes[] = [
+        $athlete = [
             '@type' => 'Person',
             'name' => $name,
         ];
+
+        $photoUrl = is_string($startListAthlete['photo_url'] ?? null) ? trim($startListAthlete['photo_url']) : '';
+
+        if ($photoUrl !== '') {
+            $athlete['image'] = $photoUrl;
+        }
+
+        $country = is_string($startListAthlete['country'] ?? null) ? trim($startListAthlete['country']) : '';
+
+        if ($country !== '') {
+            $athlete['nationality'] = [
+                '@type' => 'Country',
+                'name' => $country,
+            ];
+        }
+
+        $athleteIdRaw = $startListAthlete['athlete_id'] ?? null;
+
+        if (is_scalar($athleteIdRaw)) {
+            $athleteId = trim((string) $athleteIdRaw);
+
+            if ($athleteId !== '') {
+                $athlete['identifier'] = [
+                    '@type' => 'PropertyValue',
+                    'propertyID' => 'athlete_id',
+                    'value' => $athleteId,
+                ];
+            }
+        }
+
+        $athletes[] = $athlete;
 
         if (count($athletes) >= 5) {
             break;
@@ -362,7 +391,7 @@ foreach ($eventFiles as $eventFile) {
                 ],
                 'location' => schema_event_location($event),
                 'image' => schema_round_images($round),
-                'url' => schema_round_url($event, $round, $siteUrl, $season),
+                'url' => schema_round_url($round, $siteUrl, $season),
             ];
 
             if ($eventPerformerTeam !== null) {
@@ -408,7 +437,7 @@ foreach ($eventFiles as $eventFile) {
                     '@id' => $seasonSchemaId,
                     'name' => "World Climbing Season {$season}",
                     'description' => "Competition climbing season schedule and live stream links for {$season}.",
-                    'url' => "{$siteUrl}/#/season/{$season}",
+                    'url' => "{$siteUrl}/season/{$season}",
                     'organizer' => [
                         '@id' => $organizationId,
                     ],
@@ -422,7 +451,7 @@ foreach ($eventFiles as $eventFile) {
     ];
 
     $outputFile = "{$outputDirectory}/events_{$season}.json";
-    $outputJson = json_encode($graph, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+    $outputJson = json_encode($graph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
     file_put_contents($outputFile, $outputJson . PHP_EOL);
 
     echo "[+] Built structured data for season {$season}: {$outputFile}" . PHP_EOL;

@@ -1,7 +1,7 @@
 PLAYWRIGHT_IMAGE ?= mcr.microsoft.com/playwright:v1.54.1-noble
 DOCKER_RUN = docker run --rm --init --ipc=host -u "$(shell id -u):$(shell id -g)" -e HOME=/tmp -e npm_config_cache=/tmp/.npm -v "$(PWD):/work" -w /work
 
-.PHONY: test test-local test-docker
+.PHONY: test test-local test-docker serve
 
 test:
 	@if docker info >/dev/null 2>&1; then \
@@ -21,4 +21,8 @@ test-docker:
 	$(DOCKER_RUN) $(PLAYWRIGHT_IMAGE) sh -lc "npm install --no-package-lock && npx playwright test"
 
 serve:
-    php -S 127.0.0.1:8000 -t public
+	@if [ ! -f dist/index.html ]; then \
+		echo "dist/index.html missing. Run 'npm run build' first."; \
+		exit 1; \
+	fi
+	php -S 127.0.0.1:8000 -t dist

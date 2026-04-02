@@ -64,7 +64,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('league filters change the displayed results', async ({ page }) => {
-  await page.goto('/#/season/2026');
+  await page.goto('/season/2026');
   await waitForEventCards(page);
 
   const initialEventNames = await getVisibleEventNames(page);
@@ -89,7 +89,7 @@ test('league filters change the displayed results', async ({ page }) => {
 });
 
 test('category filters change the displayed results', async ({ page }) => {
-  await page.goto('/#/season/2026');
+  await page.goto('/season/2026');
   await waitForEventCards(page);
 
   await openFilters(page);
@@ -110,7 +110,7 @@ test('category filters change the displayed results', async ({ page }) => {
 });
 
 test('discipline filters enforce visible event discipline labels', async ({ page }) => {
-  await page.goto('/#/season/2026');
+  await page.goto('/season/2026');
   await waitForEventCards(page);
 
   for (const selectedDiscipline of ['boulder', 'lead', 'speed']) {

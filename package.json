@@ -2,10 +2,18 @@
   "name": "ifsc-stream-frontend-tests",
   "private": true,
   "scripts": {
+    "build:js": "node bin/build-js-bundle.mjs",
+    "build:js:min": "node bin/build-js-bundle.mjs --minify",
+    "build:astro": "astro build",
+    "dev": "npm run build:js && astro dev",
+    "build": "npm run build:js && npm run build:astro",
+    "preview": "astro preview",
     "test:integration": "playwright test"
   },
   "devDependencies": {
+    "astro": "5.11.0",
     "@playwright/test": "1.54.1",
-    "http-server": "14.1.1"
+    "http-server": "14.1.1",
+    "terser": "5.39.2"
   }
 }

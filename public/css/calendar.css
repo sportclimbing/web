@@ -2892,6 +2892,64 @@ body:not(.theme-light) .modal-body .start-list-athlete-profile:focus {
     margin: 0;
 }
 
+.start-list-modal-full-link-row {
+    display: flex;
+    justify-content: center;
+    margin: 6px 0 0;
+    padding-top: 2px;
+}
+
+.start-list-modal-full-link {
+    --ifsc-action-button-font-size: 13px;
+    width: 100%;
+    min-height: 38px;
+    justify-content: center;
+    gap: 7px;
+    border-radius: 10px;
+}
+
+body:not(.theme-light) .modal-body a.ifsc-action-button.start-list-modal-full-link,
+body:not(.theme-light) .modal-body a.ifsc-action-button.start-list-modal-full-link:link,
+body:not(.theme-light) .modal-body a.ifsc-action-button.start-list-modal-full-link:visited {
+    color: #ffffff;
+    border-color: rgba(105, 194, 255, 0.24);
+    background: linear-gradient(180deg, rgba(52, 68, 92, 0.92), rgba(32, 46, 66, 0.96));
+    box-shadow:
+        inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+        0 10px 18px rgba(0, 0, 0, 0.24);
+}
+
+body:not(.theme-light) .modal-body a.ifsc-action-button.start-list-modal-full-link:hover,
+body:not(.theme-light) .modal-body a.ifsc-action-button.start-list-modal-full-link:focus {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.18);
+    background: linear-gradient(180deg, rgba(56, 72, 96, 0.94), rgba(34, 48, 68, 0.98));
+    box-shadow:
+        inset 0 -1px 0 rgba(255, 255, 255, 0.12),
+        0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+.theme-light .modal-body a.ifsc-action-button.start-list-modal-full-link,
+.theme-light .modal-body a.ifsc-action-button.start-list-modal-full-link:link,
+.theme-light .modal-body a.ifsc-action-button.start-list-modal-full-link:visited {
+    color: #17314a;
+    border-color: rgba(89, 126, 160, 0.24);
+    background: linear-gradient(180deg, rgba(246, 250, 253, 0.98), rgba(224, 233, 241, 0.98));
+    box-shadow:
+        inset 0 -1px 0 rgba(23, 49, 74, 0.18),
+        0 8px 16px rgba(78, 106, 136, 0.14);
+}
+
+.theme-light .modal-body a.ifsc-action-button.start-list-modal-full-link:hover,
+.theme-light .modal-body a.ifsc-action-button.start-list-modal-full-link:focus {
+    color: #17314a;
+    border-color: rgba(23, 49, 74, 0.2);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(232, 239, 246, 1));
+    box-shadow:
+        inset 0 -1px 0 rgba(23, 49, 74, 0.24),
+        0 10px 18px rgba(78, 106, 136, 0.16);
+}
+
 .modal-body a:not(.btn) {
     color: #9fe2ff;
 }
@@ -3223,6 +3281,11 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
 .next-event .button-results,
 .watch-button .button-results {
     display: none !important;
+}
+
+.event-round-card .watch-button .button-reminder,
+.event-round-card .watch-button .button-results {
+    display: inline-grid !important;
 }
 
 .next-event .button-reminder:focus:not(:hover),

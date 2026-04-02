@@ -36,7 +36,8 @@ $seasons = [];
 
 foreach ($eventFiles as $eventFile) {
     if (preg_match('/events_(\d{4})\.json$/', $eventFile, $matches) === 1) {
-        $seasons[] = (int) $matches[1];
+        $season = (int) $matches[1];
+        $seasons[] = $season;
     }
 }
 
@@ -61,7 +62,7 @@ $entries = [
 
 foreach ($seasons as $index => $season) {
     $entries[] = [
-        'loc' => "{$siteUrl}/#/season/{$season}",
+        'loc' => "{$siteUrl}/season/{$season}",
         'changefreq' => $season === $latestSeason ? 'hourly' : 'weekly',
         'priority' => number_format(season_priority($index, $seasonCount), 2, '.', ''),
     ];

@@ -1,0 +1,26 @@
+---
+const { season, homeUrl } = Astro.props;
+const normalizedHomeUrl = String(homeUrl ?? '/');
+---
+<div class="header-title">
+  <div class="hero-top">
+    <span class="hero-kicker" id="hero-kicker">Live Schedule {season}</span>
+    <span id="season-github-button-slot">
+      <a class="github-button season-github-button" href="https://github.com/sportclimbing/ifsc-calendar" target="_blank" rel="noopener" data-size="large" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-show-count="true" aria-label="Star sportclimbing/ifsc-calendar on GitHub">Star</a>
+    </span>
+  </div>
+  <h2><a href={normalizedHomeUrl}>World Climbing (IFSC) Calendar &amp; Live Streams</a></h2>
+  <p>Boulder, Lead &amp; Speed Live Streams</p>
+  <p class="header-caption">Auto-updating event schedule, stream links, results, and reminders in one place.</p>
+
+  <div class="season-footer">
+    <div class="hero-actions">
+      <a class="ifsc-action-button ifsc-action-button-secondary calendar-sync-tooltip" href="https://github.com/sportclimbing/ifsc-calendar/wiki" rel="noopener" role="button" target="_blank" data-bs-toggle="modal" data-bs-target="#calendar-modal" title="Sync with your device's calendar">📆 Add to Calendar</a>
+      <a class="ifsc-action-button ifsc-action-button-primary footer-action-tooltip" href="https://www.buymeacoffee.com/sportclimbing" target="_blank" rel="noopener" title="Support this project"><img class="footer-action-avatar" src="/img/mc-new-btn-logo.svg" width="16" height="23" alt="buy me a coffee" /> Buy me a Coffee</a>
+      <a class="ifsc-action-button ifsc-action-button-primary footer-action-tooltip" href="https://www.instagram.com/nicoswd/" target="_blank" rel="noopener" title="Follow me on Instagram"><img class="footer-action-avatar" src="/img/nico.png" width="20" height="20" alt="Nico" /> @nicoswd</a>
+    </div>
+    <button class="navbar-toggler season-menu-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</div>

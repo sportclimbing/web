@@ -1,0 +1,21 @@
+---
+import CalendarPage from '../components/CalendarPage.astro';
+import {
+  getAllSeasons,
+  getSeasonEventsPayload,
+} from '../lib/events-data';
+
+const season = '2026';
+const seasons = getAllSeasons();
+const eventsPayload = getSeasonEventsPayload(season);
+const pageTitle = `World Climbing (IFSC) Calendar & Live Streams ${season} - Boulder, Lead, & Speed Climbing Schedule`;
+const pageDescription = `World Climbing (IFSC) Schedule ${season} - Live-Streams for all boulder, lead, and speed climbing events`;
+---
+<CalendarPage
+  season={season}
+  seasons={seasons}
+  eventsPayload={eventsPayload}
+  canonicalPath="/"
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+/>

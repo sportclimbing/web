@@ -1,0 +1,198 @@
+<div id="calendar-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="calendar-modal-title">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="calendar-modal-title">📆 Free Calendar Subscription</h4>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h5>For Mobile and Desktop</h5>
+        <p>Automatically updating calendar for apps like Outlook, iOS &amp; macOS Calendar</p>
+        <a class="ifsc-action-button ifsc-action-button-secondary" href="webcal://calendar.ifsc.stream" role="button" rel="noopener">Add to Device's Calendar</a>
+        <hr />
+
+        <h5>For Google Calendar</h5>
+        <p>Automatically updating calendar for Google</p>
+        <a class="ifsc-action-button ifsc-action-button-secondary" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream" target="_blank" rel="noopener" role="button">Add to Google Calendar</a>
+        <hr />
+
+        <h5>Download <code>.ics</code> file</h5>
+        <p>Non-updating calendar (<code>.ics</code>) for calendars that can’t handle updating subscriptions</p>
+        <a class="ifsc-action-button ifsc-action-button-secondary" href="https://calendar.ifsc.stream" target="_blank" rel="noopener" role="button">Download .ics</a>
+        <a class="ifsc-action-button ifsc-action-button-secondary" href="https://github.com/sportclimbing/ifsc-calendar/wiki" role="button" target="_blank" rel="noopener">View Tutorial</a>
+        <hr />
+
+        <p class="small">This calendar will auto-update and be ready for future seasons as well. And it's fully <a href="https://github.com/sportclimbing">open source</a>.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="video-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="youtube-video-title">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="youtube-video-title"></h4>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body videoWrapper">
+        <iframe id="youtube-video" src="" title="Event livestream player" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+
+      <!--
+      <div id="live-chat">
+          <widgetbot
+                  server="1086875588087787561"
+                  channel="1087079770023546951"
+                  width="100%"
+                  height="280"
+          ></widgetbot>
+      </div>
+      -->
+
+      <div class="modal-footer">
+        <a class="ifsc-action-button ifsc-action-button-secondary video-modal-vpn-link" href="https://protonvpn.com/free-vpn" role="button" target="_blank" rel="noopener">Video blocked? Free VPN</a>
+        <button type="button" class="ifsc-action-button ifsc-action-button-secondary video-modal-chat-toggle" id="chat-toggle" onclick="handle_chat_toggle(this);">Hide Chat</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="start-list-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="start-list-modal-title">
+  <div class="modal-dialog start-list-modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="start-list-modal-title">📋 Start List</h4>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <ul id="start-list-modal-list" class="start-list-modal-list"></ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="event-not-started-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-not-started-modal-title">
+  <div class="modal-dialog modal-dialog-centered compact-modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="event-not-started-modal-title">⏳ Event Not Started</h4>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="event-not-started-countdown" id="event-not-started-countdown" aria-live="polite" aria-atomic="true" hidden>
+          <p class="event-not-started-countdown-label" id="event-not-started-countdown-label">Starts in</p>
+          <div class="event-not-started-countdown-grid">
+            <div class="event-not-started-countdown-chip">
+              <span class="event-not-started-countdown-value" id="event-not-started-countdown-days">0</span>
+              <span class="event-not-started-countdown-unit">Days</span>
+            </div>
+            <div class="event-not-started-countdown-chip">
+              <span class="event-not-started-countdown-value" id="event-not-started-countdown-hours">00</span>
+              <span class="event-not-started-countdown-unit">Hours</span>
+            </div>
+            <div class="event-not-started-countdown-chip">
+              <span class="event-not-started-countdown-value" id="event-not-started-countdown-minutes">00</span>
+              <span class="event-not-started-countdown-unit">Minutes</span>
+            </div>
+          </div>
+        </div>
+        <p class="modal-body-tight-copy">The event has not started yet, and we couldn't find a link to it. Come back later or check the previous streams in the meantime!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="event-link-missing-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-link-missing-modal-title">
+  <div class="modal-dialog modal-dialog-centered compact-modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="event-link-missing-modal-title">🔗 Link Not Found</h4>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-body-tight-copy">We could not find a link for this event. Do you want to check World Climbing's YouTube channel?</p>
+        <p class="modal-body-note"><strong>Note:</strong> Qualification rounds are typically not streamed, with speed climbing as the primary exception.</p>
+      </div>
+      <div class="modal-footer">
+        <a
+          id="event-link-missing-modal-youtube"
+          class="ifsc-action-button ifsc-action-button-secondary"
+          href="https://www.youtube.com/@worldclimbing/streams"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Check YouTube channel</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="filter-modal" class="modal fade filters-modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="filter-modal-title">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="filter-modal-title">⚙️ Configure Filters</h4>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>League</h4>
+        <div id="config-leagues">
+          <p><label><input type="checkbox" name="league[cups]" value="World Cups and World Championships" checked /> 🏆 World Cups &amp; World Championships</label></p>
+          <p><label><input type="checkbox" name="league[games]" value="Games" /> 🎲 Games</label></p>
+          <p><label><input type="checkbox" name="league[paraclimbing]" value="IFSC Paraclimbing" /> 🧑‍🦽 Paraclimbing</label></p>
+        </div>
+        <hr />
+
+        <h4>Category</h4>
+        <p><label>
+          <input type="checkbox" name="category[women]" value="1" checked />
+          🙋‍♀️ Women</label></p>
+        <p><label>
+          <input type="checkbox" name="category[men]" value="1" checked />
+          🙋‍♂️️ Men</label></p>
+        <hr />
+        <h4>Discipline</h4>
+        <p><label>
+          <input type="checkbox" name="discipline[boulder]" value="1" checked />
+          🪨 Boulder</label></p>
+        <p><label>
+          <input type="checkbox" name="discipline[lead]" value="1" checked />
+          🧗🏽‍♀️ Lead</label></p>
+        <p><label>
+          <input type="checkbox" name="discipline[speed]" value="1" checked />
+          💨 Speed</label></p>
+        <hr />
+        <h4>Round</h4>
+        <p><label>
+          <input type="checkbox" name="round[qualifications]" value="1" checked />
+          🎯 Qualifications (usually not streamed)</label></p>
+        <p><label>
+          <input type="checkbox" name="round[semifinals]" value="1" checked />
+          🥈 Semi-Finals</label></p>
+        <p><label>
+          <input type="checkbox" name="round[finals]" value="1" checked />
+          🏆 Finals</label></p>
+        <hr />
+        <h4>Live-Streams Only</h4>
+        <p><label>
+          <input type="checkbox" name="streamable" />
+          🔗 Only show events we found links to
+        </label></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="save-filters">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>

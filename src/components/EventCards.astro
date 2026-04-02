@@ -1,0 +1,544 @@
+---
+import { build_start_list_modal_url } from '../lib/start-list-modal-fragments';
+
+const {
+  events = [],
+} = Astro.props;
+
+const normalizedEvents = Array.isArray(events) ? events : [];
+const ROUND_SCHEDULE_STATUS = {
+  confirmed: '☑️ Confirmed Schedule',
+  provisional: '⏳ Provisional Schedule',
+  estimated: '⏳ Estimated Schedule',
+};
+const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
+const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+const month_index_from_starts_at = (startsAt) => {
+  const match = /^(\d{4})-(\d{2})-/.exec(startsAt || '');
+
+  if (!match) {
+    return null;
+  }
+
+  const monthIndex = parseInt(match[2], 10) - 1;
+
+  if (monthIndex < 0 || monthIndex > 11) {
+    return null;
+  }
+
+  return monthIndex;
+};
+
+const parse_date_parts = (value) => {
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(value || '');
+
+  if (!match) {
+    return null;
+  }
+
+  const year = match[1];
+  const month = parseInt(match[2], 10) - 1;
+  const day = match[3];
+
+  if (month < 0 || month > 11) {
+    return null;
+  }
+
+  return { year, month, day };
+};
+
+const format_event_date = (event) => {
+  const startsAt = parse_date_parts(event?.starts_at);
+  const endsAt = parse_date_parts(event?.ends_at);
+
+  if (!startsAt || !endsAt) {
+    return '';
+  }
+
+  return `📅 ${startsAt.day} ${MONTH_NAMES[startsAt.month]} - ${endsAt.day} ${MONTH_NAMES[endsAt.month]} ${endsAt.year}`;
+};
+
+const capitalize = (value) => {
+  const normalized = String(value || '');
+
+  if (!normalized) {
+    return '';
+  }
+
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+};
+
+const beautify_disciplines = (disciplines) => {
+  const normalized = (Array.isArray(disciplines) ? disciplines : []).map(capitalize);
+
+  if (normalized.length === 0) {
+    return '';
+  }
+
+  if (normalized.length === 1) {
+    return normalized[0];
+  }
+
+  const copy = [...normalized];
+  const last = copy.pop();
+
+  return `${copy.join(', ')} & ${last}`;
+};
+
+const round_is_non_speed_qualification = (round) => {
+  const disciplines = Array.isArray(round?.disciplines) ? round.disciplines : [];
+
+  return round?.kind === 'qualification' && !disciplines.includes('speed');
+};
+
+const event_schedule_status = (event) => {
+  let numNonQualificationRounds = 0;
+
+  for (const round of (Array.isArray(event?.rounds) ? event.rounds : [])) {
+    if (round.kind === 'qualification') {
+      continue;
+    }
+
+    numNonQualificationRounds += 1;
+
+    if (round.schedule_status === 'provisional') {
+      return ROUND_SCHEDULE_STATUS.provisional;
+    }
+
+    if (round.schedule_status === 'estimated') {
+      return ROUND_SCHEDULE_STATUS.estimated;
+    }
+  }
+
+  return numNonQualificationRounds > 0 ? ROUND_SCHEDULE_STATUS.confirmed : ROUND_SCHEDULE_STATUS.provisional;
+};
+
+const streamable_round_count = (event) => (
+  (Array.isArray(event?.rounds) ? event.rounds : []).filter((round) => !round_is_non_speed_qualification(round)).length
+);
+
+const parse_iso_date = (value) => {
+  const parsed = new Date(value || '');
+
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  return parsed;
+};
+
+const ROUND_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  weekday: 'short',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const ROUND_TIME_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true,
+});
+
+const format_round_date_build = (round) => {
+  const date = parse_iso_date(round?.starts_at);
+
+  if (!date) {
+    return '';
+  }
+
+  return `📅 ${ROUND_DATE_FORMATTER.format(date)}`;
+};
+
+const format_round_time_build = (round) => {
+  const date = parse_iso_date(round?.starts_at);
+
+  if (!date) {
+    return '';
+  }
+
+  return `⏰ ${ROUND_TIME_FORMATTER.format(date)}`;
+};
+
+const event_is_streaming_build = (round) => {
+  const startsAt = parse_iso_date(round?.starts_at);
+  const endsAt = parse_iso_date(round?.ends_at);
+
+  if (!startsAt || !endsAt) {
+    return false;
+  }
+
+  const now = Date.now();
+  const startsAtTimestamp = startsAt.getTime();
+  const endsAtTimestamp = endsAt.getTime();
+
+  return startsAtTimestamp <= now && now <= endsAtTimestamp;
+};
+
+const event_is_upcoming_build = (round) => {
+  const startsAt = parse_iso_date(round?.starts_at);
+
+  if (!startsAt) {
+    return false;
+  }
+
+  return startsAt.getTime() > Date.now();
+};
+
+const round_status_copy_build = (round) => {
+  if (event_is_streaming_build(round)) {
+    return '🔴 Live Now';
+  }
+
+  if (event_is_upcoming_build(round)) {
+    if (round_is_non_speed_qualification(round)) {
+      return '🟡 Qualification will not be streamed';
+    }
+
+    return '⌛ Starts soon';
+  }
+
+  return '🏁 Streamed';
+};
+
+const round_identity_key = (round) => {
+  const categories = Array.isArray(round?.categories) ? round.categories.join(',') : '';
+  const disciplines = Array.isArray(round?.disciplines) ? round.disciplines.join(',') : '';
+
+  return [
+    categories,
+    disciplines,
+    String(round?.kind || ''),
+    String(round?.starts_at || ''),
+    String(round?.ends_at || ''),
+  ].join('|');
+};
+
+const extract_youtube_video_id = (url) => {
+  const match = String(url || '').match(/youtu(\.be|be\.com)\/(live\/|watch\?v=)?(?<video_id>[a-zA-Z0-9_-]{10,})/);
+
+  if (match) {
+    return match.groups.video_id;
+  }
+
+  return null;
+};
+
+const video_id_from_stream = (round) => {
+  const youtubeVideoId = extract_youtube_video_id(round?.stream_url);
+
+  if (youtubeVideoId) {
+    return youtubeVideoId;
+  }
+
+  const categories = Array.isArray(round?.categories) ? round.categories : [];
+
+  return categories.includes('women') ? 'MQeQs6K_T5g' : 'emrHdLsJTk4';
+};
+
+const poster_url_for_event = (event) => {
+  const rounds = Array.isArray(event?.rounds) ? event.rounds : [];
+
+  if (rounds.length === 0) {
+    return '';
+  }
+
+  const round = rounds[rounds.length - 1];
+  const videoId = video_id_from_stream(round);
+
+  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+};
+
+const ATHLETE_PHOTO_CDN_PREFIX = 'https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/';
+
+const photo_filename_from_url_build = (photoUrl) => {
+  const url = String(photoUrl || '').trim();
+
+  if (!url) {
+    return '';
+  }
+
+  let pathname = '';
+
+  try {
+    pathname = new URL(url).pathname || '';
+  } catch (_error) {
+    pathname = url.split(/[?#]/)[0] || '';
+  }
+
+  const pathParts = pathname.split('/').filter(Boolean);
+
+  if (!pathParts.length) {
+    return '';
+  }
+
+  const fileName = pathParts[pathParts.length - 1];
+
+  if (!fileName || fileName === '.' || fileName === '..') {
+    return '';
+  }
+
+  const extensionIndex = fileName.lastIndexOf('.');
+  const baseName = extensionIndex > 0 ? fileName.slice(0, extensionIndex) : fileName;
+
+  if (!baseName || baseName === '.' || baseName === '..') {
+    return '';
+  }
+
+  return `${baseName}.jpg`;
+};
+
+const athlete_local_photo_url_build = (photoUrl) => {
+  const normalizedPhotoUrl = String(photoUrl || '').trim();
+
+  if (normalizedPhotoUrl.startsWith(ATHLETE_PHOTO_CDN_PREFIX)) {
+    const basename = normalizedPhotoUrl.slice(ATHLETE_PHOTO_CDN_PREFIX.length).split(/[?#]/)[0].split('/').filter(Boolean).pop() || '';
+    const extensionIndex = basename.lastIndexOf('.');
+    const basenameWithoutExtension = extensionIndex > 0 ? basename.slice(0, extensionIndex) : basename;
+
+    if (!basenameWithoutExtension || basenameWithoutExtension === '.' || basenameWithoutExtension === '..') {
+      return '';
+    }
+
+    return `/img/athletes/${basenameWithoutExtension}.jpg`;
+  }
+
+  const fileName = photo_filename_from_url_build(photoUrl);
+
+  if (!fileName) {
+    return '';
+  }
+
+  return `/img/athletes/${fileName}`;
+};
+
+const athlete_photo_sources_build = (athlete) => {
+  const remotePhotoUrl = typeof athlete?.photo_url === 'string' ? athlete.photo_url.trim() : '';
+
+  if (!remotePhotoUrl) {
+    return null;
+  }
+
+  const localPhotoUrl = athlete_local_photo_url_build(remotePhotoUrl);
+
+  if (!localPhotoUrl) {
+    return null;
+  }
+
+  return {
+    src: localPhotoUrl,
+    fallbackSrc: '',
+  };
+};
+
+const athlete_name_build = (athlete) => `${athlete.first_name} ${athlete.last_name}`;
+
+const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(athlete && athlete.photo_url));
+---
+{normalizedEvents.map((event) => {
+  const eventId = String(event.id);
+  const monthIndex = month_index_from_starts_at(event.starts_at);
+  const panelId = `event-${eventId}`;
+  const toggleId = `event-toggle-${eventId}`;
+  const headingId = `heading_${eventId}`;
+  const startList = Array.isArray(event.start_list) ? event.start_list : [];
+  const hasPhotos = start_list_has_photo(startList);
+  const startListModalUrl = build_start_list_modal_url(event.season || '', eventId);
+  const streamCount = streamable_round_count(event);
+  const streamLabel = streamCount === 1 ? 'Stream' : 'Streams';
+  const posterUrl = poster_url_for_event(event);
+  const avatarsWithPhoto = startList
+    .filter((athlete) => Boolean(athlete && athlete.photo_url))
+    .slice(0, 6);
+
+  return (
+    <div
+      class="card container-xl ifsc-league-card"
+      data-event-id={eventId}
+      data-event-league-name={event.league_name || ''}
+      data-event-start-month={monthIndex === null ? undefined : String(monthIndex)}
+    >
+      <div class="card-header" id={headingId}>
+        <div class="rounded-2 event-poster media-shadow-soft" style={posterUrl ? `background-image: url(${posterUrl})` : undefined}></div>
+
+        <div>
+          <h5 class="mb-0">
+            <button
+              class="btn btn-link collapsed event-name"
+              id={toggleId}
+              data-bs-toggle="collapse"
+              data-bs-target={`#${panelId}`}
+              aria-expanded="false"
+              aria-controls={panelId}
+            >
+              {event.name}
+            </button>
+          </h5>
+
+          <ul class="event-details">
+            <li class="event-date">{format_event_date(event)}</li>
+            <li class="event-country">{`📍 ${event.location} (${event.country})`}</li>
+            <li class="event-disciplines">{`🧗 ${beautify_disciplines(event.disciplines)}`}</li>
+            <li class="event-status">{`💻 ${streamCount} Live ${streamLabel}`}</li>
+            <li class="event-schedule-status">{event_schedule_status(event)}</li>
+            <li class:list={['event-start-list', { 'event-start-list-has-avatars': hasPhotos }]}>
+              {startList.length === 0 ? (
+                '📋 Start List: Pending'
+              ) : (
+                <button
+                  type="button"
+                  class="event-start-list-trigger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#start-list-modal"
+                  data-event-id={eventId}
+                  data-event-name={event.name || ''}
+                  data-start-list-url={startListModalUrl || undefined}
+                >
+                  {hasPhotos ? (
+                    <span class="event-start-list-avatars" aria-label="Start list athletes with profile photos">
+                      {avatarsWithPhoto.map((athlete, index) => {
+                        const athleteName = athlete_name_build(athlete);
+                        const tooltip = athlete.country ? `${athleteName} (${athlete.country})` : athleteName;
+                        const stackIndex = avatarsWithPhoto.length - index;
+                        const photoSources = athlete_photo_sources_build(athlete);
+
+                        if (!photoSources) {
+                          return null;
+                        }
+
+                        if (photoSources.fallbackSrc) {
+                          return (
+                            <span class="event-start-list-avatar-chip" style={`--stack-index: ${stackIndex};`}>
+                              <img
+                                class="event-start-list-avatar event-start-list-avatar-tooltip"
+                                src={photoSources.src}
+                                width="31"
+                                height="31"
+                                alt={athleteName}
+                                title={tooltip}
+                                loading="lazy"
+                                referrerpolicy="no-referrer"
+                                data-fallback-src={photoSources.fallbackSrc}
+                                onerror="handle_start_list_photo_error(this)"
+                              />
+                            </span>
+                          );
+                        }
+
+                        return (
+                          <span class="event-start-list-avatar-chip" style={`--stack-index: ${stackIndex};`}>
+                            <img
+                              class="event-start-list-avatar event-start-list-avatar-tooltip"
+                              src={photoSources.src}
+                              width="31"
+                              height="31"
+                              alt={athleteName}
+                              title={tooltip}
+                              loading="lazy"
+                              referrerpolicy="no-referrer"
+                            />
+                          </span>
+                        );
+                      })}
+                    </span>
+                  ) : '📋 Start List'}
+                </button>
+              )}
+            </li>
+          </ul>
+        </div>
+
+        <div class="event-details-clear"></div>
+
+        <div class="event-buttons">
+          <button
+            type="button"
+            class="ifsc-action-button ifsc-action-button-primary event-watch-button"
+            data-bs-toggle="collapse"
+            data-bs-target={`#${panelId}`}
+            aria-expanded="false"
+            aria-controls={panelId}
+          >🍿 Watch</button>
+          <a class="ifsc-action-button ifsc-action-button-primary event-page" href={event.event_url} role="button" target="_blank" rel="noopener">Event Page <img src="img/external-link.svg" width="12" height="12" alt="External link" /></a>
+        </div>
+
+        <div id={panelId} class="collapse" aria-labelledby={toggleId} data-bs-parent="#accordion">
+          <ul class="card-body list-group">
+            {(Array.isArray(event.rounds) ? event.rounds : []).map((round) => {
+              const roundKey = round_identity_key(round);
+              const streamUrl = typeof round.stream_url === 'string' ? round.stream_url : '';
+              const fallbackUrl = streamUrl || STREAMS_FALLBACK_URL;
+              const hasStreamUrl = Boolean(streamUrl);
+              const isStreaming = event_is_streaming_build(round);
+              const isUpcoming = event_is_upcoming_build(round);
+              const startsInText = round_status_copy_build(round);
+              const showReminder = isUpcoming;
+              const videoId = video_id_from_stream(round);
+
+              return (
+                <li
+                  class="list-group-item justify-content-between align-items-center ifsc-event event-round-card"
+                  data-round-key={roundKey}
+                  data-round-name={round.name || ''}
+                  data-round-starts-at={round.starts_at || ''}
+                  data-round-ends-at={round.ends_at || ''}
+                  data-round-kind={round.kind || ''}
+                  data-round-disciplines={(Array.isArray(round.disciplines) ? round.disciplines : []).join(',')}
+                  data-round-categories={(Array.isArray(round.categories) ? round.categories : []).join(',')}
+                >
+                  <div class="youtube-thumbnail media-shadow-soft" data-youtube-video-id={videoId} style={`background-image: url(https://img.youtube.com/vi/${videoId}/0.jpg);`}>
+                    <button
+                      class="youtube-play-button js-round-stream"
+                      type="button"
+                      aria-label="Watch stream"
+                      data-round-stream-url={hasStreamUrl ? streamUrl : undefined}
+                    ></button>
+                  </div>
+
+                  <div class="d-flex align-items-center round-details">
+                    <div class="ms-3 round-copy">
+                      <h6 class="fw-bold mb-1 round-name round-copy-line round-copy-line-title">{round.name}</h6>
+                      <h6 class="fw-bold mb-1 round-date round-copy-line round-copy-line-wide">{format_round_date_build(round)}</h6>
+                      <h6 class="fw-bold mb-1 round-time round-copy-line round-copy-line-wide">{format_round_time_build(round)}</h6>
+                      <p class="text-muted ifsc-starts-in js-starts-in">{startsInText}</p>
+                    </div>
+
+                    <div class="watch-button">
+                      <a
+                        class="ifsc-action-button ifsc-action-button-primary event-watch-button round-stream-button js-round-stream"
+                        href={fallbackUrl}
+                        rel="noopener"
+                        target="_blank"
+                        data-round-stream-url={hasStreamUrl ? streamUrl : undefined}
+                      >🍿 Watch</a>
+                      {showReminder ? (
+                        <a class="ifsc-action-button ifsc-action-button-primary button-reminder" href="https://github.com/sportclimbing/ifsc-calendar/wiki" rel="noopener" role="button" target="_blank" data-bs-toggle="modal" data-bs-target="#calendar-modal">📆 Set Reminder</a>
+                      ) : (
+                        <a class="ifsc-action-button ifsc-action-button-primary button-results" href={`https://ifsc.results.info/event/${eventId}`} role="button" target="_blank" rel="noopener">🏆 Results</a>
+                      )}
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+})}
+<div class="no-results" id="no-results-message" hidden><span class="no-results-icon" aria-hidden="true">⚠️</span><span class="no-results-text">No results. Please adjust filters above!</span></div>
