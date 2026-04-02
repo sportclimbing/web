@@ -14,18 +14,6 @@ function handle_chat_toggle(button) {
     }
 }
 
-function beautify_disciplines(disciplines) {
-    disciplines = disciplines.map((discipline) => discipline.capitalize());
-
-    if (disciplines.length === 1) {
-        return disciplines[0];
-    }
-
-    const last = disciplines.pop();
-
-    return disciplines.join(', ') + ' &amp; ' + last;
-}
-
 function handle_watch_event(e) {
     const round = round_from_stream_button(e.currentTarget);
     const streamUrl = round_stream_url_from_target(e.currentTarget);
@@ -328,21 +316,6 @@ function athlete_photo_sources_build(athlete) {
     };
 }
 
-function handle_start_list_photo_error(image) {
-    const fallbackSrc = image && image.dataset ? image.dataset.fallbackSrc : '';
-
-    if (!fallbackSrc || image.dataset.fallbackApplied === '1') {
-        return;
-    }
-
-    image.dataset.fallbackApplied = '1';
-    image.src = fallbackSrc;
-}
-
-function start_list_has_photo(startList) {
-    return startList.some((athlete) => Boolean(athlete && athlete.photo_url));
-}
-
 function start_list_build(startList, season, maxAthletesWithPhoto = 6) {
     if (!startList.length) {
         return '📋 Start List: Pending';
@@ -520,41 +493,6 @@ function handle_start_list_trigger_click(e) {
     load_start_list_modal_fragment(startListUrl, startListModalRequestId, trigger).then();
 }
 
-function set_event_name(element, event) {
-    element.textContent = event.name;
-    element.setAttribute('data-bs-target', `#event-${event.id}`);
-}
-
-function set_event_date(element, event) {
-    element.innerText = '📅 ' + dayjs(event.starts_at).format('DD MMMM') + ' - ' + dayjs(event.ends_at).format('DD MMMM YYYY');
-}
-
-function set_event_country(element, event) {
-    element.innerText = `📍 ${event.location} (${event.country})`;
-}
-
-function set_event_discipline(element, event) {
-    element.innerHTML = `🧗 ${beautify_disciplines(event.disciplines)}`;
-}
-
-function set_event_poster(element, event) {
-    const round = event.rounds.slice(-1)[0];
-    const youTubeVideoId = video_id_from_stream(round);
-
-    lazy_set_background_image(element, `https://img.youtube.com/vi/${youTubeVideoId}/hqdefault.jpg`);
-}
-
-function set_event_streams(element, event) {
-    const streamableRoundsCount = event.rounds.filter((round) => !round_is_non_speed_qualification(round)).length;
-    const streams = streamableRoundsCount === 1 ? 'Stream' : 'Streams';
-
-    element.innerHTML = `💻 ${streamableRoundsCount} Live ${streams}`;
-}
-
-function set_event_page(element, event) {
-    element.href = event.event_url;
-}
-
 function build_event_start_list_button(eventId, startList, season, maxAthletesWithPhoto = 6) {
     const button = document.createElement('button');
 
@@ -567,26 +505,4 @@ function build_event_start_list_button(eventId, startList, season, maxAthletesWi
     button.dataset.startListUrl = start_list_modal_url_build(season, eventId);
 
     return button;
-}
-
-function set_event_start_list(element, event) {
-    const startList = event.start_list || [];
-    const hasPhotos = start_list_has_photo(startList);
-
-    element.classList.toggle('event-start-list-has-avatars', hasPhotos);
-
-    if (!startList.length) {
-        element.innerHTML = start_list_build(startList, event.season);
-
-        return;
-    }
-
-    const button = build_event_start_list_button(event.id, startList, event.season);
-    button.dataset.eventName = event.name || '';
-    element.innerHTML = '';
-    element.appendChild(button);
-}
-
-function set_event_schedule_status(element, event) {
-    element.innerHTML = event_schedule_status(event);
 }

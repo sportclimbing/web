@@ -60,19 +60,6 @@ function round_is_non_speed_qualification(round) {
     return round.kind === 'qualification' && !disciplines.includes('speed');
 }
 
-function round_identity_key(round) {
-    const categories = Array.isArray(round && round.categories) ? round.categories.join(',') : '';
-    const disciplines = Array.isArray(round && round.disciplines) ? round.disciplines.join(',') : '';
-
-    return [
-        categories,
-        disciplines,
-        String((round && round.kind) || ''),
-        String((round && round.starts_at) || ''),
-        String((round && round.ends_at) || ''),
-    ].join('|');
-}
-
 let mobileHeroTitleFitFrame = null;
 let modalTitleFitFrame = null;
 let nextEventMobileCountdownSyncFrame = null;
