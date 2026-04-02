@@ -236,9 +236,7 @@ main[role="main"] {
     width: 100%;
 }
 
-.event-watch-button,
-.round-stream-button,
-.event-page {
+:is([data-action='event-watch-toggle'], [data-action='round-stream'], [data-action='event-page']) {
     width: 100%;
     min-height: 40px;
 }
@@ -248,9 +246,7 @@ main[role="main"] {
     padding-top: 0 !important;
 }
 
-#accordion .collapse > .card-body.list-group,
-#accordion .collapse.show > .card-body.list-group,
-#accordion .collapsing > .card-body.list-group {
+#accordion .event-rounds-panel > .card-body.list-group {
     padding-left: 0.2rem;
     padding-bottom: 0.3rem;
 }
@@ -275,9 +271,7 @@ li.ifsc-event {
     border-radius: 12px;
 }
 
-#accordion .collapse > .card-body.list-group > .event-round-card:last-child,
-#accordion .collapse.show > .card-body.list-group > .event-round-card:last-child,
-#accordion .collapsing > .card-body.list-group > .event-round-card:last-child {
+#accordion .event-rounds-panel > .card-body.list-group > .event-round-card:last-child {
     margin-bottom: 0;
 }
 
@@ -313,7 +307,6 @@ li.ifsc-event {
     float: none;
     width: auto;
     margin: 10px 0 0;
-    margin-left: 0;
 }
 
 .round-date,
@@ -358,7 +351,7 @@ li.ifsc-event {
     grid-column: 1 / -1;
 }
 
-.round-stream-button,
+[data-action='round-stream'],
 .button-results,
 .button-reminder {
     width: 100%;
@@ -577,7 +570,7 @@ li.ifsc-event {
     margin-top: 8px;
 }
 
-.next-event .watch-button .round-stream-button,
+.next-event .watch-button [data-action='round-stream'],
 .next-event .watch-button .button-reminder,
 .next-event .watch-button .button-results {
     width: 100% !important;

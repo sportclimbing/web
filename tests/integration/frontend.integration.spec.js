@@ -20,7 +20,7 @@ const expectModalOpen = async (page, modalSelector) => {
 };
 
 const openFirstEventPanel = async (page) => {
-  const eventWatchTrigger = page.locator('#accordion .ifsc-league-card:not([hidden]) .event-watch-button').first();
+  const eventWatchTrigger = page.locator('#accordion .ifsc-league-card:not([hidden]) [data-action="event-watch-toggle"]').first();
   await expect(eventWatchTrigger).toBeVisible();
 
   const panelTarget = await eventWatchTrigger.getAttribute('data-bs-target');
@@ -109,7 +109,7 @@ test('shows event-not-started modal when clicking a stream button with no stream
   await waitForEventCards(page);
 
   const eventPanel = await openFirstEventPanel(page);
-  const noStreamButton = eventPanel.locator('a.round-stream-button:not([data-round-stream-url])').first();
+  const noStreamButton = eventPanel.locator('a[data-action="round-stream"]:not([data-round-stream-url])').first();
   await expect(noStreamButton).toBeVisible();
   const hasStreamUrlAttribute = await noStreamButton.evaluate((element) => element.hasAttribute('data-round-stream-url'));
 

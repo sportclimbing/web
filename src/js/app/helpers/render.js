@@ -94,7 +94,7 @@ function set_round_details(clone, round) {
     set_round_date(clone.querySelector('.round-date'), round);
     set_round_time(clone.querySelector('.round-time'), round);
     set_round_youtube_cover(clone.querySelector('.youtube-thumbnail'), round);
-    set_round_stream_button(clone.querySelector('.round-stream-button'), round);
+    set_round_stream_button(clone.querySelector('[data-action="round-stream"]'), round);
     set_round_stream_button(clone.querySelector('.youtube-play-button'), round);
 }
 

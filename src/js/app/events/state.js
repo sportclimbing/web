@@ -81,7 +81,7 @@ const next_event_round_from_element = (roundElement) => {
         return null;
     }
 
-    const streamTrigger = roundElement.querySelector('.youtube-play-button, .round-stream-button');
+    const streamTrigger = roundElement.querySelector('.youtube-play-button, [data-action="round-stream"]');
 
     if (!(streamTrigger instanceof HTMLElement)) {
         return null;
@@ -315,7 +315,7 @@ const render_event_rounds = (eventId) => {
 
         const roundKey = round.roundKey || (roundElement.dataset.roundKey || '');
 
-        const streamButton = roundElement.querySelector('.round-stream-button');
+        const streamButton = roundElement.querySelector('[data-action="round-stream"]');
         const startsIn = roundElement.querySelector('.round-starts-in');
         let resultsButton = roundElement.querySelector('.button-results');
         let reminderButton = roundElement.querySelector('.button-reminder');

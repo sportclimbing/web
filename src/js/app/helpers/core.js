@@ -583,7 +583,7 @@ function apply_search_filters() {
         const kind = roundElement.dataset.roundKind || '';
         const disciplines = parse_round_metadata_tokens(roundElement.dataset.roundDisciplines);
         const categories = parse_round_metadata_tokens(roundElement.dataset.roundCategories);
-        const hasStreamUrl = Boolean(roundElement.querySelector('.youtube-play-button[data-round-stream-url], .round-stream-button[data-round-stream-url]'));
+        const hasStreamUrl = Boolean(roundElement.querySelector('.youtube-play-button[data-round-stream-url], [data-action="round-stream"][data-round-stream-url]'));
 
         if (config.streamable && !hasStreamUrl) {
             return false;

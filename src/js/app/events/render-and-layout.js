@@ -157,7 +157,7 @@ const handle_event_panel_hidden = (eventElement, accordionElement) => {
             return;
         }
 
-        const hasOpenPanels = Boolean(accordionElement.querySelector('.collapse.show, .collapse.collapsing'));
+        const hasOpenPanels = Boolean(accordionElement.querySelector('.event-rounds-panel.show, .event-rounds-panel.collapsing'));
 
         if (hasOpenPanels) {
             return;
@@ -189,7 +189,7 @@ const setup_accordion_handlers = () => {
             return;
         }
 
-        const streamTrigger = target.closest('.youtube-play-button, .round-stream-button');
+        const streamTrigger = target.closest('.youtube-play-button, [data-action="round-stream"]');
 
         if (streamTrigger) {
             handle_round_stream_click({
@@ -199,7 +199,7 @@ const setup_accordion_handlers = () => {
             return;
         }
 
-        const eventWatchButton = target.closest('.event-watch-button');
+        const eventWatchButton = target.closest('[data-action="event-watch-toggle"]');
 
         if (eventWatchButton) {
             handle_event_toggle_click({ currentTarget: eventWatchButton });
@@ -241,7 +241,7 @@ const setup_accordion_handlers = () => {
                 return;
             }
 
-            const streamTrigger = target.closest('.youtube-play-button, .round-stream-button');
+            const streamTrigger = target.closest('.youtube-play-button, [data-action="round-stream"]');
 
             if (streamTrigger) {
                 handle_round_stream_click({

@@ -456,16 +456,17 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
         <div class="event-buttons">
           <button
             type="button"
-            class="event-watch-button"
+            class="ifsc-action-button ifsc-action-button-primary"
+            data-action="event-watch-toggle"
             data-bs-toggle="collapse"
             data-bs-target={`#${panelId}`}
             aria-expanded="false"
             aria-controls={panelId}
           >🍿 Watch</button>
-          <a class="event-page" href={event.event_url} role="button" target="_blank" rel="noopener">Event Page <img src="img/external-link.svg" width="12" height="12" alt="External link" /></a>
+          <a class="ifsc-action-button ifsc-action-button-primary" data-action="event-page" href={event.event_url} role="button" target="_blank" rel="noopener">Event Page <img src="img/external-link.svg" width="12" height="12" alt="External link" /></a>
         </div>
 
-        <div id={panelId} class="collapse" aria-labelledby={toggleId} data-bs-parent="#accordion">
+        <div id={panelId} class="collapse event-rounds-panel" aria-labelledby={toggleId} data-bs-parent="#accordion">
           <ul class="card-body list-group">
             {(Array.isArray(event.rounds) ? event.rounds : []).map((round, roundIndex) => {
               const roundKey = `${eventKeyPrefix}.${roundIndex.toString(36)}`;
@@ -508,7 +509,8 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
 
                     <div class="watch-button">
                       <a
-                        class="round-stream-button"
+                        class="ifsc-action-button ifsc-action-button-primary"
+                        data-action="round-stream"
                         href={fallbackUrl}
                         rel="noopener"
                         target="_blank"

@@ -1071,9 +1071,7 @@ li.ifsc-event:last-child { border-bottom: none; }
     border-radius: 16px;
 }
 
-#accordion .collapse > .card-body.list-group > .event-round-card:last-child,
-#accordion .collapse.show > .card-body.list-group > .event-round-card:last-child,
-#accordion .collapsing > .card-body.list-group > .event-round-card:last-child {
+#accordion .event-rounds-panel > .card-body.list-group > .event-round-card:last-child {
     margin-bottom: 7px;
 }
 
@@ -1145,9 +1143,7 @@ li.ifsc-event:last-child { border-bottom: none; }
     color: #d9ecff !important;
 }
 
-.event-round-card .ifsc-action-button-primary,
-.event-round-card .event-watch-button,
-.event-round-card .round-stream-button {
+.event-round-card .ifsc-action-button-primary {
     min-height: 38px;
     border-radius: 10px;
 }
@@ -1362,10 +1358,7 @@ li.ifsc-event:last-child { border-bottom: none; }
     filter: var(--event-start-list-avatar-image-hover-filter);
 }
 
-.event-page {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+[data-action='event-page'] {
     gap: 6px;
     width: 138px;
     min-height: 40px;
@@ -1375,11 +1368,7 @@ li.ifsc-event:last-child { border-bottom: none; }
     text-overflow: ellipsis;
 }
 
-.event-watch-button,
-.round-stream-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+:is([data-action='event-watch-toggle'], [data-action='round-stream']) {
     width: 138px;
     min-height: 40px;
     margin-bottom: 0 !important;
@@ -1540,7 +1529,7 @@ main[role="main"] {
     background: none;
 }
 
-.round-stream-button {
+[data-action='round-stream'] {
     width: 130px;
     margin-bottom: 5px;
     font-size: var(--ifsc-action-button-font-size);
@@ -2277,30 +2266,17 @@ body:not(.theme-light) .footer-copy .footer-credits a:focus {
 .ifsc-league-card > [id^="event-"] .event-round-card,
 .ifsc-league-card > [id^="event-"] .event-round-card:hover {
     background: transparent !important;
-    background-color: transparent !important;
 }
 
-#accordion .collapse,
-#accordion .collapse.show,
-#accordion .collapsing,
-#accordion .collapse > .card-body.list-group,
-#accordion .collapse.show > .card-body.list-group,
-#accordion .collapsing > .card-body.list-group,
-#accordion .collapse li.ifsc-event,
-#accordion .collapse li.ifsc-event:hover,
-#accordion .collapsing li.ifsc-event,
-#accordion .collapsing li.ifsc-event:hover,
-#accordion .collapse .event-round-card,
-#accordion .collapse .event-round-card:hover,
-#accordion .collapsing .event-round-card,
-#accordion .collapsing .event-round-card:hover {
+#accordion :is(
+    .event-rounds-panel,
+    .event-rounds-panel > .card-body.list-group,
+    .event-rounds-panel :is(li.ifsc-event, li.ifsc-event:hover, .event-round-card, .event-round-card:hover)
+) {
     background: transparent !important;
-    background-color: transparent !important;
 }
 
-#accordion .collapse > .card-body.list-group,
-#accordion .collapse.show > .card-body.list-group,
-#accordion .collapsing > .card-body.list-group {
+#accordion .event-rounds-panel > .card-body.list-group {
     padding-right: 0;
     padding-left: 0.2rem;
     padding-bottom: 0.5rem;
@@ -3152,10 +3128,7 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
     color: var(--text-muted) !important;
 }
 
-.ifsc-action-button,
-.event-watch-button,
-.round-stream-button,
-.event-page {
+.ifsc-action-button {
     --ifsc-action-button-font-size: 14px;
     display: inline-grid;
     place-items: center;
@@ -3176,10 +3149,7 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
     transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
-.ifsc-action-button-primary,
-.event-watch-button,
-.round-stream-button,
-.event-page {
+.ifsc-action-button-primary {
     color: #ffffff;
     border: 1px solid rgba(105, 194, 255, 0.18);
     background: linear-gradient(135deg, rgba(24, 39, 58, 0.94), rgba(20, 29, 43, 0.96));
@@ -3194,13 +3164,7 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
 }
 
 .ifsc-action-button-primary:hover,
-.ifsc-action-button-primary:focus,
-.event-watch-button:hover,
-.event-watch-button:focus,
-.round-stream-button:hover,
-.round-stream-button:focus,
-.event-page:hover,
-.event-page:focus {
+.ifsc-action-button-primary:focus {
     color: #ffffff;
     border-color: rgba(255, 255, 255, 0.15);
     background: linear-gradient(135deg, rgba(38, 52, 74, 0.96), rgba(24, 35, 51, 0.98));
@@ -3217,20 +3181,25 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
     transform: translateY(-1px);
 }
 
-.next-event .ifsc-action-button,
-.event-buttons .ifsc-action-button,
-.watch-button .ifsc-action-button,
-.season-footer .ifsc-action-button,
-.event-round-card .ifsc-action-button,
-.next-event .event-watch-button,
-.event-buttons .event-watch-button,
-.watch-button .event-watch-button,
-.event-round-card .event-watch-button,
-.next-event .round-stream-button,
-.event-buttons .round-stream-button,
-.watch-button .round-stream-button,
-.event-round-card .round-stream-button,
-.event-buttons .event-page {
+:is(.next-event, .event-buttons, .watch-button, .season-footer, .event-round-card) {
+    --ifsc-compact-primary-color: #ffffff;
+    --ifsc-compact-primary-border: rgba(105, 194, 255, 0.24);
+    --ifsc-compact-primary-bg: linear-gradient(180deg, rgba(52, 68, 92, 0.92), rgba(32, 46, 66, 0.96));
+    --ifsc-compact-primary-hover-color: #ffffff;
+    --ifsc-compact-primary-hover-border: rgba(255, 255, 255, 0.15);
+    --ifsc-compact-primary-hover-bg: linear-gradient(180deg, rgba(56, 72, 96, 0.94), rgba(34, 48, 68, 0.98));
+}
+
+.theme-light :is(.next-event, .event-buttons, .watch-button, .season-footer, .event-round-card) {
+    --ifsc-compact-primary-color: #17314a;
+    --ifsc-compact-primary-border: rgba(89, 126, 160, 0.22);
+    --ifsc-compact-primary-bg: linear-gradient(180deg, rgba(243, 248, 252, 0.98), rgba(220, 230, 239, 0.98));
+    --ifsc-compact-primary-hover-color: #17314a;
+    --ifsc-compact-primary-hover-border: rgba(23, 49, 74, 0.18);
+    --ifsc-compact-primary-hover-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(233, 240, 246, 1));
+}
+
+:is(.next-event, .event-buttons, .watch-button, .season-footer, .event-round-card) .ifsc-action-button {
     display: inline-grid !important;
     place-items: center !important;
     grid-auto-flow: column !important;
@@ -3241,108 +3210,17 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
     box-shadow: none !important;
 }
 
-.next-event .ifsc-action-button-primary,
-.event-buttons .ifsc-action-button-primary,
-.watch-button .ifsc-action-button-primary,
-.season-footer .ifsc-action-button-primary,
-.event-round-card .ifsc-action-button-primary,
-.next-event .event-watch-button,
-.event-buttons .event-watch-button,
-.watch-button .event-watch-button,
-.event-round-card .event-watch-button,
-.next-event .round-stream-button,
-.event-buttons .round-stream-button,
-.watch-button .round-stream-button,
-.event-round-card .round-stream-button,
-.event-buttons .event-page {
-    border-color: rgba(105, 194, 255, 0.24) !important;
-    background: linear-gradient(180deg, rgba(52, 68, 92, 0.92), rgba(32, 46, 66, 0.96)) !important;
+:is(.next-event, .event-buttons, .watch-button, .season-footer, .event-round-card) .ifsc-action-button-primary {
+    color: var(--ifsc-compact-primary-color) !important;
+    border-color: var(--ifsc-compact-primary-border) !important;
+    background: var(--ifsc-compact-primary-bg) !important;
     box-shadow: none !important;
 }
 
-.next-event .ifsc-action-button-primary:hover,
-.next-event .ifsc-action-button-primary:focus,
-.event-buttons .ifsc-action-button-primary:hover,
-.event-buttons .ifsc-action-button-primary:focus,
-.watch-button .ifsc-action-button-primary:hover,
-.watch-button .ifsc-action-button-primary:focus,
-.season-footer .ifsc-action-button-primary:hover,
-.season-footer .ifsc-action-button-primary:focus,
-.event-round-card .ifsc-action-button-primary:hover,
-.event-round-card .ifsc-action-button-primary:focus,
-.next-event .event-watch-button:hover,
-.next-event .event-watch-button:focus,
-.event-buttons .event-watch-button:hover,
-.event-buttons .event-watch-button:focus,
-.watch-button .event-watch-button:hover,
-.watch-button .event-watch-button:focus,
-.event-round-card .event-watch-button:hover,
-.event-round-card .event-watch-button:focus,
-.next-event .round-stream-button:hover,
-.next-event .round-stream-button:focus,
-.event-buttons .round-stream-button:hover,
-.event-buttons .round-stream-button:focus,
-.watch-button .round-stream-button:hover,
-.watch-button .round-stream-button:focus,
-.event-round-card .round-stream-button:hover,
-.event-round-card .round-stream-button:focus,
-.event-buttons .event-page:hover,
-.event-buttons .event-page:focus {
-    background: linear-gradient(180deg, rgba(56, 72, 96, 0.94), rgba(34, 48, 68, 0.98)) !important;
-    border-color: rgba(255, 255, 255, 0.15) !important;
-    box-shadow: none !important;
-}
-
-.theme-light .next-event .ifsc-action-button-primary,
-.theme-light .event-buttons .ifsc-action-button-primary,
-.theme-light .watch-button .ifsc-action-button-primary,
-.theme-light .season-footer .ifsc-action-button-primary,
-.theme-light .event-round-card .ifsc-action-button-primary,
-.theme-light .next-event .event-watch-button,
-.theme-light .event-buttons .event-watch-button,
-.theme-light .watch-button .event-watch-button,
-.theme-light .event-round-card .event-watch-button,
-.theme-light .next-event .round-stream-button,
-.theme-light .event-buttons .round-stream-button,
-.theme-light .watch-button .round-stream-button,
-.theme-light .event-round-card .round-stream-button,
-.theme-light .event-buttons .event-page {
-    color: #17314a !important;
-    border-color: rgba(89, 126, 160, 0.22) !important;
-    background: linear-gradient(180deg, rgba(243, 248, 252, 0.98), rgba(220, 230, 239, 0.98)) !important;
-}
-
-.theme-light .next-event .ifsc-action-button-primary:hover,
-.theme-light .next-event .ifsc-action-button-primary:focus,
-.theme-light .event-buttons .ifsc-action-button-primary:hover,
-.theme-light .event-buttons .ifsc-action-button-primary:focus,
-.theme-light .watch-button .ifsc-action-button-primary:hover,
-.theme-light .watch-button .ifsc-action-button-primary:focus,
-.theme-light .season-footer .ifsc-action-button-primary:hover,
-.theme-light .season-footer .ifsc-action-button-primary:focus,
-.theme-light .event-round-card .ifsc-action-button-primary:hover,
-.theme-light .event-round-card .ifsc-action-button-primary:focus,
-.theme-light .next-event .event-watch-button:hover,
-.theme-light .next-event .event-watch-button:focus,
-.theme-light .event-buttons .event-watch-button:hover,
-.theme-light .event-buttons .event-watch-button:focus,
-.theme-light .watch-button .event-watch-button:hover,
-.theme-light .watch-button .event-watch-button:focus,
-.theme-light .event-round-card .event-watch-button:hover,
-.theme-light .event-round-card .event-watch-button:focus,
-.theme-light .next-event .round-stream-button:hover,
-.theme-light .next-event .round-stream-button:focus,
-.theme-light .event-buttons .round-stream-button:hover,
-.theme-light .event-buttons .round-stream-button:focus,
-.theme-light .watch-button .round-stream-button:hover,
-.theme-light .watch-button .round-stream-button:focus,
-.theme-light .event-round-card .round-stream-button:hover,
-.theme-light .event-round-card .round-stream-button:focus,
-.theme-light .event-buttons .event-page:hover,
-.theme-light .event-buttons .event-page:focus {
-    color: #17314a !important;
-    border-color: rgba(23, 49, 74, 0.18) !important;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(233, 240, 246, 1)) !important;
+:is(.next-event, .event-buttons, .watch-button, .season-footer, .event-round-card) .ifsc-action-button-primary:is(:hover, :focus) {
+    color: var(--ifsc-compact-primary-hover-color) !important;
+    background: var(--ifsc-compact-primary-hover-bg) !important;
+    border-color: var(--ifsc-compact-primary-hover-border) !important;
     box-shadow: none !important;
 }
 
@@ -3372,36 +3250,22 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
     display: inline-grid !important;
 }
 
-.next-event .button-reminder:focus:not(:hover),
-.event-buttons .button-reminder:focus:not(:hover),
-.watch-button .button-reminder:focus:not(:hover),
-.season-footer .button-reminder:focus:not(:hover),
-.event-round-card .button-reminder:focus:not(:hover) {
-    background: linear-gradient(180deg, rgba(52, 68, 92, 0.92), rgba(32, 46, 66, 0.96)) !important;
-    border-color: rgba(105, 194, 255, 0.24) !important;
+:is(.next-event, .event-buttons, .watch-button, .season-footer, .event-round-card) .button-reminder:focus:not(:hover) {
+    color: var(--ifsc-compact-primary-color) !important;
+    border-color: var(--ifsc-compact-primary-border) !important;
+    background: var(--ifsc-compact-primary-bg) !important;
     box-shadow: none !important;
 }
 
-.theme-light .next-event .button-reminder:focus:not(:hover),
-.theme-light .event-buttons .button-reminder:focus:not(:hover),
-.theme-light .watch-button .button-reminder:focus:not(:hover),
-.theme-light .season-footer .button-reminder:focus:not(:hover),
-.theme-light .event-round-card .button-reminder:focus:not(:hover) {
-    color: #17314a !important;
-    border-color: rgba(89, 126, 160, 0.22) !important;
-    background: linear-gradient(180deg, rgba(243, 248, 252, 0.98), rgba(220, 230, 239, 0.98)) !important;
-    box-shadow: none !important;
-}
-
-body:not(.theme-light) .next-event .watch-button .round-stream-button,
+body:not(.theme-light) .next-event .watch-button [data-action='round-stream'],
 body:not(.theme-light) .next-event .watch-button .button-reminder {
     border-color: rgba(255, 120, 170, 0.5) !important;
     background: linear-gradient(135deg, rgba(91, 14, 63, 0.94), rgba(230, 0, 126, 0.62)) !important;
     color: #ffffff !important;
 }
 
-body:not(.theme-light) .next-event .watch-button .round-stream-button:hover,
-body:not(.theme-light) .next-event .watch-button .round-stream-button:focus,
+body:not(.theme-light) .next-event .watch-button [data-action='round-stream']:hover,
+body:not(.theme-light) .next-event .watch-button [data-action='round-stream']:focus,
 body:not(.theme-light) .next-event .watch-button .button-reminder:hover,
 body:not(.theme-light) .next-event .watch-button .button-reminder:focus {
     border-color: rgba(255, 182, 213, 0.72) !important;
@@ -3423,17 +3287,7 @@ body:not(.theme-light) .next-event .watch-button .button-reminder {
     transform: none !important;
 }
 
-.event-page:hover,
-.event-page:focus {
-    transform: none !important;
-}
-
-.round-stream-button:hover,
-.round-stream-button:focus,
-.event-watch-button:hover,
-.event-watch-button:focus,
-.disabled-watch-btn:hover,
-.disabled-watch-btn:focus {
+:is([data-action='event-page'], [data-action='round-stream'], [data-action='event-watch-toggle'], .disabled-watch-btn):is(:hover, :focus) {
     transform: none !important;
 }
 
