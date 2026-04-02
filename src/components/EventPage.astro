@@ -11,7 +11,7 @@ import SubheaderButtons from './SubheaderButtons.astro';
 const {
   season,
   seasons,
-  eventsPayload,
+  event,
   canonicalPath,
   pageTitle,
   pageDescription,
@@ -19,8 +19,10 @@ const {
 
 const normalizedSeason = String(season);
 const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
-const events = Array.isArray(eventsPayload?.events) ? eventsPayload.events : [];
+const normalizedEvent = event && typeof event === 'object' ? event : null;
 const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
+const seasonHomePath = normalizedSeason === '2026' ? '/' : `/season/${encodeURIComponent(normalizedSeason)}`;
+const seasonPagePath = `/season/${encodeURIComponent(normalizedSeason)}`;
 ---
 <!doctype html>
 <html lang="en">
@@ -72,64 +74,30 @@ const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
     </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
-<body data-page-type="season">
+<body data-page-type="event">
 <CardTemplates />
 
 <div id="ifsc-season">
-    <HeaderTitle season={normalizedSeason} homeUrl={canonicalPath} />
+    <HeaderTitle season={normalizedSeason} homeUrl={seasonHomePath} />
 </div>
 
 <SeasonNavbar />
 <SubheaderButtons
-    seasons={normalizedSeasons}
-    selectedSeason={normalizedSeason}
-    showSeasonSelector={true}
-    showFiltersButton={true}
+    showBackToSeasonButton={true}
+    backToSeasonHref={seasonPagePath}
+    backToSeasonLabel={`◀︎ Back to season ${normalizedSeason}`}
 />
 
-<nav class="season-month-nav" id="season-month-nav" aria-label="Jump to month">
-    <ul class="season-month-nav-list">
-        <li><button type="button" class="season-month-nav-link" data-month-index="0">January</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="1">February</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="2">March</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="3">April</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="4">May</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="5">June</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="6">July</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="7">August</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="8">September</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="9">October</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="10">November</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="11">December</button></li>
-    </ul>
-</nav>
-
 <main role="main">
-    <hr class="next-event-divider" id="next-event-divider-top" aria-hidden="true" />
-    <div class="next-event">
-        <h1 id="next-event-title"></h1>
-        <span id="next-event-league-name" class="event-league-name next-event-league-name" hidden></span>
-        <div class="event-not-started-countdown" id="next-event-countdown" aria-live="polite" aria-atomic="true" hidden>
-            <div class="event-not-started-countdown-grid">
-                <div class="event-not-started-countdown-chip">
-                    <span class="event-not-started-countdown-value" id="next-event-countdown-days">0</span>
-                    <span class="event-not-started-countdown-unit">Days</span>
-                </div>
-                <div class="event-not-started-countdown-chip">
-                    <span class="event-not-started-countdown-value" id="next-event-countdown-hours">00</span>
-                    <span class="event-not-started-countdown-unit">Hours</span>
-                </div>
-                <div class="event-not-started-countdown-chip">
-                    <span class="event-not-started-countdown-value" id="next-event-countdown-minutes">00</span>
-                    <span class="event-not-started-countdown-unit">Minutes</span>
-                </div>
-            </div>
-        </div>
-        <div id="next-event-details"></div>
-    </div>
-    <hr class="next-event-divider" id="next-event-divider" aria-hidden="true" />
     <div id="accordion">
-      <EventCards events={events} linkEventTitles={true} />
+      {normalizedEvent ? (
+        <EventCards
+          events={[normalizedEvent]}
+          expandAllRounds={true}
+          hideRoundCollapseControls={true}
+          showNoResultsMessage={false}
+        />
+      ) : null}
     </div>
 </main>
 

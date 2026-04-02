@@ -1,0 +1,56 @@
+---
+import EventPage from '../../../../components/EventPage.astro';
+import {
+  getAllSeasons,
+  getSeasonEventsPayload,
+} from '../../../../lib/events-data';
+import {
+  build_event_page_path,
+  build_event_page_slug_id_segment,
+} from '../../../../lib/event-pages';
+
+export function getStaticPaths() {
+  return getAllSeasons().flatMap((seasonValue) => {
+    const season = String(seasonValue);
+    const eventsPayload = getSeasonEventsPayload(season);
+    const events = Array.isArray(eventsPayload?.events) ? eventsPayload.events : [];
+
+    return events
+      .map((event) => {
+        const eventSlugAndId = build_event_page_slug_id_segment(event);
+
+        if (!eventSlugAndId) {
+          return null;
+        }
+
+        return {
+          params: {
+            season,
+            eventSlugAndId,
+          },
+          props: {
+            season,
+            event,
+          },
+        };
+      })
+      .filter(Boolean);
+  });
+}
+
+const season = String(Astro.props.season ?? Astro.params.season ?? '');
+const event = Astro.props.event;
+const seasons = getAllSeasons();
+const canonicalPath = build_event_page_path(season, event);
+const eventName = String(event?.name || 'Event');
+const pageTitle = `${eventName} - World Climbing (IFSC) ${season} Event | ifsc.stream`;
+const pageDescription = `${eventName}: event schedule, round times, start list, and stream links for the ${season} IFSC season.`;
+---
+<EventPage
+  season={season}
+  seasons={seasons}
+  event={event}
+  canonicalPath={canonicalPath}
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+/>

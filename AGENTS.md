@@ -31,6 +31,11 @@
 - `tests/integration/` contains Playwright integration tests.
 - `Makefile` provides the primary test entrypoints (`test`, `test-local`, `test-docker`).
 
+## Ignore files
+- `.gitignore` is used to ignore generated outputs and local-only files.
+- `tests/integration/reports/` contains Playwright reports.
+- `public/js/app.js` is generated from `src/js/app/` by `bin/build-js-bundle.mjs`.
+
 ## Working Rules
 - Preserve the Astro + static-output architecture and existing frontend behavior.
 - Keep changes surgical and consistent with the existing style of the touched file.

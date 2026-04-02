@@ -1,0 +1,48 @@
+---
+const {
+  seasons = [],
+  selectedSeason = '',
+  showSeasonSelector = false,
+  showFiltersButton = false,
+  showBackToSeasonButton = false,
+  backToSeasonHref = '',
+  backToSeasonLabel = '',
+} = Astro.props;
+
+const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
+const normalizedSelectedSeason = String(selectedSeason || '');
+const shouldShowSeasonSelector = Boolean(showSeasonSelector);
+const shouldShowFiltersButton = Boolean(showFiltersButton);
+const shouldShowBackToSeasonButton = Boolean(showBackToSeasonButton) && Boolean(backToSeasonHref);
+const shouldRenderSubheader = shouldShowSeasonSelector || shouldShowFiltersButton || shouldShowBackToSeasonButton;
+const isBackOnlyLayout = shouldShowBackToSeasonButton && !shouldShowSeasonSelector && !shouldShowFiltersButton;
+const normalizedBackToSeasonLabel = String(backToSeasonLabel || '').trim();
+---
+{shouldRenderSubheader ? (
+  <section class:list={['subheader-buttons', { 'subheader-buttons-back-only': isBackOnlyLayout }]}>
+      <div class:list={['subheader-controls', { 'subheader-controls-back-only': isBackOnlyLayout }]}>
+          {shouldShowSeasonSelector ? (
+            <div class="season-control">
+                <label class="season-label" for="season-selector">Season</label>
+                <select id="season-selector" name="season-selector" class="btn btn-primary season-selector">
+                  {normalizedSeasons.map((seasonOption) => (
+                    <option value={seasonOption} selected={seasonOption === normalizedSelectedSeason}>
+                      {seasonOption}
+                    </option>
+                  ))}
+                </select>
+            </div>
+          ) : null}
+
+          {shouldShowFiltersButton ? (
+            <button class="btn btn-primary filters-button" data-bs-toggle="modal" data-bs-target="#filter-modal">🔍 Filters</button>
+          ) : null}
+
+          {shouldShowBackToSeasonButton ? (
+            <a class="ifsc-action-button ifsc-action-button-secondary subheader-back-to-season" href={backToSeasonHref}>
+              {normalizedBackToSeasonLabel}
+            </a>
+          ) : null}
+      </div>
+  </section>
+) : null}

@@ -1,9 +1,3 @@
-const ROUND_SCHEDULE_STATUS = {
-    confirmed: '☑️ Confirmed Schedule',
-    provisional: '⏳ Provisional Schedule',
-    estimated: '⏳ Estimated Schedule',
-};
-
 const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
 const YOUTUBE_EMBED_BASE_URL = 'https://www.youtube-nocookie.com/embed';
 const GITHUB_BUTTON_SCRIPT_SRC = 'https://buttons.github.io/buttons.js';
@@ -25,6 +19,21 @@ const CONFIG_CHECKBOX_BINDINGS = [
     { inputName: 'streamable', path: ['streamable'] },
 ];
 
+function get_page_type() {
+    if (!document.body) {
+        return 'season';
+    }
+
+    const rawPageType = typeof document.body.dataset.pageType === 'string' ? document.body.dataset.pageType : '';
+    const pageType = rawPageType.trim().toLowerCase();
+
+    return pageType || 'season';
+}
+
+function is_event_page() {
+    return get_page_type() === 'event';
+}
+
 function event_is_streaming(event) {
     const now = dayjs();
     const eventStart = dayjs(event.starts_at);
@@ -35,28 +44,6 @@ function event_is_streaming(event) {
 
 function event_is_upcoming(event) {
     return new Date(event.starts_at) > new Date();
-}
-
-function event_schedule_status(event) {
-    let numNonQualificationRounds = 0;
-
-    for (const round of event.rounds) {
-        if (round.kind === 'qualification') {
-            continue;
-        }
-
-        numNonQualificationRounds++;
-
-        if (round.schedule_status === 'provisional') {
-            return ROUND_SCHEDULE_STATUS.provisional;
-        }
-
-        if (round.schedule_status === 'estimated') {
-            return ROUND_SCHEDULE_STATUS.estimated;
-        }
-    }
-
-    return numNonQualificationRounds > 0 ? ROUND_SCHEDULE_STATUS.confirmed : ROUND_SCHEDULE_STATUS.provisional;
 }
 
 function pretty_starts_in(event) {

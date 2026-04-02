@@ -11,6 +11,10 @@ const set_local_timezone_message = () => {
     const timezoneElement = document.getElementById('footer-timezone-name');
     let timezone = EVENT_TIMEZONE;
 
+    if (!timezoneElement) {
+        return;
+    }
+
     try {
         const detectedTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 

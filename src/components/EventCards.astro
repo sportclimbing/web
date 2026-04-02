@@ -1,16 +1,21 @@
 ---
 import { build_start_list_modal_url } from '../lib/start-list-modal-fragments';
+import { build_event_page_path } from '../lib/event-pages';
+import { event_schedule_status } from '../lib/round-schedule-status';
 
 const {
   events = [],
+  linkEventTitles = false,
+  expandAllRounds = false,
+  hideRoundCollapseControls = false,
+  showNoResultsMessage = true,
 } = Astro.props;
 
 const normalizedEvents = Array.isArray(events) ? events : [];
-const ROUND_SCHEDULE_STATUS = {
-  confirmed: '☑️ Confirmed Schedule',
-  provisional: '⏳ Provisional Schedule',
-  estimated: '⏳ Estimated Schedule',
-};
+const shouldLinkEventTitles = Boolean(linkEventTitles);
+const shouldExpandAllRounds = Boolean(expandAllRounds);
+const shouldHideRoundCollapseControls = Boolean(hideRoundCollapseControls);
+const shouldShowNoResultsMessage = Boolean(showNoResultsMessage);
 const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
 const MONTH_NAMES = [
   'January',
@@ -103,28 +108,6 @@ const round_is_non_speed_qualification = (round) => {
   const disciplines = Array.isArray(round?.disciplines) ? round.disciplines : [];
 
   return round?.kind === 'qualification' && !disciplines.includes('speed');
-};
-
-const event_schedule_status = (event) => {
-  let numNonQualificationRounds = 0;
-
-  for (const round of (Array.isArray(event?.rounds) ? event.rounds : [])) {
-    if (round.kind === 'qualification') {
-      continue;
-    }
-
-    numNonQualificationRounds += 1;
-
-    if (round.schedule_status === 'provisional') {
-      return ROUND_SCHEDULE_STATUS.provisional;
-    }
-
-    if (round.schedule_status === 'estimated') {
-      return ROUND_SCHEDULE_STATUS.estimated;
-    }
-  }
-
-  return numNonQualificationRounds > 0 ? ROUND_SCHEDULE_STATUS.confirmed : ROUND_SCHEDULE_STATUS.provisional;
 };
 
 const streamable_round_count = (event) => (
@@ -347,9 +330,13 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
   const startList = Array.isArray(event.start_list) ? event.start_list : [];
   const hasPhotos = start_list_has_photo(startList);
   const startListModalUrl = build_start_list_modal_url(event.season || '', eventId);
+  const eventPagePath = build_event_page_path(event.season || '', event);
   const streamCount = streamable_round_count(event);
   const streamLabel = streamCount === 1 ? 'Stream' : 'Streams';
   const posterUrl = poster_url_for_event(event);
+  const roundsPanelClassName = shouldExpandAllRounds ? 'event-rounds-panel' : 'collapse event-rounds-panel';
+  const roundsPanelAriaExpanded = shouldExpandAllRounds ? 'true' : 'false';
+  const shouldRenderWatchToggle = !shouldHideRoundCollapseControls && !shouldExpandAllRounds;
   const avatarsWithPhoto = startList
     .filter((athlete) => Boolean(athlete && athlete.photo_url))
     .slice(0, 6);
@@ -367,17 +354,29 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
 
         <div>
           <h5 class="mb-0">
-            <button
-              class="btn btn-link collapsed event-name"
-              id={toggleId}
-              data-bs-toggle="collapse"
-              data-bs-target={`#${panelId}`}
-              aria-expanded="false"
-              aria-controls={panelId}
-            >
-              <span class="event-name-title">{event.name}</span>
-              {event.league_name ? <small class="event-league-name">{event.league_name}</small> : null}
-            </button>
+            {shouldLinkEventTitles && eventPagePath ? (
+              <a class="event-name" id={toggleId} href={eventPagePath}>
+                <span class="event-name-title">{event.name}</span>
+                {event.league_name ? <small class="event-league-name">{event.league_name}</small> : null}
+              </a>
+            ) : shouldRenderWatchToggle ? (
+              <button
+                class="btn btn-link collapsed event-name"
+                id={toggleId}
+                data-bs-toggle="collapse"
+                data-bs-target={`#${panelId}`}
+                aria-expanded={roundsPanelAriaExpanded}
+                aria-controls={panelId}
+              >
+                <span class="event-name-title">{event.name}</span>
+                {event.league_name ? <small class="event-league-name">{event.league_name}</small> : null}
+              </button>
+            ) : (
+              <span class="event-name" id={toggleId}>
+                <span class="event-name-title">{event.name}</span>
+                {event.league_name ? <small class="event-league-name">{event.league_name}</small> : null}
+              </span>
+            )}
           </h5>
 
           <ul class="event-details">
@@ -456,19 +455,21 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
         <div class="event-details-clear"></div>
 
         <div class="event-buttons">
-          <button
-            type="button"
-            class="ifsc-action-button ifsc-action-button-primary"
-            data-action="event-watch-toggle"
-            data-bs-toggle="collapse"
-            data-bs-target={`#${panelId}`}
-            aria-expanded="false"
-            aria-controls={panelId}
-          >🍿 Watch</button>
+          {shouldRenderWatchToggle ? (
+            <button
+              type="button"
+              class="ifsc-action-button ifsc-action-button-primary"
+              data-action="event-watch-toggle"
+              data-bs-toggle="collapse"
+              data-bs-target={`#${panelId}`}
+              aria-expanded={roundsPanelAriaExpanded}
+              aria-controls={panelId}
+            >🍿 Watch</button>
+          ) : null}
           <a class="ifsc-action-button ifsc-action-button-primary" data-action="event-page" href={event.event_url} role="button" target="_blank" rel="noopener">Event Page <img src="img/external-link.svg" width="12" height="12" alt="External link" /></a>
         </div>
 
-        <div id={panelId} class="collapse event-rounds-panel" aria-labelledby={toggleId} data-bs-parent="#accordion">
+        <div id={panelId} class={roundsPanelClassName} aria-labelledby={toggleId} data-bs-parent={!shouldExpandAllRounds ? '#accordion' : undefined}>
           <ul class="card-body list-group">
             {(Array.isArray(event.rounds) ? event.rounds : []).map((round, roundIndex) => {
               const roundKey = `${eventKeyPrefix}.${roundIndex.toString(36)}`;
@@ -534,4 +535,4 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
     </div>
   );
 })}
-<div class="no-results" id="no-results-message" hidden><span class="no-results-icon" aria-hidden="true">⚠️</span><span class="no-results-text">No results. Please adjust filters above!</span></div>
+{shouldShowNoResultsMessage ? <div class="no-results" id="no-results-message" hidden><span class="no-results-icon" aria-hidden="true">⚠️</span><span class="no-results-text">No results. Please adjust filters above!</span></div> : null}

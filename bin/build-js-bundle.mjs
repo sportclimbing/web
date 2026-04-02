@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const ROOT = process.cwd();
 const SOURCE_FILES = [
+  'src/lib/round-schedule-status.js',
   'src/js/app/helpers/core.js',
   'src/js/app/helpers/render.js',
   'src/js/app/helpers/modals-and-start-list.js',

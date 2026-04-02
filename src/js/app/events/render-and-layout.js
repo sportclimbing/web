@@ -143,8 +143,13 @@ const restore_open_accordion_panel = (currentOpenId, allCollapsed) => {
 };
 
 const refresh_event_ui = () => {
-    const filterResult = apply_search_filters();
     const accordion = document.getElementById('accordion');
+
+    if (!accordion) {
+        return;
+    }
+
+    const filterResult = apply_search_filters();
     const { currentOpenId, allCollapsed } = get_accordion_state(accordion);
 
     visibleEventIds = filterResult.visibleEventIds;
@@ -169,6 +174,32 @@ const refresh_event_ui = () => {
         render_event_rounds(eventIdToRender);
     }
 
+    set_favicon(seasonTimeline.liveRound);
+};
+
+const refresh_event_page_ui = () => {
+    const accordion = document.getElementById('accordion');
+
+    if (!accordion) {
+        return;
+    }
+
+    visibleEventIds = new Set();
+    accordion.querySelectorAll('.ifsc-league-card[data-event-id]').forEach((card) => {
+        const eventId = card.dataset.eventId || '';
+
+        if (!eventId) {
+            return;
+        }
+
+        visibleEventIds.add(eventId);
+        show_event_card(card);
+        refresh_event_round_statuses(eventId);
+    });
+
+    seasonTimeline = compute_dom_season_timeline();
+    setup_start_list_avatar_tooltips();
+    hide_static_event_fallback();
     set_favicon(seasonTimeline.liveRound);
 };
 

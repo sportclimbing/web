@@ -1,10 +1,18 @@
 #ifsc-season {
-    padding: 12px 8px 8px;
+    padding: 12px 8px 5px;
 }
 
 .subheader-buttons {
-    margin-bottom: 4px;
-    padding: 6px 8px 0;
+    margin: 3px auto 1px;
+    padding: 6px 8px 2px;
+}
+
+.subheader-back-to-season {
+    width: 100%;
+    min-height: 40px;
+    height: 40px;
+    padding: 0 10px !important;
+    margin: 0 !important;
 }
 
 .subheader-controls {
@@ -14,6 +22,16 @@
     gap: 6px;
     padding: 10px;
     border-radius: 12px;
+}
+
+.subheader-buttons.subheader-buttons-back-only {
+    margin: 3px auto 1px;
+    padding: 6px 8px 2px;
+}
+
+.subheader-controls.subheader-controls-back-only {
+    align-items: stretch;
+    padding: 10px;
 }
 
 .season-control {

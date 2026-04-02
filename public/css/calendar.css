@@ -1254,6 +1254,24 @@ li.ifsc-event:last-child { border-bottom: none; }
     text-decoration: none;
 }
 
+body[data-page-type='season'] .event-name {
+    transition: color 0.18s ease;
+}
+
+body[data-page-type='season'] .event-name-title {
+    font-size: 1.08em;
+}
+
+body[data-page-type='event'] .event-name-title {
+    font-size: 1.44em;
+    letter-spacing: 0.014em;
+}
+
+body[data-page-type='season'] a.event-name:hover,
+body[data-page-type='season'] a.event-name:focus-visible {
+    color: #ffc3e4;
+}
+
 .event-details li {
     font-family: 'Rajdhani', sans-serif;
     font-size: 15px;
@@ -1418,7 +1436,7 @@ li.ifsc-event:last-child { border-bottom: none; }
 #ifsc-season {
     font-size: 18px;
     max-width: 100%;
-    padding: 22px 0 10px 0;
+    padding: 22px 0 5px 0;
     color: #ffffff;
     background: transparent;
 }
@@ -1626,8 +1644,16 @@ main[role="main"] {
 .subheader-buttons {
     width: 100%;
     max-width: 800px;
-    margin: 0 auto 6px;
-    padding: 10px 0 4px 0;
+    margin: 3px auto 1px;
+    padding: 6px 0 2px 0;
+}
+
+.subheader-back-to-season {
+    min-height: 42px;
+    height: 42px;
+    padding: 0 16px !important;
+    margin: 0 !important;
+    white-space: nowrap;
 }
 
 .subheader-controls {
@@ -1644,6 +1670,16 @@ main[role="main"] {
         0 12px 28px rgba(0, 0, 0, 0.28),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(8px);
+}
+
+.subheader-buttons.subheader-buttons-back-only {
+    margin: 3px auto 1px;
+    padding: 6px 0 2px 0;
+}
+
+.subheader-controls.subheader-controls-back-only {
+    align-items: center;
+    padding: 12px 14px;
 }
 
 .season-control {
@@ -2345,6 +2381,11 @@ body:not(.theme-light) .footer-copy .footer-credits a:focus {
 .theme-light .ifsc-league-card .event-name:hover,
 .theme-light .ifsc-league-card .event-name:focus {
     color: #17314a;
+}
+
+body.theme-light[data-page-type='season'] .ifsc-league-card a.event-name:hover,
+body.theme-light[data-page-type='season'] .ifsc-league-card a.event-name:focus-visible {
+    color: #b13779;
 }
 
 .theme-light .ifsc-league-card .event-league-name,
