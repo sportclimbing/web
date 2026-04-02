@@ -33,6 +33,14 @@ const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
 
     <base href="/" />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="preload" as="font" href="/fonts/montserrat-variable.woff2" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" as="font" href="/fonts/rajdhani-medium.woff2" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" as="font" href="/fonts/rajdhani-semibold.woff2" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" as="font" href="/fonts/rajdhani-bold.woff2" type="font/woff2" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/css/fonts-local.css" />
+    <link rel="stylesheet" href="/css/calendar.css" />
+    <link rel="stylesheet" href="/css/calendar-desktop.css" media="screen and (min-width: 501px)" />
+    <link rel="stylesheet" href="/css/calendar-mobile.css" media="screen and (max-width: 500px)" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
@@ -62,14 +70,6 @@ const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
         }
     </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
-    <link rel="preload" as="font" href="/fonts/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2" type="font/woff2" crossorigin />
-    <link rel="preload" as="font" href="/fonts/LDI2apCSOBg7S-QT7pb0EPOreec.woff2" type="font/woff2" crossorigin />
-    <link rel="preload" as="font" href="/fonts/LDI2apCSOBg7S-QT7pbYF_Oreec.woff2" type="font/woff2" crossorigin />
-    <link rel="preload" as="font" href="/fonts/LDI2apCSOBg7S-QT7pa8FvOreec.woff2" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/css/fonts-local.css" />
-    <link rel="stylesheet" href="/css/calendar.css" />
-    <link rel="stylesheet" href="/css/calendar-desktop.css" media="screen and (min-width: 501px)" />
-    <link rel="stylesheet" href="/css/calendar-mobile.css" media="screen and (max-width: 500px)" />
 </head>
 <body>
 <CardTemplates />
