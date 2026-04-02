@@ -213,9 +213,17 @@ function set_next_event(round, event, isStreaming) {
     const title = isStreaming ? '🔴 Now Streaming' : 'Next Event';
 
     const nextEventTitle = document.getElementById('next-event-title');
+    const nextEventLeagueName = document.getElementById('next-event-league-name');
 
     if (nextEventTitle) {
         nextEventTitle.textContent = `${title}: ${event.name}`;
+    }
+
+    if (nextEventLeagueName) {
+        const leagueName = typeof event.league_name === 'string' ? event.league_name.trim() : '';
+
+        nextEventLeagueName.textContent = leagueName;
+        nextEventLeagueName.hidden = !leagueName;
     }
 }
 

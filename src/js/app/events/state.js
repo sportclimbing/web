@@ -55,6 +55,7 @@ const reset_next_event = () => {
     const nextEventDividers = document.querySelectorAll('.next-event-divider');
     const nextEventDetails = document.getElementById('next-event-details');
     const nextEventTitle = document.getElementById('next-event-title');
+    const nextEventLeagueName = document.getElementById('next-event-league-name');
 
     stop_next_event_countdown();
 
@@ -65,6 +66,11 @@ const reset_next_event = () => {
 
     if (nextEventTitle) {
         nextEventTitle.innerText = '';
+    }
+
+    if (nextEventLeagueName) {
+        nextEventLeagueName.innerText = '';
+        nextEventLeagueName.hidden = true;
     }
 
     if (nextEventContainer) {
@@ -135,15 +141,23 @@ const next_event_details_from_card = (eventCard) => {
     }
 
     const eventNameElement = eventCard.querySelector('.event-name');
+    const eventNameTitleElement = eventNameElement ? eventNameElement.querySelector('.event-name-title') : null;
+    const eventLeagueNameElement = eventCard.querySelector('.event-league-name');
     const startListElement = eventCard.querySelector('.event-start-list');
     const startListTrigger = startListElement ? startListElement.querySelector('.event-start-list-trigger') : null;
     const pendingStartListCopy = startListElement && startListElement.textContent
         ? startListElement.textContent.trim()
         : '';
+    const eventName = eventCard.dataset.eventName
+        || (eventNameTitleElement && eventNameTitleElement.textContent ? eventNameTitleElement.textContent.trim() : '')
+        || (eventNameElement && eventNameElement.textContent ? eventNameElement.textContent.trim() : '');
+    const eventLeagueName = eventCard.dataset.eventLeagueName
+        || (eventLeagueNameElement && eventLeagueNameElement.textContent ? eventLeagueNameElement.textContent.trim() : '');
 
     return {
         id: parsedEventId,
-        name: eventNameElement && eventNameElement.textContent ? eventNameElement.textContent.trim() : '',
+        name: eventName,
+        league_name: eventLeagueName,
         season: String(get_selected_season() || ''),
         start_list: [],
         nextEventStartListTrigger: startListTrigger || null,

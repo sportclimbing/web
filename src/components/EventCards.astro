@@ -358,6 +358,7 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
     <div
       class="card container-xl ifsc-league-card"
       data-event-id={eventId}
+      data-event-name={event.name || ''}
       data-event-league-name={event.league_name || ''}
       data-event-start-month={monthIndex === null ? undefined : String(monthIndex)}
     >
@@ -374,7 +375,8 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
               aria-expanded="false"
               aria-controls={panelId}
             >
-              {event.name}
+              <span class="event-name-title">{event.name}</span>
+              {event.league_name ? <small class="event-league-name">{event.league_name}</small> : null}
             </button>
           </h5>
 

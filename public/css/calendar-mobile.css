@@ -159,12 +159,27 @@ main[role="main"] {
 }
 
 .event-name {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
     width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
     text-align: left;
+}
+
+.event-name-title {
+    width: 100%;
+}
+
+.event-league-name {
+    max-width: 100%;
+    margin-top: 3px;
+    padding: 3px 9px;
+    font-size: 10px;
+    line-height: 1.2;
 }
 
 .event-details {
@@ -450,6 +465,10 @@ li.ifsc-event {
     text-overflow: ellipsis;
 }
 
+.next-event .next-event-league-name {
+    margin: 0 0 8px 14px;
+}
+
 .next-event .ifsc-event {
     padding-bottom: 14px;
 }
@@ -476,7 +495,7 @@ li.ifsc-event {
     position: absolute;
     left: auto;
     right: 10px;
-    top: 50px;
+    top: 75px;
     bottom: auto;
     width: var(--next-event-mobile-countdown-width);
     height: var(--next-event-mobile-media-height, calc(var(--next-event-mobile-media-width) * 9 / 16));

@@ -1204,11 +1204,48 @@ li.ifsc-event:last-child { border-bottom: none; }
 }
 
 .event-name {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
     font-weight: bold;
     color: #fff;
     text-decoration: none;
     font-size: 17px;
     padding: 5px 0;
+    line-height: 1.15;
+    text-align: left;
+}
+
+.event-name-title {
+    display: block;
+    max-width: 100%;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.event-league-name {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 3px;
+    padding: 4px 10px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 1.15;
+    vertical-align: top;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(75, 195, 247, 0.14), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(105, 194, 255, 0.18);
+    color: #d9ecff;
+    white-space: normal;
+    overflow-wrap: anywhere;
 }
 
 .event-name:hover,
@@ -1562,7 +1599,7 @@ main[role="main"] {
     background-position: center center;
     background-size: 110%;
     right: 20px;
-    top: 15px;
+    top: 30px;
     border: 2px solid rgba(255, 120, 170, 0.38);
     width: 230px;
     height: 128px;
@@ -1784,7 +1821,11 @@ main[role="main"] {
 .next-event h1 {
     font-size: 18px;
     font-weight: bold;
-    margin: 0 auto 15px 20px;
+    margin: 0 auto 6px 20px;
+}
+
+.next-event .next-event-league-name {
+    margin: 0 0 12px 20px;
 }
 
 .next-event .event-not-started-countdown {
@@ -1807,7 +1848,7 @@ main[role="main"] {
 .next-event #next-event-countdown:not([hidden]) {
     position: absolute;
     left: 14px;
-    top: 56px;
+    top: 81px;
     width: 68px;
     margin: 0;
     padding: 5px;
@@ -2304,6 +2345,13 @@ body:not(.theme-light) .footer-copy .footer-credits a:focus {
 .theme-light .ifsc-league-card .event-name:hover,
 .theme-light .ifsc-league-card .event-name:focus {
     color: #17314a;
+}
+
+.theme-light .ifsc-league-card .event-league-name,
+.theme-light .next-event .next-event-league-name {
+    background: linear-gradient(135deg, rgba(129, 190, 235, 0.12), rgba(255, 255, 255, 0.2));
+    border-color: rgba(89, 126, 160, 0.2);
+    color: #2f6fa1;
 }
 
 .theme-light .ifsc-league-card .event-country,
