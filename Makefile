@@ -25,4 +25,5 @@ serve:
 		echo "dist/index.html missing. Run 'npm run build' first."; \
 		exit 1; \
 	fi
-	php -S 127.0.0.1:8000 -t dist
+
+	caddy file-server --listen :8000 --root dist

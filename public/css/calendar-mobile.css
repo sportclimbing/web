@@ -237,6 +237,7 @@ main[role="main"] {
 }
 
 .event-watch-button,
+.round-stream-button,
 .event-page {
     width: 100%;
     min-height: 40px;
@@ -268,15 +269,15 @@ li.ifsc-event {
     border-radius: 12px;
 }
 
-li.ifsc-event.event-round-card,
-li.ifsc-event.event-round-card:first-child,
-li.ifsc-event.event-round-card:last-child {
+.event-round-card,
+.event-round-card:first-child,
+.event-round-card:last-child {
     border-radius: 12px;
 }
 
-#accordion .collapse > .card-body.list-group > li.ifsc-event.event-round-card:last-child,
-#accordion .collapse.show > .card-body.list-group > li.ifsc-event.event-round-card:last-child,
-#accordion .collapsing > .card-body.list-group > li.ifsc-event.event-round-card:last-child {
+#accordion .collapse > .card-body.list-group > .event-round-card:last-child,
+#accordion .collapse.show > .card-body.list-group > .event-round-card:last-child,
+#accordion .collapsing > .card-body.list-group > .event-round-card:last-child {
     margin-bottom: 0;
 }
 
@@ -312,19 +313,20 @@ li.ifsc-event.event-round-card:last-child {
     float: none;
     width: auto;
     margin: 10px 0 0;
-    margin-left: 0 !important;
+    margin-left: 0;
 }
 
-.round-copy-line-wide {
+.round-date,
+.round-time {
     width: auto;
     font-size: 14px;
 }
 
-.round-name.round-copy-line.round-copy-line-title {
+.round-name {
     padding-left: 4px;
 }
 
-.ifsc-starts-in {
+.round-starts-in {
     margin-top: 8px;
 }
 
@@ -416,7 +418,7 @@ li.ifsc-event.event-round-card:last-child {
     margin: 0 0 0 6px !important;
 }
 
-.event-round-card .ifsc-starts-in {
+.event-round-card .round-starts-in {
     grid-column: 1 / -1;
     grid-row: 5;
     margin-top: 4px;
@@ -538,7 +540,7 @@ li.ifsc-event.event-round-card:last-child {
     max-width: 100%;
 }
 
-.next-event .round-name.round-copy-line.round-copy-line-title {
+.next-event .round-name {
     padding-left: 0;
 }
 

@@ -109,7 +109,7 @@ test('shows event-not-started modal when clicking a stream button with no stream
   await waitForEventCards(page);
 
   const eventPanel = await openFirstEventPanel(page);
-  const noStreamButton = eventPanel.locator('a.round-stream-button.js-round-stream:not([data-round-stream-url])').first();
+  const noStreamButton = eventPanel.locator('a.round-stream-button:not([data-round-stream-url])').first();
   await expect(noStreamButton).toBeVisible();
   const hasStreamUrlAttribute = await noStreamButton.evaluate((element) => element.hasAttribute('data-round-stream-url'));
 
@@ -176,7 +176,7 @@ test('switches season and opens stream modal for a youtube round', async ({ page
   await switchSeason(page, '2024');
 
   const eventPanel = await openFirstEventPanel(page);
-  const streamButton = eventPanel.locator('button.youtube-play-button.js-round-stream[data-round-stream-url]').first();
+  const streamButton = eventPanel.locator('button.youtube-play-button[data-round-stream-url]').first();
   await expect(streamButton).toHaveAttribute('data-round-stream-url', /.+/);
 
   await streamButton.click();

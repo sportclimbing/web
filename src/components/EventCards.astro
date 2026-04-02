@@ -69,7 +69,7 @@ const format_event_date = (event) => {
     return '';
   }
 
-  return `📅 ${startsAt.day} ${MONTH_NAMES[startsAt.month]} - ${endsAt.day} ${MONTH_NAMES[endsAt.month]} ${endsAt.year}`;
+  return `📅 ${startsAt.day} ${MONTH_NAMES[startsAt.month]} \u2013 ${endsAt.day} ${MONTH_NAMES[endsAt.month]} ${endsAt.year}`;
 };
 
 const capitalize = (value) => {
@@ -215,19 +215,6 @@ const round_status_copy_build = (round) => {
   return '🏁 Streamed';
 };
 
-const round_identity_key = (round) => {
-  const categories = Array.isArray(round?.categories) ? round.categories.join(',') : '';
-  const disciplines = Array.isArray(round?.disciplines) ? round.disciplines.join(',') : '';
-
-  return [
-    categories,
-    disciplines,
-    String(round?.kind || ''),
-    String(round?.starts_at || ''),
-    String(round?.ends_at || ''),
-  ].join('|');
-};
-
 const extract_youtube_video_id = (url) => {
   const match = String(url || '').match(/youtu(\.be|be\.com)\/(live\/|watch\?v=)?(?<video_id>[a-zA-Z0-9_-]{10,})/);
 
@@ -351,6 +338,8 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
 ---
 {normalizedEvents.map((event) => {
   const eventId = String(event.id);
+  const eventNumericId = parseInt(eventId, 10);
+  const eventKeyPrefix = Number.isNaN(eventNumericId) ? eventId : eventNumericId.toString(36);
   const monthIndex = month_index_from_starts_at(event.starts_at);
   const panelId = `event-${eventId}`;
   const toggleId = `event-toggle-${eventId}`;
@@ -467,19 +456,19 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
         <div class="event-buttons">
           <button
             type="button"
-            class="ifsc-action-button ifsc-action-button-primary event-watch-button"
+            class="event-watch-button"
             data-bs-toggle="collapse"
             data-bs-target={`#${panelId}`}
             aria-expanded="false"
             aria-controls={panelId}
           >🍿 Watch</button>
-          <a class="ifsc-action-button ifsc-action-button-primary event-page" href={event.event_url} role="button" target="_blank" rel="noopener">Event Page <img src="img/external-link.svg" width="12" height="12" alt="External link" /></a>
+          <a class="event-page" href={event.event_url} role="button" target="_blank" rel="noopener">Event Page <img src="img/external-link.svg" width="12" height="12" alt="External link" /></a>
         </div>
 
         <div id={panelId} class="collapse" aria-labelledby={toggleId} data-bs-parent="#accordion">
           <ul class="card-body list-group">
-            {(Array.isArray(event.rounds) ? event.rounds : []).map((round) => {
-              const roundKey = round_identity_key(round);
+            {(Array.isArray(event.rounds) ? event.rounds : []).map((round, roundIndex) => {
+              const roundKey = `${eventKeyPrefix}.${roundIndex.toString(36)}`;
               const streamUrl = typeof round.stream_url === 'string' ? round.stream_url : '';
               const fallbackUrl = streamUrl || STREAMS_FALLBACK_URL;
               const hasStreamUrl = Boolean(streamUrl);
@@ -491,7 +480,7 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
 
               return (
                 <li
-                  class="list-group-item justify-content-between align-items-center ifsc-event event-round-card"
+                  class="event-round-card"
                   data-round-key={roundKey}
                   data-round-name={round.name || ''}
                   data-round-starts-at={round.starts_at || ''}
@@ -502,7 +491,7 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
                 >
                   <div class="youtube-thumbnail media-shadow-soft" data-youtube-video-id={videoId} style={`background-image: url(https://img.youtube.com/vi/${videoId}/0.jpg);`}>
                     <button
-                      class="youtube-play-button js-round-stream"
+                      class="youtube-play-button"
                       type="button"
                       aria-label="Watch stream"
                       data-round-stream-url={hasStreamUrl ? streamUrl : undefined}
@@ -510,16 +499,16 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
                   </div>
 
                   <div class="d-flex align-items-center round-details">
-                    <div class="ms-3 round-copy">
-                      <h6 class="fw-bold mb-1 round-name round-copy-line round-copy-line-title">{round.name}</h6>
-                      <h6 class="fw-bold mb-1 round-date round-copy-line round-copy-line-wide">{format_round_date_build(round)}</h6>
-                      <h6 class="fw-bold mb-1 round-time round-copy-line round-copy-line-wide">{format_round_time_build(round)}</h6>
-                      <p class="text-muted ifsc-starts-in js-starts-in">{startsInText}</p>
+                    <div class="round-copy">
+                      <h6 class="round-name">{round.name}</h6>
+                      <h6 class="round-date">{format_round_date_build(round)}</h6>
+                      <h6 class="round-time">{format_round_time_build(round)}</h6>
+                      <p class="round-starts-in">{startsInText}</p>
                     </div>
 
                     <div class="watch-button">
                       <a
-                        class="ifsc-action-button ifsc-action-button-primary event-watch-button round-stream-button js-round-stream"
+                        class="round-stream-button"
                         href={fallbackUrl}
                         rel="noopener"
                         target="_blank"

@@ -1011,24 +1011,28 @@ li.ifsc-event:hover {
 .round-copy {
     float: left;
     width: 300px;
+    margin-left: 1rem;
     margin-right: 20px;
 }
 
-.round-copy-line {
+.round-copy h6 {
+    margin-bottom: 0.25rem;
     padding-bottom: 2px;
+    font-weight: 700;
 }
 
-.round-copy-line-title {
+.round-name {
     padding-bottom: 3px;
     font-size: 15px;
 }
 
-.round-copy-line-wide {
+.round-date,
+.round-time {
     width: 500px;
     font-size: 14px;
 }
 
-.ifsc-starts-in {
+.round-starts-in {
     font-size: 13px;
     margin-top: 20px;
     color: var(--text-muted) !important;
@@ -1061,15 +1065,15 @@ li.ifsc-event:last-child { border-bottom: none; }
 }
 
 /* Keep all round cards evenly rounded inside Bootstrap list-group containers. */
-li.ifsc-event.event-round-card,
-li.ifsc-event.event-round-card:first-child,
-li.ifsc-event.event-round-card:last-child {
+.event-round-card,
+.event-round-card:first-child,
+.event-round-card:last-child {
     border-radius: 16px;
 }
 
-#accordion .collapse > .card-body.list-group > li.ifsc-event.event-round-card:last-child,
-#accordion .collapse.show > .card-body.list-group > li.ifsc-event.event-round-card:last-child,
-#accordion .collapsing > .card-body.list-group > li.ifsc-event.event-round-card:last-child {
+#accordion .collapse > .card-body.list-group > .event-round-card:last-child,
+#accordion .collapse.show > .card-body.list-group > .event-round-card:last-child,
+#accordion .collapsing > .card-body.list-group > .event-round-card:last-child {
     margin-bottom: 7px;
 }
 
@@ -1124,7 +1128,7 @@ li.ifsc-event.event-round-card:last-child {
     color: #b8c7d8;
 }
 
-.event-round-card .ifsc-starts-in {
+.event-round-card .round-starts-in {
     display: inline-flex;
     align-items: center;
     margin-top: 8px;
@@ -1141,7 +1145,9 @@ li.ifsc-event.event-round-card:last-child {
     color: #d9ecff !important;
 }
 
-.event-round-card .ifsc-action-button-primary {
+.event-round-card .ifsc-action-button-primary,
+.event-round-card .event-watch-button,
+.event-round-card .round-stream-button {
     min-height: 38px;
     border-radius: 10px;
 }
@@ -1369,7 +1375,8 @@ li.ifsc-event.event-round-card:last-child {
     text-overflow: ellipsis;
 }
 
-.event-watch-button {
+.event-watch-button,
+.round-stream-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1858,8 +1865,10 @@ main[role="main"] {
     margin-top: -11px;
 }
 
-.next-event.next-event-has-countdown .round-copy-line-wide,
-.next-event #next-event-countdown:not([hidden]) ~ #next-event-details .round-copy-line-wide {
+.next-event.next-event-has-countdown .round-date,
+.next-event.next-event-has-countdown .round-time,
+.next-event #next-event-countdown:not([hidden]) ~ #next-event-details .round-date,
+.next-event #next-event-countdown:not([hidden]) ~ #next-event-details .round-time {
     width: auto;
     max-width: 248px;
 }
@@ -3143,7 +3152,10 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
     color: var(--text-muted) !important;
 }
 
-.ifsc-action-button {
+.ifsc-action-button,
+.event-watch-button,
+.round-stream-button,
+.event-page {
     --ifsc-action-button-font-size: 14px;
     display: inline-grid;
     place-items: center;
@@ -3164,7 +3176,10 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
     transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
-.ifsc-action-button-primary {
+.ifsc-action-button-primary,
+.event-watch-button,
+.round-stream-button,
+.event-page {
     color: #ffffff;
     border: 1px solid rgba(105, 194, 255, 0.18);
     background: linear-gradient(135deg, rgba(24, 39, 58, 0.94), rgba(20, 29, 43, 0.96));
@@ -3179,7 +3194,13 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
 }
 
 .ifsc-action-button-primary:hover,
-.ifsc-action-button-primary:focus {
+.ifsc-action-button-primary:focus,
+.event-watch-button:hover,
+.event-watch-button:focus,
+.round-stream-button:hover,
+.round-stream-button:focus,
+.event-page:hover,
+.event-page:focus {
     color: #ffffff;
     border-color: rgba(255, 255, 255, 0.15);
     background: linear-gradient(135deg, rgba(38, 52, 74, 0.96), rgba(24, 35, 51, 0.98));
@@ -3200,7 +3221,16 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
 .event-buttons .ifsc-action-button,
 .watch-button .ifsc-action-button,
 .season-footer .ifsc-action-button,
-.event-round-card .ifsc-action-button {
+.event-round-card .ifsc-action-button,
+.next-event .event-watch-button,
+.event-buttons .event-watch-button,
+.watch-button .event-watch-button,
+.event-round-card .event-watch-button,
+.next-event .round-stream-button,
+.event-buttons .round-stream-button,
+.watch-button .round-stream-button,
+.event-round-card .round-stream-button,
+.event-buttons .event-page {
     display: inline-grid !important;
     place-items: center !important;
     grid-auto-flow: column !important;
@@ -3215,7 +3245,16 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
 .event-buttons .ifsc-action-button-primary,
 .watch-button .ifsc-action-button-primary,
 .season-footer .ifsc-action-button-primary,
-.event-round-card .ifsc-action-button-primary {
+.event-round-card .ifsc-action-button-primary,
+.next-event .event-watch-button,
+.event-buttons .event-watch-button,
+.watch-button .event-watch-button,
+.event-round-card .event-watch-button,
+.next-event .round-stream-button,
+.event-buttons .round-stream-button,
+.watch-button .round-stream-button,
+.event-round-card .round-stream-button,
+.event-buttons .event-page {
     border-color: rgba(105, 194, 255, 0.24) !important;
     background: linear-gradient(180deg, rgba(52, 68, 92, 0.92), rgba(32, 46, 66, 0.96)) !important;
     box-shadow: none !important;
@@ -3230,7 +3269,25 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
 .season-footer .ifsc-action-button-primary:hover,
 .season-footer .ifsc-action-button-primary:focus,
 .event-round-card .ifsc-action-button-primary:hover,
-.event-round-card .ifsc-action-button-primary:focus {
+.event-round-card .ifsc-action-button-primary:focus,
+.next-event .event-watch-button:hover,
+.next-event .event-watch-button:focus,
+.event-buttons .event-watch-button:hover,
+.event-buttons .event-watch-button:focus,
+.watch-button .event-watch-button:hover,
+.watch-button .event-watch-button:focus,
+.event-round-card .event-watch-button:hover,
+.event-round-card .event-watch-button:focus,
+.next-event .round-stream-button:hover,
+.next-event .round-stream-button:focus,
+.event-buttons .round-stream-button:hover,
+.event-buttons .round-stream-button:focus,
+.watch-button .round-stream-button:hover,
+.watch-button .round-stream-button:focus,
+.event-round-card .round-stream-button:hover,
+.event-round-card .round-stream-button:focus,
+.event-buttons .event-page:hover,
+.event-buttons .event-page:focus {
     background: linear-gradient(180deg, rgba(56, 72, 96, 0.94), rgba(34, 48, 68, 0.98)) !important;
     border-color: rgba(255, 255, 255, 0.15) !important;
     box-shadow: none !important;
@@ -3240,7 +3297,16 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
 .theme-light .event-buttons .ifsc-action-button-primary,
 .theme-light .watch-button .ifsc-action-button-primary,
 .theme-light .season-footer .ifsc-action-button-primary,
-.theme-light .event-round-card .ifsc-action-button-primary {
+.theme-light .event-round-card .ifsc-action-button-primary,
+.theme-light .next-event .event-watch-button,
+.theme-light .event-buttons .event-watch-button,
+.theme-light .watch-button .event-watch-button,
+.theme-light .event-round-card .event-watch-button,
+.theme-light .next-event .round-stream-button,
+.theme-light .event-buttons .round-stream-button,
+.theme-light .watch-button .round-stream-button,
+.theme-light .event-round-card .round-stream-button,
+.theme-light .event-buttons .event-page {
     color: #17314a !important;
     border-color: rgba(89, 126, 160, 0.22) !important;
     background: linear-gradient(180deg, rgba(243, 248, 252, 0.98), rgba(220, 230, 239, 0.98)) !important;
@@ -3255,7 +3321,25 @@ body:not(.theme-light) #calendar-modal .modal-body a.ifsc-action-button:focus {
 .theme-light .season-footer .ifsc-action-button-primary:hover,
 .theme-light .season-footer .ifsc-action-button-primary:focus,
 .theme-light .event-round-card .ifsc-action-button-primary:hover,
-.theme-light .event-round-card .ifsc-action-button-primary:focus {
+.theme-light .event-round-card .ifsc-action-button-primary:focus,
+.theme-light .next-event .event-watch-button:hover,
+.theme-light .next-event .event-watch-button:focus,
+.theme-light .event-buttons .event-watch-button:hover,
+.theme-light .event-buttons .event-watch-button:focus,
+.theme-light .watch-button .event-watch-button:hover,
+.theme-light .watch-button .event-watch-button:focus,
+.theme-light .event-round-card .event-watch-button:hover,
+.theme-light .event-round-card .event-watch-button:focus,
+.theme-light .next-event .round-stream-button:hover,
+.theme-light .next-event .round-stream-button:focus,
+.theme-light .event-buttons .round-stream-button:hover,
+.theme-light .event-buttons .round-stream-button:focus,
+.theme-light .watch-button .round-stream-button:hover,
+.theme-light .watch-button .round-stream-button:focus,
+.theme-light .event-round-card .round-stream-button:hover,
+.theme-light .event-round-card .round-stream-button:focus,
+.theme-light .event-buttons .event-page:hover,
+.theme-light .event-buttons .event-page:focus {
     color: #17314a !important;
     border-color: rgba(23, 49, 74, 0.18) !important;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(233, 240, 246, 1)) !important;
@@ -3551,7 +3635,7 @@ footer .ifsc-action-button-primary {
     color: #5e7891;
 }
 
-.theme-light .event-round-card .ifsc-starts-in {
+.theme-light .event-round-card .round-starts-in {
     background: linear-gradient(135deg, rgba(129, 190, 235, 0.12), rgba(255, 255, 255, 0.2));
     border-color: rgba(89, 126, 160, 0.2);
     color: #2f6fa1 !important;
@@ -3649,7 +3733,7 @@ footer .ifsc-action-button-primary {
     color: #17314a;
 }
 
-.theme-light .ifsc-starts-in {
+.theme-light .round-starts-in {
     color: #5e7891 !important;
 }
 

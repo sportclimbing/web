@@ -189,7 +189,7 @@ const setup_accordion_handlers = () => {
             return;
         }
 
-        const streamTrigger = target.closest('.js-round-stream');
+        const streamTrigger = target.closest('.youtube-play-button, .round-stream-button');
 
         if (streamTrigger) {
             handle_round_stream_click({
@@ -241,7 +241,7 @@ const setup_accordion_handlers = () => {
                 return;
             }
 
-            const streamTrigger = target.closest('.js-round-stream');
+            const streamTrigger = target.closest('.youtube-play-button, .round-stream-button');
 
             if (streamTrigger) {
                 handle_round_stream_click({

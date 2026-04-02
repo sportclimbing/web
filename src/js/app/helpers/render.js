@@ -114,7 +114,7 @@ function set_round_action_buttons_visibility(clone, isStreaming) {
 }
 
 function remove_next_event_starts_in_label(clone) {
-    const startsIn = clone.querySelector('.js-starts-in');
+    const startsIn = clone.querySelector('.round-starts-in');
 
     if (startsIn) {
         startsIn.remove();
@@ -163,7 +163,7 @@ function set_next_event_start_list(clone, event) {
 
     if (!startList.length) {
         const pendingLine = document.createElement('h6');
-        pendingLine.className = 'fw-bold mb-1 round-date round-copy-line round-copy-line-wide';
+        pendingLine.className = 'round-date';
         pendingLine.innerText = providedPendingText || '📋 Start List: Pending';
         startListWrapper.appendChild(pendingLine);
         roundCopy.appendChild(startListWrapper);
@@ -293,16 +293,15 @@ function set_round_stream_metadata(element, round) {
         return;
     }
 
-    const roundContainer = element.closest('.ifsc-event') || element;
+    const roundContainer = element.closest('.event-round-card, .ifsc-event') || element;
 
     roundContainer.dataset.roundName = round.name || '';
     roundContainer.dataset.roundStartsAt = round.starts_at || '';
     roundContainer.dataset.roundEndsAt = round.ends_at || '';
-    element.classList.add('js-round-stream');
 }
 
 function round_from_stream_button(element) {
-    const roundContainer = element instanceof Element ? (element.closest('.ifsc-event') || element) : null;
+    const roundContainer = element instanceof Element ? (element.closest('.event-round-card, .ifsc-event') || element) : null;
 
     return {
         name: roundContainer ? (roundContainer.dataset.roundName || '') : '',
@@ -373,5 +372,9 @@ function set_favicon(liveEvent) {
         favicon = 'img/favicon.png';
     }
 
-    document.getElementById('favicon').href = favicon;
+    let elementById = document.getElementById('favicon');
+
+    if (elementById.href !== favicon) {
+        elementById.href = favicon
+    }
 }

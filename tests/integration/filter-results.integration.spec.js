@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const waitForEventCards = async (page) => {
-  await expect(page.locator('#accordion .ifsc-league-card').first()).toBeVisible({ timeout: 20000 });
+  await expect(page.locator('#accordion .ifsc-league-card:not([hidden])').first()).toBeVisible({ timeout: 20000 });
 };
 
 const openFilters = async (page) => {
@@ -14,11 +14,11 @@ const applyFilters = async (page) => {
 };
 
 const getVisibleEventNames = async (page) => {
-  return page.locator('#accordion .ifsc-league-card .event-name').allTextContents();
+  return page.locator('#accordion .ifsc-league-card:not([hidden]) .event-name').allTextContents();
 };
 
 const getVisibleEventDisciplines = async (page) => {
-  return page.locator('#accordion .ifsc-league-card .event-disciplines').allTextContents();
+  return page.locator('#accordion .ifsc-league-card:not([hidden]) .event-disciplines').allTextContents();
 };
 
 const setDisciplineFilters = async (page, selectedDiscipline) => {
@@ -76,7 +76,7 @@ test('league filters change the displayed results', async ({ page }) => {
   await page.locator('input[name="league[paraclimbing]"]').uncheck();
   await applyFilters(page);
 
-  await expect(page.locator('#accordion .ifsc-league-card')).toHaveCount(0);
+  await expect(page.locator('#accordion .ifsc-league-card:not([hidden])')).toHaveCount(0);
   await expect(page.locator('.no-results-text')).toBeVisible();
 
   await openFilters(page);
@@ -85,7 +85,7 @@ test('league filters change the displayed results', async ({ page }) => {
   await applyFilters(page);
 
   await waitForEventCards(page);
-  await expect(page.locator('#accordion .ifsc-league-card')).not.toHaveCount(0);
+  await expect(page.locator('#accordion .ifsc-league-card:not([hidden])')).not.toHaveCount(0);
 });
 
 test('category filters change the displayed results', async ({ page }) => {
@@ -97,7 +97,7 @@ test('category filters change the displayed results', async ({ page }) => {
   await page.locator('input[name="category[men]"]').uncheck();
   await applyFilters(page);
 
-  await expect(page.locator('#accordion .ifsc-league-card')).toHaveCount(0);
+  await expect(page.locator('#accordion .ifsc-league-card:not([hidden])')).toHaveCount(0);
   await expect(page.locator('.no-results-text')).toBeVisible();
 
   await openFilters(page);
@@ -106,7 +106,7 @@ test('category filters change the displayed results', async ({ page }) => {
   await applyFilters(page);
 
   await waitForEventCards(page);
-  await expect(page.locator('#accordion .ifsc-league-card')).not.toHaveCount(0);
+  await expect(page.locator('#accordion .ifsc-league-card:not([hidden])')).not.toHaveCount(0);
 });
 
 test('discipline filters enforce visible event discipline labels', async ({ page }) => {
@@ -115,7 +115,7 @@ test('discipline filters enforce visible event discipline labels', async ({ page
 
   for (const selectedDiscipline of ['boulder', 'lead', 'speed']) {
     await setDisciplineFilters(page, selectedDiscipline);
-    await expect(page.locator('#accordion .ifsc-league-card .event-disciplines').first()).toBeVisible({ timeout: 20000 });
+    await expect(page.locator('#accordion .ifsc-league-card:not([hidden]) .event-disciplines').first()).toBeVisible({ timeout: 20000 });
 
     const disciplineLabels = await getVisibleEventDisciplines(page);
     expect(disciplineLabels.length).toBeGreaterThan(0);
