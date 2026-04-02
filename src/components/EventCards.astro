@@ -1,7 +1,6 @@
 ---
 import { build_start_list_modal_url } from '../lib/start-list-modal-fragments';
 import { build_event_page_path } from '../lib/event-pages';
-import { event_schedule_status } from '../lib/round-schedule-status';
 
 const {
   events = [],
@@ -31,6 +30,37 @@ const MONTH_NAMES = [
   'November',
   'December',
 ];
+
+const ROUND_SCHEDULE_STATUS = {
+  confirmed: '☑️ Confirmed Schedule',
+  provisional: '⏳ Provisional Schedule',
+  estimated: '⏳ Estimated Schedule',
+};
+
+const ATHLETE_PHOTO_CDN_PREFIX = 'https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/';
+
+const event_schedule_status = (event) => {
+  const rounds = Array.isArray(event?.rounds) ? event.rounds : [];
+  let numNonQualificationRounds = 0;
+
+  for (const round of rounds) {
+    if (round.kind === 'qualification') {
+      continue;
+    }
+
+    numNonQualificationRounds += 1;
+
+    if (round.schedule_status === 'provisional') {
+      return ROUND_SCHEDULE_STATUS.provisional;
+    }
+
+    if (round.schedule_status === 'estimated') {
+      return ROUND_SCHEDULE_STATUS.estimated;
+    }
+  }
+
+  return numNonQualificationRounds > 0 ? ROUND_SCHEDULE_STATUS.confirmed : ROUND_SCHEDULE_STATUS.provisional;
+};
 
 const month_index_from_starts_at = (startsAt) => {
   const match = /^(\d{4})-(\d{2})-/.exec(startsAt || '');
@@ -157,21 +187,6 @@ const format_round_time_build = (round) => {
   return `⏰ ${ROUND_TIME_FORMATTER.format(date)}`;
 };
 
-const event_is_streaming_build = (round) => {
-  const startsAt = parse_iso_date(round?.starts_at);
-  const endsAt = parse_iso_date(round?.ends_at);
-
-  if (!startsAt || !endsAt) {
-    return false;
-  }
-
-  const now = Date.now();
-  const startsAtTimestamp = startsAt.getTime();
-  const endsAtTimestamp = endsAt.getTime();
-
-  return startsAtTimestamp <= now && now <= endsAtTimestamp;
-};
-
 const event_is_upcoming_build = (round) => {
   const startsAt = parse_iso_date(round?.starts_at);
 
@@ -180,22 +195,6 @@ const event_is_upcoming_build = (round) => {
   }
 
   return startsAt.getTime() > Date.now();
-};
-
-const round_status_copy_build = (round) => {
-  if (event_is_streaming_build(round)) {
-    return '🔴 Live Now';
-  }
-
-  if (event_is_upcoming_build(round)) {
-    if (round_is_non_speed_qualification(round)) {
-      return '🟡 Qualification will not be streamed';
-    }
-
-    return '⌛ Starts soon';
-  }
-
-  return '🏁 Streamed';
 };
 
 const extract_youtube_video_id = (url) => {
@@ -232,8 +231,6 @@ const poster_url_for_event = (event) => {
 
   return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 };
-
-const ATHLETE_PHOTO_CDN_PREFIX = 'https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/';
 
 const photo_filename_from_url_build = (photoUrl) => {
   const url = String(photoUrl || '').trim();
@@ -476,9 +473,8 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
               const streamUrl = typeof round.stream_url === 'string' ? round.stream_url : '';
               const fallbackUrl = streamUrl || STREAMS_FALLBACK_URL;
               const hasStreamUrl = Boolean(streamUrl);
-              const isStreaming = event_is_streaming_build(round);
               const isUpcoming = event_is_upcoming_build(round);
-              const startsInText = round_status_copy_build(round);
+              const startsInText = event_schedule_status(round);
               const showReminder = isUpcoming;
               const videoId = video_id_from_stream(round);
 
