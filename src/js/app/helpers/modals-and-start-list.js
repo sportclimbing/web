@@ -200,14 +200,6 @@ function start_next_event_countdown(round) {
 
     stop_next_event_countdown();
     render_next_event_countdown(startsAt);
-
-    if (!event_not_started_countdown_parts(startsAt)) {
-        return;
-    }
-
-    nextEventCountdownIntervalId = window.setInterval(() => {
-        render_next_event_countdown(startsAt);
-    }, 60 * 1000);
 }
 
 function handle_watch_event_no_url(e) {

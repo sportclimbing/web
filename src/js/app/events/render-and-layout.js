@@ -1,3 +1,47 @@
+let periodicEventStatusIntervalId = null;
+
+const refresh_periodic_event_status = () => {
+    const accordion = document.getElementById('accordion');
+
+    if (!accordion) {
+        return;
+    }
+
+    seasonTimeline = compute_dom_season_timeline();
+
+    if (!refresh_next_event_status()) {
+        update_next_event_panel();
+    }
+
+    accordion.querySelectorAll('.ifsc-league-card[data-event-id]').forEach((card) => {
+        const eventId = card.dataset.eventId || '';
+
+        if (!eventId) {
+            return;
+        }
+
+        refresh_event_round_statuses(eventId);
+    });
+
+    set_favicon(seasonTimeline.liveRound);
+};
+
+const stop_periodic_event_status_refresh = () => {
+    if (!periodicEventStatusIntervalId) {
+        return;
+    }
+
+    window.clearInterval(periodicEventStatusIntervalId);
+    periodicEventStatusIntervalId = null;
+};
+
+const start_periodic_event_status_refresh = () => {
+    stop_periodic_event_status_refresh();
+    periodicEventStatusIntervalId = window.setInterval(() => {
+        refresh_periodic_event_status();
+    }, 60 * 1000);
+};
+
 const hide_event_card = (card) => {
     if (!card) {
         return;
@@ -98,7 +142,7 @@ const restore_open_accordion_panel = (currentOpenId, allCollapsed) => {
     return null;
 };
 
-const refresh = () => {
+const refresh_event_ui = () => {
     const filterResult = apply_search_filters();
     const accordion = document.getElementById('accordion');
     const { currentOpenId, allCollapsed } = get_accordion_state(accordion);
@@ -298,13 +342,13 @@ const setup_filter_handlers = () => {
     if (saveFiltersButton) {
         saveFiltersButton.addEventListener('click', () => {
             config = load_config_from_modal();
-            refresh();
+            refresh_event_ui();
             window.localStorage.setItem('config', JSON.stringify(config));
         });
     }
 
     document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-        checkbox.addEventListener('change', () => refresh());
+        checkbox.addEventListener('change', () => refresh_event_ui());
     });
 };
 

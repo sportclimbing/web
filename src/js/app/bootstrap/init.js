@@ -2,9 +2,8 @@
     restore_theme();
     restore_config();
     schedule_fit_mobile_hero_title();
-
-    refresh();
-
+    refresh_event_ui();
+    start_periodic_event_status_refresh();
     setup_season_header_toggle();
     setup_accordion_handlers();
     config = load_config_from_modal();

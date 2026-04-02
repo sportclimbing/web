@@ -279,7 +279,94 @@ const ensure_round_action_button = (roundElement, type, eventId) => {
     return createdButton;
 };
 
-const render_event_rounds = (eventId) => {
+const update_round_card_status_and_actions = (roundElement, round, parsedEventId, includeRoundDetails = true) => {
+    const roundKey = round.roundKey || (roundElement.dataset.roundKey || '');
+    const streamButton = roundElement.querySelector('[data-action="round-stream"]');
+    const startsIn = roundElement.querySelector('.round-starts-in');
+    let resultsButton = roundElement.querySelector('.button-results');
+    let reminderButton = roundElement.querySelector('.button-reminder');
+
+    if (includeRoundDetails) {
+        set_round_details(roundElement, round);
+    }
+
+    if (event_is_streaming(round)) {
+        resultsButton = ensure_round_action_button(roundElement, 'results', parsedEventId) || resultsButton;
+
+        if (startsIn) {
+            startsIn.innerText = '🔴 Live Now';
+        }
+
+        if (resultsButton) {
+            resultsButton.style.setProperty('display', 'inline-grid', 'important');
+            resultsButton.href = `https://ifsc.results.info/event/${parsedEventId}`;
+        }
+
+        if (reminderButton) {
+            reminderButton.style.setProperty('display', 'none', 'important');
+        }
+
+        if (streamButton) {
+            streamButton.style.display = '';
+        }
+
+        return false;
+    }
+
+    if (event_is_upcoming(round)) {
+        reminderButton = ensure_round_action_button(roundElement, 'reminder', parsedEventId) || reminderButton;
+        const isNextRound = !seasonTimeline.liveRoundKey
+            && Boolean(seasonTimeline.nextRoundKey)
+            && seasonTimeline.nextRoundKey === roundKey;
+
+        if (startsIn) {
+            if (round_is_non_speed_qualification(round)) {
+                startsIn.innerText = '🟡 Qualification will not be streamed';
+            } else if (isNextRound) {
+                startsIn.innerText = `🟢 Next Event (starts ${pretty_starts_in(round)})`;
+            } else {
+                startsIn.innerText = `⌛ Starts ${pretty_starts_in(round)}`;
+            }
+        }
+
+        if (reminderButton) {
+            reminderButton.style.setProperty('display', 'inline-grid', 'important');
+        }
+
+        if (resultsButton) {
+            resultsButton.style.setProperty('display', 'none', 'important');
+        }
+
+        if (streamButton) {
+            streamButton.style.display = '';
+        }
+
+        return !isNextRound;
+    }
+
+    if (startsIn) {
+        startsIn.innerText = `🏁 ${pretty_finished_ago(round)}`;
+    }
+
+    resultsButton = ensure_round_action_button(roundElement, 'results', parsedEventId) || resultsButton;
+
+    if (resultsButton) {
+        resultsButton.style.setProperty('display', 'inline-grid', 'important');
+        resultsButton.href = `https://ifsc.results.info/event/${parsedEventId}`;
+    }
+
+    if (reminderButton) {
+        reminderButton.style.setProperty('display', 'none', 'important');
+    }
+
+    if (streamButton) {
+        streamButton.style.display = '';
+    }
+
+    return false;
+};
+
+const update_event_round_rows = (eventId, includeRoundDetails = true) => {
     const parsedEventId = parseInt(eventId, 10);
 
     if (Number.isNaN(parsedEventId)) {
@@ -313,96 +400,69 @@ const render_event_rounds = (eventId) => {
             return;
         }
 
-        const roundKey = round.roundKey || (roundElement.dataset.roundKey || '');
-
-        const streamButton = roundElement.querySelector('[data-action="round-stream"]');
-        const startsIn = roundElement.querySelector('.round-starts-in');
-        let resultsButton = roundElement.querySelector('.button-results');
-        let reminderButton = roundElement.querySelector('.button-reminder');
-
-        set_round_details(roundElement, round);
-
-        if (event_is_streaming(round)) {
-            resultsButton = ensure_round_action_button(roundElement, 'results', parsedEventId) || resultsButton;
-
-            if (startsIn) {
-                startsIn.innerText = '🔴 Live Now';
-            }
-
-            if (resultsButton) {
-                resultsButton.style.setProperty('display', 'inline-grid', 'important');
-                resultsButton.href = `https://ifsc.results.info/event/${parsedEventId}`;
-            }
-
-            if (reminderButton) {
-                reminderButton.style.setProperty('display', 'none', 'important');
-            }
-
-            if (streamButton) {
-                streamButton.style.display = '';
-            }
-
-            return;
-        }
-
-        if (event_is_upcoming(round)) {
-            reminderButton = ensure_round_action_button(roundElement, 'reminder', parsedEventId) || reminderButton;
-            const isNextRound = !seasonTimeline.liveRoundKey
-                && Boolean(seasonTimeline.nextRoundKey)
-                && seasonTimeline.nextRoundKey === roundKey;
-
-            if (startsIn) {
-                if (round_is_non_speed_qualification(round)) {
-                    startsIn.innerText = '🟡 Qualification will not be streamed';
-                } else if (isNextRound) {
-                    startsIn.innerText = `🟢 Next Event (starts ${pretty_starts_in(round)})`;
-                } else {
-                    startsIn.innerText = `⌛ Starts ${pretty_starts_in(round)}`;
-                }
-            }
-
-            if (!isNextRound) {
-                posterShouldBeBw = true;
-            }
-
-            if (reminderButton) {
-                reminderButton.style.setProperty('display', 'inline-grid', 'important');
-            }
-
-            if (resultsButton) {
-                resultsButton.style.setProperty('display', 'none', 'important');
-            }
-
-            if (streamButton) {
-                streamButton.style.display = '';
-            }
-
-            return;
-        }
-
-        if (startsIn) {
-            startsIn.innerText = `🏁 ${pretty_finished_ago(round)}`;
-        }
-
-        resultsButton = ensure_round_action_button(roundElement, 'results', parsedEventId) || resultsButton;
-
-        if (resultsButton) {
-            resultsButton.style.setProperty('display', 'inline-grid', 'important');
-            resultsButton.href = `https://ifsc.results.info/event/${parsedEventId}`;
-        }
-
-        if (reminderButton) {
-            reminderButton.style.setProperty('display', 'none', 'important');
-        }
-
-        if (streamButton) {
-            streamButton.style.display = '';
+        if (update_round_card_status_and_actions(roundElement, round, parsedEventId, includeRoundDetails)) {
+            posterShouldBeBw = true;
         }
     });
 
     if (poster) {
         poster.classList.toggle('bw', posterShouldBeBw);
     }
+};
+
+const render_event_rounds = (eventId) => {
+    update_event_round_rows(eventId, true);
+};
+
+const refresh_event_round_statuses = (eventId) => {
+    update_event_round_rows(eventId, false);
+};
+
+const current_next_event_target = () => {
+    if (seasonTimeline.liveRound && seasonTimeline.liveEvent) {
+        return {
+            round: seasonTimeline.liveRound,
+            event: seasonTimeline.liveEvent,
+            isStreaming: true,
+        };
+    }
+
+    if (seasonTimeline.nextRound && seasonTimeline.nextEvent) {
+        return {
+            round: seasonTimeline.nextRound,
+            event: seasonTimeline.nextEvent,
+            isStreaming: false,
+        };
+    }
+
+    return null;
+};
+
+const next_event_row_matches_round = (nextEventRow, round) => (nextEventRow.dataset.roundStartsAt || '') === String(round.starts_at || '')
+    && (nextEventRow.dataset.roundEndsAt || '') === String(round.ends_at || '');
+
+const refresh_next_event_status = () => {
+    const target = current_next_event_target();
+    const nextEventDetails = document.getElementById('next-event-details');
+    const nextEventRow = nextEventDetails ? nextEventDetails.querySelector('.ifsc-event') : null;
+
+    if (!target || !(nextEventRow instanceof HTMLElement) || !next_event_row_matches_round(nextEventRow, target.round)) {
+        return false;
+    }
+
+    set_round_action_buttons_visibility(nextEventRow, target.isStreaming);
+
+    if (target.isStreaming) {
+        const resultsButton = nextEventRow.querySelector('.button-results');
+
+        if (resultsButton instanceof HTMLAnchorElement) {
+            resultsButton.href = `https://ifsc.results.info/event/${target.event.id}`;
+        }
+    }
+
+    set_next_event_countdown(target.round, target.isStreaming);
+
+    return true;
 };
 
 const get_accordion_state = (accordion) => {
