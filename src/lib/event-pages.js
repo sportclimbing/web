@@ -1,5 +1,3 @@
-const EVENT_ID_PATTERN = /-(\d+)$/;
-
 const normalize_slug = (value) => String(value || '')
   .trim()
   .toLowerCase()
@@ -43,14 +41,4 @@ export const build_event_page_path = (season, event) => {
   }
 
   return `/season/${normalizedSeason}/event/${slugIdSegment}/`;
-};
-
-export const event_id_from_slug_id_segment = (slugIdSegment) => {
-  const match = EVENT_ID_PATTERN.exec(String(slugIdSegment || '').trim());
-
-  if (!match) {
-    return '';
-  }
-
-  return match[1];
 };
