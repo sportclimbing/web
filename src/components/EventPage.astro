@@ -7,6 +7,7 @@ import HeaderTitle from './HeaderTitle.astro';
 import Modals from './Modals.astro';
 import SeasonNavbar from './SeasonNavbar.astro';
 import SubheaderButtons from './SubheaderButtons.astro';
+import VersionUpdateNotice from './VersionUpdateNotice.astro';
 import {
   DEFAULT_SEASON,
   DESKTOP_VIEWPORT_MEDIA_QUERY,
@@ -75,7 +76,8 @@ const seasonPagePath = `/season/${normalizedSeason}/`;
     </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
-<body data-page-type="event" data-event-id={normalizedEventId || undefined}>
+<body data-page-type="event" data-event-id={normalizedEventId || undefined} data-build-version={siteAssetVersion}>
+<VersionUpdateNotice />
 <CardTemplates />
 
 <div id="ifsc-season">

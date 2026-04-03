@@ -11,6 +11,7 @@ import HeaderTitle from './HeaderTitle.astro';
 import Modals from './Modals.astro';
 import SeasonNavbar from './SeasonNavbar.astro';
 import SubheaderButtons from './SubheaderButtons.astro';
+import VersionUpdateNotice from './VersionUpdateNotice.astro';
 
 const {
   season,
@@ -73,7 +74,8 @@ const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
     </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
-<body data-page-type="season">
+<body data-page-type="season" data-build-version={siteAssetVersion}>
+<VersionUpdateNotice />
 <CardTemplates />
 
 <div id="ifsc-season">

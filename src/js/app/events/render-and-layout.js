@@ -1,5 +1,84 @@
 let periodicEventStatusIntervalId = null;
 let hasAppliedInitialSeasonAutoExpand = false;
+let versionCheckInFlight = false;
+let hasDetectedVersionChange = false;
+
+const normalize_site_version = (value) => (typeof value === 'string' ? value.trim() : '');
+
+const loadedSiteVersion = (() => {
+    if (document.body instanceof HTMLElement) {
+        const bodyVersion = normalize_site_version(document.body.dataset.buildVersion || '');
+
+        if (bodyVersion) {
+            return bodyVersion;
+        }
+    }
+
+    const footerBuildElement = document.querySelector('.footer-build-value');
+
+    if (!(footerBuildElement instanceof HTMLElement)) {
+        return '';
+    }
+
+    return normalize_site_version(footerBuildElement.textContent || '');
+})();
+
+const show_version_update_notice = () => {
+    const versionUpdateNotice = document.getElementById('version-update-notice');
+
+    if (!(versionUpdateNotice instanceof HTMLElement)) {
+        return;
+    }
+
+    versionUpdateNotice.hidden = false;
+
+    if (versionUpdateNotice.dataset.reloadHandlerBound === '1') {
+        return;
+    }
+
+    versionUpdateNotice.dataset.reloadHandlerBound = '1';
+    versionUpdateNotice.addEventListener('click', () => {
+        window.location.reload();
+    }, { once: true });
+};
+
+const fetch_current_site_version = async () => {
+    const response = await window.fetch(`/version.json?t=${Date.now()}`, {
+        cache: 'no-store',
+        credentials: 'same-origin',
+    });
+
+    if (!response.ok) {
+        return '';
+    }
+
+    const payload = await response.json();
+
+    return normalize_site_version(payload && payload.version);
+};
+
+const check_for_site_version_update = async () => {
+    if (!loadedSiteVersion || hasDetectedVersionChange || versionCheckInFlight) {
+        return;
+    }
+
+    versionCheckInFlight = true;
+
+    try {
+        const currentSiteVersion = await fetch_current_site_version();
+
+        if (!currentSiteVersion || currentSiteVersion === loadedSiteVersion) {
+            return;
+        }
+
+        hasDetectedVersionChange = true;
+        show_version_update_notice();
+    } catch (_error) {
+        // Ignore transient fetch/network issues.
+    } finally {
+        versionCheckInFlight = false;
+    }
+};
 
 const refresh_periodic_event_status = () => {
     const accordion = document.getElementById('accordion');
@@ -27,6 +106,11 @@ const refresh_periodic_event_status = () => {
     set_favicon(seasonTimeline.liveRound);
 };
 
+const run_periodic_refresh_tasks = () => {
+    refresh_periodic_event_status();
+    void check_for_site_version_update();
+};
+
 const stop_periodic_event_status_refresh = () => {
     if (!periodicEventStatusIntervalId) {
         return;
@@ -39,7 +123,7 @@ const stop_periodic_event_status_refresh = () => {
 const start_periodic_event_status_refresh = () => {
     stop_periodic_event_status_refresh();
     periodicEventStatusIntervalId = window.setInterval(() => {
-        refresh_periodic_event_status();
+        run_periodic_refresh_tasks();
     }, 60 * 1000);
 };
 

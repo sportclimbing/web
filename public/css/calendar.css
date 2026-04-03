@@ -2246,6 +2246,40 @@ footer {
     margin: 0 0 6px;
 }
 
+.footer-update-notice {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 1200;
+    border: 1px solid rgba(255, 120, 170, 0.55);
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(255, 95, 109, 0.9), rgba(230, 0, 126, 0.9));
+    color: #ffffff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.36);
+}
+
+.footer-update-notice:hover,
+.footer-update-notice:focus {
+    filter: brightness(1.07);
+}
+
+.theme-light .footer-update-notice {
+    border-color: rgba(177, 0, 98, 0.55);
+    background: linear-gradient(135deg, rgba(255, 95, 109, 0.96), rgba(177, 0, 98, 0.96));
+}
+
 .footer-copy p:last-child {
     margin-bottom: 0;
 }

@@ -631,6 +631,12 @@ li.ifsc-event {
     text-align: center;
 }
 
+.footer-update-notice {
+    top: 10px;
+    right: 10px;
+    max-width: calc(100vw - 20px);
+}
+
 .footer-actions {
     position: static;
     width: 100%;
