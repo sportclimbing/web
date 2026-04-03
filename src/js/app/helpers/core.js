@@ -216,6 +216,15 @@ function fit_event_name_titles() {
     }
 
     const minFontSize = 8;
+    const isMobileViewport = window.matchMedia('(max-width: 500px)').matches;
+
+    if (!isMobileViewport) {
+        eventNameTitles.forEach((title) => {
+            title.style.removeProperty('font-size');
+        });
+
+        return;
+    }
 
     eventNameTitles.forEach((title) => {
         fit_single_line_text_to_width(title, minFontSize);

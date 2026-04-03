@@ -1920,7 +1920,7 @@ main[role="main"] {
 .next-event #next-event-countdown:not([hidden]) {
     position: absolute;
     left: 14px;
-    top: 81px;
+    top: 86px;
     width: 68px;
     margin: 0;
     padding: 5px;

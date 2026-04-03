@@ -513,7 +513,7 @@ li.ifsc-event {
     position: absolute;
     left: auto;
     right: 10px;
-    top: 75px;
+    top: 80px;
     bottom: auto;
     width: var(--next-event-mobile-countdown-width);
     height: var(--next-event-mobile-media-height, calc(var(--next-event-mobile-media-width) * 9 / 16));
