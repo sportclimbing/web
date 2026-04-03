@@ -11,8 +11,8 @@
     "test:integration": "playwright test"
   },
   "devDependencies": {
-    "astro": "5.11.0",
-    "@playwright/test": "1.54.1",
+    "@playwright/test": "^1.59.1",
+    "astro": "6.1.3",
     "esbuild": "0.28.0",
     "http-server": "14.1.1"
   }
