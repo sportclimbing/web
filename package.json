@@ -1,5 +1,5 @@
 {
-  "name": "ifsc-stream-frontend-tests",
+  "name": "world-climbing-schedule-frontend",
   "private": true,
   "scripts": {
     "build:js": "node bin/build-js-bundle.mjs",
