@@ -6,7 +6,7 @@ DOCKER_RUN = docker run --rm --init --ipc=host -u "$(shell id -u):$(shell id -g)
 
 build:
 	npm run build:js
-	npm run build:astro
+	npm run build:astro -- --mode production
 
 test:
 	@if docker info >/dev/null 2>&1; then \
