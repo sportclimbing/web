@@ -2631,6 +2631,7 @@ body.theme-light[data-page-type='season'] .ifsc-league-card a.event-name:focus-v
     font-size: 30px;
     font-weight: 700;
     line-height: 1;
+    transform: translateY(2px);
     text-shadow: 0 0 14px rgba(255, 255, 255, 0.18);
 }
 
