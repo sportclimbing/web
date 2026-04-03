@@ -1015,9 +1015,17 @@ li.ifsc-event:hover {
     margin-right: 20px;
 }
 
-.round-copy h6 {
+.round-copy .round-name,
+.round-copy .round-date,
+.round-copy .round-time {
+    display: block;
+    margin-top: 0;
     margin-bottom: 0.25rem;
     padding-bottom: 2px;
+    line-height: 1.2;
+    font-family: 'Rajdhani', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     font-weight: 700;
 }
 
@@ -3923,6 +3931,11 @@ footer .ifsc-action-button-primary {
     color: #5e7891 !important;
 }
 
-.theme-light .round-copy h6 {
+.theme-light .round-copy .round-name {
     color: #17314a;
+}
+
+.theme-light .round-copy .round-date,
+.theme-light .round-copy .round-time {
+    color: #5e7891;
 }

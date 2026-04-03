@@ -463,9 +463,9 @@ const league_name_without_ifsc = (value) => String(value || '')
 
                   <div class="d-flex align-items-center round-details">
                     <div class="round-copy">
-                      <h6 class="round-name">{round.name}</h6>
-                      <h6 class="round-date">{format_round_date_build(round)}</h6>
-                      <h6 class="round-time" title={roundLocalTimeTooltip || undefined}>{format_round_time_build(round)}</h6>
+                      <div class="round-name">{round.name}</div>
+                      <div class="round-date">{format_round_date_build(round)}</div>
+                      <div class="round-time" title={roundLocalTimeTooltip || undefined}>{format_round_time_build(round)}</div>
                       <p class="round-starts-in">{startsInText}</p>
                     </div>
 
