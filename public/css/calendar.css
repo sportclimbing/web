@@ -3413,7 +3413,7 @@ body:not(.theme-light) .next-event .watch-button .button-reminder {
     transform: none !important;
 }
 
-:is([data-action='event-page'], [data-action='round-stream'], [data-action='event-watch-toggle'], .disabled-watch-btn):is(:hover, :focus) {
+:is([data-action='event-page'], [data-action='event-infosheet'], [data-action='round-stream'], [data-action='event-watch-toggle'], .disabled-watch-btn):is(:hover, :focus) {
     transform: none !important;
 }
 
