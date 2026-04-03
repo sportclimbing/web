@@ -32,7 +32,7 @@ jobs:
       - name: "Setup PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.5'
           extensions: gd, iconv
 
       - name: "Download latest calendar"
@@ -40,6 +40,12 @@ jobs:
           curl -sSL "${{ env.LATEST_CALENDAR_URL }}" \
               --output "public/events/events_${YEAR}.json" \
               --max-time 15
+
+      - name: "Cache athlete start-list photos"
+        run: php bin/cache-athlete-photos
+
+      - name: "Build structured data"
+        run: php bin/build-structured-data --minify
 
       - name: "Setup Node"
         uses: actions/setup-node@v4
@@ -68,13 +74,8 @@ jobs:
       - name: "Setup PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.5'
           extensions: gd, iconv
-
-      - name: "Verify PHP extensions"
-        run: |
-          php -r 'if (!extension_loaded("gd")) { fwrite(STDERR, "Missing PHP extension: gd\n"); exit(1); }'
-          php -r 'if (!function_exists("iconv")) { fwrite(STDERR, "Missing PHP iconv support\n"); exit(1); }'
 
       - name: "Download latest calendar"
         run: |
