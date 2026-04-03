@@ -257,6 +257,11 @@ const athlete_photo_sources_build = (athlete) => {
 const athlete_name_build = (athlete) => `${athlete.first_name} ${athlete.last_name}`;
 
 const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(athlete && athlete.photo_url));
+
+const league_name_without_ifsc = (value) => String(value || '')
+  .replace(/\bIFSC\b/gi, '')
+  .replace(/\s+/g, ' ')
+  .trim();
 ---
 {normalizedEvents.map((event) => {
   const eventId = String(event.id);
@@ -273,6 +278,8 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
   const streamCount = streamable_round_count(event);
   const streamLabel = streamCount === 1 ? 'Stream' : 'Streams';
   const posterUrl = poster_url_for_event(event);
+  const eventLeagueName = event.league_name;
+  const prettyLeagueName = league_name_without_ifsc(event.league_name);
   const roundsPanelClassName = shouldExpandAllRounds ? 'event-rounds-panel' : 'collapse event-rounds-panel';
   const roundsPanelAriaExpanded = shouldExpandAllRounds ? 'true' : 'false';
   const shouldRenderWatchToggle = !shouldHideRoundCollapseControls && !shouldExpandAllRounds;
@@ -285,7 +292,7 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
       class="card container-xl ifsc-league-card"
       data-event-id={eventId}
       data-event-name={event.name || ''}
-      data-event-league-name={event.league_name || ''}
+      data-event-league-name={eventLeagueName}
       data-event-start-month={monthIndex === null ? undefined : String(monthIndex)}
     >
       <div class="card-header" id={headingId}>
@@ -296,7 +303,7 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
             {shouldLinkEventTitles && eventPagePath ? (
               <a class="event-name" id={toggleId} href={eventPagePath}>
                 <span class="event-name-title">{event.name}</span>
-                {event.league_name ? <small class="event-league-name">{event.league_name}</small> : null}
+                {<small class="event-league-name">{prettyLeagueName}</small>}
               </a>
             ) : shouldRenderWatchToggle ? (
               <button
@@ -308,12 +315,12 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
                 aria-controls={panelId}
               >
                 <span class="event-name-title">{event.name}</span>
-                {event.league_name ? <small class="event-league-name">{event.league_name}</small> : null}
+                {eventLeagueName ? <small class="event-league-name">{eventLeagueName}</small> : null}
               </button>
             ) : (
               <span class="event-name" id={toggleId}>
                 <span class="event-name-title">{event.name}</span>
-                {event.league_name ? <small class="event-league-name">{event.league_name}</small> : null}
+                {eventLeagueName ? <small class="event-league-name">{eventLeagueName}</small> : null}
               </span>
             )}
           </h5>
