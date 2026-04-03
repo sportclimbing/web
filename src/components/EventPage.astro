@@ -29,11 +29,36 @@ const normalizedSeason = String(season);
 const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
 const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
 const normalizedEventId = String(event.id)
+const eventName = String(event?.name || '').trim() || 'Event';
 const seasonHomePath = normalizedSeason === DEFAULT_SEASON ? '/' : `/season/${normalizedSeason}/`;
 const seasonPagePath = `/season/${normalizedSeason}/`;
 const socialImageUrl = socialImagePath.startsWith('http')
   ? socialImagePath
   : `https://ifsc.stream${socialImagePath}`;
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://ifsc.stream/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: `Season ${normalizedSeason}`,
+      item: `https://ifsc.stream${seasonPagePath}`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: eventName,
+      item: canonicalUrl,
+    },
+  ],
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -80,6 +105,11 @@ const socialImageUrl = socialImagePath.startsWith('http')
             ]
         }
     </script>
+    <script
+      type="application/ld+json"
+      id="structured-data-breadcrumbs"
+      set:html={JSON.stringify(breadcrumbStructuredData)}
+    ></script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
 <body data-page-type="event" data-event-id={normalizedEventId || undefined} data-build-version={siteAssetVersion}>
@@ -92,9 +122,11 @@ const socialImageUrl = socialImagePath.startsWith('http')
 
 <SeasonNavbar />
 <SubheaderButtons
-    showBackToSeasonButton={true}
-    backToSeasonHref={seasonPagePath}
-    backToSeasonLabel={`◀︎ Back to season ${normalizedSeason}`}
+    breadcrumbItems={[
+      { label: 'Home', href: '/' },
+      { label: `Season ${normalizedSeason}`, href: seasonPagePath },
+      { label: eventName, current: true },
+    ]}
 />
 
 <main role="main">
