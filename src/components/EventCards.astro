@@ -2,6 +2,7 @@
 import { build_start_list_modal_url } from '../lib/start-list-modal-fragments';
 import { build_event_page_path } from '../lib/event-pages';
 import { photo_filename_from_url_build, video_id_from_stream } from '../lib/shared/media.js';
+import { round_will_be_streamed } from '../js/app/helpers/core.js';
 
 const {
   events = [],
@@ -38,9 +39,15 @@ const ROUND_SCHEDULE_STATUS = {
   estimated: '⏳ Estimated Schedule',
 };
 
+const ROUND_SCHEDULE_STATUS_TOOLTIPS = {
+  confirmed: 'Dates and times are confirmed and unlikely to change',
+  provisional: 'Dates and/or times are provisional and can still change',
+  estimated: 'Dates and times are estimated and may be adjusted when confirmed',
+};
+
 const ATHLETE_PHOTO_CDN_PREFIX = 'https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/';
 
-const event_schedule_status = (event) => {
+const event_schedule_status_key = (event) => {
   const rounds = Array.isArray(event?.rounds) ? event.rounds : [];
   let numNonQualificationRounds = 0;
 
@@ -52,15 +59,25 @@ const event_schedule_status = (event) => {
     numNonQualificationRounds += 1;
 
     if (round.schedule_status === 'provisional') {
-      return ROUND_SCHEDULE_STATUS.provisional;
+      return 'provisional';
     }
 
     if (round.schedule_status === 'estimated') {
-      return ROUND_SCHEDULE_STATUS.estimated;
+      return 'estimated';
     }
   }
 
-  return numNonQualificationRounds > 0 ? ROUND_SCHEDULE_STATUS.confirmed : ROUND_SCHEDULE_STATUS.provisional;
+  return numNonQualificationRounds > 0 ? 'confirmed' : 'provisional';
+};
+
+const event_schedule_status = (event) => {
+  const key = event_schedule_status_key(event);
+  return ROUND_SCHEDULE_STATUS[key] || ROUND_SCHEDULE_STATUS.provisional;
+};
+
+const event_schedule_status_tooltip = (event) => {
+  const key = event_schedule_status_key(event);
+  return ROUND_SCHEDULE_STATUS_TOOLTIPS[key] || ROUND_SCHEDULE_STATUS_TOOLTIPS.provisional;
 };
 
 const month_index_from_starts_at = (startsAt) => {
@@ -135,15 +152,14 @@ const beautify_disciplines = (disciplines) => {
   return `${copy.join(', ')} & ${last}`;
 };
 
-const round_is_non_speed_qualification = (round) => {
-  const disciplines = Array.isArray(round?.disciplines) ? round.disciplines : [];
+const streamable_round_count = (event) => {
+  const rounds = Array.isArray(event?.rounds) ? event.rounds : [];
 
-  return round?.kind === 'qualification' && !disciplines.includes('speed');
+  return rounds.filter((round) => round_will_be_streamed({
+    ...round,
+    league_name: event.league_name,
+  })).length;
 };
-
-const streamable_round_count = (event) => (
-  (Array.isArray(event?.rounds) ? event.rounds : []).filter((round) => !round_is_non_speed_qualification(round)).length
-);
 
 const parse_iso_date = (value) => {
   const parsed = new Date(value || '');
@@ -186,6 +202,32 @@ const format_round_time_build = (round) => {
   }
 
   return `⏰ ${ROUND_TIME_FORMATTER.format(date)}`;
+};
+
+const round_local_time_tooltip_build = (round) => {
+  const startsAt = String(round?.starts_at || '');
+  const match = /T(\d{2}):(\d{2})(?::(\d{2}))?(Z|[+-]\d{2}:\d{2})$/.exec(startsAt);
+
+  if (!match) {
+    return '';
+  }
+
+  const hour = match[1];
+  const minute = match[2];
+  const second = match[3] || '00';
+  const offset = match[4];
+  let utcOffset = '+0';
+
+  if (offset !== 'Z') {
+    const sign = offset.charAt(0);
+    const rawHours = offset.slice(1, 3);
+    const rawMinutes = offset.slice(4, 6);
+    const hourOffset = String(parseInt(rawHours, 10));
+
+    utcOffset = rawMinutes === '00' ? `${sign}${hourOffset}` : `${sign}${hourOffset}:${rawMinutes}`;
+  }
+
+  return `Local Time: ${hour}:${minute}:${second} (UTC ${utcOffset})`;
 };
 
 const event_is_upcoming_build = (round) => {
@@ -278,6 +320,9 @@ const league_name_without_ifsc = (value) => String(value || '')
   const streamCount = streamable_round_count(event);
   const streamLabel = streamCount === 1 ? 'Stream' : 'Streams';
   const posterUrl = poster_url_for_event(event);
+  const infosheetUrl = typeof event.infosheet_url === 'string' ? event.infosheet_url.trim() : '';
+  const eventScheduleStatus = event_schedule_status(event);
+  const eventScheduleStatusTooltip = event_schedule_status_tooltip(event);
   const eventLeagueName = event.league_name;
   const prettyLeagueName = league_name_without_ifsc(event.league_name);
   const roundsPanelClassName = shouldExpandAllRounds ? 'event-rounds-panel' : 'collapse event-rounds-panel';
@@ -315,12 +360,12 @@ const league_name_without_ifsc = (value) => String(value || '')
                 aria-controls={panelId}
               >
                 <span class="event-name-title">{event.name}</span>
-                {eventLeagueName ? <small class="event-league-name">{eventLeagueName}</small> : null}
+                <small class="event-league-name">{prettyLeagueName}</small>
               </button>
             ) : (
               <span class="event-name" id={toggleId}>
                 <span class="event-name-title">{event.name}</span>
-                {eventLeagueName ? <small class="event-league-name">{eventLeagueName}</small> : null}
+                <small class="event-league-name">{prettyLeagueName}</small>
               </span>
             )}
           </h5>
@@ -330,7 +375,7 @@ const league_name_without_ifsc = (value) => String(value || '')
             <li class="event-country">{`📍 ${event.location} (${event.country})`}</li>
             <li class="event-disciplines">{`🧗 ${beautify_disciplines(event.disciplines)}`}</li>
             <li class="event-status">{`💻 ${streamCount} Live ${streamLabel}`}</li>
-            <li class="event-schedule-status">{event_schedule_status(event)}</li>
+            <li class="event-schedule-status event-schedule-status-tooltip" title={eventScheduleStatusTooltip}>{eventScheduleStatus}</li>
             <li class:list={['event-start-list', { 'event-start-list-has-avatars': hasPhotos }]}>
               {startList.length === 0 ? (
                 '📋 Start List: Pending'
@@ -413,6 +458,18 @@ const league_name_without_ifsc = (value) => String(value || '')
             >🍿 Watch</button>
           ) : null}
           <a class="ifsc-action-button ifsc-action-button-primary" data-action="event-page" href={event.event_url} role="button" target="_blank" rel="noopener">Event Page <img src="img/external-link.svg" width="12" height="12" alt="External link" /></a>
+          {infosheetUrl ? (
+            <a
+              class="ifsc-action-button ifsc-action-button-primary"
+              data-action="event-infosheet"
+              href={infosheetUrl}
+              role="button"
+              target="_blank"
+              rel="noopener"
+              aria-label="Event infosheet PDF"
+              title="Event infosheet PDF"
+            ><img src="img/pdf-icon.svg" width="18" height="18" alt="PDF" /></a>
+          ) : null}
         </div>
 
         <div id={panelId} class={roundsPanelClassName} aria-labelledby={toggleId} data-bs-parent={!shouldExpandAllRounds ? '#accordion' : undefined}>
@@ -424,6 +481,7 @@ const league_name_without_ifsc = (value) => String(value || '')
               const hasStreamUrl = Boolean(streamUrl);
               const isUpcoming = event_is_upcoming_build(round);
               const startsInText = event_schedule_status(round);
+              const roundLocalTimeTooltip = round_local_time_tooltip_build(round);
               const showReminder = isUpcoming;
               const videoId = video_id_from_stream(round);
 
@@ -451,7 +509,7 @@ const league_name_without_ifsc = (value) => String(value || '')
                     <div class="round-copy">
                       <h6 class="round-name">{round.name}</h6>
                       <h6 class="round-date">{format_round_date_build(round)}</h6>
-                      <h6 class="round-time">{format_round_time_build(round)}</h6>
+                      <h6 class="round-time" title={roundLocalTimeTooltip || undefined}>{format_round_time_build(round)}</h6>
                       <p class="round-starts-in">{startsInText}</p>
                     </div>
 

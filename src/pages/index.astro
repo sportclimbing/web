@@ -4,8 +4,9 @@ import {
   getAllSeasons,
   getSeasonEventsPayload,
 } from '../lib/events-data';
+import { DEFAULT_SEASON } from '../lib/config';
 
-const season = '2026';
+const season = DEFAULT_SEASON;
 const seasons = getAllSeasons();
 const eventsPayload = getSeasonEventsPayload(season);
 const pageTitle = `World Climbing (IFSC) Calendar & Live Streams ${season} - Boulder, Lead, & Speed Climbing Schedule`;

@@ -54,10 +54,14 @@ function pretty_finished_ago(event) {
     return `Streamed ${dayjs(event.starts_at).fromNow()}`;
 }
 
-function round_is_non_speed_qualification(round) {
-    const disciplines = Array.isArray(round.disciplines) ? round.disciplines : [];
+export function round_will_be_streamed(round) {
+    if (round && round.league_name === 'IFSC Paraclimbing') {
+        return true;
+    }
 
-    return round.kind === 'qualification' && !disciplines.includes('speed');
+    const disciplines = Array.isArray(round && round.disciplines) ? round.disciplines : [];
+
+    return (round && round.kind !== 'qualification') || disciplines.includes('speed');
 }
 
 let mobileHeroTitleFitFrame = null;

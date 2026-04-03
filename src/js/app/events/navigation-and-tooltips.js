@@ -1,3 +1,5 @@
+const STATIC_TOOLTIP_SELECTOR = '.calendar-sync-tooltip, .footer-action-tooltip, .event-schedule-status-tooltip';
+
 const get_bootstrap_tooltip = (element) => {
     if (!element || !window.bootstrap || !window.bootstrap.Tooltip) {
         return null;
@@ -28,7 +30,7 @@ const setup_tooltips = () => {
             reminderButton.blur();
         }
 
-        const tooltipTrigger = target.closest('.calendar-sync-tooltip, .footer-action-tooltip');
+        const tooltipTrigger = target.closest(STATIC_TOOLTIP_SELECTOR);
 
         if (!tooltipTrigger) {
             return;
@@ -54,7 +56,7 @@ const setup_tooltips = () => {
         template: TOOLTIP_TEMPLATE,
     };
 
-    document.querySelectorAll('.calendar-sync-tooltip, .footer-action-tooltip').forEach((element) => {
+    document.querySelectorAll(STATIC_TOOLTIP_SELECTOR).forEach((element) => {
         setup_tooltip_instance(element, tooltipOptions);
     });
 };

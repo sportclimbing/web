@@ -7,6 +7,7 @@ import HeaderTitle from './HeaderTitle.astro';
 import Modals from './Modals.astro';
 import SeasonNavbar from './SeasonNavbar.astro';
 import SubheaderButtons from './SubheaderButtons.astro';
+import { DEFAULT_SEASON } from '../lib/config';
 
 const {
   season,
@@ -21,7 +22,7 @@ const normalizedSeason = String(season);
 const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
 const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
 const normalizedEventId = String(event.id)
-const seasonHomePath = normalizedSeason === '2026' ? '/' : `/season/${normalizedSeason}`;
+const seasonHomePath = normalizedSeason === DEFAULT_SEASON ? '/' : `/season/${normalizedSeason}`;
 const seasonPagePath = `/season/${normalizedSeason}`;
 ---
 <!doctype html>

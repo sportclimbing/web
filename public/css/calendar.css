@@ -1220,6 +1220,8 @@ li.ifsc-event:last-child { border-bottom: none; }
 .event-name-title {
     display: block;
     max-width: 100%;
+    margin: 3px 0;
+    text-transform: none;
     font-size: inherit;
     font-weight: inherit;
     line-height: inherit;
@@ -1259,7 +1261,8 @@ body[data-page-type='season'] .event-name {
 }
 
 body[data-page-type='season'] .event-name-title {
-    font-size: 1.08em;
+    font-size: 24px;
+    letter-spacing: -0.01em;
 }
 
 body[data-page-type='event'] .event-name-title {
@@ -1331,6 +1334,11 @@ body[data-page-type='season'] a.event-name:focus-visible {
     white-space: normal;
     overflow: visible;
     text-overflow: clip;
+}
+
+.event-schedule-status:hover,
+.event-schedule-status:focus-visible {
+    cursor: help;
 }
 
 .event-start-list-avatars {
@@ -1414,13 +1422,27 @@ body[data-page-type='season'] a.event-name:focus-visible {
 }
 
 [data-action='event-page'] {
-    gap: 6px;
-    width: 138px;
+    width: 125px;
     min-height: 40px;
     margin-bottom: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+[data-action='event-infosheet'] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0 !important;
+    gap: 0;
+}
+
+[data-action='event-infosheet'] img {
+    display: block;
 }
 
 :is([data-action='event-watch-toggle'], [data-action='round-stream']) {
@@ -1857,6 +1879,7 @@ main[role="main"] {
 .next-event h1 {
     font-size: 18px;
     font-weight: bold;
+    letter-spacing: -0.01em;
     margin: 0 auto 6px 20px;
 }
 

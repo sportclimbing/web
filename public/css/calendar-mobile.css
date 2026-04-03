@@ -262,7 +262,7 @@ main[role="main"] {
 
 .event-buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr auto;
     gap: 8px;
     margin: 14px 0 2px;
     padding: 0;

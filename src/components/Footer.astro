@@ -1,4 +1,6 @@
 ---
+import { DEFAULT_SEASON } from '../lib/config';
+
 const { seasons = [], selectedSeason = '', buildVersion = 'astro' } = Astro.props;
 
 const normalizedSelectedSeason = String(selectedSeason || '');
@@ -6,7 +8,7 @@ const sortedSeasons = [...(Array.isArray(seasons) ? seasons : [])]
   .map((season) => String(season))
   .sort((a, b) => Number(a) - Number(b));
 const currentYear = String(new Date().getFullYear());
-const season_href = (season) => (season === '2026' ? '/' : `/season/${encodeURIComponent(season)}`);
+const season_href = (season) => (season === DEFAULT_SEASON ? '/' : `/season/${season}`);
 ---
 <footer>
   <div class="footer-content">
@@ -48,7 +50,7 @@ const season_href = (season) => (season === '2026' ? '/' : `/season/${encodeURIC
           <tr>
             <th scope="row">build</th>
             <td class="footer-meta-sep">:</td>
-            <td><span class="footer-meta-value footer-build-value">{String(buildVersion)}</span></td>
+            <td><span class="footer-meta-value footer-build-value">{buildVersion}</span></td>
           </tr>
         </tbody>
       </table>

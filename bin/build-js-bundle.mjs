@@ -15,6 +15,7 @@ const SOURCE_FILES = [
 ];
 const SHARED_SOURCE_FILES = new Set([
   'src/lib/shared/media.js',
+  'src/js/app/helpers/core.js',
 ]);
 const OUTPUT_FILE = 'public/js/app.js';
 const SHOULD_MINIFY = process.argv.includes('--minify');

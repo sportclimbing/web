@@ -351,10 +351,45 @@ function set_round_date(element, round) {
 
 function set_round_time(element, round) {
     element.innerText = '⏰ ' + dayjs(round.starts_at).format('hh:mm A');
+
+    const localTimeTooltip = round_local_time_tooltip(round);
+
+    if (localTimeTooltip) {
+        element.setAttribute('title', localTimeTooltip);
+        return;
+    }
+
+    element.removeAttribute('title');
 }
 
 function set_round_name(element, round) {
     element.innerText = round.name;
+}
+
+function round_local_time_tooltip(round) {
+    const startsAt = String(round && round.starts_at ? round.starts_at : '');
+    const match = /T(\d{2}):(\d{2})(?::(\d{2}))?(Z|[+-]\d{2}:\d{2})$/.exec(startsAt);
+
+    if (!match) {
+        return '';
+    }
+
+    const hour = match[1];
+    const minute = match[2];
+    const second = match[3] || '00';
+    const offset = match[4];
+    let utcOffset = '+0';
+
+    if (offset !== 'Z') {
+        const sign = offset.charAt(0);
+        const rawHours = offset.slice(1, 3);
+        const rawMinutes = offset.slice(4, 6);
+        const hourOffset = String(parseInt(rawHours, 10));
+
+        utcOffset = rawMinutes === '00' ? `${sign}${hourOffset}` : `${sign}${hourOffset}:${rawMinutes}`;
+    }
+
+    return `Local Time: ${hour}:${minute}:${second} (UTC ${utcOffset})`;
 }
 
 function set_favicon(liveEvent) {

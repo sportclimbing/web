@@ -115,12 +115,17 @@ const next_event_round_from_element = (roundElement) => {
     const roundName = roundElement.dataset.roundName
         || (roundNameElement && roundNameElement.textContent ? roundNameElement.textContent.trim() : '');
     const roundKey = roundElement.dataset.roundKey || '';
+    const eventCard = roundElement.closest('.ifsc-league-card[data-event-id]');
+    const roundLeagueName = eventCard && eventCard.dataset
+        ? (eventCard.dataset.eventLeagueName || '')
+        : '';
     const streamUrl = streamTrigger.hasAttribute('data-round-stream-url')
         ? (streamTrigger.dataset.roundStreamUrl || '')
         : '';
 
     return {
         name: roundName,
+        league_name: roundLeagueName,
         kind: roundElement.dataset.roundKind || '',
         disciplines: parse_round_metadata_tokens(roundElement.dataset.roundDisciplines),
         categories: parse_round_metadata_tokens(roundElement.dataset.roundCategories),
@@ -215,7 +220,7 @@ const collect_visible_round_candidates_from_dom = () => {
 };
 
 const ranked_visible_round_candidates = () => collect_visible_round_candidates_from_dom()
-    .filter(({ round }) => !round_is_non_speed_qualification(round))
+    .filter(({ round }) => round_will_be_streamed(round))
     .sort((a, b) => a.round.startsAtTimestamp - b.round.startsAtTimestamp || a.domIndex - b.domIndex);
 
 const compute_dom_season_timeline = () => {
@@ -338,7 +343,7 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
             && seasonTimeline.nextRoundKey === roundKey;
 
         if (startsIn) {
-            if (round_is_non_speed_qualification(round)) {
+            if (!round_will_be_streamed(round)) {
                 startsIn.innerText = '🟡 Qualification will not be streamed';
             } else if (isNextRound) {
                 startsIn.innerText = `🟢 Next Event (starts ${pretty_starts_in(round)})`;
