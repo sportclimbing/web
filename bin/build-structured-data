@@ -51,14 +51,12 @@ function schema_event_location(array $event): array
     return $location;
 }
 
-function schema_event_fallback_url(array $event, string $siteUrl, string $season): string
+function schema_event_fallback_url(string $siteUrl, string $season): string
 {
-    $eventId = (string) ($event['id'] ?? '');
-
-    return "{$siteUrl}/#/season/{$season}/event/{$eventId}";
+    return "{$siteUrl}/season/{$season}";
 }
 
-function schema_round_url(array $event, array $round, string $siteUrl, string $season): string
+function schema_round_url(array $round, string $siteUrl, string $season): string
 {
     $streamUrl = is_string($round['stream_url'] ?? null) ? trim($round['stream_url']) : '';
 
@@ -66,7 +64,7 @@ function schema_round_url(array $event, array $round, string $siteUrl, string $s
         return $streamUrl;
     }
 
-    return schema_event_fallback_url($event, $siteUrl, $season);
+    return schema_event_fallback_url($siteUrl, $season);
 }
 
 function schema_round_name(array $event, array $round): string
@@ -93,10 +91,77 @@ function schema_round_description(array $event, array $round): string
     $location = implode(', ', array_filter([$locationName, $country]));
 
     if ($location !== '') {
-        return "{$name} in {$location}. Live stream links and schedule on ifsc.stream.";
+        return "{$name} in {$location}. Live stream links and schedule";
     }
 
-    return "{$name}. Live stream links and schedule on ifsc.stream.";
+    return "{$name}. Live stream links and schedule";
+}
+
+function schema_event_name(array $event): string
+{
+    $eventName = is_string($event['name'] ?? null) ? trim($event['name']) : '';
+
+    return $eventName !== '' ? $eventName : 'IFSC Event';
+}
+
+function schema_event_description(array $event): string
+{
+    $eventName = schema_event_name($event);
+    $locationName = is_string($event['location'] ?? null) ? trim($event['location']) : '';
+    $country = is_string($event['country'] ?? null) ? trim($event['country']) : '';
+    $location = implode(', ', array_filter([$locationName, $country]));
+
+    if ($location !== '') {
+        return "{$eventName} in {$location}. Live stream links and schedule";
+    }
+
+    return "{$eventName}. Live stream links and schedule";
+}
+
+function schema_slugify(string $value): string
+{
+    $value = trim($value);
+
+    if ($value === '') {
+        return '';
+    }
+
+    $value = function_exists('mb_strtolower') ? mb_strtolower($value, 'UTF-8') : strtolower($value);
+    $slug = preg_replace('/[^a-z0-9]+/', '-', $value);
+
+    if (!is_string($slug)) {
+        return '';
+    }
+
+    return trim($slug, '-');
+}
+
+function schema_event_page_url(array $event, string $siteUrl, string $season): string
+{
+    $eventId = is_scalar($event['id'] ?? null) ? trim((string) $event['id']) : '';
+
+    if ($eventId === '') {
+        return schema_event_fallback_url($siteUrl, $season);
+    }
+
+    $slugSource = is_string($event['slug'] ?? null) && trim($event['slug']) !== ''
+        ? trim($event['slug'])
+        : schema_event_name($event);
+    $slug = schema_slugify($slugSource);
+    $eventIdSuffix = "-{$eventId}";
+
+    if ($slug !== '' && str_ends_with($slug, $eventIdSuffix)) {
+        $slug = (string) substr($slug, 0, -strlen($eventIdSuffix));
+    }
+
+    if ($slug === '') {
+        $slug = 'event';
+    }
+
+    $seasonSegment = rawurlencode($season);
+    $slugIdSegment = rawurlencode("{$slug}-{$eventId}");
+
+    return "{$siteUrl}/season/{$seasonSegment}/event/{$slugIdSegment}";
 }
 
 function schema_performer_name(array $performer): string
@@ -128,10 +193,18 @@ function schema_event_athletes(array $event): array
             continue;
         }
 
-        $athletes[] = [
+        $athlete = [
             '@type' => 'Person',
             'name' => $name,
         ];
+
+        $photoUrl = is_string($startListAthlete['photo_url'] ?? null) ? trim($startListAthlete['photo_url']) : '';
+
+        if ($photoUrl !== '') {
+            $athlete['image'] = $photoUrl;
+        }
+
+        $athletes[] = $athlete;
 
         if (count($athletes) >= 5) {
             break;
@@ -239,6 +312,54 @@ function schema_keywords(array $event, array $round): string
     return implode(', ', $keywords);
 }
 
+function schema_event_keywords(array $event): string
+{
+    $keywords = [schema_normalize_keyword('climbing')];
+
+    foreach ([$event['disciplines'] ?? []] as $values) {
+        foreach (is_array($values) ? $values : [] as $value) {
+            if (is_string($value) && trim($value) !== '') {
+                $keywords[] = schema_normalize_keyword($value);
+            }
+        }
+    }
+
+    if (is_string($event['league_name'] ?? null) && trim($event['league_name']) !== '') {
+        $keywords[] = schema_normalize_keyword($event['league_name']);
+    }
+
+    if (is_string($event['location'] ?? null) && trim($event['location']) !== '') {
+        $keywords[] = schema_normalize_keyword($event['location']);
+    }
+
+    if (is_string($event['country'] ?? null) && trim($event['country']) !== '') {
+        $keywords[] = schema_normalize_keyword($event['country']);
+    }
+
+    $keywords = array_values(array_unique($keywords));
+
+    return implode(', ', $keywords);
+}
+
+function schema_file_name_token(string $value, string $fallback = 'event'): string
+{
+    $value = trim($value);
+
+    if ($value === '') {
+        return $fallback;
+    }
+
+    $token = preg_replace('/[^A-Za-z0-9_-]+/', '-', $value);
+
+    if (!is_string($token)) {
+        return $fallback;
+    }
+
+    $token = trim($token, '-');
+
+    return $token !== '' ? $token : $fallback;
+}
+
 function schema_same_as_urls(array $event, string $schemaEventUrl): array
 {
     $sameAs = [];
@@ -259,9 +380,231 @@ function schema_same_as_urls(array $event, string $schemaEventUrl): array
     return array_values(array_unique($sameAs));
 }
 
-$eventsDirectory = rtrim($argv[1] ?? 'public/events', '/');
-$outputDirectory = rtrim($argv[2] ?? 'public/structured-data', '/');
-$siteUrl = rtrim($argv[3] ?? 'https://ifsc.stream', '/');
+function cli_usage_text(string $scriptName): string
+{
+    return implode(PHP_EOL, [
+        'Usage:',
+        "  php {$scriptName} [--events-dir <dir>] [--output-dir <dir>] [--site-url <url>] [--minify|--pretty|--no-minify]",
+        "  php {$scriptName} [events-dir] [output-dir] [site-url] [minify]",
+        '',
+        'Minify values:',
+        '  1,true,yes,on,minify,minified,compact',
+        '  0,false,no,off,pretty,pretty-print,prettyprint',
+    ]) . PHP_EOL;
+}
+
+function print_usage_and_exit(string $scriptName, int $exitCode = 0): void
+{
+    $usageText = cli_usage_text($scriptName);
+
+    if ($exitCode === 0) {
+        fwrite(STDOUT, $usageText);
+    } else {
+        fwrite(STDERR, $usageText);
+    }
+
+    exit($exitCode);
+}
+
+function fail_with_usage(array $argv, string $message): void
+{
+    $scriptName = basename((string) ($argv[0] ?? 'build-structured-data'));
+    fwrite(STDERR, $message . PHP_EOL);
+    print_usage_and_exit($scriptName, 1);
+}
+
+function parse_boolean_flag_value(string $argument, string $optionName): bool
+{
+    $value = strtolower(trim($argument));
+    $truthyValues = ['1', 'true', 'yes', 'on'];
+    $falsyValues = ['0', 'false', 'no', 'off'];
+
+    if (in_array($value, $truthyValues, true)) {
+        return true;
+    }
+
+    if (in_array($value, $falsyValues, true)) {
+        return false;
+    }
+
+    fwrite(
+        STDERR,
+        "Invalid value for --{$optionName}: {$argument}" . PHP_EOL
+        . 'Use one of: 1,true,yes,on,0,false,no,off' . PHP_EOL
+    );
+    exit(1);
+}
+
+function parse_minify_argument(?string $argument): bool
+{
+    if ($argument === null) {
+        return true;
+    }
+
+    $value = strtolower(trim($argument));
+    $truthyValues = ['1', 'true', 'yes', 'on', 'minify', 'minified', 'compact'];
+    $falsyValues = ['0', 'false', 'no', 'off', 'pretty', 'pretty-print', 'prettyprint'];
+
+    if (in_array($value, $truthyValues, true)) {
+        return true;
+    }
+
+    if (in_array($value, $falsyValues, true)) {
+        return false;
+    }
+
+    fwrite(
+        STDERR,
+        "Invalid minify argument: {$argument}" . PHP_EOL
+        . "Use one of: 1,true,yes,on,minify,minified,compact,0,false,no,off,pretty,pretty-print,prettyprint" . PHP_EOL
+    );
+    exit(1);
+}
+
+function parse_cli_options(array $argv): array
+{
+    $options = [];
+    $positional = [];
+    $argumentCount = count($argv);
+
+    for ($index = 1; $index < $argumentCount; $index++) {
+        $argument = (string) $argv[$index];
+
+        if ($argument === '-h' || $argument === '--help') {
+            $scriptName = basename((string) ($argv[0] ?? 'build-structured-data'));
+            print_usage_and_exit($scriptName);
+        }
+
+        if ($argument === '--') {
+            for ($restIndex = $index + 1; $restIndex < $argumentCount; $restIndex++) {
+                $positional[] = (string) $argv[$restIndex];
+            }
+            break;
+        }
+
+        if (!str_starts_with($argument, '--')) {
+            $positional[] = $argument;
+            continue;
+        }
+
+        $optionBody = substr($argument, 2);
+
+        if ($optionBody === '') {
+            fail_with_usage($argv, 'Invalid option: --');
+        }
+
+        if (str_contains($optionBody, '=')) {
+            [$optionName, $optionValue] = explode('=', $optionBody, 2);
+        } else {
+            $optionName = $optionBody;
+            $optionValue = null;
+        }
+
+        if (!is_string($optionName) || trim($optionName) === '') {
+            fail_with_usage($argv, "Invalid option format: {$argument}");
+        }
+
+        $optionName = trim($optionName);
+
+        if (in_array($optionName, ['events-dir', 'output-dir', 'site-url'], true)) {
+            if ($optionValue === null) {
+                $nextArgument = $argv[$index + 1] ?? null;
+
+                if (!is_string($nextArgument) || str_starts_with($nextArgument, '--')) {
+                    fail_with_usage($argv, "Missing value for --{$optionName}");
+                }
+
+                $optionValue = $nextArgument;
+                $index++;
+            }
+
+            $optionKey = str_replace('-', '_', $optionName);
+            $options[$optionKey] = $optionValue;
+            continue;
+        }
+
+        if ($optionName === 'minify') {
+            if ($optionValue === null) {
+                $nextArgument = $argv[$index + 1] ?? null;
+
+                if (is_string($nextArgument) && !str_starts_with($nextArgument, '--')) {
+                    $optionValue = $nextArgument;
+                    $index++;
+                } else {
+                    $optionValue = 'true';
+                }
+            }
+
+            $options['minify'] = $optionValue;
+            continue;
+        }
+
+        if ($optionName === 'pretty') {
+            if ($optionValue !== null) {
+                $enablePretty = parse_boolean_flag_value($optionValue, 'pretty');
+                $options['minify'] = $enablePretty ? 'false' : 'true';
+            } else {
+                $options['minify'] = 'false';
+            }
+            continue;
+        }
+
+        if ($optionName === 'no-minify') {
+            if ($optionValue !== null) {
+                $disableMinify = parse_boolean_flag_value($optionValue, 'no-minify');
+                $options['minify'] = $disableMinify ? 'false' : 'true';
+            } else {
+                $options['minify'] = 'false';
+            }
+            continue;
+        }
+
+        fail_with_usage($argv, "Unknown option: --{$optionName}");
+    }
+
+    return [
+        'options' => $options,
+        'positional' => $positional,
+    ];
+}
+
+$cliArguments = parse_cli_options($argv);
+$namedOptions = is_array($cliArguments['options'] ?? null) ? $cliArguments['options'] : [];
+$positionalArguments = is_array($cliArguments['positional'] ?? null) ? $cliArguments['positional'] : [];
+
+$eventsDirectory = rtrim(
+    isset($namedOptions['events_dir'])
+        ? (string) $namedOptions['events_dir']
+        : (count($positionalArguments) > 0 ? (string) array_shift($positionalArguments) : 'public/events'),
+    '/'
+);
+$outputDirectory = rtrim(
+    isset($namedOptions['output_dir'])
+        ? (string) $namedOptions['output_dir']
+        : (count($positionalArguments) > 0 ? (string) array_shift($positionalArguments) : 'public/structured-data'),
+    '/'
+);
+$siteUrl = rtrim(
+    isset($namedOptions['site_url'])
+        ? (string) $namedOptions['site_url']
+        : (count($positionalArguments) > 0 ? (string) array_shift($positionalArguments) : 'https://ifsc.stream'),
+    '/'
+);
+$minifyArgument = isset($namedOptions['minify'])
+    ? (string) $namedOptions['minify']
+    : (count($positionalArguments) > 0 ? (string) array_shift($positionalArguments) : null);
+
+if (count($positionalArguments) > 0) {
+    fail_with_usage($argv, 'Too many positional arguments provided.');
+}
+
+$minifyJson = parse_minify_argument($minifyArgument);
+$jsonEncodeFlags = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR;
+
+if (!$minifyJson) {
+    $jsonEncodeFlags |= JSON_PRETTY_PRINT;
+}
+
 $organizationId = "{$siteUrl}/#organization";
 $now = new DateTimeImmutable('now');
 
@@ -316,9 +659,15 @@ foreach ($eventFiles as $eventFile) {
     $subEvents = [];
 
     foreach ($events as $event) {
-        $eventId = (string) $event['id'];
+        $eventId = trim((string) $event['id']);
         $rounds = is_array($event['rounds'] ?? null) ? $event['rounds'] : [];
         $eventPerformerTeam = schema_event_performer_team($event);
+        $eventStartDate = null;
+        $eventEndDate = null;
+        $eventStart = null;
+        $eventEnd = null;
+        $eventSportsEvents = [];
+        $eventSubEvents = [];
 
         foreach ($rounds as $roundIndex => $round) {
             if (!is_array($round) || !isset($round['starts_at'], $round['ends_at'])) {
@@ -347,6 +696,16 @@ foreach ($eventFiles as $eventFile) {
                 $seriesEndDate = $endsAt;
             }
 
+            if ($eventStart === null || $roundStart < $eventStart) {
+                $eventStart = $roundStart;
+                $eventStartDate = $startsAt;
+            }
+
+            if ($eventEnd === null || $roundEnd > $eventEnd) {
+                $eventEnd = $roundEnd;
+                $eventEndDate = $endsAt;
+            }
+
             $schemaEvent = [
                 '@type' => 'SportsEvent',
                 '@id' => $schemaId,
@@ -362,7 +721,7 @@ foreach ($eventFiles as $eventFile) {
                 ],
                 'location' => schema_event_location($event),
                 'image' => schema_round_images($round),
-                'url' => schema_round_url($event, $round, $siteUrl, $season),
+                'url' => schema_round_url($round, $siteUrl, $season),
             ];
 
             if ($eventPerformerTeam !== null) {
@@ -391,7 +750,72 @@ foreach ($eventFiles as $eventFile) {
             $subEvents[] = [
                 '@id' => $schemaId,
             ];
+            $eventSportsEvents[] = $schemaEvent;
+            $eventSubEvents[] = [
+                '@id' => $schemaId,
+            ];
         }
+
+        if (count($eventSportsEvents) === 0 || $eventStartDate === null || $eventEndDate === null) {
+            continue;
+        }
+
+        $eventSchemaUrl = schema_event_page_url($event, $siteUrl, $season);
+        $eventSchemaId = "{$siteUrl}/#event-{$season}-{$eventId}";
+        $eventSchema = [
+            '@type' => 'SportsEvent',
+            '@id' => $eventSchemaId,
+            'name' => schema_event_name($event),
+            'description' => schema_event_description($event),
+            'sport' => 'Sport climbing',
+            'startDate' => $eventStartDate,
+            'endDate' => $eventEndDate,
+            'eventStatus' => schema_event_status($eventStartDate, $eventEndDate, $now),
+            'eventAttendanceMode' => 'https://schema.org/MixedEventAttendanceMode',
+            'organizer' => [
+                '@id' => $organizationId,
+            ],
+            'location' => schema_event_location($event),
+            'url' => $eventSchemaUrl,
+            'subEvent' => $eventSubEvents,
+        ];
+
+        if ($eventPerformerTeam !== null) {
+            $eventSchema['performer'] = $eventPerformerTeam;
+        }
+
+        if (is_string($event['league_name'] ?? null) && trim($event['league_name']) !== '') {
+            $eventSchema['eventType'] = trim($event['league_name']);
+        }
+
+        $eventKeywords = schema_event_keywords($event);
+
+        if ($eventKeywords !== '') {
+            $eventSchema['keywords'] = $eventKeywords;
+        }
+
+        $eventSameAs = schema_same_as_urls($event, $eventSchemaUrl);
+
+        if (count($eventSameAs) > 0) {
+            $eventSchema['sameAs'] = $eventSameAs;
+        }
+
+        $eventPrimaryImage = $eventSportsEvents[0]['image'] ?? null;
+
+        if (is_array($eventPrimaryImage) && count($eventPrimaryImage) > 0) {
+            $eventSchema['image'] = $eventPrimaryImage;
+        }
+
+        $eventGraph = [
+            '@context' => 'https://schema.org',
+            '@graph' => array_merge([$eventSchema], $eventSportsEvents),
+        ];
+        $eventIdToken = schema_file_name_token($eventId);
+        $eventOutputFile = "{$outputDirectory}/events_{$season}_{$eventIdToken}.json";
+        $eventOutputJson = json_encode($eventGraph, $jsonEncodeFlags);
+        file_put_contents($eventOutputFile, $eventOutputJson . PHP_EOL);
+
+        echo "[+] Built structured data for event {$eventId} ({$season}): {$eventOutputFile}" . PHP_EOL;
     }
 
     if (count($sportsEvents) === 0) {
@@ -408,7 +832,7 @@ foreach ($eventFiles as $eventFile) {
                     '@id' => $seasonSchemaId,
                     'name' => "World Climbing Season {$season}",
                     'description' => "Competition climbing season schedule and live stream links for {$season}.",
-                    'url' => "{$siteUrl}/#/season/{$season}",
+                    'url' => "{$siteUrl}/season/{$season}",
                     'organizer' => [
                         '@id' => $organizationId,
                     ],
@@ -422,7 +846,7 @@ foreach ($eventFiles as $eventFile) {
     ];
 
     $outputFile = "{$outputDirectory}/events_{$season}.json";
-    $outputJson = json_encode($graph, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+    $outputJson = json_encode($graph, $jsonEncodeFlags);
     file_put_contents($outputFile, $outputJson . PHP_EOL);
 
     echo "[+] Built structured data for season {$season}: {$outputFile}" . PHP_EOL;

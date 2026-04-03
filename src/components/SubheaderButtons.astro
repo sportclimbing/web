@@ -1,0 +1,95 @@
+---
+const {
+  seasons = [],
+  selectedSeason = '',
+  showSeasonSelector = false,
+  showFiltersButton = false,
+  showBackToSeasonButton = false,
+  backToSeasonHref = '',
+  backToSeasonLabel = '',
+  breadcrumbItems = [],
+} = Astro.props;
+
+const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
+const normalizedSelectedSeason = String(selectedSeason || '');
+const shouldShowSeasonSelector = Boolean(showSeasonSelector);
+const shouldShowFiltersButton = Boolean(showFiltersButton);
+const shouldShowBackToSeasonButton = Boolean(showBackToSeasonButton) && Boolean(backToSeasonHref);
+const normalizedBreadcrumbItems = Array.isArray(breadcrumbItems)
+  ? breadcrumbItems
+    .map((item) => {
+      if (!item || typeof item !== 'object') {
+        return null;
+      }
+
+      const label = String(item.label || '').trim();
+
+      if (!label) {
+        return null;
+      }
+
+      const href = String(item.href || '').trim();
+
+      return {
+        label,
+        href,
+        current: Boolean(item.current),
+      };
+    })
+    .filter(Boolean)
+  : [];
+const shouldShowBreadcrumbs = normalizedBreadcrumbItems.length > 0;
+const shouldShowControls = shouldShowSeasonSelector || shouldShowFiltersButton || shouldShowBackToSeasonButton;
+const shouldRenderControlsContainer = shouldShowControls || shouldShowBreadcrumbs;
+const shouldRenderSubheader = shouldRenderControlsContainer;
+const isBackOnlyLayout = shouldShowBackToSeasonButton && !shouldShowSeasonSelector && !shouldShowFiltersButton && !shouldShowBreadcrumbs;
+const isBreadcrumbsOnlyLayout = shouldShowBreadcrumbs && !shouldShowControls;
+const normalizedBackToSeasonLabel = String(backToSeasonLabel || '').trim();
+---
+{shouldRenderSubheader ? (
+  <section class:list={['subheader-buttons', { 'subheader-buttons-back-only': isBackOnlyLayout }]}>
+      {shouldRenderControlsContainer ? (
+        <div class:list={['subheader-controls', { 'subheader-controls-back-only': isBackOnlyLayout, 'subheader-controls-breadcrumbs-only': isBreadcrumbsOnlyLayout }]}>
+            {shouldShowSeasonSelector ? (
+              <div class="season-control">
+                  <label class="season-label" for="season-selector">Season</label>
+                  <select id="season-selector" name="season-selector" class="btn btn-primary season-selector">
+                    {normalizedSeasons.map((seasonOption) => (
+                      <option value={seasonOption} selected={seasonOption === normalizedSelectedSeason}>
+                        {seasonOption}
+                      </option>
+                    ))}
+                  </select>
+              </div>
+            ) : null}
+
+            {shouldShowFiltersButton ? (
+              <button class="btn btn-primary filters-button" data-bs-toggle="modal" data-bs-target="#filter-modal">🔍 Filters</button>
+            ) : null}
+
+            {shouldShowBackToSeasonButton ? (
+              <a class="ifsc-action-button ifsc-action-button-secondary subheader-back-to-season" href={backToSeasonHref}>
+                {normalizedBackToSeasonLabel}
+              </a>
+            ) : null}
+            {shouldShowBreadcrumbs ? (
+              <nav class="event-breadcrumbs" aria-label="Breadcrumb">
+                <ol class="event-breadcrumbs-list">
+                  {normalizedBreadcrumbItems.map((item) => (
+                    <li>
+                      {item.href && !item.current ? (
+                        <a href={item.href}>{item.label}</a>
+                      ) : (
+                        <span class="event-breadcrumbs-current" aria-current={item.current ? 'page' : undefined}>
+                          {item.label}
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            ) : null}
+        </div>
+      ) : null}
+  </section>
+) : null}

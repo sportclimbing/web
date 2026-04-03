@@ -13,7 +13,7 @@ module.exports = defineConfig({
     viewport: { width: 1280, height: 900 }
   },
   webServer: {
-    command: 'npx http-server public -a 127.0.0.1 -p 4173 -s',
+    command: 'npm run build && npx http-server dist -a 127.0.0.1 -p 4173 -s',
     port: 4173,
     reuseExistingServer: !process.env.CI,
     timeout: 120000

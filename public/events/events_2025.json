@@ -5,17 +5,17 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Keqiao",
+      "slug": "ifsc-world-cup-keqiao",
       "country": "CHN",
-      "location": "Keqiao",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1405",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-keqiao-2025",
+      "location": "Keqiao, China",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1405",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-keqiao-2025",
       "disciplines": [
         "boulder"
       ],
       "starts_at": "2025-04-17T09:00:00+08:00",
       "ends_at": "2025-04-20T19:00:00+08:00",
-      "timezone": "Asia\/Shanghai",
+      "timezone": "Asia/Shanghai",
       "rounds": [
         {
           "name": "Women's Boulder Qualification",
@@ -59,7 +59,7 @@
           "starts_at": "2025-04-19T12:00:00+08:00",
           "ends_at": "2025-04-19T14:15:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/-CSZqzed9PQ",
+          "stream_url": "https://youtu.be/-CSZqzed9PQ",
           "stream_blocked_regions": []
         },
         {
@@ -74,7 +74,7 @@
           "starts_at": "2025-04-19T19:00:00+08:00",
           "ends_at": "2025-04-19T21:30:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/tvubZ1KsX50",
+          "stream_url": "https://youtu.be/tvubZ1KsX50",
           "stream_blocked_regions": []
         },
         {
@@ -89,7 +89,7 @@
           "starts_at": "2025-04-20T12:00:00+08:00",
           "ends_at": "2025-04-20T13:30:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/kr-MYvpn7zM",
+          "stream_url": "https://youtu.be/kr-MYvpn7zM",
           "stream_blocked_regions": []
         },
         {
@@ -104,7 +104,7 @@
           "starts_at": "2025-04-20T19:00:00+08:00",
           "ends_at": "2025-04-20T20:30:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/eLdRhRqQ2D0",
+          "stream_url": "https://youtu.be/eLdRhRqQ2D0",
           "stream_blocked_regions": []
         }
       ],
@@ -113,61 +113,61 @@
           "first_name": "Hannes",
           "last_name": "VAN DUYSEN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/mvhuft2jajiljg4zq8mzdbk6nkmf"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mvhuft2jajiljg4zq8mzdbk6nkmf"
         },
         {
           "first_name": "Oceania",
           "last_name": "MACKENZIE",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/d16yi4b4jlioduddcz1sucjgvgym"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/d16yi4b4jlioduddcz1sucjgvgym"
         },
         {
           "first_name": "Jan-Luca",
           "last_name": "POSCH",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/b14pg76dmr366qalrw555ooh33jq"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/b14pg76dmr366qalrw555ooh33jq"
         },
         {
           "first_name": "Chloe",
           "last_name": "CAULIER",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/97ttlssev4ctdv7hy3pqd3queo36"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/97ttlssev4ctdv7hy3pqd3queo36"
         },
         {
           "first_name": "Nicolas",
           "last_name": "COLLIN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/0wvyijhj0gxaotfcosok2ca5sn7z"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/0wvyijhj0gxaotfcosok2ca5sn7z"
         },
         {
           "first_name": "Nikolay",
           "last_name": "RUSEV",
           "country": "BUL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/5f7i5y1xald4j9gbwlc5zf5drboe"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/5f7i5y1xald4j9gbwlc5zf5drboe"
         },
         {
           "first_name": "Madison",
           "last_name": "RICHARDSON",
           "country": "CAN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/owq0grzgqgtm2ihkyfaookgp3rjb"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/owq0grzgqgtm2ihkyfaookgp3rjb"
         },
         {
           "first_name": "Oscar",
           "last_name": "BAUDRAND",
           "country": "CAN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/12s2wlhwqtujjcdv67hvy2vgy9a9"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/12s2wlhwqtujjcdv67hvy2vgy9a9"
         },
         {
           "first_name": "Julian",
           "last_name": "WIMMER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/kgj4eyasf21pgpc9rvh7qn0b5eam"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/kgj4eyasf21pgpc9rvh7qn0b5eam"
         },
         {
           "first_name": "Joaquin",
           "last_name": "URRUTIA",
           "country": "CHI",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/lobod1833mmou7gwvmw0hlvronae"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/lobod1833mmou7gwvmw0hlvronae"
         },
         {
           "first_name": "Jinwei",
@@ -179,7 +179,7 @@
           "first_name": "Maya",
           "last_name": "STASIUK",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/a5erwyijplsywjkt6kisb6qe5j9i"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/a5erwyijplsywjkt6kisb6qe5j9i"
         },
         {
           "first_name": "Ziqi",
@@ -191,13 +191,13 @@
           "first_name": "Sandra",
           "last_name": "LETTNER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/1r5nuhkvfybv63zeika0fadsg9ph"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/1r5nuhkvfybv63zeika0fadsg9ph"
         },
         {
           "first_name": "Lea",
           "last_name": "KEMPF",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/vof7w629cqy1avygefkx6gh5gt7o"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/vof7w629cqy1avygefkx6gh5gt7o"
         },
         {
           "first_name": "Raffael",
@@ -209,7 +209,7 @@
           "first_name": "Timo",
           "last_name": "UZNIK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/xiw39ks8lh03upt3xh5b0yj3qa55"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/xiw39ks8lh03upt3xh5b0yj3qa55"
         },
         {
           "first_name": "Jacqueline",
@@ -236,18 +236,18 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Wujiang",
+      "slug": "ifsc-world-cup-wujiang",
       "country": "CHN",
-      "location": "Wujiang",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1406",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-wujiang-2025",
+      "location": "Wujiang, China",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1406",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-wujiang-2025",
       "disciplines": [
         "lead",
         "speed"
       ],
       "starts_at": "2025-04-25T09:00:00+08:00",
       "ends_at": "2025-04-27T19:00:00+08:00",
-      "timezone": "Asia\/Shanghai",
+      "timezone": "Asia/Shanghai",
       "rounds": [
         {
           "name": "Men's & Women's Lead Qualification",
@@ -278,7 +278,7 @@
           "starts_at": "2025-04-25T19:00:00+08:00",
           "ends_at": "2025-04-25T20:30:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/4r8ACfHiY2c",
+          "stream_url": "https://youtu.be/4r8ACfHiY2c",
           "stream_blocked_regions": []
         },
         {
@@ -294,7 +294,7 @@
           "starts_at": "2025-04-26T15:00:00+08:00",
           "ends_at": "2025-04-26T17:15:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/UvAg3PkAl9A",
+          "stream_url": "https://youtu.be/UvAg3PkAl9A",
           "stream_blocked_regions": []
         },
         {
@@ -310,7 +310,7 @@
           "starts_at": "2025-04-26T19:30:00+08:00",
           "ends_at": "2025-04-26T20:30:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/UFjA5sIiCTc",
+          "stream_url": "https://youtu.be/UFjA5sIiCTc",
           "stream_blocked_regions": []
         },
         {
@@ -326,7 +326,7 @@
           "starts_at": "2025-04-27T19:00:00+08:00",
           "ends_at": "2025-04-27T20:30:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/MWIG2oPt6xA",
+          "stream_url": "https://youtu.be/MWIG2oPt6xA",
           "stream_blocked_regions": []
         }
       ],
@@ -335,37 +335,37 @@
           "first_name": "Hannes",
           "last_name": "VAN DUYSEN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/mvhuft2jajiljg4zq8mzdbk6nkmf"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mvhuft2jajiljg4zq8mzdbk6nkmf"
         },
         {
           "first_name": "Oceania",
           "last_name": "MACKENZIE",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/d16yi4b4jlioduddcz1sucjgvgym"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/d16yi4b4jlioduddcz1sucjgvgym"
         },
         {
           "first_name": "Flora",
           "last_name": "OBLASSER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/s8stz2m09t5ctmrkhvhbc8ve8ypl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/s8stz2m09t5ctmrkhvhbc8ve8ypl"
         },
         {
-          "first_name": "Helo\u00efse",
+          "first_name": "Heloïse",
           "last_name": "DOUMONT",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/6thaipznf9ya2n9hpd3p96eskghq"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/6thaipznf9ya2n9hpd3p96eskghq"
         },
         {
           "first_name": "Mattea",
-          "last_name": "P\u00d6TZI",
+          "last_name": "PÖTZI",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/albo9nsdx1u516sc3g156vhsy5e0"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/albo9nsdx1u516sc3g156vhsy5e0"
         },
         {
           "first_name": "Nicolas",
           "last_name": "COLLIN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/0wvyijhj0gxaotfcosok2ca5sn7z"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/0wvyijhj0gxaotfcosok2ca5sn7z"
         },
         {
           "first_name": "Kevin",
@@ -377,31 +377,31 @@
           "first_name": "Ties",
           "last_name": "VANCRAEYNEST",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/ts4zvmibyb8b00kfkofp4r54pich"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/ts4zvmibyb8b00kfkofp4r54pich"
         },
         {
           "first_name": "Julia",
           "last_name": "FISER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/9kably42jzlrp1qtoysyl972ezxg"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/9kably42jzlrp1qtoysyl972ezxg"
         },
         {
           "first_name": "Jessica",
           "last_name": "PILZ",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/rriukz8n9potn1vhpih45qaus21q"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/rriukz8n9potn1vhpih45qaus21q"
         },
         {
           "first_name": "Anja",
-          "last_name": "K\u00d6HLER ",
+          "last_name": "KÖHLER ",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nh5oa50x4716j3pkpzis72qw0so4"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nh5oa50x4716j3pkpzis72qw0so4"
         },
         {
           "first_name": "Maya",
           "last_name": "STASIUK",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/a5erwyijplsywjkt6kisb6qe5j9i"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/a5erwyijplsywjkt6kisb6qe5j9i"
         },
         {
           "first_name": "Aleya",
@@ -411,33 +411,33 @@
         },
         {
           "first_name": "Eva Maria",
-          "last_name": "HAMMELM\u00dcLLER",
+          "last_name": "HAMMELMÜLLER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nvmrz8n6itc34hkucipupqdm1i1g"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nvmrz8n6itc34hkucipupqdm1i1g"
         },
         {
           "first_name": "Stefan",
           "last_name": "SCHERZ",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zgm88qnalnh2gmvvtztdzbtk4ma6"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zgm88qnalnh2gmvvtztdzbtk4ma6"
         },
         {
           "first_name": "Victor",
           "last_name": "BAUDRAND",
           "country": "CAN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/6qqz58v4zxmj7myrymqa1kc6ue5y"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/6qqz58v4zxmj7myrymqa1kc6ue5y"
         },
         {
           "first_name": "Lawrence",
           "last_name": "BOGESCHDORFER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/ja18bwtakultzuinyq47zx4oufkc"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/ja18bwtakultzuinyq47zx4oufkc"
         },
         {
           "first_name": "Emily",
           "last_name": "SCOTT",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zq5ckxx1if9gjww82qk6p5jxoe5j"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zq5ckxx1if9gjww82qk6p5jxoe5j"
         },
         {
           "first_name": "Ian",
@@ -458,18 +458,18 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Bali",
+      "slug": "ifsc-world-cup-bali",
       "country": "INA",
-      "location": "Bali",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1407",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-bali-2025",
+      "location": "Bali, Indonesia",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1407",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-bali-2025",
       "disciplines": [
         "lead",
         "speed"
       ],
       "starts_at": "2025-05-02T14:00:00+08:00",
       "ends_at": "2025-05-04T20:30:00+08:00",
-      "timezone": "Asia\/Singapore",
+      "timezone": "Asia/Singapore",
       "rounds": [
         {
           "name": "Men's & Women's Lead Qualification",
@@ -499,7 +499,7 @@
           "starts_at": "2025-05-03T11:00:00+08:00",
           "ends_at": "2025-05-03T13:10:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/QfznY1sn_ZM",
+          "stream_url": "https://youtu.be/QfznY1sn_ZM",
           "stream_blocked_regions": []
         },
         {
@@ -514,7 +514,7 @@
           "starts_at": "2025-05-03T11:00:00+08:00",
           "ends_at": "2025-05-03T13:10:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/QfznY1sn_ZM",
+          "stream_url": "https://youtu.be/QfznY1sn_ZM",
           "stream_blocked_regions": []
         },
         {
@@ -530,7 +530,7 @@
           "starts_at": "2025-05-03T15:00:00+08:00",
           "ends_at": "2025-05-03T16:54:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/Fa8Pe4fGMK8",
+          "stream_url": "https://youtu.be/Fa8Pe4fGMK8",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -605,7 +605,7 @@
           "starts_at": "2025-05-04T10:00:00+08:00",
           "ends_at": "2025-05-04T12:54:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/wBCUsmrq23s",
+          "stream_url": "https://youtu.be/wBCUsmrq23s",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -677,7 +677,7 @@
           "starts_at": "2025-05-04T20:30:00+08:00",
           "ends_at": "2025-05-04T23:12:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/zqu0zbEoriY",
+          "stream_url": "https://youtu.be/zqu0zbEoriY",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -751,7 +751,7 @@
           "starts_at": "2025-05-04T20:30:00+08:00",
           "ends_at": "2025-05-04T23:12:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/zqu0zbEoriY",
+          "stream_url": "https://youtu.be/zqu0zbEoriY",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -819,25 +819,25 @@
           "first_name": "Oceania",
           "last_name": "MACKENZIE",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/d16yi4b4jlioduddcz1sucjgvgym"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/d16yi4b4jlioduddcz1sucjgvgym"
         },
         {
           "first_name": "Flora",
           "last_name": "OBLASSER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/s8stz2m09t5ctmrkhvhbc8ve8ypl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/s8stz2m09t5ctmrkhvhbc8ve8ypl"
         },
         {
-          "first_name": "Helo\u00efse",
+          "first_name": "Heloïse",
           "last_name": "DOUMONT",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/6thaipznf9ya2n9hpd3p96eskghq"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/6thaipznf9ya2n9hpd3p96eskghq"
         },
         {
           "first_name": "Mattea",
-          "last_name": "P\u00d6TZI",
+          "last_name": "PÖTZI",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/albo9nsdx1u516sc3g156vhsy5e0"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/albo9nsdx1u516sc3g156vhsy5e0"
         },
         {
           "first_name": "Kevin",
@@ -849,37 +849,37 @@
           "first_name": "Ties",
           "last_name": "VANCRAEYNEST",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/ts4zvmibyb8b00kfkofp4r54pich"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/ts4zvmibyb8b00kfkofp4r54pich"
         },
         {
           "first_name": "Julia",
           "last_name": "FISER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/9kably42jzlrp1qtoysyl972ezxg"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/9kably42jzlrp1qtoysyl972ezxg"
         },
         {
           "first_name": "Jessica",
           "last_name": "PILZ",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/rriukz8n9potn1vhpih45qaus21q"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/rriukz8n9potn1vhpih45qaus21q"
         },
         {
           "first_name": "Anja",
-          "last_name": "K\u00d6HLER ",
+          "last_name": "KÖHLER ",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nh5oa50x4716j3pkpzis72qw0so4"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nh5oa50x4716j3pkpzis72qw0so4"
         },
         {
           "first_name": "Felipe",
           "last_name": "HO FOGANHOLO",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/l0a2nwgvsneghx6400zs06xmv6md"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/l0a2nwgvsneghx6400zs06xmv6md"
         },
         {
           "first_name": "Ethan",
           "last_name": "PITCHER",
           "country": "CAN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fk6i4su0jspsqd8889eh8v325mdo"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fk6i4su0jspsqd8889eh8v325mdo"
         },
         {
           "first_name": "Aleya",
@@ -889,21 +889,21 @@
         },
         {
           "first_name": "Eva Maria",
-          "last_name": "HAMMELM\u00dcLLER",
+          "last_name": "HAMMELMÜLLER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nvmrz8n6itc34hkucipupqdm1i1g"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nvmrz8n6itc34hkucipupqdm1i1g"
         },
         {
           "first_name": "Stefan",
           "last_name": "SCHERZ",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zgm88qnalnh2gmvvtztdzbtk4ma6"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zgm88qnalnh2gmvvtztdzbtk4ma6"
         },
         {
           "first_name": "Victor",
           "last_name": "BAUDRAND",
           "country": "CAN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/6qqz58v4zxmj7myrymqa1kc6ue5y"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/6qqz58v4zxmj7myrymqa1kc6ue5y"
         },
         {
           "first_name": "Cedar",
@@ -915,13 +915,13 @@
           "first_name": "Lawrence",
           "last_name": "BOGESCHDORFER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/ja18bwtakultzuinyq47zx4oufkc"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/ja18bwtakultzuinyq47zx4oufkc"
         },
         {
           "first_name": "Emily",
           "last_name": "SCOTT",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zq5ckxx1if9gjww82qk6p5jxoe5j"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zq5ckxx1if9gjww82qk6p5jxoe5j"
         },
         {
           "first_name": "Roxy",
@@ -942,17 +942,17 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Curitiba",
+      "slug": "ifsc-world-cup-curitiba",
       "country": "BRA",
-      "location": "Curitiba",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1408",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-curitiba-2025",
+      "location": "Curitiba, Brazil",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1408",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-curitiba-2025",
       "disciplines": [
         "boulder"
       ],
       "starts_at": "2025-05-16T10:00:00-03:00",
       "ends_at": "2025-05-18T17:30:00-03:00",
-      "timezone": "America\/Sao_Paulo",
+      "timezone": "America/Sao_Paulo",
       "rounds": [
         {
           "name": "Men's & Women's Boulder Qualification",
@@ -982,7 +982,7 @@
           "starts_at": "2025-05-17T10:00:00-03:00",
           "ends_at": "2025-05-17T12:56:00-03:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/6Qqkuh-fmqg",
+          "stream_url": "https://youtu.be/6Qqkuh-fmqg",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -1053,7 +1053,7 @@
           "starts_at": "2025-05-17T17:30:00-03:00",
           "ends_at": "2025-05-17T19:35:00-03:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/DqX9-2k38hA",
+          "stream_url": "https://youtu.be/DqX9-2k38hA",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -1126,7 +1126,7 @@
           "starts_at": "2025-05-18T10:00:00-03:00",
           "ends_at": "2025-05-18T12:47:00-03:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/kpV1pP8yifI",
+          "stream_url": "https://youtu.be/kpV1pP8yifI",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -1197,7 +1197,7 @@
           "starts_at": "2025-05-18T17:30:00-03:00",
           "ends_at": "2025-05-18T19:25:00-03:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/ebfCv_WvuGA",
+          "stream_url": "https://youtu.be/ebfCv_WvuGA",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -1264,61 +1264,61 @@
           "first_name": "Hannes",
           "last_name": "VAN DUYSEN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/mvhuft2jajiljg4zq8mzdbk6nkmf"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mvhuft2jajiljg4zq8mzdbk6nkmf"
         },
         {
           "first_name": "Jan-Luca",
           "last_name": "POSCH",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/b14pg76dmr366qalrw555ooh33jq"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/b14pg76dmr366qalrw555ooh33jq"
         },
         {
           "first_name": "Chloe",
           "last_name": "CAULIER",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/97ttlssev4ctdv7hy3pqd3queo36"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/97ttlssev4ctdv7hy3pqd3queo36"
         },
         {
           "first_name": "Nicolas",
           "last_name": "COLLIN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/0wvyijhj0gxaotfcosok2ca5sn7z"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/0wvyijhj0gxaotfcosok2ca5sn7z"
         },
         {
           "first_name": "Valentina",
           "last_name": "AGUADO",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
         },
         {
           "first_name": "Julian",
           "last_name": "WIMMER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/kgj4eyasf21pgpc9rvh7qn0b5eam"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/kgj4eyasf21pgpc9rvh7qn0b5eam"
         },
         {
           "first_name": "Anja",
-          "last_name": "K\u00d6HLER ",
+          "last_name": "KÖHLER ",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nh5oa50x4716j3pkpzis72qw0so4"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nh5oa50x4716j3pkpzis72qw0so4"
         },
         {
           "first_name": "Sandra",
           "last_name": "LETTNER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/1r5nuhkvfybv63zeika0fadsg9ph"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/1r5nuhkvfybv63zeika0fadsg9ph"
         },
         {
           "first_name": "Dylan",
           "last_name": "PARKS",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fnteok9j2w5svzwmz6jis0hro7bx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fnteok9j2w5svzwmz6jis0hro7bx"
         },
         {
           "first_name": "Lea",
           "last_name": "KEMPF",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/vof7w629cqy1avygefkx6gh5gt7o"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/vof7w629cqy1avygefkx6gh5gt7o"
         },
         {
           "first_name": "Raffael",
@@ -1330,37 +1330,37 @@
           "first_name": "Felipe",
           "last_name": "HO FOGANHOLO",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/l0a2nwgvsneghx6400zs06xmv6md"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/l0a2nwgvsneghx6400zs06xmv6md"
         },
         {
           "first_name": "Rodrigo",
           "last_name": "IASI HANADA",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/7ysdii2cngczcjucesfp2bszbkbk"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/7ysdii2cngczcjucesfp2bszbkbk"
         },
         {
           "first_name": "Marian Kiara Luna",
           "last_name": "MICHERI",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/5tvo3ixcm48vx9fdoyikxoa3knrl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/5tvo3ixcm48vx9fdoyikxoa3knrl"
         },
         {
           "first_name": "Laura",
           "last_name": "FARHAT DE ARAUJO FRAGA TIMO",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/43qxv2h0hkmam4yuiwqy4696n2tt"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/43qxv2h0hkmam4yuiwqy4696n2tt"
         },
         {
           "first_name": "Samuel Carlos",
           "last_name": "DA SILVA",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nvebwnog0ykkpq84yncewj4hjt7u"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nvebwnog0ykkpq84yncewj4hjt7u"
         },
         {
           "first_name": "Alejo",
           "last_name": "SUTER",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/y76m1169ibiuxu2p7tw2qx1uoldl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/y76m1169ibiuxu2p7tw2qx1uoldl"
         },
         {
           "first_name": "Antonieta Esmeralda",
@@ -1372,13 +1372,13 @@
           "first_name": "Ariel",
           "last_name": "FLORES CHEUN",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/u728tyv1cvve5smtkkj8honx2iw4"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/u728tyv1cvve5smtkkj8honx2iw4"
         },
         {
           "first_name": "Javier Leonardo",
           "last_name": "ALIAGA NINA",
           "country": "BOL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/usj747vvhsia9y4zwjve2fzo7x96"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/usj747vvhsia9y4zwjve2fzo7x96"
         }
       ]
     },
@@ -1387,17 +1387,17 @@
       "league_name": "IFSC Paraclimbing",
       "season": 2025,
       "name": "IFSC: World Cup - Salt Lake City",
+      "slug": "ifsc-world-cup-salt-lake-city-1461",
       "country": "USA",
-      "location": "Salt Lake City",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1461",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-para-climbing-world-cup-salt-lake-city-2025",
+      "location": "Salt Lake City, United States",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1461",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-para-climbing-world-cup-salt-lake-city-2025",
       "disciplines": [
         "lead"
       ],
       "starts_at": "2025-05-20T02:00:00-06:00",
       "ends_at": "2025-05-21T10:00:00-06:00",
-      "timezone": "America\/Denver",
+      "timezone": "America/Denver",
       "rounds": [
         {
           "name": "Men B1's Lead Qualification",
@@ -1990,31 +1990,31 @@
           "first_name": "Jasmin",
           "last_name": "PLANK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/r1901j4rttf9t61i7e18m750y5d2"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/r1901j4rttf9t61i7e18m750y5d2"
         },
         {
           "first_name": "Markus",
-          "last_name": "P\u00d6SENDORFER",
+          "last_name": "PÖSENDORFER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/orl3fqmya9x5qymn1dl4a07vdbcn"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/orl3fqmya9x5qymn1dl4a07vdbcn"
         },
         {
           "first_name": "Angelino",
           "last_name": "ZELLER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/bc1behouxump42vbfx0bu863dych"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/bc1behouxump42vbfx0bu863dych"
         },
         {
           "first_name": "Linda",
           "last_name": "LE BON",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/j3azv68pz7yy4ykhq4y5ugddlbjm"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/j3azv68pz7yy4ykhq4y5ugddlbjm"
         },
         {
           "first_name": "Frederik",
           "last_name": "LEYS",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/xcj3ojpgpvwcmu265qna0f6dly8q"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/xcj3ojpgpvwcmu265qna0f6dly8q"
         },
         {
           "first_name": "Marina",
@@ -2026,7 +2026,7 @@
           "first_name": "Glen",
           "last_name": "TODD",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/spideeznd2drqf10vqsr4suhe6ca"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/spideeznd2drqf10vqsr4suhe6ca"
         },
         {
           "first_name": "Eduardo",
@@ -2038,7 +2038,7 @@
           "first_name": "Edith",
           "last_name": "SCHEINECKER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/p8c0g8bbpzj2in1x8ta7eai949c0"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/p8c0g8bbpzj2in1x8ta7eai949c0"
         },
         {
           "first_name": "Igor Jean",
@@ -2113,17 +2113,17 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Salt Lake City",
+      "slug": "ifsc-world-cup-salt-lake-city-1409",
       "country": "USA",
-      "location": "Salt Lake City",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1409",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-salt-lake-city-2025",
+      "location": "Salt Lake City, United States",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1409",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-salt-lake-city-2025",
       "disciplines": [
         "boulder"
       ],
       "starts_at": "2025-05-23T09:00:00-06:00",
       "ends_at": "2025-05-25T17:00:00-06:00",
-      "timezone": "America\/Denver",
+      "timezone": "America/Denver",
       "rounds": [
         {
           "name": "Women's Boulder Qualification",
@@ -2167,7 +2167,7 @@
           "starts_at": "2025-05-24T10:00:00-06:00",
           "ends_at": "2025-05-24T13:12:00-06:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/ziNbofKugV4",
+          "stream_url": "https://youtu.be/ziNbofKugV4",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -2238,7 +2238,7 @@
           "starts_at": "2025-05-24T17:00:00-06:00",
           "ends_at": "2025-05-24T19:09:00-06:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/inbOhDT7bok",
+          "stream_url": "https://youtu.be/inbOhDT7bok",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -2311,7 +2311,7 @@
           "starts_at": "2025-05-25T10:00:00-06:00",
           "ends_at": "2025-05-25T12:47:00-06:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/6hA3UMB_dpA",
+          "stream_url": "https://youtu.be/6hA3UMB_dpA",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -2382,7 +2382,7 @@
           "starts_at": "2025-05-25T17:00:00-06:00",
           "ends_at": "2025-05-25T19:18:00-06:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/GDB0MDGARiE",
+          "stream_url": "https://youtu.be/GDB0MDGARiE",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -2449,79 +2449,79 @@
           "first_name": "Hannes",
           "last_name": "VAN DUYSEN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/mvhuft2jajiljg4zq8mzdbk6nkmf"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mvhuft2jajiljg4zq8mzdbk6nkmf"
         },
         {
           "first_name": "Oceania",
           "last_name": "MACKENZIE",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/d16yi4b4jlioduddcz1sucjgvgym"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/d16yi4b4jlioduddcz1sucjgvgym"
         },
         {
           "first_name": "Flora",
           "last_name": "OBLASSER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/s8stz2m09t5ctmrkhvhbc8ve8ypl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/s8stz2m09t5ctmrkhvhbc8ve8ypl"
         },
         {
           "first_name": "Jan-Luca",
           "last_name": "POSCH",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/b14pg76dmr366qalrw555ooh33jq"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/b14pg76dmr366qalrw555ooh33jq"
         },
         {
           "first_name": "Chloe",
           "last_name": "CAULIER",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/97ttlssev4ctdv7hy3pqd3queo36"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/97ttlssev4ctdv7hy3pqd3queo36"
         },
         {
           "first_name": "Nicolas",
           "last_name": "COLLIN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/0wvyijhj0gxaotfcosok2ca5sn7z"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/0wvyijhj0gxaotfcosok2ca5sn7z"
         },
         {
           "first_name": "Nikolay",
           "last_name": "RUSEV",
           "country": "BUL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/5f7i5y1xald4j9gbwlc5zf5drboe"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/5f7i5y1xald4j9gbwlc5zf5drboe"
         },
         {
           "first_name": "Valentina",
           "last_name": "AGUADO",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
         },
         {
           "first_name": "Julian",
           "last_name": "WIMMER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/kgj4eyasf21pgpc9rvh7qn0b5eam"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/kgj4eyasf21pgpc9rvh7qn0b5eam"
         },
         {
           "first_name": "Sandra",
           "last_name": "LETTNER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/1r5nuhkvfybv63zeika0fadsg9ph"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/1r5nuhkvfybv63zeika0fadsg9ph"
         },
         {
           "first_name": "Slav",
           "last_name": "KIROV",
           "country": "BUL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/f68lnnusk8af6uyw5dbjzcdcvd39"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/f68lnnusk8af6uyw5dbjzcdcvd39"
         },
         {
           "first_name": "Dylan",
           "last_name": "PARKS",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fnteok9j2w5svzwmz6jis0hro7bx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fnteok9j2w5svzwmz6jis0hro7bx"
         },
         {
           "first_name": "Lea",
           "last_name": "KEMPF",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/vof7w629cqy1avygefkx6gh5gt7o"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/vof7w629cqy1avygefkx6gh5gt7o"
         },
         {
           "first_name": "Raffael",
@@ -2533,13 +2533,13 @@
           "first_name": "Timo",
           "last_name": "UZNIK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/xiw39ks8lh03upt3xh5b0yj3qa55"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/xiw39ks8lh03upt3xh5b0yj3qa55"
         },
         {
           "first_name": "Andreas",
           "last_name": "HOFHERR",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/av5spyt7rwj5mt6lmv5p8kt489ja"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/av5spyt7rwj5mt6lmv5p8kt489ja"
         },
         {
           "first_name": "Matthew",
@@ -2551,19 +2551,19 @@
           "first_name": "Rodrigo",
           "last_name": "IASI HANADA",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/7ysdii2cngczcjucesfp2bszbkbk"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/7ysdii2cngczcjucesfp2bszbkbk"
         },
         {
           "first_name": "Laura",
           "last_name": "FARHAT DE ARAUJO FRAGA TIMO",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/43qxv2h0hkmam4yuiwqy4696n2tt"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/43qxv2h0hkmam4yuiwqy4696n2tt"
         },
         {
           "first_name": "Franziska",
           "last_name": "STERRER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/kn5zv6k79lxaqqqtutfuj1swxx86"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/kn5zv6k79lxaqqqtutfuj1swxx86"
         }
       ]
     },
@@ -2572,17 +2572,17 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Denver",
+      "slug": "ifsc-world-cup-denver",
       "country": "USA",
-      "location": "Denver",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1455",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-denver-2025",
+      "location": "Denver, United States",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1455",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-denver-2025",
       "disciplines": [
         "speed"
       ],
       "starts_at": "2025-05-31T16:00:00-06:00",
       "ends_at": "2025-06-01T16:00:00-06:00",
-      "timezone": "America\/Denver",
+      "timezone": "America/Denver",
       "rounds": [
         {
           "name": "Men's & Women's Speed Qualification",
@@ -2597,7 +2597,7 @@
           "starts_at": "2025-05-31T16:00:00-06:00",
           "ends_at": "2025-05-31T17:52:00-06:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/uQzo3c95abY",
+          "stream_url": "https://youtu.be/uQzo3c95abY",
           "stream_blocked_regions": [
             "BY",
             "RU"
@@ -2616,7 +2616,7 @@
           "starts_at": "2025-06-01T16:00:00-06:00",
           "ends_at": "2025-06-01T17:27:00-06:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/RGizslC8ErM",
+          "stream_url": "https://youtu.be/RGizslC8ErM",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -2683,19 +2683,19 @@
           "first_name": "Jianguo",
           "last_name": "LONG",
           "country": "CHN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zlox56cpus8par709enyasddzxta"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zlox56cpus8par709enyasddzxta"
         },
         {
           "first_name": "Yafei",
           "last_name": "ZHOU",
           "country": "CHN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fih4q8weupaemuq3zjt5zlus47qm"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fih4q8weupaemuq3zjt5zlus47qm"
         },
         {
           "first_name": "Lijuan",
           "last_name": "DENG",
           "country": "CHN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/jytz6ssqd8xbcfbjdgwc25er2b2v"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/jytz6ssqd8xbcfbjdgwc25er2b2v"
         },
         {
           "first_name": "Shouhong",
@@ -2707,7 +2707,7 @@
           "first_name": "Shaoqin",
           "last_name": "ZHANG",
           "country": "CHN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/5odaljymj21erqhla8ztefefxr1r"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/5odaljymj21erqhla8ztefefxr1r"
         },
         {
           "first_name": "Yumei",
@@ -2761,7 +2761,7 @@
           "first_name": "Ethan",
           "last_name": "PITCHER",
           "country": "CAN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fk6i4su0jspsqd8889eh8v325mdo"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fk6i4su0jspsqd8889eh8v325mdo"
         },
         {
           "first_name": "Aleya",
@@ -2779,7 +2779,7 @@
           "first_name": "Lawrence",
           "last_name": "BOGESCHDORFER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/ja18bwtakultzuinyq47zx4oufkc"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/ja18bwtakultzuinyq47zx4oufkc"
         },
         {
           "first_name": "Joaquin",
@@ -2791,7 +2791,7 @@
           "first_name": "Tobias",
           "last_name": "PLANGGER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/z66e14i35d71ltj8ncydviobtwbd"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/z66e14i35d71ltj8ncydviobtwbd"
         },
         {
           "first_name": "Pedro",
@@ -2806,17 +2806,17 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Prague",
+      "slug": "ifsc-world-cup-prague",
       "country": "CZE",
-      "location": "Prague",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1410",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-prague-2025",
+      "location": "Prague, Czech Republic",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1410",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-prague-2025",
       "disciplines": [
         "boulder"
       ],
       "starts_at": "2025-06-06T09:00:00+02:00",
       "ends_at": "2025-06-08T18:30:00+02:00",
-      "timezone": "Europe\/Prague",
+      "timezone": "Europe/Prague",
       "rounds": [
         {
           "name": "Men's Boulder Qualification",
@@ -2860,7 +2860,7 @@
           "starts_at": "2025-06-07T12:00:00+02:00",
           "ends_at": "2025-06-07T15:00:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/4RJmyZivRA8",
+          "stream_url": "https://youtu.be/4RJmyZivRA8",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -2931,7 +2931,7 @@
           "starts_at": "2025-06-07T18:30:00+02:00",
           "ends_at": "2025-06-07T20:31:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/J5QtctB5Bpg",
+          "stream_url": "https://youtu.be/J5QtctB5Bpg",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -3004,7 +3004,7 @@
           "starts_at": "2025-06-08T09:30:00+02:00",
           "ends_at": "2025-06-08T12:17:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/vPJgUbp_urI",
+          "stream_url": "https://youtu.be/vPJgUbp_urI",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -3075,7 +3075,7 @@
           "starts_at": "2025-06-08T18:30:00+02:00",
           "ends_at": "2025-06-08T20:00:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/aMSAVMCnBh4",
+          "stream_url": "https://youtu.be/aMSAVMCnBh4",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -3142,79 +3142,79 @@
           "first_name": "Hannes",
           "last_name": "VAN DUYSEN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/mvhuft2jajiljg4zq8mzdbk6nkmf"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mvhuft2jajiljg4zq8mzdbk6nkmf"
         },
         {
           "first_name": "Oceania",
           "last_name": "MACKENZIE",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/d16yi4b4jlioduddcz1sucjgvgym"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/d16yi4b4jlioduddcz1sucjgvgym"
         },
         {
           "first_name": "Flora",
           "last_name": "OBLASSER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/s8stz2m09t5ctmrkhvhbc8ve8ypl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/s8stz2m09t5ctmrkhvhbc8ve8ypl"
         },
         {
           "first_name": "Jan-Luca",
           "last_name": "POSCH",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/b14pg76dmr366qalrw555ooh33jq"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/b14pg76dmr366qalrw555ooh33jq"
         },
         {
           "first_name": "Chloe",
           "last_name": "CAULIER",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/97ttlssev4ctdv7hy3pqd3queo36"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/97ttlssev4ctdv7hy3pqd3queo36"
         },
         {
           "first_name": "Nicolas",
           "last_name": "COLLIN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/0wvyijhj0gxaotfcosok2ca5sn7z"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/0wvyijhj0gxaotfcosok2ca5sn7z"
         },
         {
           "first_name": "Julian",
           "last_name": "WIMMER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/kgj4eyasf21pgpc9rvh7qn0b5eam"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/kgj4eyasf21pgpc9rvh7qn0b5eam"
         },
         {
           "first_name": "Nicolai",
           "last_name": "UZNIK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/g4t1cdb7mp7410gq2z4swqxg2n1b"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/g4t1cdb7mp7410gq2z4swqxg2n1b"
         },
         {
           "first_name": "Sandra",
           "last_name": "LETTNER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/1r5nuhkvfybv63zeika0fadsg9ph"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/1r5nuhkvfybv63zeika0fadsg9ph"
         },
         {
           "first_name": "Slav",
           "last_name": "KIROV",
           "country": "BUL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/f68lnnusk8af6uyw5dbjzcdcvd39"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/f68lnnusk8af6uyw5dbjzcdcvd39"
         },
         {
           "first_name": "Dylan",
           "last_name": "PARKS",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fnteok9j2w5svzwmz6jis0hro7bx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fnteok9j2w5svzwmz6jis0hro7bx"
         },
         {
           "first_name": "Corentin",
           "last_name": "LAPORTE",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nxx5ey12djyfi69aj96f79a2ka0p"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nxx5ey12djyfi69aj96f79a2ka0p"
         },
         {
           "first_name": "Lea",
           "last_name": "KEMPF",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/vof7w629cqy1avygefkx6gh5gt7o"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/vof7w629cqy1avygefkx6gh5gt7o"
         },
         {
           "first_name": "Raffael",
@@ -3226,37 +3226,37 @@
           "first_name": "Rodrigo",
           "last_name": "IASI HANADA",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/7ysdii2cngczcjucesfp2bszbkbk"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/7ysdii2cngczcjucesfp2bszbkbk"
         },
         {
           "first_name": "Maxim",
           "last_name": "PARE",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/5swsorpa2meb4squ1gw1n94bm1g4"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/5swsorpa2meb4squ1gw1n94bm1g4"
         },
         {
           "first_name": "Samuel Carlos",
           "last_name": "DA SILVA",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nvebwnog0ykkpq84yncewj4hjt7u"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nvebwnog0ykkpq84yncewj4hjt7u"
         },
         {
           "first_name": "Franziska",
           "last_name": "STERRER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/kn5zv6k79lxaqqqtutfuj1swxx86"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/kn5zv6k79lxaqqqtutfuj1swxx86"
         },
         {
           "first_name": "Simon",
           "last_name": "LORENZI",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/tyqxi73slafzxsy1o4lh9yw3y7md"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/tyqxi73slafzxsy1o4lh9yw3y7md"
         },
         {
           "first_name": "Ilja",
           "last_name": "AUERSPERG",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/lhqm4b6c4zfi81tun7d4is0to34x"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/lhqm4b6c4zfi81tun7d4is0to34x"
         }
       ]
     },
@@ -3265,17 +3265,17 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Bern",
+      "slug": "ifsc-world-cup-bern",
       "country": "SUI",
-      "location": "Bern",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1411",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-bern-2025",
+      "location": "Bern, Switzerland",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1411",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-bern-2025",
       "disciplines": [
         "boulder"
       ],
       "starts_at": "2025-06-13T09:00:00+02:00",
       "ends_at": "2025-06-15T17:00:00+02:00",
-      "timezone": "Europe\/Zurich",
+      "timezone": "Europe/Zurich",
       "rounds": [
         {
           "name": "Women's Boulder Qualification",
@@ -3319,7 +3319,7 @@
           "starts_at": "2025-06-14T10:00:00+02:00",
           "ends_at": "2025-06-14T12:50:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/lP5AM041LIc",
+          "stream_url": "https://youtu.be/lP5AM041LIc",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -3390,7 +3390,7 @@
           "starts_at": "2025-06-14T17:00:00+02:00",
           "ends_at": "2025-06-14T19:06:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/CPhZ18zmrBs",
+          "stream_url": "https://youtu.be/CPhZ18zmrBs",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -3463,7 +3463,7 @@
           "starts_at": "2025-06-15T10:00:00+02:00",
           "ends_at": "2025-06-15T12:47:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/cgEkRiNHdtE",
+          "stream_url": "https://youtu.be/cgEkRiNHdtE",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -3534,7 +3534,7 @@
           "starts_at": "2025-06-15T17:00:00+02:00",
           "ends_at": "2025-06-15T19:14:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/dlKBd7pys6A",
+          "stream_url": "https://youtu.be/dlKBd7pys6A",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -3601,79 +3601,79 @@
           "first_name": "Hannes",
           "last_name": "VAN DUYSEN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/mvhuft2jajiljg4zq8mzdbk6nkmf"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mvhuft2jajiljg4zq8mzdbk6nkmf"
         },
         {
           "first_name": "Oceania",
           "last_name": "MACKENZIE",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/d16yi4b4jlioduddcz1sucjgvgym"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/d16yi4b4jlioduddcz1sucjgvgym"
         },
         {
           "first_name": "Jan-Luca",
           "last_name": "POSCH",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/b14pg76dmr366qalrw555ooh33jq"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/b14pg76dmr366qalrw555ooh33jq"
         },
         {
           "first_name": "Chloe",
           "last_name": "CAULIER",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/97ttlssev4ctdv7hy3pqd3queo36"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/97ttlssev4ctdv7hy3pqd3queo36"
         },
         {
           "first_name": "Nicolas",
           "last_name": "COLLIN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/0wvyijhj0gxaotfcosok2ca5sn7z"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/0wvyijhj0gxaotfcosok2ca5sn7z"
         },
         {
           "first_name": "Valentina",
           "last_name": "AGUADO",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
         },
         {
           "first_name": "Julian",
           "last_name": "WIMMER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/kgj4eyasf21pgpc9rvh7qn0b5eam"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/kgj4eyasf21pgpc9rvh7qn0b5eam"
         },
         {
           "first_name": "Nicolai",
           "last_name": "UZNIK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/g4t1cdb7mp7410gq2z4swqxg2n1b"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/g4t1cdb7mp7410gq2z4swqxg2n1b"
         },
         {
           "first_name": "Sandra",
           "last_name": "LETTNER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/1r5nuhkvfybv63zeika0fadsg9ph"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/1r5nuhkvfybv63zeika0fadsg9ph"
         },
         {
           "first_name": "Slav",
           "last_name": "KIROV",
           "country": "BUL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/f68lnnusk8af6uyw5dbjzcdcvd39"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/f68lnnusk8af6uyw5dbjzcdcvd39"
         },
         {
           "first_name": "Dylan",
           "last_name": "PARKS",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fnteok9j2w5svzwmz6jis0hro7bx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fnteok9j2w5svzwmz6jis0hro7bx"
         },
         {
           "first_name": "Corentin",
           "last_name": "LAPORTE",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nxx5ey12djyfi69aj96f79a2ka0p"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nxx5ey12djyfi69aj96f79a2ka0p"
         },
         {
           "first_name": "Lea",
           "last_name": "KEMPF",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/vof7w629cqy1avygefkx6gh5gt7o"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/vof7w629cqy1avygefkx6gh5gt7o"
         },
         {
           "first_name": "Raffael",
@@ -3685,37 +3685,37 @@
           "first_name": "Andreas",
           "last_name": "HOFHERR",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/av5spyt7rwj5mt6lmv5p8kt489ja"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/av5spyt7rwj5mt6lmv5p8kt489ja"
         },
         {
           "first_name": "Rodrigo",
           "last_name": "IASI HANADA",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/7ysdii2cngczcjucesfp2bszbkbk"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/7ysdii2cngczcjucesfp2bszbkbk"
         },
         {
           "first_name": "Maxim",
           "last_name": "PARE",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/5swsorpa2meb4squ1gw1n94bm1g4"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/5swsorpa2meb4squ1gw1n94bm1g4"
         },
         {
           "first_name": "Samuel Carlos",
           "last_name": "DA SILVA",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nvebwnog0ykkpq84yncewj4hjt7u"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nvebwnog0ykkpq84yncewj4hjt7u"
         },
         {
           "first_name": "Franziska",
           "last_name": "STERRER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/kn5zv6k79lxaqqqtutfuj1swxx86"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/kn5zv6k79lxaqqqtutfuj1swxx86"
         },
         {
           "first_name": "Simon",
           "last_name": "LORENZI",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/tyqxi73slafzxsy1o4lh9yw3y7md"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/tyqxi73slafzxsy1o4lh9yw3y7md"
         }
       ]
     },
@@ -3724,17 +3724,17 @@
       "league_name": "IFSC Paraclimbing",
       "season": 2025,
       "name": "IFSC: World Cup - Innsbruck",
+      "slug": "ifsc-world-cup-innsbruck-1463",
       "country": "AUT",
-      "location": "Innsbruck",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1463",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-para-climbing-world-cup-innsbruck-2025",
+      "location": "Innsbruck, Austria",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1463",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-para-climbing-world-cup-innsbruck-2025",
       "disciplines": [
         "lead"
       ],
       "starts_at": "2025-06-23T10:00:00+02:00",
       "ends_at": "2025-06-24T18:00:00+02:00",
-      "timezone": "Europe\/Vienna",
+      "timezone": "Europe/Vienna",
       "rounds": [
         {
           "name": "Men B1's Lead Qualification",
@@ -4342,37 +4342,37 @@
           "first_name": "Jasmin",
           "last_name": "PLANK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/r1901j4rttf9t61i7e18m750y5d2"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/r1901j4rttf9t61i7e18m750y5d2"
         },
         {
           "first_name": "Markus",
-          "last_name": "P\u00d6SENDORFER",
+          "last_name": "PÖSENDORFER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/orl3fqmya9x5qymn1dl4a07vdbcn"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/orl3fqmya9x5qymn1dl4a07vdbcn"
         },
         {
           "first_name": "Angelino",
           "last_name": "ZELLER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/bc1behouxump42vbfx0bu863dych"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/bc1behouxump42vbfx0bu863dych"
         },
         {
           "first_name": "Camille",
           "last_name": "CAULIER",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/m2gklkl7e96eqdmnqo28yh3dges5"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/m2gklkl7e96eqdmnqo28yh3dges5"
         },
         {
           "first_name": "Linda",
           "last_name": "LE BON",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/j3azv68pz7yy4ykhq4y5ugddlbjm"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/j3azv68pz7yy4ykhq4y5ugddlbjm"
         },
         {
           "first_name": "Frederik",
           "last_name": "LEYS",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/xcj3ojpgpvwcmu265qna0f6dly8q"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/xcj3ojpgpvwcmu265qna0f6dly8q"
         },
         {
           "first_name": "Marina",
@@ -4390,7 +4390,7 @@
           "first_name": "Glen",
           "last_name": "TODD",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/spideeznd2drqf10vqsr4suhe6ca"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/spideeznd2drqf10vqsr4suhe6ca"
         },
         {
           "first_name": "Eduardo",
@@ -4402,13 +4402,13 @@
           "first_name": "Daniel",
           "last_name": "WIENER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zkxa2xek1exvv30d63aq75ek07f2"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zkxa2xek1exvv30d63aq75ek07f2"
         },
         {
           "first_name": "Edith",
           "last_name": "SCHEINECKER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/p8c0g8bbpzj2in1x8ta7eai949c0"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/p8c0g8bbpzj2in1x8ta7eai949c0"
         },
         {
           "first_name": "Michael",
@@ -4432,11 +4432,11 @@
           "first_name": "Matthew",
           "last_name": "CARUANA",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/gsjhvel7bxseko8y836tof9cl05f"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/gsjhvel7bxseko8y836tof9cl05f"
         },
         {
           "first_name": "Luciano",
-          "last_name": "FRAZ\u00c3O DA SILVA",
+          "last_name": "FRAZÃO DA SILVA",
           "country": "BRA",
           "photo_url": null
         },
@@ -4450,7 +4450,7 @@
           "first_name": "Araminta",
           "last_name": "MCLENNAN",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/w09ml4e9s1g5m067691mbjle1do8"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/w09ml4e9s1g5m067691mbjle1do8"
         },
         {
           "first_name": "Jeroen",
@@ -4465,18 +4465,18 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Innsbruck",
+      "slug": "ifsc-world-cup-innsbruck-1412",
       "country": "AUT",
-      "location": "Innsbruck",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1412",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-innsbruck-2025",
+      "location": "Innsbruck, Austria",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1412",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-innsbruck-2025",
       "disciplines": [
         "boulder",
         "lead"
       ],
       "starts_at": "2025-06-25T09:00:00+02:00",
       "ends_at": "2025-06-29T19:40:00+02:00",
-      "timezone": "Europe\/Vienna",
+      "timezone": "Europe/Vienna",
       "rounds": [
         {
           "name": "Men's Boulder Qualification",
@@ -4520,7 +4520,7 @@
           "starts_at": "2025-06-26T09:00:00+02:00",
           "ends_at": "2025-06-26T11:50:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/QSpXbozESzA",
+          "stream_url": "https://youtu.be/QSpXbozESzA",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -4591,7 +4591,7 @@
           "starts_at": "2025-06-26T19:30:00+02:00",
           "ends_at": "2025-06-26T21:58:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/8IzIXs7eYbE",
+          "stream_url": "https://youtu.be/8IzIXs7eYbE",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -4664,7 +4664,7 @@
           "starts_at": "2025-06-27T13:00:00+02:00",
           "ends_at": "2025-06-27T15:42:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/EFVGP9CwZUc",
+          "stream_url": "https://youtu.be/EFVGP9CwZUc",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -4735,7 +4735,7 @@
           "starts_at": "2025-06-27T19:30:00+02:00",
           "ends_at": "2025-06-27T21:51:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/Z2pXr1tgVeg",
+          "stream_url": "https://youtu.be/Z2pXr1tgVeg",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -4825,7 +4825,7 @@
           "starts_at": "2025-06-28T19:40:00+02:00",
           "ends_at": "2025-06-28T22:50:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/hPDNvVWYOno",
+          "stream_url": "https://youtu.be/hPDNvVWYOno",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -4896,7 +4896,7 @@
           "starts_at": "2025-06-29T19:40:00+02:00",
           "ends_at": "2025-06-29T22:30:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/k9RfMePj0fA",
+          "stream_url": "https://youtu.be/k9RfMePj0fA",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -4969,7 +4969,7 @@
           "starts_at": "2025-06-29T19:40:00+02:00",
           "ends_at": "2025-06-29T22:30:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/k9RfMePj0fA",
+          "stream_url": "https://youtu.be/k9RfMePj0fA",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -5036,43 +5036,43 @@
           "first_name": "Flora",
           "last_name": "OBLASSER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/s8stz2m09t5ctmrkhvhbc8ve8ypl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/s8stz2m09t5ctmrkhvhbc8ve8ypl"
         },
         {
           "first_name": "Jakob",
           "last_name": "SCHUBERT",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/9h9a8ojxu0bo0iyl8dve0voxo3dw"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/9h9a8ojxu0bo0iyl8dve0voxo3dw"
         },
         {
           "first_name": "Valentina",
           "last_name": "AGUADO",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
         },
         {
           "first_name": "Julia",
           "last_name": "FISER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/9kably42jzlrp1qtoysyl972ezxg"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/9kably42jzlrp1qtoysyl972ezxg"
         },
         {
           "first_name": "Jessica",
           "last_name": "PILZ",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/rriukz8n9potn1vhpih45qaus21q"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/rriukz8n9potn1vhpih45qaus21q"
         },
         {
           "first_name": "Nicolai",
           "last_name": "UZNIK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/g4t1cdb7mp7410gq2z4swqxg2n1b"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/g4t1cdb7mp7410gq2z4swqxg2n1b"
         },
         {
           "first_name": "Dylan",
           "last_name": "PARKS",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fnteok9j2w5svzwmz6jis0hro7bx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fnteok9j2w5svzwmz6jis0hro7bx"
         },
         {
           "first_name": "Ines",
@@ -5084,31 +5084,31 @@
           "first_name": "Timo",
           "last_name": "UZNIK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/xiw39ks8lh03upt3xh5b0yj3qa55"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/xiw39ks8lh03upt3xh5b0yj3qa55"
         },
         {
           "first_name": "Andreas",
           "last_name": "HOFHERR",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/av5spyt7rwj5mt6lmv5p8kt489ja"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/av5spyt7rwj5mt6lmv5p8kt489ja"
         },
         {
           "first_name": "Eva Maria",
-          "last_name": "HAMMELM\u00dcLLER",
+          "last_name": "HAMMELMÜLLER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nvmrz8n6itc34hkucipupqdm1i1g"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nvmrz8n6itc34hkucipupqdm1i1g"
         },
         {
           "first_name": "Emily",
           "last_name": "SCOTT",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zq5ckxx1if9gjww82qk6p5jxoe5j"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zq5ckxx1if9gjww82qk6p5jxoe5j"
         },
         {
           "first_name": "Maxim",
           "last_name": "PARE",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/5swsorpa2meb4squ1gw1n94bm1g4"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/5swsorpa2meb4squ1gw1n94bm1g4"
         },
         {
           "first_name": "Roxy",
@@ -5120,7 +5120,7 @@
           "first_name": "Franziska",
           "last_name": "STERRER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/kn5zv6k79lxaqqqtutfuj1swxx86"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/kn5zv6k79lxaqqqtutfuj1swxx86"
         },
         {
           "first_name": "Sarah",
@@ -5159,17 +5159,17 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Krakow",
+      "slug": "ifsc-world-cup-krakow",
       "country": "POL",
-      "location": "Krakow",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1413",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-krakow-2025",
+      "location": "Krakow, Poland",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1413",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-krakow-2025",
       "disciplines": [
         "speed"
       ],
       "starts_at": "2025-07-05T13:00:00+02:00",
       "ends_at": "2025-07-06T12:00:00+02:00",
-      "timezone": "Europe\/Warsaw",
+      "timezone": "Europe/Warsaw",
       "rounds": [
         {
           "name": "Women's Speed Qualification",
@@ -5183,7 +5183,7 @@
           "starts_at": "2025-07-05T13:00:00+02:00",
           "ends_at": "2025-07-05T15:36:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/rG_t-q2yoWk",
+          "stream_url": "https://youtu.be/rG_t-q2yoWk",
           "stream_blocked_regions": []
         },
         {
@@ -5199,7 +5199,7 @@
           "starts_at": "2025-07-06T12:00:00+02:00",
           "ends_at": "2025-07-06T13:47:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/VP3-dZ-sT9k",
+          "stream_url": "https://youtu.be/VP3-dZ-sT9k",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -5266,19 +5266,19 @@
           "first_name": "Jianguo",
           "last_name": "LONG",
           "country": "CHN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zlox56cpus8par709enyasddzxta"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zlox56cpus8par709enyasddzxta"
         },
         {
           "first_name": "Yafei",
           "last_name": "ZHOU",
           "country": "CHN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fih4q8weupaemuq3zjt5zlus47qm"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fih4q8weupaemuq3zjt5zlus47qm"
         },
         {
           "first_name": "Lijuan",
           "last_name": "DENG",
           "country": "CHN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/jytz6ssqd8xbcfbjdgwc25er2b2v"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/jytz6ssqd8xbcfbjdgwc25er2b2v"
         },
         {
           "first_name": "Shouhong",
@@ -5290,7 +5290,7 @@
           "first_name": "Shaoqin",
           "last_name": "ZHANG",
           "country": "CHN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/5odaljymj21erqhla8ztefefxr1r"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/5odaljymj21erqhla8ztefefxr1r"
         },
         {
           "first_name": "Yumei",
@@ -5338,7 +5338,7 @@
           "first_name": "Ethan",
           "last_name": "PITCHER",
           "country": "CAN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fk6i4su0jspsqd8889eh8v325mdo"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fk6i4su0jspsqd8889eh8v325mdo"
         },
         {
           "first_name": "Johanna",
@@ -5347,7 +5347,7 @@
           "photo_url": null
         },
         {
-          "first_name": "Anah\u00ed",
+          "first_name": "Anahí",
           "last_name": "RIVEROS",
           "country": "CHI",
           "photo_url": null
@@ -5356,13 +5356,13 @@
           "first_name": "Lawrence",
           "last_name": "BOGESCHDORFER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/ja18bwtakultzuinyq47zx4oufkc"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/ja18bwtakultzuinyq47zx4oufkc"
         },
         {
           "first_name": "Dylan",
           "last_name": "LE",
           "country": "CAN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/cmo4aez1bc4as3as5gut93eoy2ej"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/cmo4aez1bc4as3as5gut93eoy2ej"
         },
         {
           "first_name": "Hayden",
@@ -5374,7 +5374,7 @@
           "first_name": "Valentin",
           "last_name": "STERNIK",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/oldvtx3qwofig3le0ihjfswx3spj"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/oldvtx3qwofig3le0ihjfswx3spj"
         },
         {
           "first_name": "Lukas",
@@ -5389,18 +5389,18 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Chamonix",
+      "slug": "ifsc-world-cup-chamonix",
       "country": "FRA",
-      "location": "Chamonix",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1414",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-chamonix-2025",
+      "location": "Chamonix, France",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1414",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-chamonix-2025",
       "disciplines": [
         "lead",
         "speed"
       ],
       "starts_at": "2025-07-11T19:00:00+02:00",
       "ends_at": "2025-07-13T20:30:00+02:00",
-      "timezone": "Europe\/Paris",
+      "timezone": "Europe/Paris",
       "rounds": [
         {
           "name": "Men's & Women's Speed Qualification",
@@ -5415,7 +5415,7 @@
           "starts_at": "2025-07-11T19:00:00+02:00",
           "ends_at": "2025-07-11T21:31:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/x30iwMNDmX0",
+          "stream_url": "https://youtu.be/x30iwMNDmX0",
           "stream_blocked_regions": []
         },
         {
@@ -5447,7 +5447,7 @@
           "starts_at": "2025-07-12T21:00:00+02:00",
           "ends_at": "2025-07-12T22:42:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/yhN_bwiFk_E",
+          "stream_url": "https://youtu.be/yhN_bwiFk_E",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -5521,7 +5521,7 @@
           "starts_at": "2025-07-13T10:00:00+02:00",
           "ends_at": "2025-07-13T12:25:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/fqmlQpOtSg4",
+          "stream_url": "https://youtu.be/fqmlQpOtSg4",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -5592,7 +5592,7 @@
           "starts_at": "2025-07-13T20:30:00+02:00",
           "ends_at": "2025-07-13T22:58:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/fJnnnymFx9Y",
+          "stream_url": "https://youtu.be/fJnnnymFx9Y",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -5665,7 +5665,7 @@
           "starts_at": "2025-07-13T20:30:00+02:00",
           "ends_at": "2025-07-13T22:58:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/fJnnnymFx9Y",
+          "stream_url": "https://youtu.be/fJnnnymFx9Y",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -5732,25 +5732,25 @@
           "first_name": "Oceania",
           "last_name": "MACKENZIE",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/d16yi4b4jlioduddcz1sucjgvgym"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/d16yi4b4jlioduddcz1sucjgvgym"
         },
         {
           "first_name": "Flora",
           "last_name": "OBLASSER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/s8stz2m09t5ctmrkhvhbc8ve8ypl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/s8stz2m09t5ctmrkhvhbc8ve8ypl"
         },
         {
           "first_name": "Mattea",
-          "last_name": "P\u00d6TZI",
+          "last_name": "PÖTZI",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/albo9nsdx1u516sc3g156vhsy5e0"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/albo9nsdx1u516sc3g156vhsy5e0"
         },
         {
           "first_name": "Jakob",
           "last_name": "SCHUBERT",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/9h9a8ojxu0bo0iyl8dve0voxo3dw"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/9h9a8ojxu0bo0iyl8dve0voxo3dw"
         },
         {
           "first_name": "Kevin",
@@ -5762,13 +5762,13 @@
           "first_name": "Valentina",
           "last_name": "AGUADO",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
         },
         {
           "first_name": "Jessica",
           "last_name": "PILZ",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/rriukz8n9potn1vhpih45qaus21q"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/rriukz8n9potn1vhpih45qaus21q"
         },
         {
           "first_name": "Ines",
@@ -5780,13 +5780,13 @@
           "first_name": "Timo",
           "last_name": "UZNIK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/xiw39ks8lh03upt3xh5b0yj3qa55"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/xiw39ks8lh03upt3xh5b0yj3qa55"
         },
         {
           "first_name": "Eva Maria",
-          "last_name": "HAMMELM\u00dcLLER",
+          "last_name": "HAMMELMÜLLER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nvmrz8n6itc34hkucipupqdm1i1g"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nvmrz8n6itc34hkucipupqdm1i1g"
         },
         {
           "first_name": "Felix",
@@ -5798,13 +5798,13 @@
           "first_name": "Lawrence",
           "last_name": "BOGESCHDORFER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/ja18bwtakultzuinyq47zx4oufkc"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/ja18bwtakultzuinyq47zx4oufkc"
         },
         {
           "first_name": "Emily",
           "last_name": "SCOTT",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zq5ckxx1if9gjww82qk6p5jxoe5j"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zq5ckxx1if9gjww82qk6p5jxoe5j"
         },
         {
           "first_name": "Hayden",
@@ -5816,13 +5816,13 @@
           "first_name": "Campbell",
           "last_name": "HARRISON",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/77mv38rofnnxqb2vrl8suu3yon7a"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/77mv38rofnnxqb2vrl8suu3yon7a"
         },
         {
           "first_name": "Alejo",
           "last_name": "SUTER",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/y76m1169ibiuxu2p7tw2qx1uoldl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/y76m1169ibiuxu2p7tw2qx1uoldl"
         },
         {
           "first_name": "Roxy",
@@ -5834,19 +5834,19 @@
           "first_name": "Valentin",
           "last_name": "STERNIK",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/oldvtx3qwofig3le0ihjfswx3spj"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/oldvtx3qwofig3le0ihjfswx3spj"
         },
         {
           "first_name": "Lukas",
           "last_name": "KNAPP",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/9tke33kahjxgzwstcfo4qljh3eix"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/9tke33kahjxgzwstcfo4qljh3eix"
         },
         {
           "first_name": "Violeta",
           "last_name": "TONINI",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/wn6eammgzdehdszhuazkiho6bh5y"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/wn6eammgzdehdszhuazkiho6bh5y"
         }
       ]
     },
@@ -5855,17 +5855,17 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Madrid",
+      "slug": "ifsc-world-cup-madrid",
       "country": "ESP",
-      "location": "Madrid",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1454",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-comunidad-de-madrid-2025",
+      "location": "Madrid, Spain",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1454",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-comunidad-de-madrid-2025",
       "disciplines": [
         "lead"
       ],
       "starts_at": "2025-07-18T08:30:00+02:00",
       "ends_at": "2025-07-19T20:30:00+02:00",
-      "timezone": "Europe\/Madrid",
+      "timezone": "Europe/Madrid",
       "rounds": [
         {
           "name": "Men's & Women's Lead Qualification",
@@ -5896,7 +5896,7 @@
           "starts_at": "2025-07-18T21:00:00+02:00",
           "ends_at": "2025-07-18T23:54:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/ZFcxNi5MnRE",
+          "stream_url": "https://youtu.be/ZFcxNi5MnRE",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -5967,7 +5967,7 @@
           "starts_at": "2025-07-19T20:30:00+02:00",
           "ends_at": "2025-07-19T22:57:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/rdHynJ0yUA8",
+          "stream_url": "https://youtu.be/rdHynJ0yUA8",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -6040,7 +6040,7 @@
           "starts_at": "2025-07-19T20:30:00+02:00",
           "ends_at": "2025-07-19T22:57:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/rdHynJ0yUA8",
+          "stream_url": "https://youtu.be/rdHynJ0yUA8",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -6107,61 +6107,61 @@
           "first_name": "Hannes",
           "last_name": "VAN DUYSEN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/mvhuft2jajiljg4zq8mzdbk6nkmf"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mvhuft2jajiljg4zq8mzdbk6nkmf"
         },
         {
-          "first_name": "Helo\u00efse",
+          "first_name": "Heloïse",
           "last_name": "DOUMONT",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/6thaipznf9ya2n9hpd3p96eskghq"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/6thaipznf9ya2n9hpd3p96eskghq"
         },
         {
           "first_name": "Mattea",
-          "last_name": "P\u00d6TZI",
+          "last_name": "PÖTZI",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/albo9nsdx1u516sc3g156vhsy5e0"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/albo9nsdx1u516sc3g156vhsy5e0"
         },
         {
           "first_name": "Nicolas",
           "last_name": "COLLIN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/0wvyijhj0gxaotfcosok2ca5sn7z"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/0wvyijhj0gxaotfcosok2ca5sn7z"
         },
         {
           "first_name": "Ties",
           "last_name": "VANCRAEYNEST",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/ts4zvmibyb8b00kfkofp4r54pich"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/ts4zvmibyb8b00kfkofp4r54pich"
         },
         {
           "first_name": "Valentina",
           "last_name": "AGUADO",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
         },
         {
           "first_name": "Julia",
           "last_name": "FISER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/9kably42jzlrp1qtoysyl972ezxg"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/9kably42jzlrp1qtoysyl972ezxg"
         },
         {
           "first_name": "Jessica",
           "last_name": "PILZ",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/rriukz8n9potn1vhpih45qaus21q"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/rriukz8n9potn1vhpih45qaus21q"
         },
         {
           "first_name": "Anja",
-          "last_name": "K\u00d6HLER ",
+          "last_name": "KÖHLER ",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/nh5oa50x4716j3pkpzis72qw0so4"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/nh5oa50x4716j3pkpzis72qw0so4"
         },
         {
           "first_name": "Felipe",
           "last_name": "HO FOGANHOLO",
           "country": "BRA",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/l0a2nwgvsneghx6400zs06xmv6md"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/l0a2nwgvsneghx6400zs06xmv6md"
         },
         {
           "first_name": "Ines",
@@ -6173,13 +6173,13 @@
           "first_name": "Timo",
           "last_name": "UZNIK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/xiw39ks8lh03upt3xh5b0yj3qa55"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/xiw39ks8lh03upt3xh5b0yj3qa55"
         },
         {
           "first_name": "Stefan",
           "last_name": "SCHERZ",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zgm88qnalnh2gmvvtztdzbtk4ma6"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zgm88qnalnh2gmvvtztdzbtk4ma6"
         },
         {
           "first_name": "Felix",
@@ -6203,13 +6203,13 @@
           "first_name": "Campbell",
           "last_name": "HARRISON",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/77mv38rofnnxqb2vrl8suu3yon7a"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/77mv38rofnnxqb2vrl8suu3yon7a"
         },
         {
           "first_name": "Alejo",
           "last_name": "SUTER",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/y76m1169ibiuxu2p7tw2qx1uoldl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/y76m1169ibiuxu2p7tw2qx1uoldl"
         },
         {
           "first_name": "Macarena Del Valle",
@@ -6221,7 +6221,7 @@
           "first_name": "Francisco",
           "last_name": "MEDINA",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/gtkhbu1gh2w2ghlu16n5xfgabl5p"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/gtkhbu1gh2w2ghlu16n5xfgabl5p"
         }
       ]
     },
@@ -6230,17 +6230,17 @@
       "league_name": "Games",
       "season": 2025,
       "name": "IFSC: The World Games - Chengdu",
+      "slug": "ifsc-the-world-games-chengdu",
       "country": "CHN",
-      "location": "Chengdu",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1419",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/the-world-games-chengdu-2025",
+      "location": "Chengdu, China",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1419",
+      "event_url": "https://www.ifsc-climbing.org/events/the-world-games-chengdu-2025",
       "disciplines": [
         "speed"
       ],
       "starts_at": "2025-08-07T16:00:00+08:00",
       "ends_at": "2025-08-18T00:00:00+08:00",
-      "timezone": "Asia\/Shanghai",
+      "timezone": "Asia/Shanghai",
       "rounds": [
         {
           "name": "Men's Speed Qualification",
@@ -6280,17 +6280,17 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Koper",
+      "slug": "ifsc-world-cup-koper",
       "country": "SLO",
-      "location": "Koper",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1416",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-koper-2025",
+      "location": "Koper, Slovenia",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1416",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-koper-2025",
       "disciplines": [
         "lead"
       ],
       "starts_at": "2025-09-05T09:00:00+02:00",
       "ends_at": "2025-09-06T20:00:00+02:00",
-      "timezone": "Europe\/Ljubljana",
+      "timezone": "Europe/Ljubljana",
       "rounds": [
         {
           "name": "Men's & Women's Lead Qualification",
@@ -6321,7 +6321,7 @@
           "starts_at": "2025-09-05T20:00:00+02:00",
           "ends_at": "2025-09-05T22:27:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/GND3wuXmrZE",
+          "stream_url": "https://youtu.be/GND3wuXmrZE",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -6392,7 +6392,7 @@
           "starts_at": "2025-09-06T20:00:00+02:00",
           "ends_at": "2025-09-06T22:34:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/n-keq3UOpQs",
+          "stream_url": "https://youtu.be/n-keq3UOpQs",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -6465,7 +6465,7 @@
           "starts_at": "2025-09-06T20:00:00+02:00",
           "ends_at": "2025-09-06T22:34:00+02:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/n-keq3UOpQs",
+          "stream_url": "https://youtu.be/n-keq3UOpQs",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -6532,61 +6532,61 @@
           "first_name": "Flora",
           "last_name": "OBLASSER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/s8stz2m09t5ctmrkhvhbc8ve8ypl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/s8stz2m09t5ctmrkhvhbc8ve8ypl"
         },
         {
-          "first_name": "Helo\u00efse",
+          "first_name": "Heloïse",
           "last_name": "DOUMONT",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/6thaipznf9ya2n9hpd3p96eskghq"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/6thaipznf9ya2n9hpd3p96eskghq"
         },
         {
           "first_name": "Mattea",
-          "last_name": "P\u00d6TZI",
+          "last_name": "PÖTZI",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/albo9nsdx1u516sc3g156vhsy5e0"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/albo9nsdx1u516sc3g156vhsy5e0"
         },
         {
           "first_name": "Jakob",
           "last_name": "SCHUBERT",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/9h9a8ojxu0bo0iyl8dve0voxo3dw"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/9h9a8ojxu0bo0iyl8dve0voxo3dw"
         },
         {
           "first_name": "Nicolas",
           "last_name": "COLLIN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/0wvyijhj0gxaotfcosok2ca5sn7z"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/0wvyijhj0gxaotfcosok2ca5sn7z"
         },
         {
           "first_name": "Ties",
           "last_name": "VANCRAEYNEST",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/ts4zvmibyb8b00kfkofp4r54pich"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/ts4zvmibyb8b00kfkofp4r54pich"
         },
         {
           "first_name": "Valentina",
           "last_name": "AGUADO",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
         },
         {
           "first_name": "Julia",
           "last_name": "FISER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/9kably42jzlrp1qtoysyl972ezxg"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/9kably42jzlrp1qtoysyl972ezxg"
         },
         {
           "first_name": "Jessica",
           "last_name": "PILZ",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/rriukz8n9potn1vhpih45qaus21q"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/rriukz8n9potn1vhpih45qaus21q"
         },
         {
           "first_name": "Aleksandra",
           "last_name": "TOTKOVA",
           "country": "BUL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/7o8i6y49n5z33wb1fax2xu0a8za5"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/7o8i6y49n5z33wb1fax2xu0a8za5"
         },
         {
           "first_name": "Ines",
@@ -6598,13 +6598,13 @@
           "first_name": "Timo",
           "last_name": "UZNIK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/xiw39ks8lh03upt3xh5b0yj3qa55"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/xiw39ks8lh03upt3xh5b0yj3qa55"
         },
         {
           "first_name": "Stefan",
           "last_name": "SCHERZ",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zgm88qnalnh2gmvvtztdzbtk4ma6"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zgm88qnalnh2gmvvtztdzbtk4ma6"
         },
         {
           "first_name": "Felix",
@@ -6628,7 +6628,7 @@
           "first_name": "Campbell",
           "last_name": "HARRISON",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/77mv38rofnnxqb2vrl8suu3yon7a"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/77mv38rofnnxqb2vrl8suu3yon7a"
         },
         {
           "first_name": "Brooke",
@@ -6655,17 +6655,17 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Cup - Guiyang",
+      "slug": "ifsc-world-cup-guiyang",
       "country": "CHN",
-      "location": "Guiyang",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1467",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-cup-guiyang-2025",
+      "location": "Guiyang, China",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1467",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-cup-guiyang-2025",
       "disciplines": [
         "speed"
       ],
       "starts_at": "2025-09-12T18:00:00+08:00",
       "ends_at": "2025-09-13T19:30:00+08:00",
-      "timezone": "Asia\/Shanghai",
+      "timezone": "Asia/Shanghai",
       "rounds": [
         {
           "name": "Men's & Women's Speed Qualification",
@@ -6680,7 +6680,7 @@
           "starts_at": "2025-09-12T18:00:00+08:00",
           "ends_at": "2025-09-12T19:48:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/FpxGyeQUhc8",
+          "stream_url": "https://youtu.be/FpxGyeQUhc8",
           "stream_blocked_regions": []
         },
         {
@@ -6696,7 +6696,7 @@
           "starts_at": "2025-09-13T19:30:00+08:00",
           "ends_at": "2025-09-13T21:09:00+08:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/ajzHtP3eza0",
+          "stream_url": "https://youtu.be/ajzHtP3eza0",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -6763,13 +6763,13 @@
           "first_name": "Jianguo",
           "last_name": "LONG",
           "country": "CHN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zlox56cpus8par709enyasddzxta"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zlox56cpus8par709enyasddzxta"
         },
         {
           "first_name": "Yafei",
           "last_name": "ZHOU",
           "country": "CHN",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fih4q8weupaemuq3zjt5zlus47qm"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fih4q8weupaemuq3zjt5zlus47qm"
         },
         {
           "first_name": "Shouhong",
@@ -6886,17 +6886,17 @@
       "league_name": "IFSC Paraclimbing",
       "season": 2025,
       "name": "IFSC: World Championships - Seoul",
+      "slug": "ifsc-world-championships-seoul-1462",
       "country": "KOR",
-      "location": "Seoul",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1462",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-para-climbing-world-championships-seoul-2025",
+      "location": "Seoul, South Korea",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1462",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-para-climbing-world-championships-seoul-2025",
       "disciplines": [
         "lead"
       ],
       "starts_at": "2025-09-20T17:00:00+09:00",
       "ends_at": "2025-09-26T01:00:00+09:00",
-      "timezone": "Asia\/Seoul",
+      "timezone": "Asia/Seoul",
       "rounds": [
         {
           "name": "Men B1's Lead Qualification",
@@ -7506,37 +7506,37 @@
           "first_name": "Jasmin",
           "last_name": "PLANK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/r1901j4rttf9t61i7e18m750y5d2"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/r1901j4rttf9t61i7e18m750y5d2"
         },
         {
           "first_name": "Markus",
-          "last_name": "P\u00d6SENDORFER",
+          "last_name": "PÖSENDORFER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/orl3fqmya9x5qymn1dl4a07vdbcn"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/orl3fqmya9x5qymn1dl4a07vdbcn"
         },
         {
           "first_name": "Angelino",
           "last_name": "ZELLER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/bc1behouxump42vbfx0bu863dych"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/bc1behouxump42vbfx0bu863dych"
         },
         {
           "first_name": "Camille",
           "last_name": "CAULIER",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/m2gklkl7e96eqdmnqo28yh3dges5"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/m2gklkl7e96eqdmnqo28yh3dges5"
         },
         {
           "first_name": "Linda",
           "last_name": "LE BON",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/j3azv68pz7yy4ykhq4y5ugddlbjm"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/j3azv68pz7yy4ykhq4y5ugddlbjm"
         },
         {
           "first_name": "Frederik",
           "last_name": "LEYS",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/xcj3ojpgpvwcmu265qna0f6dly8q"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/xcj3ojpgpvwcmu265qna0f6dly8q"
         },
         {
           "first_name": "Marina",
@@ -7548,7 +7548,7 @@
           "first_name": "Glen",
           "last_name": "TODD",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/spideeznd2drqf10vqsr4suhe6ca"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/spideeznd2drqf10vqsr4suhe6ca"
         },
         {
           "first_name": "Eduardo",
@@ -7560,13 +7560,13 @@
           "first_name": "Daniel",
           "last_name": "WIENER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zkxa2xek1exvv30d63aq75ek07f2"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zkxa2xek1exvv30d63aq75ek07f2"
         },
         {
           "first_name": "Edith",
           "last_name": "SCHEINECKER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/p8c0g8bbpzj2in1x8ta7eai949c0"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/p8c0g8bbpzj2in1x8ta7eai949c0"
         },
         {
           "first_name": "Igor Jean",
@@ -7590,7 +7590,7 @@
           "first_name": "Matthew",
           "last_name": "CARUANA",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/gsjhvel7bxseko8y836tof9cl05f"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/gsjhvel7bxseko8y836tof9cl05f"
         },
         {
           "first_name": "Leonardo",
@@ -7600,7 +7600,7 @@
         },
         {
           "first_name": "Luciano",
-          "last_name": "FRAZ\u00c3O DA SILVA",
+          "last_name": "FRAZÃO DA SILVA",
           "country": "BRA",
           "photo_url": null
         },
@@ -7629,11 +7629,11 @@
       "league_name": "World Cups and World Championships",
       "season": 2025,
       "name": "IFSC: World Championships - Seoul",
+      "slug": "ifsc-world-championships-seoul-1417",
       "country": "KOR",
-      "location": "Seoul",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1417",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-world-championships-seoul-2025",
+      "location": "Seoul, South Korea",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1417",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-world-championships-seoul-2025",
       "disciplines": [
         "lead",
         "speed",
@@ -7641,7 +7641,7 @@
       ],
       "starts_at": "2025-09-22T09:00:00+09:00",
       "ends_at": "2025-09-28T19:00:00+09:00",
-      "timezone": "Asia\/Seoul",
+      "timezone": "Asia/Seoul",
       "rounds": [
         {
           "name": "Men's & Women's Lead Qualification",
@@ -7701,7 +7701,7 @@
           "starts_at": "2025-09-24T20:00:00+09:00",
           "ends_at": "2025-09-24T21:11:00+09:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/f2DKGaNfrj0",
+          "stream_url": "https://youtu.be/f2DKGaNfrj0",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -7774,7 +7774,7 @@
           "starts_at": "2025-09-25T20:00:00+09:00",
           "ends_at": "2025-09-25T21:07:00+09:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/uDhDhlx2lnM",
+          "stream_url": "https://youtu.be/uDhDhlx2lnM",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -7848,7 +7848,7 @@
           "starts_at": "2025-09-26T10:00:00+09:00",
           "ends_at": "2025-09-26T12:31:00+09:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/KnmcdKdYA8Y",
+          "stream_url": "https://youtu.be/KnmcdKdYA8Y",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -7920,7 +7920,7 @@
           "starts_at": "2025-09-26T19:00:00+09:00",
           "ends_at": "2025-09-26T21:37:00+09:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/CQGCjVWXIL8",
+          "stream_url": "https://youtu.be/CQGCjVWXIL8",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -7995,7 +7995,7 @@
           "starts_at": "2025-09-27T10:00:00+09:00",
           "ends_at": "2025-09-27T12:48:00+09:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/DHwdeBAxca8",
+          "stream_url": "https://youtu.be/DHwdeBAxca8",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -8068,7 +8068,7 @@
           "starts_at": "2025-09-27T20:00:00+09:00",
           "ends_at": "2025-09-27T21:58:00+09:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/wxiMreMe-Ds",
+          "stream_url": "https://youtu.be/wxiMreMe-Ds",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -8143,7 +8143,7 @@
           "starts_at": "2025-09-28T10:00:00+09:00",
           "ends_at": "2025-09-28T12:44:00+09:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/Yu5K33N2yb4",
+          "stream_url": "https://youtu.be/Yu5K33N2yb4",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -8216,7 +8216,7 @@
           "starts_at": "2025-09-28T19:00:00+09:00",
           "ends_at": "2025-09-28T21:23:00+09:00",
           "schedule_status": "confirmed",
-          "stream_url": "https:\/\/youtu.be\/K5zPa1YBZ9Y",
+          "stream_url": "https://youtu.be/K5zPa1YBZ9Y",
           "stream_blocked_regions": [
             "AD",
             "AL",
@@ -8285,49 +8285,49 @@
           "first_name": "Hannes",
           "last_name": "VAN DUYSEN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/mvhuft2jajiljg4zq8mzdbk6nkmf"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mvhuft2jajiljg4zq8mzdbk6nkmf"
         },
         {
           "first_name": "Oceania",
           "last_name": "MACKENZIE",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/d16yi4b4jlioduddcz1sucjgvgym"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/d16yi4b4jlioduddcz1sucjgvgym"
         },
         {
           "first_name": "Flora",
           "last_name": "OBLASSER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/s8stz2m09t5ctmrkhvhbc8ve8ypl"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/s8stz2m09t5ctmrkhvhbc8ve8ypl"
         },
         {
-          "first_name": "Helo\u00efse",
+          "first_name": "Heloïse",
           "last_name": "DOUMONT",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/6thaipznf9ya2n9hpd3p96eskghq"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/6thaipznf9ya2n9hpd3p96eskghq"
         },
         {
           "first_name": "Jan-Luca",
           "last_name": "POSCH",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/b14pg76dmr366qalrw555ooh33jq"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/b14pg76dmr366qalrw555ooh33jq"
         },
         {
           "first_name": "Mattea",
-          "last_name": "P\u00d6TZI",
+          "last_name": "PÖTZI",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/albo9nsdx1u516sc3g156vhsy5e0"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/albo9nsdx1u516sc3g156vhsy5e0"
         },
         {
           "first_name": "Jakob",
           "last_name": "SCHUBERT",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/9h9a8ojxu0bo0iyl8dve0voxo3dw"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/9h9a8ojxu0bo0iyl8dve0voxo3dw"
         },
         {
           "first_name": "Nicolas",
           "last_name": "COLLIN",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/0wvyijhj0gxaotfcosok2ca5sn7z"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/0wvyijhj0gxaotfcosok2ca5sn7z"
         },
         {
           "first_name": "Kevin",
@@ -8339,55 +8339,55 @@
           "first_name": "Ties",
           "last_name": "VANCRAEYNEST",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/ts4zvmibyb8b00kfkofp4r54pich"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/ts4zvmibyb8b00kfkofp4r54pich"
         },
         {
           "first_name": "Valentina",
           "last_name": "AGUADO",
           "country": "ARG",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/aqv8wlaz1jjvdtx98tv7cuyjuuzx"
         },
         {
           "first_name": "Julia",
           "last_name": "FISER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/9kably42jzlrp1qtoysyl972ezxg"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/9kably42jzlrp1qtoysyl972ezxg"
         },
         {
           "first_name": "Julian",
           "last_name": "WIMMER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/kgj4eyasf21pgpc9rvh7qn0b5eam"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/kgj4eyasf21pgpc9rvh7qn0b5eam"
         },
         {
           "first_name": "Jessica",
           "last_name": "PILZ",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/rriukz8n9potn1vhpih45qaus21q"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/rriukz8n9potn1vhpih45qaus21q"
         },
         {
           "first_name": "Nicolai",
           "last_name": "UZNIK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/g4t1cdb7mp7410gq2z4swqxg2n1b"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/g4t1cdb7mp7410gq2z4swqxg2n1b"
         },
         {
           "first_name": "Sandra",
           "last_name": "LETTNER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/1r5nuhkvfybv63zeika0fadsg9ph"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/1r5nuhkvfybv63zeika0fadsg9ph"
         },
         {
           "first_name": "Dylan",
           "last_name": "PARKS",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/fnteok9j2w5svzwmz6jis0hro7bx"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fnteok9j2w5svzwmz6jis0hro7bx"
         },
         {
           "first_name": "Lea",
           "last_name": "KEMPF",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/vof7w629cqy1avygefkx6gh5gt7o"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/vof7w629cqy1avygefkx6gh5gt7o"
         },
         {
           "first_name": "Hayden",
@@ -8399,7 +8399,7 @@
           "first_name": "Campbell",
           "last_name": "HARRISON",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/77mv38rofnnxqb2vrl8suu3yon7a"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/77mv38rofnnxqb2vrl8suu3yon7a"
         }
       ]
     },
@@ -8408,17 +8408,17 @@
       "league_name": "IFSC Paraclimbing",
       "season": 2025,
       "name": "IFSC: Para Climbing Master - Fukuoka",
+      "slug": "ifsc-para-climbing-master-fukuoka",
       "country": "JPN",
-      "location": "Fukuoka",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1473",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-para-climbing-master-fukuoka-2025",
+      "location": "Fukuoka, Japan",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1473",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-para-climbing-master-fukuoka-2025",
       "disciplines": [
         "lead"
       ],
       "starts_at": "2025-10-23T17:00:00+09:00",
       "ends_at": "2025-10-27T01:00:00+09:00",
-      "timezone": "Asia\/Tokyo",
+      "timezone": "Asia/Tokyo",
       "rounds": [
         {
           "name": "Men B1's Lead Qualification",
@@ -8873,17 +8873,17 @@
       "league_name": "IFSC Paraclimbing",
       "season": 2025,
       "name": "IFSC: World Cup - Laval",
+      "slug": "ifsc-world-cup-laval",
       "country": "FRA",
-      "location": "Laval",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1464",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/ifsc-para-climbing-world-cup-laval-2025",
+      "location": "Laval, France",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1464",
+      "event_url": "https://www.ifsc-climbing.org/events/ifsc-para-climbing-world-cup-laval-2025",
       "disciplines": [
         "lead"
       ],
       "starts_at": "2025-10-25T10:00:00+02:00",
       "ends_at": "2025-10-26T17:00:00+01:00",
-      "timezone": "Europe\/Paris",
+      "timezone": "Europe/Paris",
       "rounds": [
         {
           "name": "Men B1's Lead Qualification",
@@ -9476,37 +9476,37 @@
           "first_name": "Jasmin",
           "last_name": "PLANK",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/r1901j4rttf9t61i7e18m750y5d2"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/r1901j4rttf9t61i7e18m750y5d2"
         },
         {
           "first_name": "Markus",
-          "last_name": "P\u00d6SENDORFER",
+          "last_name": "PÖSENDORFER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/orl3fqmya9x5qymn1dl4a07vdbcn"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/orl3fqmya9x5qymn1dl4a07vdbcn"
         },
         {
           "first_name": "Angelino",
           "last_name": "ZELLER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/bc1behouxump42vbfx0bu863dych"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/bc1behouxump42vbfx0bu863dych"
         },
         {
           "first_name": "Camille",
           "last_name": "CAULIER",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/m2gklkl7e96eqdmnqo28yh3dges5"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/m2gklkl7e96eqdmnqo28yh3dges5"
         },
         {
           "first_name": "Linda",
           "last_name": "LE BON",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/j3azv68pz7yy4ykhq4y5ugddlbjm"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/j3azv68pz7yy4ykhq4y5ugddlbjm"
         },
         {
           "first_name": "Frederik",
           "last_name": "LEYS",
           "country": "BEL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/xcj3ojpgpvwcmu265qna0f6dly8q"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/xcj3ojpgpvwcmu265qna0f6dly8q"
         },
         {
           "first_name": "Marina",
@@ -9524,7 +9524,7 @@
           "first_name": "Glen",
           "last_name": "TODD",
           "country": "AUS",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/spideeznd2drqf10vqsr4suhe6ca"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/spideeznd2drqf10vqsr4suhe6ca"
         },
         {
           "first_name": "Eduardo",
@@ -9536,7 +9536,7 @@
           "first_name": "Daniel",
           "last_name": "WIENER",
           "country": "AUT",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/zkxa2xek1exvv30d63aq75ek07f2"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zkxa2xek1exvv30d63aq75ek07f2"
         },
         {
           "first_name": "Michael",
@@ -9582,7 +9582,7 @@
         },
         {
           "first_name": "Luciano",
-          "last_name": "FRAZ\u00c3O DA SILVA",
+          "last_name": "FRAZÃO DA SILVA",
           "country": "BRA",
           "photo_url": null
         },
@@ -9599,17 +9599,17 @@
       "league_name": "Games",
       "season": 2025,
       "name": "IFSC: Central American Games - Jalapa",
+      "slug": "ifsc-central-american-games-jalapa",
       "country": "GUA",
-      "location": "Jalapa",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1474",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/central-american-games",
+      "location": "Jalapa, Guatemala",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1474",
+      "event_url": "https://www.ifsc-climbing.org/events/central-american-games",
       "disciplines": [
         "lead"
       ],
       "starts_at": "2025-10-29T02:00:00-06:00",
       "ends_at": "2025-10-30T10:00:00-06:00",
-      "timezone": "America\/Guatemala",
+      "timezone": "America/Guatemala",
       "rounds": [
         {
           "name": "Men's Lead Qualification",
@@ -9679,17 +9679,17 @@
       "league_name": "Games",
       "season": 2025,
       "name": "IFSC: Bolivarian Games [CANCELLED] - Lima",
+      "slug": "ifsc-bolivarian-games-cancelled-lima",
       "country": "PER",
-      "location": "Lima",
-      "poster": null,
-      "site_url": "https:\/\/calendar.ifsc.stream\/view\/2025\/1475",
-      "event_url": "https:\/\/www.ifsc-climbing.org\/events\/bolivarian-games-cancelled-",
+      "location": "Lima, Peru",
+      "site_url": "https://calendar.ifsc.stream/view/2025/1475",
+      "event_url": "https://www.ifsc-climbing.org/events/bolivarian-games-cancelled-",
       "disciplines": [
         "boulder"
       ],
       "starts_at": "2025-12-02T02:00:00-06:00",
       "ends_at": "2025-12-04T10:00:00-06:00",
-      "timezone": "America\/Guatemala",
+      "timezone": "America/Guatemala",
       "rounds": [
         {
           "name": "Men's Boulder Qualification",
@@ -9733,13 +9733,13 @@
           "first_name": "Javier Leonardo",
           "last_name": "ALIAGA NINA",
           "country": "BOL",
-          "photo_url": "https:\/\/d1n1qj9geboqnb.cloudfront.net\/ifsc\/public\/usj747vvhsia9y4zwjve2fzo7x96"
+          "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/usj747vvhsia9y4zwjve2fzo7x96"
         }
       ]
     }
   ],
   "metadata": {
     "updated_at": "2025-12-09T21:13:19+00:00",
-    "generated_by": "https:\/\/github.com\/sportclimbing\/ifsc-calendar"
+    "generated_by": "https://github.com/sportclimbing/ifsc-calendar"
   }
 }

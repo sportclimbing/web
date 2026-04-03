@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+  <title>pdf file</title>
+  <path fill="#ffffff" d="M3.5 1.5h7l4 4V16.5h-11z"/>
+  <path fill="#d31223" d="M3.5 1.5h7l4 4V16.5h-11zM4.6 2.6v12.8h8.8V6l-3.3-3.4z"/>
+  <path fill="#ff2f3b" d="M9.6 1.5v4.6h4.9z"/>
+  <path fill="#f0192e" d="M3.5 10.5h11v6h-11z"/>
+  <text x="9" y="14.95" fill="#ffffff" font-family="Arial, sans-serif" font-size="3.6" font-weight="700" text-anchor="middle">PDF</text>
+</svg>

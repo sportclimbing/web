@@ -1,0 +1,106 @@
+.season-seo-content {
+    margin: 24px auto 0;
+    padding: 18px 18px 16px;
+    border: 1px solid rgba(255, 120, 170, 0.22);
+    border-radius: 14px;
+    background:
+        linear-gradient(150deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+        linear-gradient(90deg, rgba(11, 15, 25, 0.9), rgba(27, 40, 57, 0.86));
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
+    color: rgba(221, 234, 247, 0.88);
+}
+
+.season-seo-content h1 {
+    margin: 0 0 10px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.season-seo-content h2 {
+    margin: 0 0 10px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.season-seo-content h3 {
+    margin: 14px 0 8px;
+    color: rgba(255, 120, 170, 0.94);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.season-seo-content h4 {
+    margin: 10px 0 4px;
+    color: #f4f8ff;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.season-seo-content p {
+    margin: 0 0 8px;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.season-seo-content p:last-child {
+    margin-bottom: 0;
+}
+
+.theme-light .season-seo-content {
+    border-color: rgba(66, 91, 117, 0.22);
+    background:
+        linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(243, 248, 253, 0.9)),
+        linear-gradient(90deg, rgba(230, 238, 246, 0.94), rgba(220, 230, 240, 0.9));
+    color: #2d445a;
+}
+
+.theme-light .season-seo-content h1,
+.theme-light .season-seo-content h2 {
+    color: #13314b;
+}
+
+.theme-light .season-seo-content h3 {
+    color: #b10062;
+}
+
+.theme-light .season-seo-content h4 {
+    color: #1e3b53;
+}
+
+.theme-light .season-seo-faq {
+    margin-top: 10px;
+    padding: 12px 14px;
+    border: 1px solid rgba(23, 49, 74, 0.1);
+    border-radius: 12px;
+    background-color: rgba(244, 248, 252, 0.84);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 800px) {
+    .season-seo-content {
+        margin-top: 16px;
+        padding: 14px 12px 12px;
+        border-radius: 12px;
+    }
+
+    .season-seo-content h1,
+    .season-seo-content h2 {
+        font-size: 18px;
+    }
+
+    .season-seo-content h3 {
+        font-size: 15px;
+    }
+
+    .season-seo-content h4 {
+        font-size: 13px;
+    }
+
+    .season-seo-content p {
+        font-size: 12px;
+        line-height: 1.45;
+    }
+}

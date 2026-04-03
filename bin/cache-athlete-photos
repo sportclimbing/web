@@ -43,6 +43,62 @@ function normalize_athlete_id(mixed $athleteId): string
     return '';
 }
 
+function normalize_athlete_name_part(mixed $value): string
+{
+    if (!is_scalar($value)) {
+        return '';
+    }
+
+    $normalized = trim((string) $value);
+
+    if ($normalized === '') {
+        return '';
+    }
+
+    if (class_exists('Normalizer')) {
+        $normalizedForm = Normalizer::normalize($normalized, Normalizer::FORM_KD);
+
+        if (is_string($normalizedForm) && $normalizedForm !== '') {
+            $normalized = $normalizedForm;
+        }
+    }
+
+    // Remove combining accents after Unicode decomposition.
+    $normalized = preg_replace('/\p{Mn}+/u', '', $normalized) ?? $normalized;
+    $normalized = strtr($normalized, [
+        'ß' => 'ss',
+        'ẞ' => 'ss',
+        'Æ' => 'AE',
+        'æ' => 'ae',
+        'Œ' => 'OE',
+        'œ' => 'oe',
+        'Ø' => 'O',
+        'ø' => 'o',
+        'Đ' => 'D',
+        'đ' => 'd',
+        'Ł' => 'L',
+        'ł' => 'l',
+        'Þ' => 'TH',
+        'þ' => 'th',
+        'Ð' => 'D',
+        'ð' => 'd',
+    ]);
+
+    if (function_exists('iconv')) {
+        $ascii = iconv('UTF-8', 'ASCII//IGNORE', $normalized);
+
+        if ($ascii !== false && $ascii !== '') {
+            $normalized = $ascii;
+        }
+    }
+
+    $normalized = strtolower($normalized);
+    $normalized = preg_replace('/[^a-z0-9]+/', '-', $normalized) ?? '';
+    $normalized = trim($normalized, '-');
+
+    return $normalized;
+}
+
 function decode_events_file(string $eventsFile): array
 {
     if (!is_file($eventsFile)) {
@@ -205,6 +261,8 @@ function start_list_photo_entries(array $payload): array
 
             $entries[] = [
                 'athlete_id' => $athleteId,
+                'first_name' => is_scalar($athlete['first_name'] ?? null) ? trim((string) $athlete['first_name']) : '',
+                'last_name' => is_scalar($athlete['last_name'] ?? null) ? trim((string) $athlete['last_name']) : '',
                 'photo_url' => $photoUrl,
             ];
         }
@@ -213,28 +271,18 @@ function start_list_photo_entries(array $payload): array
     return $entries;
 }
 
-function local_filename_from_photo_url(string $photoUrl): string
+function local_filename_from_athlete_name(string $firstName, string $lastName, string $athleteId): string
 {
-    $path = parse_url($photoUrl, PHP_URL_PATH);
+    $firstNameNormalized = normalize_athlete_name_part($firstName);
+    $lastNameNormalized = normalize_athlete_name_part($lastName);
+    $baseName = trim("{$firstNameNormalized}-{$lastNameNormalized}", '-');
 
-    if (!is_string($path) || $path === '') {
-        throw new RuntimeException("Could not extract a file path from photo URL: {$photoUrl}");
+    if ($baseName === '') {
+        $baseName = $athleteId !== '' ? "athlete-{$athleteId}" : 'athlete';
     }
 
-    $fileName = trim(basename($path));
-
-    if ($fileName === '' || $fileName === '.' || $fileName === '..') {
-        throw new RuntimeException("Could not extract a valid filename from photo URL: {$photoUrl}");
-    }
-
-    if (str_contains($fileName, "\0")) {
-        throw new RuntimeException("Invalid filename extracted from photo URL: {$photoUrl}");
-    }
-
-    $baseName = pathinfo($fileName, PATHINFO_FILENAME);
-
-    if ($baseName === '' || $baseName === '.' || $baseName === '..') {
-        $baseName = $fileName;
+    if (str_contains($baseName, "\0")) {
+        throw new RuntimeException('Invalid athlete name for filename');
     }
 
     return "{$baseName}.jpg";
@@ -313,13 +361,15 @@ foreach ($eventFileBySeason as $season => $eventsFile) {
     foreach (start_list_photo_entries($payload) as $entry) {
         $photoUrl = $entry['photo_url'];
         $athleteId = $entry['athlete_id'];
+        $firstName = $entry['first_name'];
+        $lastName = $entry['last_name'];
         $fileName = '';
 
         try {
-            $fileName = local_filename_from_photo_url($photoUrl);
+            $fileName = local_filename_from_athlete_name($firstName, $lastName, $athleteId);
         } catch (Throwable $exception) {
             $invalidFilenameCount++;
-            fwrite(STDERR, "[!] Skipping photo URL {$photoUrl}: {$exception->getMessage()}" . PHP_EOL);
+            fwrite(STDERR, "[!] Skipping athlete {$athleteId} ({$firstName} {$lastName}): {$exception->getMessage()}" . PHP_EOL);
             continue;
         }
 
@@ -331,6 +381,21 @@ foreach ($eventFileBySeason as $season => $eventsFile) {
                 'file_name' => $fileName,
             ];
             continue;
+        }
+
+        if ($photoCandidates[$fileName]['athlete_id'] !== '' && $athleteId !== '' && $photoCandidates[$fileName]['athlete_id'] !== $athleteId) {
+            $nameBase = pathinfo($fileName, PATHINFO_FILENAME);
+            $fileNameWithId = "{$nameBase}-{$athleteId}.jpg";
+
+            if (!array_key_exists($fileNameWithId, $photoCandidates)) {
+                $photoCandidates[$fileNameWithId] = [
+                    'season' => $season,
+                    'athlete_id' => $athleteId,
+                    'photo_url' => $photoUrl,
+                    'file_name' => $fileNameWithId,
+                ];
+                continue;
+            }
         }
 
         if ($photoCandidates[$fileName]['photo_url'] !== $photoUrl) {
@@ -387,4 +452,4 @@ if ($writtenCount === 0) {
 }
 
 $seasonCount = count($eventFileBySeason);
-echo "[+] Cached {$writtenCount}/{$candidateCount} unique photos across {$seasonCount} seasons ({$downloadedCount} downloaded, {$failedCount} failed, {$deduplicatedByFilenameCount} filename duplicates omitted, {$invalidFilenameCount} invalid URLs skipped)." . PHP_EOL;
+echo "[+] Cached {$writtenCount}/{$candidateCount} unique photos across {$seasonCount} seasons ({$downloadedCount} downloaded, {$failedCount} failed, {$deduplicatedByFilenameCount} filename duplicates omitted, {$invalidFilenameCount} invalid filename entries skipped)." . PHP_EOL;

@@ -1,0 +1,316 @@
+---
+import EventPage from '../../../../components/EventPage.astro';
+import {
+  getAllSeasons,
+  getSeasonEventsPayload,
+} from '../../../../lib/events-data';
+import {
+  build_event_page_path,
+  build_event_page_slug_id_segment,
+} from '../../../../lib/event-pages';
+
+export function getStaticPaths() {
+  const normalizeEventId = (event) => {
+    const rawId = String(event?.id ?? '').trim();
+    const numericId = Number.parseInt(rawId, 10);
+
+    if (Number.isNaN(numericId)) {
+      return '';
+    }
+
+    return String(numericId);
+  };
+
+  const normalizeEventName = (event) => String(event?.name || '').trim() || 'World Climbing Event';
+  const normalizeEventDisciplines = (event) => (Array.isArray(event?.disciplines) ? event.disciplines : [])
+    .map((discipline) => String(discipline || '').trim().toLowerCase())
+    .filter(Boolean)
+    .filter((discipline, index, values) => values.indexOf(discipline) === index);
+
+  const parseEventTimestamp = (value) => {
+    if (typeof value !== 'string' || value.trim() === '') {
+      return Number.POSITIVE_INFINITY;
+    }
+
+    const timestamp = Date.parse(value);
+
+    return Number.isNaN(timestamp) ? Number.POSITIVE_INFINITY : timestamp;
+  };
+
+  const formatEventMetaDate = (value, timezone = 'UTC') => {
+    if (typeof value !== 'string' || value.trim() === '') {
+      return '';
+    }
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return '';
+    }
+
+    return new Intl.DateTimeFormat('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      timeZone: timezone || 'UTC',
+    }).format(date);
+  };
+
+  const buildEventLinkLabel = (event) => {
+    const eventName = normalizeEventName(event);
+    const eventLocation = String(event?.location || '').trim();
+    const startsAtLabel = formatEventMetaDate(event?.starts_at, event?.timezone || 'UTC');
+    const details = [eventLocation, startsAtLabel].filter(Boolean).join(' | ');
+
+    if (!details) {
+      return eventName;
+    }
+
+    return `${eventName} - ${details}`;
+  };
+
+  const buildRelatedEventLinks = (season, events, currentEvent) => {
+    const seasonEvents = Array.isArray(events) ? events : [];
+    const currentEventId = normalizeEventId(currentEvent);
+
+    if (!currentEventId) {
+      return {
+        previousEvent: null,
+        nextEvent: null,
+        sameSeasonEvents: [],
+        sameDisciplineEvents: [],
+      };
+    }
+
+    const timeline = seasonEvents
+      .map((seasonEvent) => {
+        const eventId = normalizeEventId(seasonEvent);
+        const path = build_event_page_path(season, seasonEvent);
+
+        if (!eventId || !path) {
+          return null;
+        }
+
+        const numericId = Number.parseInt(eventId, 10);
+
+        return {
+          id: eventId,
+          numericId: Number.isNaN(numericId) ? Number.MAX_SAFE_INTEGER : numericId,
+          path,
+          event: seasonEvent,
+          startsAtTimestamp: parseEventTimestamp(seasonEvent?.starts_at),
+          endsAtTimestamp: parseEventTimestamp(seasonEvent?.ends_at),
+          disciplines: normalizeEventDisciplines(seasonEvent),
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => {
+        if (a.startsAtTimestamp !== b.startsAtTimestamp) {
+          return a.startsAtTimestamp - b.startsAtTimestamp;
+        }
+
+        if (a.endsAtTimestamp !== b.endsAtTimestamp) {
+          return a.endsAtTimestamp - b.endsAtTimestamp;
+        }
+
+        if (a.numericId !== b.numericId) {
+          return a.numericId - b.numericId;
+        }
+
+        return normalizeEventName(a.event).localeCompare(normalizeEventName(b.event));
+      })
+      .map((item, timelineIndex) => ({
+        ...item,
+        timelineIndex,
+      }));
+
+    const currentIndex = timeline.findIndex((item) => item.id === currentEventId);
+
+    if (currentIndex === -1) {
+      return {
+        previousEvent: null,
+        nextEvent: null,
+        sameSeasonEvents: [],
+        sameDisciplineEvents: [],
+      };
+    }
+
+    const currentItem = timeline[currentIndex];
+    const previousItem = currentIndex > 0 ? timeline[currentIndex - 1] : null;
+    const nextItem = currentIndex < timeline.length - 1 ? timeline[currentIndex + 1] : null;
+
+    const toLink = (item) => ({
+      href: item.path,
+      label: buildEventLinkLabel(item.event),
+    });
+
+    const usedIds = new Set([currentItem.id]);
+
+    if (previousItem) {
+      usedIds.add(previousItem.id);
+    }
+
+    if (nextItem) {
+      usedIds.add(nextItem.id);
+    }
+
+    const sameSeasonItems = [];
+
+    for (
+      let offset = 1;
+      sameSeasonItems.length < 4 && (currentIndex - offset >= 0 || currentIndex + offset < timeline.length);
+      offset += 1
+    ) {
+      const candidateIndices = [currentIndex - offset, currentIndex + offset];
+
+      for (const candidateIndex of candidateIndices) {
+        if (candidateIndex < 0 || candidateIndex >= timeline.length) {
+          continue;
+        }
+
+        const candidate = timeline[candidateIndex];
+
+        if (usedIds.has(candidate.id)) {
+          continue;
+        }
+
+        sameSeasonItems.push(candidate);
+        usedIds.add(candidate.id);
+
+        if (sameSeasonItems.length >= 4) {
+          break;
+        }
+      }
+    }
+
+    const currentDisciplineSet = new Set(currentItem.disciplines);
+    const sameDisciplineItems = currentDisciplineSet.size === 0
+      ? []
+      : timeline
+        .filter((item) => !usedIds.has(item.id) && item.disciplines.some((discipline) => currentDisciplineSet.has(discipline)))
+        .sort((a, b) => {
+          const distanceA = Math.abs(a.timelineIndex - currentIndex);
+          const distanceB = Math.abs(b.timelineIndex - currentIndex);
+
+          if (distanceA !== distanceB) {
+            return distanceA - distanceB;
+          }
+
+          return a.timelineIndex - b.timelineIndex;
+        })
+        .slice(0, 4);
+
+    return {
+      previousEvent: previousItem ? toLink(previousItem) : null,
+      nextEvent: nextItem ? toLink(nextItem) : null,
+      sameSeasonEvents: sameSeasonItems.map(toLink),
+      sameDisciplineEvents: sameDisciplineItems.map(toLink),
+    };
+  };
+
+  return getAllSeasons().flatMap((seasonValue) => {
+    const season = String(seasonValue);
+    const eventsPayload = getSeasonEventsPayload(season);
+    const events = Array.isArray(eventsPayload?.events) ? eventsPayload.events : [];
+
+    return events
+      .map((event) => {
+        const eventSlugAndId = build_event_page_slug_id_segment(event);
+
+        if (!eventSlugAndId) {
+          return null;
+        }
+
+        return {
+          params: {
+            season,
+            eventSlugAndId,
+          },
+          props: {
+            season,
+            event,
+            relatedLinks: buildRelatedEventLinks(season, events, event),
+          },
+        };
+      })
+      .filter(Boolean);
+  });
+}
+
+const season = String(Astro.props.season);
+const event = Astro.props.event;
+const relatedLinks = Astro.props.relatedLinks || {
+  previousEvent: null,
+  nextEvent: null,
+  sameSeasonEvents: [],
+  sameDisciplineEvents: [],
+};
+const seasons = getAllSeasons();
+const canonicalPath = build_event_page_path(season, event);
+const eventName = String(event?.name || '').trim() || 'World Climbing Event';
+const eventCity = String(event?.location || '').trim();
+const eventCountry = String(event?.country || '').trim();
+const eventLocation = [eventCity, eventCountry]
+  .map((value) => String(value || '').trim())
+  .filter(Boolean)
+  .join(', ');
+const eventDisciplines = (Array.isArray(event?.disciplines) ? event.disciplines : [])
+  .map((discipline) => String(discipline || '').trim())
+  .filter(Boolean)
+  .map((discipline) => `${discipline.charAt(0).toUpperCase()}${discipline.slice(1).toLowerCase()}`)
+  .filter((discipline, index, values) => values.indexOf(discipline) === index)
+  .join(', ');
+const formatMetaDate = (value) => {
+  if (typeof value !== 'string' || value.trim() === '') {
+    return '';
+  }
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return '';
+  }
+
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: event?.timezone || 'UTC',
+  }).format(date);
+};
+const startsAtLabel = formatMetaDate(event?.starts_at);
+const endsAtLabel = formatMetaDate(event?.ends_at);
+const dateRangeLabel = startsAtLabel && endsAtLabel
+  ? `${startsAtLabel} to ${endsAtLabel}`
+  : startsAtLabel || endsAtLabel;
+const titleLocationPart = eventCity || eventLocation || `Season ${season}`;
+const titleDatePart = dateRangeLabel || `Season ${season}`;
+const titleDisciplinePart = eventDisciplines || 'World Climbing';
+const pageTitle = [
+  eventName,
+  titleLocationPart,
+  titleDatePart,
+  titleDisciplinePart,
+  'Live Stream & Schedule',
+].filter(Boolean).join(' | ');
+const pageDescription = [
+  `${eventName} (${season})`,
+  eventLocation ? `in ${eventLocation}` : '',
+  dateRangeLabel ? `from ${dateRangeLabel}` : '',
+  eventDisciplines ? `covering ${eventDisciplines}` : '',
+  'including stream links and schedule updates.',
+].join(' ').replace(/\s+/g, ' ').trim();
+const socialImagePath = `/img/event/${season}/${event.id}.svg`;
+const socialImageAlt = `${eventName}${eventLocation ? ` in ${eventLocation}` : ''}${dateRangeLabel ? ` (${dateRangeLabel})` : ''} preview image`;
+---
+<EventPage
+  season={season}
+  seasons={seasons}
+  event={event}
+  canonicalPath={canonicalPath}
+  pageTitle={pageTitle}
+  pageDescription={pageDescription}
+  socialImagePath={socialImagePath}
+  socialImageAlt={socialImageAlt}
+  relatedLinks={relatedLinks}
+/>

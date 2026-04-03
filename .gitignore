@@ -6,8 +6,9 @@
 /public/feed/rss.xml
 /public/img/athletes/
 /public/img/news
-/composer.lock
-/vendor/
+/public/js/app.js
 /node_modules/
+/dist/
+/.astro/
 /playwright-report/
 /test-results/

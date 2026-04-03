@@ -1,0 +1,205 @@
+---
+import { siteAssetVersion } from '../lib/site-shell';
+import CardTemplates from './CardTemplates.astro';
+import EventCards from './EventCards.astro';
+import Footer from './Footer.astro';
+import HeaderTitle from './HeaderTitle.astro';
+import Modals from './Modals.astro';
+import SeasonNavbar from './SeasonNavbar.astro';
+import SubheaderButtons from './SubheaderButtons.astro';
+import VersionUpdateNotice from './VersionUpdateNotice.astro';
+import {
+  DEFAULT_SEASON,
+  DESKTOP_VIEWPORT_MEDIA_QUERY,
+  MOBILE_VIEWPORT_MEDIA_QUERY,
+} from '../lib/config';
+
+const {
+  season,
+  seasons,
+  event,
+  relatedLinks = {},
+  canonicalPath,
+  pageTitle,
+  pageDescription,
+  socialImagePath = '/img/logo.png',
+  socialImageAlt = 'ifsc.stream event preview',
+} = Astro.props;
+
+const normalizedSeason = String(season);
+const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
+const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
+const normalizedEventId = String(event.id)
+const eventName = String(event?.name || '').trim() || 'Event';
+const seasonHomePath = normalizedSeason === DEFAULT_SEASON ? '/' : `/season/${normalizedSeason}/`;
+const seasonPagePath = `/season/${normalizedSeason}/`;
+const previousEventLink = relatedLinks?.previousEvent || null;
+const nextEventLink = relatedLinks?.nextEvent || null;
+const sameSeasonEventLinks = Array.isArray(relatedLinks?.sameSeasonEvents) ? relatedLinks.sameSeasonEvents : [];
+const sameDisciplineEventLinks = Array.isArray(relatedLinks?.sameDisciplineEvents) ? relatedLinks.sameDisciplineEvents : [];
+const hasRelatedEventLinks = Boolean(
+  previousEventLink
+  || nextEventLink
+  || sameSeasonEventLinks.length
+  || sameDisciplineEventLinks.length,
+);
+const socialImageUrl = socialImagePath.startsWith('http')
+  ? socialImagePath
+  : `https://ifsc.stream${socialImagePath}`;
+const breadcrumbStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://ifsc.stream/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: `Season ${normalizedSeason}`,
+      item: `https://ifsc.stream${seasonPagePath}`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: eventName,
+      item: canonicalUrl,
+    },
+  ],
+};
+---
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <base href="/" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="stylesheet" href="/css/fonts-local.css" />
+    <link rel="stylesheet" href="/css/calendar.css" />
+    <link rel="stylesheet" href="/css/calendar-desktop.css" media={`screen and ${DESKTOP_VIEWPORT_MEDIA_QUERY}`} />
+    <link rel="stylesheet" href="/css/calendar-mobile.css" media={`screen and ${MOBILE_VIEWPORT_MEDIA_QUERY}`} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="ifsc.stream" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:alt" content={socialImageAlt} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
+
+    <script type="application/ld+json" id="structured-data-organization">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "@id": "https://ifsc.stream/#organization",
+            "name": "ifsc.stream",
+            "url": "https://ifsc.stream/",
+            "logo": "https://ifsc.stream/img/logo.png",
+            "sameAs": [
+                "https://github.com/sportclimbing/ifsc-calendar",
+                "https://www.instagram.com/nicoswd/"
+            ]
+        }
+    </script>
+    <script
+      type="application/ld+json"
+      id="structured-data-breadcrumbs"
+      set:html={JSON.stringify(breadcrumbStructuredData)}
+    ></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
+</head>
+<body data-page-type="event" data-event-id={normalizedEventId || undefined} data-build-version={siteAssetVersion}>
+<VersionUpdateNotice />
+<CardTemplates />
+
+<div id="ifsc-season">
+    <HeaderTitle season={normalizedSeason} homeUrl={seasonHomePath} />
+</div>
+
+<SeasonNavbar />
+<SubheaderButtons
+    breadcrumbItems={[
+      { label: 'Home', href: '/' },
+      { label: `Season ${normalizedSeason}`, href: seasonPagePath },
+      { label: eventName, current: true },
+    ]}
+/>
+
+<main role="main">
+    <div id="accordion">
+        <EventCards
+          events={[event]}
+          expandAllRounds={true}
+          hideRoundCollapseControls={true}
+          showNoResultsMessage={false}
+        />
+    </div>
+    {hasRelatedEventLinks ? (
+      <section class="event-internal-links" aria-labelledby="event-internal-links-title">
+        <h2 id="event-internal-links-title">Related Events</h2>
+        {previousEventLink || nextEventLink ? (
+          <div class="event-internal-links-primary">
+            {previousEventLink ? (
+              <a class="event-internal-links-link" href={previousEventLink.href}>
+                Previous Event: {previousEventLink.label}
+              </a>
+            ) : null}
+            {nextEventLink ? (
+              <a class="event-internal-links-link" href={nextEventLink.href}>
+                Next Event: {nextEventLink.label}
+              </a>
+            ) : null}
+          </div>
+        ) : null}
+        {sameSeasonEventLinks.length ? (
+          <div class="event-internal-links-group">
+            <h3>More Events in Season {normalizedSeason}</h3>
+            <ul class="event-internal-links-list">
+              {sameSeasonEventLinks.map((link) => (
+                <li><a class="event-internal-links-link" href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        {sameDisciplineEventLinks.length ? (
+          <div class="event-internal-links-group">
+            <h3>Events With Similar Disciplines</h3>
+            <ul class="event-internal-links-list">
+              {sameDisciplineEventLinks.map((link) => (
+                <li><a class="event-internal-links-link" href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </section>
+    ) : null}
+</main>
+
+<Modals />
+
+<Footer
+    seasons={normalizedSeasons}
+    selectedSeason={normalizedSeason}
+    buildVersion={siteAssetVersion}
+/>
+
+<script src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
+<script src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
+<script src={`/js/app.js?v=${siteAssetVersion}`}></script>
+</body>
+</html>

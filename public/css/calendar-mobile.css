@@ -1,10 +1,18 @@
 #ifsc-season {
-    padding: 12px 8px 8px;
+    padding: 12px 8px 5px;
 }
 
 .subheader-buttons {
-    margin-bottom: 4px;
-    padding: 6px 8px 0;
+    margin: 3px auto 1px;
+    padding: 6px 8px 2px;
+}
+
+.subheader-back-to-season {
+    width: 100%;
+    min-height: 40px;
+    height: 40px;
+    padding: 0 10px !important;
+    margin: 0 !important;
 }
 
 .subheader-controls {
@@ -14,6 +22,16 @@
     gap: 6px;
     padding: 10px;
     border-radius: 12px;
+}
+
+.subheader-buttons.subheader-buttons-back-only {
+    margin: 3px auto 1px;
+    padding: 6px 8px 2px;
+}
+
+.subheader-controls.subheader-controls-back-only {
+    align-items: stretch;
+    padding: 10px;
 }
 
 .season-control {
@@ -159,12 +177,27 @@ main[role="main"] {
 }
 
 .event-name {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
     width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
     text-align: left;
+}
+
+.event-name-title {
+    width: 100%;
+}
+
+.event-league-name {
+    max-width: 100%;
+    margin-top: 3px;
+    padding: 3px 9px;
+    font-size: 10px;
+    line-height: 1.2;
 }
 
 .event-details {
@@ -229,15 +262,14 @@ main[role="main"] {
 
 .event-buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr auto;
     gap: 8px;
     margin: 14px 0 2px;
     padding: 0;
     width: 100%;
 }
 
-.event-watch-button,
-.event-page {
+:is([data-action='event-watch-toggle'], [data-action='round-stream'], [data-action='event-page']) {
     width: 100%;
     min-height: 40px;
 }
@@ -247,9 +279,43 @@ main[role="main"] {
     padding-top: 0 !important;
 }
 
-#accordion .collapse > .card-body.list-group,
-#accordion .collapse.show > .card-body.list-group,
-#accordion .collapsing > .card-body.list-group {
+.event-breadcrumbs {
+    margin: 0;
+    padding: 0;
+}
+
+.event-breadcrumbs-list {
+    font-size: 13px;
+}
+
+.event-breadcrumbs-list li + li::before {
+    margin: 0 2px;
+}
+
+.event-internal-links {
+    margin-top: 14px;
+    padding: 12px 12px 10px;
+    border-radius: 12px;
+}
+
+.event-internal-links h2 {
+    font-size: 17px;
+}
+
+.event-internal-links h3 {
+    font-size: 14px;
+}
+
+.event-internal-links-list {
+    padding-left: 16px;
+}
+
+.event-internal-links-link {
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+#accordion .event-rounds-panel > .card-body.list-group {
     padding-left: 0.2rem;
     padding-bottom: 0.3rem;
 }
@@ -268,15 +334,13 @@ li.ifsc-event {
     border-radius: 12px;
 }
 
-li.ifsc-event.event-round-card,
-li.ifsc-event.event-round-card:first-child,
-li.ifsc-event.event-round-card:last-child {
+.event-round-card,
+.event-round-card:first-child,
+.event-round-card:last-child {
     border-radius: 12px;
 }
 
-#accordion .collapse > .card-body.list-group > li.ifsc-event.event-round-card:last-child,
-#accordion .collapse.show > .card-body.list-group > li.ifsc-event.event-round-card:last-child,
-#accordion .collapsing > .card-body.list-group > li.ifsc-event.event-round-card:last-child {
+#accordion .event-rounds-panel > .card-body.list-group > .event-round-card:last-child {
     margin-bottom: 0;
 }
 
@@ -312,19 +376,19 @@ li.ifsc-event.event-round-card:last-child {
     float: none;
     width: auto;
     margin: 10px 0 0;
-    margin-left: 0 !important;
 }
 
-.round-copy-line-wide {
+.round-date,
+.round-time {
     width: auto;
     font-size: 14px;
 }
 
-.round-name.round-copy-line.round-copy-line-title {
+.round-name {
     padding-left: 4px;
 }
 
-.ifsc-starts-in {
+.round-starts-in {
     margin-top: 8px;
 }
 
@@ -356,7 +420,7 @@ li.ifsc-event.event-round-card:last-child {
     grid-column: 1 / -1;
 }
 
-.round-stream-button,
+[data-action='round-stream'],
 .button-results,
 .button-reminder {
     width: 100%;
@@ -416,7 +480,7 @@ li.ifsc-event.event-round-card:last-child {
     margin: 0 0 0 6px !important;
 }
 
-.event-round-card .ifsc-starts-in {
+.event-round-card .round-starts-in {
     grid-column: 1 / -1;
     grid-row: 5;
     margin-top: 4px;
@@ -449,10 +513,14 @@ li.ifsc-event.event-round-card:last-child {
 
 .next-event h1 {
     margin: 0 18px 4px 14px;
-    font-size: clamp(12px, 4vw, 16px);
+    font-size: clamp(14px, 4.8vw, 18px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.next-event .next-event-league-name {
+    margin: 0 0 8px 14px;
 }
 
 .next-event .ifsc-event {
@@ -481,7 +549,7 @@ li.ifsc-event.event-round-card:last-child {
     position: absolute;
     left: auto;
     right: 10px;
-    top: 50px;
+    top: 80px;
     bottom: auto;
     width: var(--next-event-mobile-countdown-width);
     height: var(--next-event-mobile-media-height, calc(var(--next-event-mobile-media-width) * 9 / 16));
@@ -538,8 +606,9 @@ li.ifsc-event.event-round-card:last-child {
     max-width: 100%;
 }
 
-.next-event .round-name.round-copy-line.round-copy-line-title {
+.next-event .round-name {
     padding-left: 0;
+    padding-top: 8px;
 }
 
 .next-event .youtube-thumbnail {
@@ -575,7 +644,7 @@ li.ifsc-event.event-round-card:last-child {
     margin-top: 8px;
 }
 
-.next-event .watch-button .round-stream-button,
+.next-event .watch-button [data-action='round-stream'],
 .next-event .watch-button .button-reminder,
 .next-event .watch-button .button-results {
     width: 100% !important;
@@ -596,6 +665,12 @@ li.ifsc-event.event-round-card:last-child {
     width: 100%;
     padding-right: 0;
     text-align: center;
+}
+
+.footer-update-notice {
+    top: 10px;
+    right: 10px;
+    max-width: calc(100vw - 20px);
 }
 
 .footer-actions {
