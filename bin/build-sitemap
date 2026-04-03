@@ -16,6 +16,103 @@ function season_priority(int $index, int $count): float
     return $minPriority + (($maxPriority - $minPriority) * ($index / ($count - 1)));
 }
 
+function event_priority(int $index, int $count): float
+{
+    $minPriority = 0.30;
+    $maxPriority = 0.80;
+
+    if ($count <= 1) {
+        return $maxPriority;
+    }
+
+    return $minPriority + (($maxPriority - $minPriority) * ($index / ($count - 1)));
+}
+
+function decode_json_file(string $filePath): array
+{
+    if (!is_file($filePath)) {
+        throw new RuntimeException("Events file not found: {$filePath}");
+    }
+
+    $contents = file_get_contents($filePath);
+
+    if ($contents === false) {
+        throw new RuntimeException("Could not read events file: {$filePath}");
+    }
+
+    try {
+        $payload = json_decode($contents, true, flags: JSON_THROW_ON_ERROR);
+    } catch (JsonException $exception) {
+        throw new RuntimeException("Could not parse {$filePath}: {$exception->getMessage()}");
+    }
+
+    if (!is_array($payload)) {
+        throw new RuntimeException("Invalid events payload in {$filePath}");
+    }
+
+    return $payload;
+}
+
+function normalize_slug(mixed $value): string
+{
+    $slug = strtolower(trim((string) ($value ?? '')));
+    $slug = preg_replace('/[^a-z0-9]+/', '-', $slug) ?? '';
+
+    return trim($slug, '-');
+}
+
+function normalize_event_id(mixed $eventId): string
+{
+    if (!is_scalar($eventId)) {
+        return '';
+    }
+
+    $eventIdString = trim((string) $eventId);
+
+    if ($eventIdString === '' || preg_match('/^\d+$/', $eventIdString) !== 1) {
+        return '';
+    }
+
+    return (string) ((int) $eventIdString);
+}
+
+function build_event_slug_id_segment(array $event): string
+{
+    $eventId = normalize_event_id($event['id'] ?? null);
+
+    if ($eventId === '') {
+        return '';
+    }
+
+    $slug = normalize_slug($event['slug'] ?? '') ?: normalize_slug($event['name'] ?? '') ?: 'event';
+    $eventIdSuffix = "-{$eventId}";
+
+    if (str_ends_with($slug, $eventIdSuffix)) {
+        $slug = substr($slug, 0, -strlen($eventIdSuffix));
+    }
+
+    $normalizedSlug = trim($slug, '-');
+
+    if ($normalizedSlug === '') {
+        $normalizedSlug = 'event';
+    }
+
+    return "{$normalizedSlug}-{$eventId}";
+}
+
+function site_url_with_trailing_slash(string $siteUrl, string $path = ''): string
+{
+    $normalizedPath = trim($path);
+
+    if ($normalizedPath === '' || $normalizedPath === '/') {
+        return "{$siteUrl}/";
+    }
+
+    $normalizedPath = '/' . trim($normalizedPath, '/');
+
+    return "{$siteUrl}{$normalizedPath}/";
+}
+
 $eventsDirectory = rtrim($argv[1] ?? 'public/events', '/');
 $outputFile = $argv[2] ?? 'public/sitemap.xml';
 $siteUrl = rtrim($argv[3] ?? 'https://ifsc.stream', '/');
@@ -32,16 +129,16 @@ if ($eventFiles === false || count($eventFiles) === 0) {
     exit(1);
 }
 
-$seasons = [];
+$eventFileBySeason = [];
 
 foreach ($eventFiles as $eventFile) {
     if (preg_match('/events_(\d{4})\.json$/', $eventFile, $matches) === 1) {
         $season = (int) $matches[1];
-        $seasons[] = $season;
+        $eventFileBySeason[$season] = $eventFile;
     }
 }
 
-$seasons = array_values(array_unique($seasons));
+$seasons = array_keys($eventFileBySeason);
 sort($seasons, SORT_NUMERIC);
 
 if (count($seasons) === 0) {
@@ -52,20 +149,79 @@ if (count($seasons) === 0) {
 $latestSeason = max($seasons);
 $seasonCount = count($seasons);
 
-$entries = [
-    [
-        'loc' => "{$siteUrl}/",
-        'changefreq' => 'hourly',
-        'priority' => '1.00',
-    ],
-];
+$entries = [];
+$entryByLocation = [];
+$add_entry = static function (array $entry) use (&$entries, &$entryByLocation): void {
+    $location = $entry['loc'] ?? '';
+
+    if (!is_string($location) || $location === '' || isset($entryByLocation[$location])) {
+        return;
+    }
+
+    $entries[] = $entry;
+    $entryByLocation[$location] = true;
+};
+
+$add_entry([
+    'loc' => site_url_with_trailing_slash($siteUrl),
+    'changefreq' => 'hourly',
+    'priority' => '1.00',
+]);
 
 foreach ($seasons as $index => $season) {
-    $entries[] = [
-        'loc' => "{$siteUrl}/season/{$season}",
+    $add_entry([
+        'loc' => site_url_with_trailing_slash($siteUrl, "/season/{$season}"),
         'changefreq' => $season === $latestSeason ? 'hourly' : 'weekly',
         'priority' => number_format(season_priority($index, $seasonCount), 2, '.', ''),
-    ];
+    ]);
+}
+
+$eventPageCount = 0;
+
+foreach ($seasons as $index => $season) {
+    $eventsFile = $eventFileBySeason[$season] ?? '';
+
+    if (!is_string($eventsFile) || $eventsFile === '') {
+        continue;
+    }
+
+    try {
+        $payload = decode_json_file($eventsFile);
+    } catch (Throwable $exception) {
+        fwrite(STDERR, $exception->getMessage() . PHP_EOL);
+        exit(1);
+    }
+
+    $events = $payload['events'] ?? [];
+
+    if (!is_array($events)) {
+        continue;
+    }
+
+    foreach ($events as $event) {
+        if (!is_array($event)) {
+            continue;
+        }
+
+        $slugIdSegment = build_event_slug_id_segment($event);
+
+        if ($slugIdSegment === '') {
+            continue;
+        }
+
+        $location = site_url_with_trailing_slash($siteUrl, "/season/{$season}/event/{$slugIdSegment}");
+
+        if (isset($entryByLocation[$location])) {
+            continue;
+        }
+
+        $add_entry([
+            'loc' => $location,
+            'changefreq' => $season === $latestSeason ? 'daily' : 'weekly',
+            'priority' => number_format(event_priority($index, $seasonCount), 2, '.', ''),
+        ]);
+        $eventPageCount++;
+    }
 }
 
 $document = new DOMDocument('1.0', 'UTF-8');
@@ -98,4 +254,4 @@ if ($bytes === false) {
     exit(1);
 }
 
-echo "[+] Built sitemap with {$seasonCount} seasons: {$outputFile}" . PHP_EOL;
+echo "[+] Built sitemap with {$seasonCount} seasons and {$eventPageCount} event pages: {$outputFile}" . PHP_EOL;
