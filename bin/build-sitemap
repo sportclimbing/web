@@ -227,6 +227,9 @@ foreach ($seasons as $index => $season) {
 $document = new DOMDocument('1.0', 'UTF-8');
 $document->formatOutput = true;
 
+$stylesheetInstruction = $document->createProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="/sitemap.xsl"');
+$document->appendChild($stylesheetInstruction);
+
 $urlset = $document->createElement('urlset');
 $urlset->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
 $document->appendChild($urlset);
