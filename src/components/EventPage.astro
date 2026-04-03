@@ -7,7 +7,11 @@ import HeaderTitle from './HeaderTitle.astro';
 import Modals from './Modals.astro';
 import SeasonNavbar from './SeasonNavbar.astro';
 import SubheaderButtons from './SubheaderButtons.astro';
-import { DEFAULT_SEASON } from '../lib/config';
+import {
+  DEFAULT_SEASON,
+  DESKTOP_VIEWPORT_MEDIA_QUERY,
+  MOBILE_VIEWPORT_MEDIA_QUERY,
+} from '../lib/config';
 
 const {
   season,
@@ -39,8 +43,8 @@ const seasonPagePath = `/season/${normalizedSeason}/`;
     <link rel="canonical" href={canonicalUrl} />
     <link rel="stylesheet" href="/css/fonts-local.css" />
     <link rel="stylesheet" href="/css/calendar.css" />
-    <link rel="stylesheet" href="/css/calendar-desktop.css" media="screen and (min-width: 801px)" />
-    <link rel="stylesheet" href="/css/calendar-mobile.css" media="screen and (max-width: 800px)" />
+    <link rel="stylesheet" href="/css/calendar-desktop.css" media={`screen and ${DESKTOP_VIEWPORT_MEDIA_QUERY}`} />
+    <link rel="stylesheet" href="/css/calendar-mobile.css" media={`screen and ${MOBILE_VIEWPORT_MEDIA_QUERY}`} />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />

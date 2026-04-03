@@ -1,5 +1,9 @@
 ---
 import { siteAssetVersion } from '../lib/site-shell';
+import {
+  DESKTOP_VIEWPORT_MEDIA_QUERY,
+  MOBILE_VIEWPORT_MEDIA_QUERY,
+} from '../lib/config';
 import CardTemplates from './CardTemplates.astro';
 import EventCards from './EventCards.astro';
 import Footer from './Footer.astro';
@@ -37,8 +41,8 @@ const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
 
     <link rel="stylesheet" href="/css/fonts-local.css" />
     <link rel="stylesheet" href="/css/calendar.css" />
-    <link rel="stylesheet" href="/css/calendar-desktop.css" media="screen and (min-width: 801px)" />
-    <link rel="stylesheet" href="/css/calendar-mobile.css" media="screen and (max-width: 800px)" />
+    <link rel="stylesheet" href="/css/calendar-desktop.css" media={`screen and ${DESKTOP_VIEWPORT_MEDIA_QUERY}`} />
+    <link rel="stylesheet" href="/css/calendar-mobile.css" media={`screen and ${MOBILE_VIEWPORT_MEDIA_QUERY}`} />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
