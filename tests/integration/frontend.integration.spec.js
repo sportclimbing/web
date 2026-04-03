@@ -19,6 +19,43 @@ const expectModalOpen = async (page, modalSelector) => {
   await expect(page.locator('body')).toHaveClass(/modal-open/);
 };
 
+const getNextEventPanelMatch = async (page) => {
+  return page.evaluate(() => {
+    const nextEventRow = document.querySelector('#next-event-details .ifsc-event');
+    const openPanel = document.querySelector('#accordion .event-rounds-panel.show');
+
+    if (!(nextEventRow instanceof HTMLElement)) {
+      return {
+        hasNextEventRow: false,
+        expectedPanelId: null,
+        openPanelId: openPanel instanceof HTMLElement ? openPanel.id : null,
+      };
+    }
+
+    const startsAt = nextEventRow.dataset.roundStartsAt || '';
+    const endsAt = nextEventRow.dataset.roundEndsAt || '';
+    const matchingRoundCard = Array.from(
+      document.querySelectorAll('#accordion .event-round-card[data-round-starts-at][data-round-ends-at]')
+    ).find((roundCard) => {
+      if (!(roundCard instanceof HTMLElement)) {
+        return false;
+      }
+
+      return (roundCard.dataset.roundStartsAt || '') === startsAt
+        && (roundCard.dataset.roundEndsAt || '') === endsAt;
+    });
+    const expectedPanel = matchingRoundCard instanceof HTMLElement
+      ? matchingRoundCard.closest('.event-rounds-panel')
+      : null;
+
+    return {
+      hasNextEventRow: true,
+      expectedPanelId: expectedPanel instanceof HTMLElement ? expectedPanel.id : null,
+      openPanelId: openPanel instanceof HTMLElement ? openPanel.id : null,
+    };
+  });
+};
+
 const openFirstEventPanel = async (page) => {
   const eventWatchTrigger = page.locator('#accordion .ifsc-league-card:not([hidden]) [data-action="event-watch-toggle"]').first();
   await expect(eventWatchTrigger).toBeVisible();
@@ -87,6 +124,18 @@ test('event title click opens the event page', async ({ page }) => {
 
   await firstTitle.click();
   await expect.poll(() => normalizePath(new URL(page.url()).pathname)).toBe(normalizePath(eventPagePath || ''));
+});
+
+test('season page expands the next-event panel by default', async ({ page }) => {
+  await page.goto('/season/2026');
+  await waitForEventCards(page);
+  await expect(page.locator('#next-event-details .ifsc-event')).toBeVisible({ timeout: 20000 });
+
+  const panelMatch = await getNextEventPanelMatch(page);
+
+  expect(panelMatch.hasNextEventRow).toBe(true);
+  expect(panelMatch.expectedPanelId).toBeTruthy();
+  expect(panelMatch.openPanelId).toBe(panelMatch.expectedPanelId);
 });
 
 test('event page shows expanded rounds without season subheader controls', async ({ page }) => {

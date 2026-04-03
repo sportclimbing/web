@@ -1,4 +1,5 @@
 let periodicEventStatusIntervalId = null;
+let hasAppliedInitialSeasonAutoExpand = false;
 
 const refresh_periodic_event_status = () => {
     const accordion = document.getElementById('accordion');
@@ -118,10 +119,10 @@ const is_event_panel_visible = (eventPanel) => {
     return !eventCard.hidden;
 };
 
-const restore_open_accordion_panel = (currentOpenId, allCollapsed) => {
+const restore_open_accordion_panel = (currentOpenId, allCollapsed, autoExpandWhenCollapsed = false) => {
     const selectedEventElement = document.getElementById(`event-${selectedEvent}`);
 
-    if (allCollapsed) {
+    if (allCollapsed && !autoExpandWhenCollapsed) {
         return null;
     }
 
@@ -169,7 +170,10 @@ const refresh_event_ui = () => {
     schedule_fit_event_name_titles();
     hide_static_event_fallback();
 
-    const eventIdToRender = restore_open_accordion_panel(currentOpenId, allCollapsed);
+    const shouldAutoExpandNextEventOnInitialLoad = !hasAppliedInitialSeasonAutoExpand && allCollapsed && !currentOpenId;
+    const eventIdToRender = restore_open_accordion_panel(currentOpenId, allCollapsed, shouldAutoExpandNextEventOnInitialLoad);
+
+    hasAppliedInitialSeasonAutoExpand = true;
 
     if (eventIdToRender !== null) {
         render_event_rounds(eventIdToRender);
