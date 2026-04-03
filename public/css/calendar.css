@@ -2680,7 +2680,7 @@ body.theme-light[data-page-type='season'] .ifsc-league-card a.event-name:focus-v
     padding: 18px 20px 20px;
 }
 
-.card-header h5 button {
+.card-header .event-name.btn {
     font-size: 24px !important;
 }
 

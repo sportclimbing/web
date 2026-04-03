@@ -158,7 +158,7 @@ main[role="main"] {
     padding: 14px 14px 16px;
 }
 
-.card-header h5 button {
+.card-header .event-name.btn {
     font-size: clamp(14px, 5vw, 17px) !important;
     line-height: 1.15;
 }

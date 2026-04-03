@@ -300,7 +300,7 @@ const league_name_without_ifsc = (value) => String(value || '')
         <div class="rounded-2 event-poster media-shadow-soft" style={posterUrl ? `background-image: url(${posterUrl})` : undefined}></div>
 
         <div>
-          <h5 class="mb-0">
+          <div class="mb-0">
             {shouldLinkEventTitles && eventPagePath ? (
               <a class="event-name" id={toggleId} href={eventPagePath}>
                 <span class="event-name-title">{event.name}</span>
@@ -324,7 +324,7 @@ const league_name_without_ifsc = (value) => String(value || '')
                 <small class="event-league-name">{prettyLeagueName}</small>
               </span>
             )}
-          </h5>
+          </div>
 
           <ul class="event-details">
             <li class="event-date">{format_event_date(event)}</li>
