@@ -292,6 +292,29 @@ main[role="main"] {
     margin: 0 2px;
 }
 
+.event-internal-links {
+    margin-top: 14px;
+    padding: 12px 12px 10px;
+    border-radius: 12px;
+}
+
+.event-internal-links h2 {
+    font-size: 17px;
+}
+
+.event-internal-links h3 {
+    font-size: 14px;
+}
+
+.event-internal-links-list {
+    padding-left: 16px;
+}
+
+.event-internal-links-link {
+    font-size: 12px;
+    line-height: 1.4;
+}
+
 #accordion .event-rounds-panel > .card-body.list-group {
     padding-left: 0.2rem;
     padding-bottom: 0.3rem;

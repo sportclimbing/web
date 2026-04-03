@@ -258,6 +258,7 @@ const start_list_has_photo = (startList) => startList.some((athlete) => Boolean(
 const league_name_without_ifsc = (value) => String(value || '')
   .replace(/\bIFSC\b/gi, '')
   .replace(/\s+/g, ' ')
+  .replace('Paraclimbing', 'Para Climbing')
   .trim();
 ---
 {normalizedEvents.map((event) => {

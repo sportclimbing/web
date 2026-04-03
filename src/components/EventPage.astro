@@ -18,6 +18,7 @@ const {
   season,
   seasons,
   event,
+  relatedLinks = {},
   canonicalPath,
   pageTitle,
   pageDescription,
@@ -32,6 +33,16 @@ const normalizedEventId = String(event.id)
 const eventName = String(event?.name || '').trim() || 'Event';
 const seasonHomePath = normalizedSeason === DEFAULT_SEASON ? '/' : `/season/${normalizedSeason}/`;
 const seasonPagePath = `/season/${normalizedSeason}/`;
+const previousEventLink = relatedLinks?.previousEvent || null;
+const nextEventLink = relatedLinks?.nextEvent || null;
+const sameSeasonEventLinks = Array.isArray(relatedLinks?.sameSeasonEvents) ? relatedLinks.sameSeasonEvents : [];
+const sameDisciplineEventLinks = Array.isArray(relatedLinks?.sameDisciplineEvents) ? relatedLinks.sameDisciplineEvents : [];
+const hasRelatedEventLinks = Boolean(
+  previousEventLink
+  || nextEventLink
+  || sameSeasonEventLinks.length
+  || sameDisciplineEventLinks.length,
+);
 const socialImageUrl = socialImagePath.startsWith('http')
   ? socialImagePath
   : `https://ifsc.stream${socialImagePath}`;
@@ -138,6 +149,45 @@ const breadcrumbStructuredData = {
           showNoResultsMessage={false}
         />
     </div>
+    {hasRelatedEventLinks ? (
+      <section class="event-internal-links" aria-labelledby="event-internal-links-title">
+        <h2 id="event-internal-links-title">Related Events</h2>
+        {previousEventLink || nextEventLink ? (
+          <div class="event-internal-links-primary">
+            {previousEventLink ? (
+              <a class="event-internal-links-link" href={previousEventLink.href}>
+                Previous Event: {previousEventLink.label}
+              </a>
+            ) : null}
+            {nextEventLink ? (
+              <a class="event-internal-links-link" href={nextEventLink.href}>
+                Next Event: {nextEventLink.label}
+              </a>
+            ) : null}
+          </div>
+        ) : null}
+        {sameSeasonEventLinks.length ? (
+          <div class="event-internal-links-group">
+            <h3>More Events in Season {normalizedSeason}</h3>
+            <ul class="event-internal-links-list">
+              {sameSeasonEventLinks.map((link) => (
+                <li><a class="event-internal-links-link" href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        {sameDisciplineEventLinks.length ? (
+          <div class="event-internal-links-group">
+            <h3>Events With Similar Disciplines</h3>
+            <ul class="event-internal-links-list">
+              {sameDisciplineEventLinks.map((link) => (
+                <li><a class="event-internal-links-link" href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </section>
+    ) : null}
 </main>
 
 <Modals />
