@@ -9,6 +9,7 @@
     setup_theme_handlers();
     setup_season_navigation();
     setup_modal_layout_handlers();
+    setup_modal_handlers();
     set_local_timezone_message();
     setup_tracking_pixel();
     start_periodic_event_status_refresh();
