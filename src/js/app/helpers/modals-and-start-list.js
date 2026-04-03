@@ -234,49 +234,24 @@ Object.defineProperty(String.prototype, 'capitalize', {
     enumerable: false
 });
 
-const ATHLETE_PHOTO_CDN_PREFIX = 'https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/';
-
-function athlete_local_photo_url_build(photoUrl) {
-    const normalizedPhotoUrl = String(photoUrl || '').trim();
-
-    if (normalizedPhotoUrl.startsWith(ATHLETE_PHOTO_CDN_PREFIX)) {
-        const basename = normalizedPhotoUrl.slice(ATHLETE_PHOTO_CDN_PREFIX.length).split(/[?#]/)[0].split('/').filter(Boolean).pop() || '';
-        const extensionIndex = basename.lastIndexOf('.');
-        const basenameWithoutExtension = extensionIndex > 0 ? basename.slice(0, extensionIndex) : basename;
-
-        if (!basenameWithoutExtension || basenameWithoutExtension === '.' || basenameWithoutExtension === '..') {
-            return '';
-        }
-
-        return `/img/athletes/${basenameWithoutExtension}.jpg`;
-    }
-
-    const fileName = photo_filename_from_url_build(photoUrl);
-
-    if (!fileName) {
-        return '';
-    }
-
-    return `/img/athletes/${fileName}`;
+function athlete_photo_sources_build(athlete) {
+    return athlete_photo_local_sources_build(athlete);
 }
 
-function athlete_photo_sources_build(athlete) {
-    const remotePhotoUrl = typeof athlete.photo_url === 'string' ? athlete.photo_url.trim() : '';
-
-    if (!remotePhotoUrl) {
-        return null;
+function handle_start_list_photo_error(imageElement) {
+    if (!(imageElement instanceof HTMLImageElement)) {
+        return;
     }
 
-    const localPhotoUrl = athlete_local_photo_url_build(remotePhotoUrl);
+    const fallbackSrc = String(imageElement.dataset.fallbackSrc || '').trim();
 
-    if (!localPhotoUrl) {
-        return null;
+    if (!fallbackSrc || imageElement.dataset.fallbackApplied === '1') {
+        imageElement.onerror = null;
+        return;
     }
 
-    return {
-        src: localPhotoUrl,
-        fallbackSrc: '',
-    };
+    imageElement.dataset.fallbackApplied = '1';
+    imageElement.src = fallbackSrc;
 }
 
 function start_list_build(startList, season, maxAthletesWithPhoto = 6) {

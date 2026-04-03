@@ -1,6 +1,4 @@
-import { photo_filename_from_url_build } from './shared/media.js';
-
-const ATHLETE_PHOTO_CDN_PREFIX = 'https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/';
+import { athlete_photo_local_sources_build } from './shared/media.js';
 
 const escape_html = (value) => String(value)
   .replace(/&/g, '&amp;')
@@ -22,54 +20,6 @@ const athlete_initials_build = (athlete) => {
   const lastName = typeof athlete?.last_name === 'string' ? athlete.last_name : '';
 
   return `${firstName[0] || ''}${lastName[0] || ''}` || '?';
-};
-
-const athlete_local_photo_url_build = (photoUrl) => {
-  const normalizedPhotoUrl = String(photoUrl || '').trim();
-
-  if (normalizedPhotoUrl.startsWith(ATHLETE_PHOTO_CDN_PREFIX)) {
-    const basename = normalizedPhotoUrl
-      .slice(ATHLETE_PHOTO_CDN_PREFIX.length)
-      .split(/[?#]/)[0]
-      .split('/')
-      .filter(Boolean)
-      .pop() || '';
-    const extensionIndex = basename.lastIndexOf('.');
-    const basenameWithoutExtension = extensionIndex > 0 ? basename.slice(0, extensionIndex) : basename;
-
-    if (!basenameWithoutExtension || basenameWithoutExtension === '.' || basenameWithoutExtension === '..') {
-      return '';
-    }
-
-    return `/img/athletes/${basenameWithoutExtension}.jpg`;
-  }
-
-  const fileName = photo_filename_from_url_build(photoUrl);
-
-  if (!fileName) {
-    return '';
-  }
-
-  return `/img/athletes/${fileName}`;
-};
-
-const athlete_photo_sources_build = (athlete) => {
-  const remotePhotoUrl = typeof athlete?.photo_url === 'string' ? athlete.photo_url.trim() : '';
-
-  if (!remotePhotoUrl) {
-    return null;
-  }
-
-  const localPhotoUrl = athlete_local_photo_url_build(remotePhotoUrl);
-
-  if (!localPhotoUrl) {
-    return null;
-  }
-
-  return {
-    src: localPhotoUrl,
-    fallbackSrc: '',
-  };
 };
 
 const build_full_start_list_link = (eventId) => {
@@ -97,7 +47,7 @@ export const build_start_list_modal_list_html = (startListInput, eventId = '') =
   const athletes = startList.map((athlete) => {
     const athleteName = escape_html(athlete_name_build(athlete));
     const country = athlete?.country ? `<span class="start-list-athlete-country">${escape_html(athlete.country)}</span>` : '';
-    const photoSources = athlete_photo_sources_build(athlete);
+    const photoSources = athlete_photo_local_sources_build(athlete);
     const photo = photoSources
       ? `<img class="start-list-athlete-photo" src="${escape_html(photoSources.src)}" width="52" height="52" alt="${athleteName}" loading="lazy" referrerpolicy="no-referrer"${photoSources.fallbackSrc ? ` data-fallback-src="${escape_html(photoSources.fallbackSrc)}" onerror="handle_start_list_photo_error(this)"` : ''} />`
       : `<div class="start-list-athlete-photo start-list-athlete-photo-fallback" aria-hidden="true">${escape_html(athlete_initials_build(athlete))}</div>`;

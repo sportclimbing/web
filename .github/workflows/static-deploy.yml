@@ -33,7 +33,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: gd
+          extensions: gd, iconv
 
       - name: "Download latest calendar"
         run: |
@@ -69,7 +69,12 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: gd
+          extensions: gd, iconv
+
+      - name: "Verify PHP extensions"
+        run: |
+          php -r 'if (!extension_loaded("gd")) { fwrite(STDERR, "Missing PHP extension: gd\n"); exit(1); }'
+          php -r 'if (!function_exists("iconv")) { fwrite(STDERR, "Missing PHP iconv support\n"); exit(1); }'
 
       - name: "Download latest calendar"
         run: |
