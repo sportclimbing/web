@@ -4,6 +4,7 @@ import {
   getAllSeasons,
   getSeasonEventsPayload,
 } from '../../../lib/events-data';
+import { DEFAULT_SEASON } from '../../../lib/config';
 
 export function getStaticPaths() {
   return getAllSeasons().map((season) => ({
@@ -16,12 +17,18 @@ const seasons = getAllSeasons();
 const eventsPayload = getSeasonEventsPayload(season);
 const pageTitle = `World Climbing (IFSC) Calendar & Live Streams ${season} - Boulder, Lead, & Speed Climbing Schedule`;
 const pageDescription = `World Climbing (IFSC) Schedule ${season} - Live-Streams for all boulder, lead, and speed climbing events`;
+const isDefaultSeason = season === DEFAULT_SEASON;
+const canonicalPath = isDefaultSeason ? '/' : `/season/${season}`;
+const robotsContent = isDefaultSeason
+  ? 'noindex,follow,max-image-preview:large'
+  : 'index,follow,max-image-preview:large';
 ---
 <CalendarPage
   season={season}
   seasons={seasons}
   eventsPayload={eventsPayload}
-  canonicalPath={`/season/${season}`}
+  canonicalPath={canonicalPath}
   pageTitle={pageTitle}
   pageDescription={pageDescription}
+  robotsContent={robotsContent}
 />

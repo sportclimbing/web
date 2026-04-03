@@ -158,7 +158,7 @@ function schema_event_page_url(array $event, string $siteUrl, string $season): s
         $slug = 'event';
     }
 
-    $seasonSegment = rawurlencode($season);
+    $seasonSegment = rawurlencode($season);z
     $slugIdSegment = rawurlencode("{$slug}-{$eventId}");
 
     return "{$siteUrl}/season/{$seasonSegment}/event/{$slugIdSegment}";

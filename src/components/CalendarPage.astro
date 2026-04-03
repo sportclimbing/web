@@ -20,6 +20,7 @@ const {
   canonicalPath,
   pageTitle,
   pageDescription,
+  robotsContent = 'index,follow,max-image-preview:large',
 } = Astro.props;
 
 const normalizedSeason = String(season);
@@ -33,7 +34,7 @@ const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
     <meta charset="utf-8" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="robots" content={robotsContent} />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
