@@ -166,6 +166,7 @@ const refresh_event_ui = () => {
     setup_start_list_avatar_tooltips();
     update_month_navigation_state();
     schedule_month_nav_horizontal_position_sync();
+    schedule_fit_event_name_titles();
     hide_static_event_fallback();
 
     const eventIdToRender = restore_open_accordion_panel(currentOpenId, allCollapsed);
@@ -199,6 +200,7 @@ const refresh_event_page_ui = () => {
 
     seasonTimeline = compute_dom_season_timeline();
     setup_start_list_avatar_tooltips();
+    schedule_fit_event_name_titles();
     hide_static_event_fallback();
     set_favicon(seasonTimeline.liveRound);
 };
@@ -340,12 +342,14 @@ const setup_layout_handlers = () => {
         document.fonts.ready.then(() => {
             schedule_fit_mobile_hero_title();
             schedule_fit_modal_titles();
+            schedule_fit_event_name_titles();
             schedule_next_event_mobile_countdown_height_sync();
         });
     }
 
     addEventListener('resize', () => {
         schedule_fit_mobile_hero_title();
+        schedule_fit_event_name_titles();
         schedule_next_event_mobile_countdown_height_sync();
     });
 };

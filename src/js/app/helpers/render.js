@@ -177,6 +177,24 @@ function set_next_event_start_list(clone, event) {
     roundCopy.appendChild(startListWrapper);
 }
 
+function set_next_event_title(element, label, eventName) {
+    if (!(element instanceof HTMLElement)) {
+        return;
+    }
+
+    remove_all_children(element);
+
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'next-event-title-label';
+    labelSpan.textContent = `${label}:`;
+
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'next-event-title-name';
+    nameSpan.textContent = eventName;
+
+    element.append(labelSpan, nameSpan);
+}
+
 function set_next_event(round, event, isStreaming) {
     const nextEventContainer = document.querySelector('.next-event');
     const nextEventDividers = document.querySelectorAll('.next-event-divider');
@@ -210,13 +228,13 @@ function set_next_event(round, event, isStreaming) {
     set_next_event_countdown(round, isStreaming);
     schedule_next_event_mobile_countdown_height_sync();
 
-    const title = isStreaming ? '🔴 Now Streaming' : 'Next Event';
+    const title = isStreaming ? '🔴 NOW STREAMING' : 'NEXT EVENT';
 
     const nextEventTitle = document.getElementById('next-event-title');
     const nextEventLeagueName = document.getElementById('next-event-league-name');
 
     if (nextEventTitle) {
-        nextEventTitle.textContent = `${title}: ${event.name}`;
+        set_next_event_title(nextEventTitle, title, event.name || '');
     }
 
     if (nextEventLeagueName) {
@@ -225,6 +243,8 @@ function set_next_event(round, event, isStreaming) {
         nextEventLeagueName.textContent = leagueName;
         nextEventLeagueName.hidden = !leagueName;
     }
+
+    schedule_fit_event_name_titles();
 }
 
 function set_youtube_cover_rotation(element, initialFrame = 0) {

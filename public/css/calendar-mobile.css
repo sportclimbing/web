@@ -477,7 +477,7 @@ li.ifsc-event {
 
 .next-event h1 {
     margin: 0 18px 4px 14px;
-    font-size: clamp(12px, 4vw, 16px);
+    font-size: clamp(14px, 4.8vw, 18px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -572,6 +572,7 @@ li.ifsc-event {
 
 .next-event .round-name {
     padding-left: 0;
+    padding-top: 8px;
 }
 
 .next-event .youtube-thumbnail {

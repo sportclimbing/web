@@ -1130,6 +1130,7 @@ li.ifsc-event:last-child { border-bottom: none; }
     display: inline-flex;
     align-items: center;
     margin-top: 8px;
+    margin-bottom: 0;
     padding: 5px 11px;
     font-family: 'Rajdhani', sans-serif;
     font-size: 13px;
@@ -1877,10 +1878,22 @@ main[role="main"] {
 }
 
 .next-event h1 {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
     letter-spacing: -0.01em;
     margin: 0 auto 6px 20px;
+    text-transform: none;
+}
+
+.next-event .next-event-title-label {
+    text-transform: uppercase;
+    color: #ff8fc1;
+    font-style: italic;
+    margin-right: 8px;
+}
+
+.next-event .next-event-title-name {
+    text-transform: none;
 }
 
 .next-event .next-event-league-name {
@@ -3698,6 +3711,10 @@ footer .ifsc-action-button-primary {
 
 .theme-light .next-event h1 {
     color: #17314a;
+}
+
+.theme-light .next-event .next-event-title-label {
+    color: #cc6a9d;
 }
 
 .theme-light .round-starts-in {

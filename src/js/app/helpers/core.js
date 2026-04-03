@@ -66,6 +66,7 @@ export function round_will_be_streamed(round) {
 
 let mobileHeroTitleFitFrame = null;
 let modalTitleFitFrame = null;
+let eventNameTitleFitFrame = null;
 let nextEventMobileCountdownSyncFrame = null;
 let eventNotStartedCountdownIntervalId = null;
 let nextEventCountdownIntervalId = null;
@@ -145,6 +146,43 @@ function setup_season_header_toggle() {
     navbarHeader.addEventListener('hidden.bs.collapse', () => set_open_state(false));
 }
 
+function fit_single_line_text_to_width(element, minFontSize, precision = 0.1) {
+    if (!(element instanceof HTMLElement)) {
+        return;
+    }
+
+    const availableWidth = element.clientWidth || Math.round(element.getBoundingClientRect().width);
+
+    if (!availableWidth) {
+        return;
+    }
+
+    element.style.whiteSpace = 'nowrap';
+    element.style.overflow = 'visible';
+    element.style.textOverflow = 'clip';
+    element.style.removeProperty('font-size');
+
+    const computedFontSize = Number.parseFloat(window.getComputedStyle(element).fontSize);
+    const maxFontSize = Number.isFinite(computedFontSize) ? computedFontSize : minFontSize;
+    let low = minFontSize;
+    let high = Math.max(minFontSize, maxFontSize);
+    let best = minFontSize;
+
+    while ((high - low) > precision) {
+        const mid = (low + high) / 2;
+        element.style.fontSize = `${mid}px`;
+
+        if (element.scrollWidth <= availableWidth) {
+            best = mid;
+            low = mid;
+        } else {
+            high = mid;
+        }
+    }
+
+    element.style.fontSize = `${best.toFixed(2)}px`;
+}
+
 function fit_modal_titles() {
     const modalTitles = document.querySelectorAll('.modal .modal-title');
 
@@ -153,43 +191,9 @@ function fit_modal_titles() {
     }
 
     const minFontSize = 9;
-    const precision = 0.1;
 
     modalTitles.forEach((title) => {
-        if (!(title instanceof HTMLElement)) {
-            return;
-        }
-
-        const availableWidth = title.clientWidth || Math.round(title.getBoundingClientRect().width);
-
-        if (!availableWidth) {
-            return;
-        }
-
-        title.style.whiteSpace = 'nowrap';
-        title.style.overflow = 'visible';
-        title.style.textOverflow = 'clip';
-        title.style.removeProperty('font-size');
-
-        const computedFontSize = Number.parseFloat(window.getComputedStyle(title).fontSize);
-        const maxFontSize = Number.isFinite(computedFontSize) ? computedFontSize : minFontSize;
-        let low = minFontSize;
-        let high = Math.max(minFontSize, maxFontSize);
-        let best = minFontSize;
-
-        while ((high - low) > precision) {
-            const mid = (low + high) / 2;
-            title.style.fontSize = `${mid}px`;
-
-            if (title.scrollWidth <= availableWidth) {
-                best = mid;
-                low = mid;
-            } else {
-                high = mid;
-            }
-        }
-
-        title.style.fontSize = `${best.toFixed(2)}px`;
+        fit_single_line_text_to_width(title, minFontSize);
     });
 }
 
@@ -201,6 +205,31 @@ function schedule_fit_modal_titles() {
     modalTitleFitFrame = window.requestAnimationFrame(() => {
         modalTitleFitFrame = null;
         fit_modal_titles();
+    });
+}
+
+function fit_event_name_titles() {
+    const eventNameTitles = document.querySelectorAll('.event-name-title, #next-event-title');
+
+    if (!eventNameTitles.length) {
+        return;
+    }
+
+    const minFontSize = 8;
+
+    eventNameTitles.forEach((title) => {
+        fit_single_line_text_to_width(title, minFontSize);
+    });
+}
+
+function schedule_fit_event_name_titles() {
+    if (eventNameTitleFitFrame !== null) {
+        window.cancelAnimationFrame(eventNameTitleFitFrame);
+    }
+
+    eventNameTitleFitFrame = window.requestAnimationFrame(() => {
+        eventNameTitleFitFrame = null;
+        fit_event_name_titles();
     });
 }
 
