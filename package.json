@@ -6,7 +6,7 @@
     "build:js:min": "node bin/build-js-bundle.mjs --minify",
     "build:astro": "astro build",
     "dev": "npm run build:js && astro dev",
-    "build": "npm run build:js && npm run build:astro",
+    "build": "npm run build:js:min && npm run build:astro",
     "preview": "astro preview",
     "test:integration": "playwright test"
   },
