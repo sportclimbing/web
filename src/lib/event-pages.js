@@ -42,7 +42,7 @@ export const build_event_page_path = (season, event) => {
     return '';
   }
 
-  return `/season/${normalizedSeason}/event/${slugIdSegment}`;
+  return `/season/${normalizedSeason}/event/${slugIdSegment}/`;
 };
 
 export const event_id_from_slug_id_segment = (slugIdSegment) => {

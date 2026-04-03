@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
   return {
     site: 'https://ifsc.stream',
     output: 'static',
-    trailingSlash: 'never',
+    trailingSlash: 'always',
     vite: {
       build: {
         minify: doMinify,
