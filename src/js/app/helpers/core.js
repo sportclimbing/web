@@ -248,13 +248,41 @@ function get_selected_season() {
     return get_id_from_path('season') || get_id_from_hash('season') || DEFAULT_SEASON;
 }
 
-function load_season_structured_data() {
+function get_event_page_event_id() {
+    if (document.body instanceof HTMLElement) {
+        const bodyEventId = String(document.body.dataset.eventId || '').trim();
+
+        if (bodyEventId !== '') {
+            return bodyEventId;
+        }
+    }
+
+    return '';
+}
+
+function get_structured_data_request_url() {
     const seasonSelector = document.querySelector('select[name="season-selector"]');
     const season = seasonSelector instanceof HTMLSelectElement
         ? String(seasonSelector.value || '').trim()
         : String(get_selected_season() || '').trim();
 
     if (!season) {
+        return '';
+    }
+
+    const eventId = get_event_page_event_id();
+
+    if (!eventId) {
+        return `/structured-data/events_${season}.json`;
+    }
+
+    return `/structured-data/events_${season}_${eventId}.json`;
+}
+
+function load_season_structured_data() {
+    const requestUrl = get_structured_data_request_url();
+
+    if (!requestUrl) {
         return;
     }
 
@@ -268,7 +296,6 @@ function load_season_structured_data() {
     }
 
     const request = new XMLHttpRequest();
-    const requestUrl = `/structured-data/events_${encodeURIComponent(season)}.json`;
 
     request.open('GET', requestUrl, true);
     request.addEventListener('load', () => {

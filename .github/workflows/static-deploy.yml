@@ -81,7 +81,7 @@ jobs:
         run: php bin/cache-athlete-photos
 
       - name: "Build structured data"
-        run: php bin/build-structured-data
+        run: php bin/build-structured-data --minify
 
       - name: "Build sitemap"
         run: php bin/build-sitemap

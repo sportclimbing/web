@@ -19,8 +19,8 @@ const {
 
 const normalizedSeason = String(season);
 const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
-const normalizedEvent = event && typeof event === 'object' ? event : null;
 const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
+const normalizedEventId = String(event.id)
 const seasonHomePath = normalizedSeason === '2026' ? '/' : `/season/${encodeURIComponent(normalizedSeason)}`;
 const seasonPagePath = `/season/${encodeURIComponent(normalizedSeason)}`;
 ---
@@ -74,7 +74,7 @@ const seasonPagePath = `/season/${encodeURIComponent(normalizedSeason)}`;
     </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
-<body data-page-type="event">
+<body data-page-type="event" data-event-id={normalizedEventId || undefined}>
 <CardTemplates />
 
 <div id="ifsc-season">
@@ -90,14 +90,12 @@ const seasonPagePath = `/season/${encodeURIComponent(normalizedSeason)}`;
 
 <main role="main">
     <div id="accordion">
-      {normalizedEvent ? (
         <EventCards
-          events={[normalizedEvent]}
+          events={[event]}
           expandAllRounds={true}
           hideRoundCollapseControls={true}
           showNoResultsMessage={false}
         />
-      ) : null}
     </div>
 </main>
 
