@@ -21,12 +21,17 @@ const {
   pageTitle,
   pageDescription,
   robotsContent = 'index,follow,max-image-preview:large',
+  socialImagePath = '/img/logo.png',
+  socialImageAlt = 'ifsc.stream season calendar preview',
 } = Astro.props;
 
 const normalizedSeason = String(season);
 const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
 const events = Array.isArray(eventsPayload?.events) ? eventsPayload.events : [];
 const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
+const socialImageUrl = socialImagePath.startsWith('http')
+  ? socialImagePath
+  : `https://ifsc.stream${socialImagePath}`;
 ---
 <!doctype html>
 <html lang="en">
@@ -51,13 +56,14 @@ const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
     <meta property="og:site_name" content="ifsc.stream" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
-    <meta property="og:image" content="https://ifsc.stream/img/logo.png" />
-    <meta property="og:image:alt" content="ifsc.stream logo" />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:alt" content={socialImageAlt} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content="https://ifsc.stream/img/logo.png" />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
 
     <script type="application/ld+json" id="structured-data-organization">
         {

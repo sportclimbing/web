@@ -42,9 +42,53 @@ const season = String(Astro.props.season);
 const event = Astro.props.event;
 const seasons = getAllSeasons();
 const canonicalPath = build_event_page_path(season, event);
-const eventName = event.name;
-const pageTitle = `${eventName} - IFSC Live Streams & Schedule`;
-const pageDescription = `${eventName}: event schedule, round times, start list, and stream links for the ${season} IFSC season.`;
+const eventName = String(event.name).trim();
+const eventLocation = [event?.location, event?.country]
+  .map((value) => String(value || '').trim())
+  .filter(Boolean)
+  .join(', ');
+const eventDisciplines = event.disciplines
+  .map((discipline) => String(discipline))
+  .filter(Boolean)
+  .map((discipline) => `${discipline.charAt(0).toUpperCase()}${discipline.slice(1).toLowerCase()}`)
+  .join(', ');
+const formatMetaDate = (value) => {
+  if (typeof value !== 'string' || value.trim() === '') {
+    return '';
+  }
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return '';
+  }
+
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: event?.timezone || 'UTC',
+  }).format(date);
+};
+const startsAtLabel = formatMetaDate(event?.starts_at);
+const endsAtLabel = formatMetaDate(event?.ends_at);
+const dateRangeLabel = startsAtLabel && endsAtLabel
+  ? `${startsAtLabel} to ${endsAtLabel}`
+  : startsAtLabel || endsAtLabel;
+const pageTitle = [
+  eventName,
+  eventLocation || dateRangeLabel || `Season ${season}`,
+  'World Climbing Live Stream & Schedule',
+].filter(Boolean).join(' | ');
+const pageDescription = [
+  `${eventName} (${season})`,
+  eventLocation ? `in ${eventLocation}` : '',
+  dateRangeLabel ? `runs ${dateRangeLabel}` : '',
+  eventDisciplines ? `with ${eventDisciplines} rounds` : '',
+  'including stream links and schedule updates.',
+].join(' ').replace(/\s+/g, ' ').trim();
+const socialImagePath = `/img/event/${season}/${event.id}.svg`;
+const socialImageAlt = `${eventName} event preview image`;
 ---
 <EventPage
   season={season}
@@ -53,4 +97,6 @@ const pageDescription = `${eventName}: event schedule, round times, start list, 
   canonicalPath={canonicalPath}
   pageTitle={pageTitle}
   pageDescription={pageDescription}
+  socialImagePath={socialImagePath}
+  socialImageAlt={socialImageAlt}
 />

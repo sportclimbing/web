@@ -22,6 +22,8 @@ const canonicalPath = isDefaultSeason ? '/' : `/season/${season}`;
 const robotsContent = isDefaultSeason
   ? 'noindex,follow,max-image-preview:large'
   : 'index,follow,max-image-preview:large';
+const socialImagePath = `/img/season/${season}.svg`;
+const socialImageAlt = `IFSC ${season} season calendar preview`;
 ---
 <CalendarPage
   season={season}
@@ -31,4 +33,6 @@ const robotsContent = isDefaultSeason
   pageTitle={pageTitle}
   pageDescription={pageDescription}
   robotsContent={robotsContent}
+  socialImagePath={socialImagePath}
+  socialImageAlt={socialImageAlt}
 />
