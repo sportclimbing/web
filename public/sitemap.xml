@@ -7,6 +7,11 @@
     <priority>1.00</priority>
   </url>
   <url>
+    <loc>https://ifsc.stream/faq/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://ifsc.stream/season/2020/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.40</priority>
