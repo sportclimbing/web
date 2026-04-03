@@ -120,7 +120,7 @@ test('event title click opens the event page', async ({ page }) => {
 
   const firstTitle = page.locator('#accordion .ifsc-league-card:not([hidden]) .event-name[href]').first();
   const eventPagePath = await firstTitle.getAttribute('href');
-  expect(eventPagePath).toMatch(/^\/season\/2026\/event\/.+-\d+$/);
+  expect(eventPagePath).toMatch(/^\/season\/2026\/event\/.+-\d+\/$/);
 
   await firstTitle.click();
   await expect.poll(() => normalizePath(new URL(page.url()).pathname)).toBe(normalizePath(eventPagePath || ''));
@@ -138,13 +138,13 @@ test('season page expands the next-event panel by default', async ({ page }) => 
   expect(panelMatch.openPanelId).toBe(panelMatch.expectedPanelId);
 });
 
-test('event page shows expanded rounds without season subheader controls', async ({ page }) => {
+test('event page shows expanded rounds with breadcrumb-only subheader', async ({ page }) => {
   await page.goto('/season/2026');
   await waitForEventCards(page);
 
   const firstTitle = page.locator('#accordion .ifsc-league-card:not([hidden]) .event-name[href]').first();
   const eventPagePath = await firstTitle.getAttribute('href');
-  expect(eventPagePath).toMatch(/^\/season\/2026\/event\/.+-\d+$/);
+  expect(eventPagePath).toMatch(/^\/season\/2026\/event\/.+-\d+\/$/);
 
   await page.goto(eventPagePath || '/season/2026');
   await expect.poll(() => normalizePath(new URL(page.url()).pathname)).toBe(normalizePath(eventPagePath || ''));
@@ -152,15 +152,13 @@ test('event page shows expanded rounds without season subheader controls', async
   await expect(page.locator('#season-month-nav')).toHaveCount(0);
   await expect(page.locator('#season-selector')).toHaveCount(0);
   await expect(page.locator('.filters-button')).toHaveCount(0);
+  await expect(page.locator('.subheader-back-to-season')).toHaveCount(0);
+  await expect(page.locator('.event-breadcrumbs')).toHaveCount(1);
+  await expect(page.locator('.event-breadcrumbs-list li')).toHaveCount(3);
+  await expect(page.locator('.event-breadcrumbs-current[aria-current="page"]')).toHaveCount(1);
   await expect(page.locator('[data-action="event-watch-toggle"]')).toHaveCount(0);
   await expect(page.locator('#accordion .event-rounds-panel.collapse')).toHaveCount(0);
   await expect(page.locator('#accordion .event-round-card:not([hidden])').first()).toBeVisible();
-
-  const backToSeasonLink = page.locator('.subheader-back-to-season').first();
-  await expect(backToSeasonLink).toHaveAttribute('href', '/season/2026');
-  await backToSeasonLink.click();
-  await expect.poll(() => normalizePath(new URL(page.url()).pathname)).toBe('/season/2026');
-  await waitForEventCards(page);
 });
 
 test('persists filter changes from the filter modal', async ({ page }) => {

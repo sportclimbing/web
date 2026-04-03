@@ -1,4 +1,4 @@
-PLAYWRIGHT_IMAGE ?= mcr.microsoft.com/playwright:v1.54.1-noble
+PLAYWRIGHT_IMAGE ?= mcr.microsoft.com/playwright:v1.59.1-noble
 DOCKER_RUN = docker run --rm --init --ipc=host -u "$(shell id -u):$(shell id -g)" -e HOME=/tmp -e npm_config_cache=/tmp/.npm -v "$(PWD):/work" -w /work
 
 .DEFAULT_GOAL := build
