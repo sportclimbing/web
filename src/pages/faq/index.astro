@@ -1,0 +1,172 @@
+---
+import CardTemplates from '../../components/CardTemplates.astro';
+import Footer from '../../components/Footer.astro';
+import HeaderTitle from '../../components/HeaderTitle.astro';
+import Modals from '../../components/Modals.astro';
+import SeasonNavbar from '../../components/SeasonNavbar.astro';
+import SubheaderButtons from '../../components/SubheaderButtons.astro';
+import VersionUpdateNotice from '../../components/VersionUpdateNotice.astro';
+import { getAllSeasons, getSeasonEventsPayload } from '../../lib/events-data';
+import {
+  DEFAULT_SEASON,
+  DESKTOP_VIEWPORT_MEDIA_QUERY,
+  MOBILE_VIEWPORT_MEDIA_QUERY,
+} from '../../lib/config';
+import { siteAssetVersion } from '../../lib/site-shell';
+
+const season = DEFAULT_SEASON;
+const seasons = getAllSeasons();
+const eventsPayload = getSeasonEventsPayload(season);
+const events = Array.isArray(eventsPayload?.events) ? eventsPayload.events : [];
+const seasonEventCount = events.length;
+const seasonDisciplines = [...new Set(
+  events.flatMap((event) => (Array.isArray(event?.disciplines) ? event.disciplines : []))
+    .map((discipline) => String(discipline || '').trim().toLowerCase())
+    .filter(Boolean),
+)];
+const seasonDisciplineLabel = seasonDisciplines.length
+  ? seasonDisciplines.map((discipline) => `${discipline.charAt(0).toUpperCase()}${discipline.slice(1)}`).join(', ')
+  : 'Boulder, Lead, and Speed';
+const seasonLocations = [...new Set(
+  events
+    .map((event) => String(event?.location || '').trim())
+    .filter(Boolean),
+)];
+const seasonLocationSummary = seasonLocations.slice(0, 4).join(', ');
+const seasonLocationSuffix = seasonLocations.length > 4 ? ', and more.' : '.';
+const pageTitle = `IFSC ${season} Calendar Guide & FAQ | ifsc.stream`;
+const pageDescription = `Find stream, timezone, and season-navigation answers for the IFSC ${season} calendar.`;
+const canonicalUrl = 'https://ifsc.stream/faq/';
+const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription} />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <base href="/" />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="stylesheet" href="/css/fonts-local.css" />
+  <link rel="stylesheet" href="/css/calendar.css" />
+  <link rel="stylesheet" href="/css/calendar-desktop.css" media={`screen and ${DESKTOP_VIEWPORT_MEDIA_QUERY}`} />
+  <link rel="stylesheet" href="/css/calendar-mobile.css" media={`screen and ${MOBILE_VIEWPORT_MEDIA_QUERY}`} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:site_name" content="ifsc.stream" />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:image" content={socialImageUrl} />
+  <meta property="og:image:alt" content={`IFSC ${season} season calendar preview`} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={pageDescription} />
+  <meta name="twitter:image" content={socialImageUrl} />
+  <meta name="twitter:image:alt" content={`IFSC ${season} season calendar preview`} />
+
+  <script type="application/ld+json" id="structured-data-organization">
+      {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "@id": "https://ifsc.stream/#organization",
+          "name": "ifsc.stream",
+          "url": "https://ifsc.stream/",
+          "logo": "https://ifsc.stream/img/logo.png",
+          "sameAs": [
+              "https://github.com/sportclimbing/ifsc-calendar",
+              "https://www.instagram.com/nicoswd/"
+          ]
+      }
+  </script>
+  <script
+    type="application/ld+json"
+    id="structured-data-faq"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Where can I watch IFSC events live?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Each event card includes direct stream links for every published round, plus updates when streams go live.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Are start times shown in my local timezone?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. Round times and countdowns are rendered in your browser timezone so you can follow live sessions accurately.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I browse the full season in one page?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `Yes. Use the month navigation and filters to jump between events, disciplines, and round types throughout season ${season}.`,
+          },
+        },
+      ],
+    })}
+  ></script>
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
+</head>
+<body data-page-type="faq" data-build-version={siteAssetVersion}>
+<VersionUpdateNotice />
+<CardTemplates />
+
+<div id="ifsc-season">
+  <HeaderTitle season={season} homeUrl="/" />
+</div>
+
+<SeasonNavbar />
+<SubheaderButtons
+  showBackToSeasonButton={true}
+  backToSeasonHref="/"
+  backToSeasonLabel={`◀︎ Back to season ${season}`}
+/>
+
+<main role="main">
+  <section class="season-seo-content" aria-labelledby="season-seo-title">
+    <h1 id="season-seo-title">IFSC {season} Calendar Guide</h1>
+    <p>
+      The {season} World Climbing calendar currently lists {seasonEventCount} events across {seasonDisciplineLabel}.
+      Track livestream rounds, and results updates in one place.
+    </p>
+    <p>
+      Main host locations include {seasonLocationSummary || 'multiple international venues'}{seasonLocationSuffix}
+    </p>
+    <div class="season-seo-faq">
+      <h2>FAQ</h2>
+      <h3>Where can I watch IFSC events live?</h3>
+      <p>Each event card includes direct stream links for every published round, plus updates when streams go live.</p>
+      <h3>Are start times shown in my local timezone?</h3>
+      <p>Yes. Round times and countdowns are rendered in your browser timezone so you can follow live sessions accurately.</p>
+      <h3>Can I browse the full season in one page?</h3>
+      <p>Yes. Use the month navigation and filters to jump between events, disciplines, and round types throughout season {season}.</p>
+    </div>
+  </section>
+</main>
+
+<Modals />
+
+<Footer
+  seasons={seasons}
+  selectedSeason={season}
+  buildVersion={siteAssetVersion}
+/>
+
+<script src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
+<script src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
+<script src={`/js/app.js?v=${siteAssetVersion}`}></script>
+</body>
+</html>

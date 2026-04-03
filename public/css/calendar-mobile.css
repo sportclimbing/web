@@ -279,6 +279,29 @@ main[role="main"] {
     padding-top: 0 !important;
 }
 
+.season-seo-content {
+    margin-top: 16px;
+    padding: 14px 12px 12px;
+    border-radius: 12px;
+}
+
+.season-seo-content h2 {
+    font-size: 18px;
+}
+
+.season-seo-content h3 {
+    font-size: 15px;
+}
+
+.season-seo-content h4 {
+    font-size: 13px;
+}
+
+.season-seo-content p {
+    font-size: 12px;
+    line-height: 1.45;
+}
+
 #accordion .event-rounds-panel > .card-body.list-group {
     padding-left: 0.2rem;
     padding-bottom: 0.3rem;
