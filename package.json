@@ -13,7 +13,7 @@
   "devDependencies": {
     "astro": "5.11.0",
     "@playwright/test": "1.54.1",
-    "http-server": "14.1.1",
-    "terser": "5.39.2"
+    "esbuild": "0.28.0",
+    "http-server": "14.1.1"
   }
 }

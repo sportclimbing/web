@@ -227,16 +227,6 @@ function set_next_event(round, event, isStreaming) {
     }
 }
 
-function video_id_from_stream(round) {
-    const youtubeVideoId = extract_youtube_video_id(round.stream_url);
-
-    if (youtubeVideoId) {
-        return youtubeVideoId;
-    }
-
-    return round.categories.includes('women') ? 'MQeQs6K_T5g' : 'emrHdLsJTk4';
-}
-
 function set_youtube_cover_rotation(element, initialFrame = 0) {
     let interval = null;
     let frame = initialFrame;

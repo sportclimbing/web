@@ -236,43 +236,6 @@ Object.defineProperty(String.prototype, 'capitalize', {
 
 const ATHLETE_PHOTO_CDN_PREFIX = 'https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/';
 
-function photo_filename_from_url_build(photoUrl) {
-    const url = String(photoUrl || '').trim();
-
-    if (!url) {
-        return '';
-    }
-
-    let pathname = '';
-
-    try {
-        pathname = new URL(url).pathname || '';
-    } catch (error) {
-        pathname = url.split(/[?#]/)[0] || '';
-    }
-
-    const pathParts = pathname.split('/').filter(Boolean);
-
-    if (!pathParts.length) {
-        return '';
-    }
-
-    const fileName = pathParts[pathParts.length - 1];
-
-    if (!fileName || fileName === '.' || fileName === '..') {
-        return '';
-    }
-
-    const extensionIndex = fileName.lastIndexOf('.');
-    const baseName = extensionIndex > 0 ? fileName.slice(0, extensionIndex) : fileName;
-
-    if (!baseName || baseName === '.' || baseName === '..') {
-        return '';
-    }
-
-    return `${baseName}.jpg`;
-}
-
 function athlete_local_photo_url_build(photoUrl) {
     const normalizedPhotoUrl = String(photoUrl || '').trim();
 

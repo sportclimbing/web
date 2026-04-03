@@ -471,16 +471,6 @@ function get_id_from_path(name) {
     return '';
 }
 
-function extract_youtube_video_id(url) {
-    const match = (url || '').match(/youtu(\.be|be\.com)\/(live\/|watch\?v=)?(?<video_id>[a-zA-Z0-9_-]{10,})/);
-
-    if (match) {
-        return match.groups.video_id;
-    }
-
-    return null;
-}
-
 function load_config_from_modal() {
     return {
         league: {
