@@ -21,8 +21,8 @@ const normalizedSeason = String(season);
 const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
 const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
 const normalizedEventId = String(event.id)
-const seasonHomePath = normalizedSeason === '2026' ? '/' : `/season/${encodeURIComponent(normalizedSeason)}`;
-const seasonPagePath = `/season/${encodeURIComponent(normalizedSeason)}`;
+const seasonHomePath = normalizedSeason === '2026' ? '/' : `/season/${normalizedSeason}`;
+const seasonPagePath = `/season/${normalizedSeason}`;
 ---
 <!doctype html>
 <html lang="en">

@@ -359,8 +359,7 @@ function set_round_name(element, round) {
 
 function set_favicon(liveEvent) {
     let favicon;
-    let title = document.title.split(' | ');
-    title = title[title.length - 1];
+    const title = document.title.replace(/^Live now:\s.*?\s\|\s/, '');
 
     if (liveEvent) {
         document.title = `Live now: ${liveEvent.name} | ${title}`;

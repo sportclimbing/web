@@ -38,12 +38,12 @@ export function getStaticPaths() {
   });
 }
 
-const season = String(Astro.props.season ?? Astro.params.season ?? '');
+const season = String(Astro.props.season);
 const event = Astro.props.event;
 const seasons = getAllSeasons();
 const canonicalPath = build_event_page_path(season, event);
-const eventName = String(event?.name || 'Event');
-const pageTitle = `${eventName} - World Climbing (IFSC) ${season} Event | ifsc.stream`;
+const eventName = event.name;
+const pageTitle = `${eventName} - IFSC Live Streams & Schedule`;
 const pageDescription = `${eventName}: event schedule, round times, start list, and stream links for the ${season} IFSC season.`;
 ---
 <EventPage
