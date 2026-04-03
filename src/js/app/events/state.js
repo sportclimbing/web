@@ -2,7 +2,7 @@ const DEFAULT_SEASON = '2026';
 const EVENT_TIMEZONE = 'Europe/Madrid';
 const TOOLTIP_TEMPLATE = '<div class="tooltip sync-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>';
 const SEASON_SELECTOR = 'select[name="season-selector"]';
-const MOBILE_VIEWPORT_MEDIA_QUERY = '(max-width: 500px)';
+const MOBILE_VIEWPORT_MEDIA_QUERY = '(max-width: 800px)';
 const MONTH_NAV_LEFT_CSS_VAR = '--season-month-nav-left';
 
 let config;

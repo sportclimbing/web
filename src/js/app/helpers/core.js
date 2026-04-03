@@ -78,7 +78,7 @@ function fit_mobile_hero_title() {
         return;
     }
 
-    const isMobile = window.matchMedia('(max-width: 500px)').matches;
+    const isMobile = window.matchMedia('(max-width: 800px)').matches;
 
     if (!isMobile) {
         heading.style.removeProperty('font-size');
@@ -216,7 +216,7 @@ function fit_event_name_titles() {
     }
 
     const minFontSize = 8;
-    const isMobileViewport = window.matchMedia('(max-width: 500px)').matches;
+    const isMobileViewport = window.matchMedia('(max-width: 800px)').matches;
 
     if (!isMobileViewport) {
         eventNameTitles.forEach((title) => {
@@ -250,7 +250,7 @@ function sync_next_event_mobile_countdown_height() {
         return;
     }
 
-    if (!countdown || countdown.hidden || !window.matchMedia('(max-width: 500px)').matches) {
+    if (!countdown || countdown.hidden || !window.matchMedia('(max-width: 800px)').matches) {
         nextEventContainer.style.removeProperty('--next-event-mobile-media-height');
 
         return;
