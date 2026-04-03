@@ -14,6 +14,42 @@ function handle_chat_toggle(button) {
     }
 }
 
+function policy_feature_names(policy) {
+    if (!policy) {
+        return [];
+    }
+
+    if (typeof policy.features === 'function') {
+        return Array.from(policy.features());
+    }
+
+    if (typeof policy.allowedFeatures === 'function') {
+        return Array.from(policy.allowedFeatures());
+    }
+
+    return [];
+}
+
+function iframe_allow_feature_supported(featureName) {
+    const iframe = document.createElement('iframe');
+    const policies = [
+        iframe.permissionsPolicy,
+        iframe.featurePolicy,
+        document.permissionsPolicy,
+        document.featurePolicy,
+    ];
+
+    for (const policy of policies) {
+        const featureNames = policy_feature_names(policy);
+
+        if (featureNames.length) {
+            return featureNames.includes(featureName);
+        }
+    }
+
+    return false;
+}
+
 function handle_watch_event(e) {
     const round = round_from_stream_button(e.currentTarget);
     const streamUrl = round_stream_url_from_target(e.currentTarget);
@@ -41,6 +77,10 @@ function handle_watch_event(e) {
     }
 
     if (youtubeVideo) {
+        const requestedAllowFeatures = ['autoplay', 'clipboard-write', 'picture-in-picture', 'web-share'];
+        const allowFeatures = requestedAllowFeatures.filter((featureName) => iframe_allow_feature_supported(featureName));
+
+        youtubeVideo.setAttribute('allow', allowFeatures.join('; '));
         youtubeVideo.setAttribute('src', `${YOUTUBE_EMBED_BASE_URL}/${youTubeVideoId}?autoplay=1`);
     }
 
