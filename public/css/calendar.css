@@ -1231,8 +1231,10 @@ li.ifsc-event:last-child { border-bottom: none; }
     max-width: 100%;
     margin: 3px 0;
     text-transform: none;
+    font-family: 'Rajdhani', sans-serif;
     font-size: inherit;
     font-weight: inherit;
+    letter-spacing: -0.01em;
     line-height: inherit;
     white-space: normal;
     overflow-wrap: anywhere;
