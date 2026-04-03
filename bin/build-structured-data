@@ -158,7 +158,7 @@ function schema_event_page_url(array $event, string $siteUrl, string $season): s
         $slug = 'event';
     }
 
-    $seasonSegment = rawurlencode($season);z
+    $seasonSegment = rawurlencode($season);
     $slugIdSegment = rawurlencode("{$slug}-{$eventId}");
 
     return "{$siteUrl}/season/{$seasonSegment}/event/{$slugIdSegment}";
@@ -202,29 +202,6 @@ function schema_event_athletes(array $event): array
 
         if ($photoUrl !== '') {
             $athlete['image'] = $photoUrl;
-        }
-
-        $country = is_string($startListAthlete['country'] ?? null) ? trim($startListAthlete['country']) : '';
-
-        if ($country !== '') {
-            $athlete['nationality'] = [
-                '@type' => 'Country',
-                'name' => $country,
-            ];
-        }
-
-        $athleteIdRaw = $startListAthlete['athlete_id'] ?? null;
-
-        if (is_scalar($athleteIdRaw)) {
-            $athleteId = trim((string) $athleteIdRaw);
-
-            if ($athleteId !== '') {
-                $athlete['identifier'] = [
-                    '@type' => 'PropertyValue',
-                    'propertyID' => 'athlete_id',
-                    'value' => $athleteId,
-                ];
-            }
         }
 
         $athletes[] = $athlete;
