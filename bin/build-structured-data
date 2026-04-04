@@ -193,18 +193,10 @@ function schema_event_athletes(array $event): array
             continue;
         }
 
-        $athlete = [
+        $athletes[] = [
             '@type' => 'Person',
             'name' => $name,
         ];
-
-        $photoUrl = is_string($startListAthlete['photo_url'] ?? null) ? trim($startListAthlete['photo_url']) : '';
-
-        if ($photoUrl !== '') {
-            $athlete['image'] = $photoUrl;
-        }
-
-        $athletes[] = $athlete;
 
         if (count($athletes) >= 5) {
             break;
@@ -575,7 +567,7 @@ $positionalArguments = is_array($cliArguments['positional'] ?? null) ? $cliArgum
 $eventsDirectory = rtrim(
     isset($namedOptions['events_dir'])
         ? (string) $namedOptions['events_dir']
-        : (count($positionalArguments) > 0 ? (string) array_shift($positionalArguments) : 'public/events'),
+        : (count($positionalArguments) > 0 ? (string) array_shift($positionalArguments) : 'events'),
     '/'
 );
 $outputDirectory = rtrim(

@@ -38,7 +38,7 @@ jobs:
       - name: "Download latest calendar"
         run: |
           curl -sSL "${{ env.LATEST_CALENDAR_URL }}" \
-              --output "public/events/events_${YEAR}.json" \
+              --output "events/events_${YEAR}.json" \
               --max-time 15
 
       - name: "Cache athlete start-list photos"
@@ -80,7 +80,7 @@ jobs:
       - name: "Download latest calendar"
         run: |
           curl -sSL "${{ env.LATEST_CALENDAR_URL }}" \
-              --output "public/events/events_${YEAR}.json" \
+              --output "events/events_${YEAR}.json" \
               --max-time 15
 
       - name: "Cache athlete start-list photos"

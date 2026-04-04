@@ -15,7 +15,7 @@ Usage:
   php {$script} [events-dir] [images-dir] [image-size]
 
 Arguments:
-  events-dir           Directory containing events_YYYY.json (default: public/events)
+  events-dir           Directory containing events_YYYY.json (default: events)
   images-dir           Output directory for local images (default: public/img/athletes)
   image-size           Square output size in px (default: 128)
 
@@ -326,7 +326,7 @@ try {
         throw new InvalidArgumentException('Too many arguments provided');
     }
 
-    $eventsDirectory = rtrim($argv[1] ?? 'public/events', '/');
+    $eventsDirectory = rtrim($argv[1] ?? 'events', '/');
     $imagesDirectory = rtrim($argv[2] ?? 'public/img/athletes', '/');
     $imageSize = (int) ($argv[3] ?? (string) DEFAULT_IMAGE_SIZE);
 

@@ -134,7 +134,7 @@ function detect_default_season(string $projectRoot, int $fallbackSeason): int
     return $fallbackSeason;
 }
 
-$eventsDirectory = rtrim($argv[1] ?? 'public/events', '/');
+$eventsDirectory = rtrim($argv[1] ?? 'events', '/');
 $outputFile = $argv[2] ?? 'public/sitemap.xml';
 $siteUrl = rtrim($argv[3] ?? 'https://ifsc.stream', '/');
 

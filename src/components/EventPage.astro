@@ -83,10 +83,14 @@ const breadcrumbStructuredData = {
 
     <base href="/" />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="stylesheet" href="/css/fonts-local.css" />
-    <link rel="stylesheet" href="/css/calendar.css" />
-    <link rel="stylesheet" href="/css/calendar-desktop.css" media={`screen and ${DESKTOP_VIEWPORT_MEDIA_QUERY}`} />
-    <link rel="stylesheet" href="/css/calendar-mobile.css" media={`screen and ${MOBILE_VIEWPORT_MEDIA_QUERY}`} />
+    <link rel="preload" href="/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/rajdhani-medium.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/rajdhani-semibold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/rajdhani-bold.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href={`/css/fonts-local.css?v=${siteAssetVersion}`} />
+    <link rel="stylesheet" href={`/css/calendar.css?v=${siteAssetVersion}`} />
+    <link rel="stylesheet" href={`/css/calendar-desktop.css?v=${siteAssetVersion}`} media={`screen and ${DESKTOP_VIEWPORT_MEDIA_QUERY}`} />
+    <link rel="stylesheet" href={`/css/calendar-mobile.css?v=${siteAssetVersion}`} media={`screen and ${MOBILE_VIEWPORT_MEDIA_QUERY}`} />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
