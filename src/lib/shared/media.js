@@ -1,4 +1,6 @@
 const YOUTUBE_VIDEO_ID_PATTERN = /youtu(\.be|be\.com)\/(live\/|watch\?v=)?(?<video_id>[a-zA-Z0-9_-]{10,})/;
+const DEFAULT_MENS_VIDEO_ID = 'emrHdLsJTk4';
+const DEFAULT_WOMENS_VIDEO_ID = 'MQeQs6K_T5g';
 
 export const extract_youtube_video_id = (url) => {
   const match = String(url || '').match(YOUTUBE_VIDEO_ID_PATTERN);
@@ -8,6 +10,17 @@ export const extract_youtube_video_id = (url) => {
   }
 
   return null;
+};
+
+export const youtube_thumbnail_local_path = (videoId) => {
+  const normalizedVideoId = String(videoId || '').trim();
+  return `/images/thumb/${normalizedVideoId}.webp`;
+};
+
+export const youtube_thumbnail_remote_path = (videoId, variant = 0) => {
+  const normalizedVideoId = String(videoId || '').trim();
+  const normalizedVariant = String(variant);
+  return `https://img.youtube.com/vi/${normalizedVideoId}/${normalizedVariant}.jpg`;
 };
 
 export const photo_filename_from_url_build = (photoUrl) => {
@@ -106,5 +119,5 @@ export const video_id_from_stream = (round) => {
     return youtubeVideoId;
   }
 
-  return round.categories.includes('women') ? 'MQeQs6K_T5g' : 'emrHdLsJTk4';
+  return round.categories.includes('women') ? DEFAULT_WOMENS_VIDEO_ID : DEFAULT_MENS_VIDEO_ID;
 }
