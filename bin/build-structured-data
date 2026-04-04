@@ -193,18 +193,10 @@ function schema_event_athletes(array $event): array
             continue;
         }
 
-        $athlete = [
+        $athletes[] = [
             '@type' => 'Person',
             'name' => $name,
         ];
-
-        $photoUrl = is_string($startListAthlete['photo_url'] ?? null) ? trim($startListAthlete['photo_url']) : '';
-
-        if ($photoUrl !== '') {
-            $athlete['image'] = $photoUrl;
-        }
-
-        $athletes[] = $athlete;
 
         if (count($athletes) >= 5) {
             break;
