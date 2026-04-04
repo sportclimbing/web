@@ -575,7 +575,7 @@ $positionalArguments = is_array($cliArguments['positional'] ?? null) ? $cliArgum
 $eventsDirectory = rtrim(
     isset($namedOptions['events_dir'])
         ? (string) $namedOptions['events_dir']
-        : (count($positionalArguments) > 0 ? (string) array_shift($positionalArguments) : 'public/events'),
+        : (count($positionalArguments) > 0 ? (string) array_shift($positionalArguments) : 'events'),
     '/'
 );
 $outputDirectory = rtrim(

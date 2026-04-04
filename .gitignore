@@ -1,7 +1,7 @@
 /.idea/
 .DS_Store
 
-/public/events/events_2026.json
+/events/events_2026.json
 /public/structured-data/events_*.json
 /public/feed/rss.xml
 /public/img/athletes/

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const EVENTS_DIR = path.join(process.cwd(), 'public', 'events');
+const EVENTS_DIR = path.join(process.cwd(), 'events');
 const SEASONS_FILE = path.join(EVENTS_DIR, 'seasons.json');
 
 const eventsCache = new Map();
