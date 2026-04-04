@@ -57,7 +57,7 @@ export const photo_filename_from_url_build = (photoUrl) => {
     return '';
   }
 
-  return `${baseName}.jpg`;
+  return `${baseName}.webp`;
 };
 
 const normalize_athlete_name_part = (value) => {
@@ -69,7 +69,7 @@ const normalize_athlete_name_part = (value) => {
 
   return normalized
     .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\p{M}+/gu, '')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
@@ -81,13 +81,13 @@ export const athlete_photo_filename_from_name_build = (athlete) => {
   const baseName = `${firstName}-${lastName}`.replace(/^-+|-+$/g, '');
 
   if (baseName) {
-    return `${baseName}.jpg`;
+    return `${baseName}.webp`;
   }
 
   const athleteId = String(athlete?.athlete_id ?? '').trim();
 
   if (/^\d+$/.test(athleteId)) {
-    return `athlete-${athleteId}.jpg`;
+    return `athlete-${athleteId}.webp`;
   }
 
   return '';

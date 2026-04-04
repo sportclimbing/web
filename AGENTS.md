@@ -8,7 +8,7 @@
 - Astro pages/components live in `src/` and compile to static output in `dist/`.
 - Browser JavaScript is authored in `src/js/app/` and bundled into `public/js/app.js` via `bin/build-js-bundle.mjs`.
 - `public/` contains static assets consumed at build time.
-- PHP scripts in `bin/` generate SEO/data artifacts and cache athlete photos.
+- PHP scripts in `bin/` generate SEO/data artifacts; a Node script caches athlete photos.
 - Playwright integration tests validate frontend behavior against the built site.
 
 ## Routing And Rendering
@@ -50,7 +50,7 @@
 ## Data And Assets
 - Event JSON files in `events/` are source-like data for the site; update them carefully and keep schema compatibility with existing JS.
 - Files under `public/structured-data/` and `public/sitemap.xml` are generated artifacts; regenerate with the corresponding `bin/` scripts when source data changes.
-- Athlete photos under `public/img/athletes/` are generated/refreshed via `bin/cache-athlete-photos`.
+- Athlete photos under `public/img/athletes/` are generated/refreshed via `bin/cache-athlete-photos.mjs`.
 - Respect existing ignore rules for generated outputs such as `dist/`, `.astro/`, `vendor/`, `node_modules/`, Playwright reports, JS bundles, and ignored current-year artifacts.
 
 ## Commands
@@ -66,7 +66,7 @@
 - Run integration tests in Playwright Docker image: `make test-docker`.
 - Build structured data files: `php bin/build-structured-data [events-dir] [output-dir] [site-url]`.
 - Build sitemap: `php bin/build-sitemap [events-dir] [output-file] [site-url]`.
-- Cache and resize athlete photos: `php bin/cache-athlete-photos [events-dir] [images-dir] [image-size]`.
+- Cache and resize athlete photos: `node bin/cache-athlete-photos.mjs --events-dir events --images-dir public/img/athletes --image-size 128 --concurrency 8`.
 
 ## Validation
 - Playwright integration tests are available in `tests/integration/`.
