@@ -5,6 +5,7 @@
 /public/structured-data/events_*.json
 /public/feed/rss.xml
 /public/img/athletes/
+/public/images/thumb/
 /public/img/news
 /public/js/app.js
 /node_modules/

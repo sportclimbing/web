@@ -1,7 +1,12 @@
 ---
 import { build_start_list_modal_url } from '../lib/start-list-modal-fragments';
 import { build_event_page_path } from '../lib/event-pages';
-import { athlete_photo_local_sources_build, video_id_from_stream } from '../lib/shared/media.js';
+import {
+  athlete_photo_local_sources_build,
+  extract_youtube_video_id,
+  video_id_from_stream,
+  youtube_thumbnail_local_path,
+} from '../lib/shared/media.js';
 import { round_will_be_streamed } from '../js/app/helpers/core.js';
 
 const {
@@ -246,9 +251,10 @@ const poster_url_for_event = (event) => {
   }
 
   const round = rounds[rounds.length - 1];
-  const videoId = video_id_from_stream(round);
+  const streamVideoId = extract_youtube_video_id(round?.stream_url);
+  const videoId = streamVideoId || video_id_from_stream(round);
 
-  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  return youtube_thumbnail_local_path(videoId);
 };
 
 const athlete_name_build = (athlete) => `${athlete.first_name} ${athlete.last_name}`;
@@ -440,6 +446,7 @@ const league_name_without_ifsc = (value) => String(value || '')
               const roundLocalTimeTooltip = round_local_time_tooltip_build(round);
               const showReminder = isUpcoming;
               const videoId = video_id_from_stream(round);
+              const thumbnailUrl = youtube_thumbnail_local_path(videoId);
 
               return (
                 <li
@@ -452,7 +459,7 @@ const league_name_without_ifsc = (value) => String(value || '')
                   data-round-disciplines={(Array.isArray(round.disciplines) ? round.disciplines : []).join(',')}
                   data-round-categories={(Array.isArray(round.categories) ? round.categories : []).join(',')}
                 >
-                  <div class="youtube-thumbnail media-shadow-soft" data-youtube-video-id={videoId} style={`background-image: url(https://img.youtube.com/vi/${videoId}/0.jpg);`}>
+                  <div class="youtube-thumbnail media-shadow-soft" data-youtube-video-id={videoId} style={`background-image: url(${thumbnailUrl});`}>
                     <button
                       class="youtube-play-button"
                       type="button"

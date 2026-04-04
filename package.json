@@ -2,6 +2,7 @@
   "name": "world-climbing-schedule-frontend",
   "private": true,
   "scripts": {
+    "cache:thumbnails": "node bin/cache-youtube-thumbnails.mjs",
     "build:js": "node bin/build-js-bundle.mjs",
     "build:js:min": "node bin/build-js-bundle.mjs --minify",
     "build:astro": "astro build",
@@ -14,6 +15,7 @@
     "@playwright/test": "^1.59.1",
     "astro": "6.1.3",
     "esbuild": "0.28.0",
-    "http-server": "14.1.1"
+    "http-server": "14.1.1",
+    "sharp": "^0.34.5"
   }
 }
