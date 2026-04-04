@@ -34,9 +34,7 @@ function set_background_image_now(element, url) {
         return;
     }
 
-    element.classList.add('lazy-background');
     element.dataset.bgSrc = url;
-    element.dataset.bgLoaded = '1';
     element.style.backgroundImage = `url(${url})`;
 
     const observer = get_lazy_background_observer();
@@ -53,7 +51,6 @@ function lazy_set_background_image(element, url) {
 
     element.classList.add('lazy-background');
     element.dataset.bgSrc = url;
-    delete element.dataset.bgLoaded;
     element.style.backgroundImage = '';
 
     const observer = get_lazy_background_observer();
@@ -89,11 +86,11 @@ function youtube_cover_url(videoId, frame = 0) {
     return `https://img.youtube.com/vi/${videoId}/${frame}.jpg`;
 }
 
-function set_round_details(clone, round) {
+function set_round_details(clone, round, isNextEvent) {
     set_round_name(clone.querySelector('.round-name'), round);
     set_round_date(clone.querySelector('.round-date'), round);
     set_round_time(clone.querySelector('.round-time'), round);
-    set_round_youtube_cover(clone.querySelector('.youtube-thumbnail'), round);
+    set_round_youtube_cover(clone.querySelector('.youtube-thumbnail'), round, isNextEvent);
     set_round_stream_button(clone.querySelector('[data-action="round-stream"]'), round);
     set_round_stream_button(clone.querySelector('.youtube-play-button'), round);
 }
@@ -216,7 +213,7 @@ function set_next_event(round, event, isStreaming) {
     const clone = template.content.cloneNode(true);
 
     set_round_action_buttons_visibility(clone, isStreaming);
-    set_round_details(clone, round);
+    set_round_details(clone, round, true);
     remove_next_event_starts_in_label(clone);
     set_next_event_start_list(clone, event);
 
@@ -281,10 +278,16 @@ function set_youtube_cover_rotation(element, initialFrame = 0) {
     };
 }
 
-function set_round_youtube_cover(element, round) {
+function set_round_youtube_cover(element, round, isNextEvent) {
     const youtubeVideoId = video_id_from_stream(round);
+    const coverUrl = youtube_cover_url(youtubeVideoId, 0);
+
     element.dataset.youtubeVideoId = youtubeVideoId;
-    lazy_set_background_image(element, youtube_cover_url(youtubeVideoId, 0));
+    if (isNextEvent) {
+        set_background_image_now(element, coverUrl);
+    } else {
+        lazy_set_background_image(element, coverUrl);
+    }
 
     if (event_is_streaming(round) || event_is_upcoming(round)) {
         element.onmouseover = null;

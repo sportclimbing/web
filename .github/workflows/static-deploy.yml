@@ -41,8 +41,30 @@ jobs:
               --output "events/events_${YEAR}.json" \
               --max-time 15
 
+      - name: "Compute athlete photo cache day key"
+        id: athlete-photos-cache-day
+        shell: bash
+        run: echo "cache_day=$(date -u +%Y-%m-%d)" >> "${GITHUB_OUTPUT}"
+
+      - name: "Restore athlete start-list photos cache"
+        id: athlete-photos-cache-restore
+        uses: actions/cache/restore@v5
+        with:
+          path: public/img/athletes
+          key: athlete-photos-${{ runner.os }}-${{ steps.athlete-photos-cache-day.outputs.cache_day }}
+          restore-keys: |
+            athlete-photos-${{ runner.os }}-
+
       - name: "Cache athlete start-list photos"
+        if: steps.athlete-photos-cache-restore.outputs.cache-hit != 'true'
         run: php bin/cache-athlete-photos
+
+      - name: "Save athlete start-list photos cache"
+        if: steps.athlete-photos-cache-restore.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: public/img/athletes
+          key: athlete-photos-${{ runner.os }}-${{ steps.athlete-photos-cache-day.outputs.cache_day }}
 
       - name: "Build structured data"
         run: php bin/build-structured-data --minify
@@ -83,8 +105,30 @@ jobs:
               --output "events/events_${YEAR}.json" \
               --max-time 15
 
+      - name: "Compute athlete photo cache day key"
+        id: athlete-photos-cache-day
+        shell: bash
+        run: echo "cache_day=$(date -u +%Y-%m-%d)" >> "${GITHUB_OUTPUT}"
+
+      - name: "Restore athlete start-list photos cache"
+        id: athlete-photos-cache-restore
+        uses: actions/cache/restore@v5
+        with:
+          path: public/img/athletes
+          key: athlete-photos-${{ runner.os }}-${{ steps.athlete-photos-cache-day.outputs.cache_day }}
+          restore-keys: |
+            athlete-photos-${{ runner.os }}-
+
       - name: "Cache athlete start-list photos"
+        if: steps.athlete-photos-cache-restore.outputs.cache-hit != 'true'
         run: php bin/cache-athlete-photos
+
+      - name: "Save athlete start-list photos cache"
+        if: steps.athlete-photos-cache-restore.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: public/img/athletes
+          key: athlete-photos-${{ runner.os }}-${{ steps.athlete-photos-cache-day.outputs.cache_day }}
 
       - name: "Build structured data"
         run: php bin/build-structured-data --minify

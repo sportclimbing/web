@@ -308,7 +308,7 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
     let reminderButton = roundElement.querySelector('.button-reminder');
 
     if (includeRoundDetails) {
-        set_round_details(roundElement, round);
+        set_round_details(roundElement, round, false);
     }
 
     if (event_is_streaming(round)) {
