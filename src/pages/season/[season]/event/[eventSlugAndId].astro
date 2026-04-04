@@ -58,15 +58,13 @@ export function getStaticPaths() {
 
   const buildEventLinkLabel = (event) => {
     const eventName = normalizeEventName(event);
-    const eventLocation = String(event?.location || '').trim();
     const startsAtLabel = formatEventMetaDate(event?.starts_at, event?.timezone || 'UTC');
-    const details = [eventLocation, startsAtLabel].filter(Boolean).join(' | ');
 
-    if (!details) {
+    if (!startsAtLabel) {
       return eventName;
     }
 
-    return `${eventName} - ${details}`;
+    return `${eventName} - ${startsAtLabel}`;
   };
 
   const buildRelatedEventLinks = (season, events, currentEvent) => {
