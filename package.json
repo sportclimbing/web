@@ -1,6 +1,7 @@
 {
   "name": "world-climbing-schedule-frontend",
   "private": true,
+  "type": "module",
   "scripts": {
     "cache:thumbnails": "node bin/cache-youtube-thumbnails.mjs",
     "build:js": "node bin/build-js-bundle.mjs",
