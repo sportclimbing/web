@@ -10,8 +10,6 @@ import SubheaderButtons from './SubheaderButtons.astro';
 import VersionUpdateNotice from './VersionUpdateNotice.astro';
 import {
   DEFAULT_SEASON,
-  DESKTOP_VIEWPORT_MEDIA_QUERY,
-  MOBILE_VIEWPORT_MEDIA_QUERY,
 } from '../lib/config';
 
 const {
@@ -91,10 +89,91 @@ const breadcrumbStructuredData = {
     <link rel="preload" href="/fonts/rajdhani-medium.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/rajdhani-semibold.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/rajdhani-bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href={`/css/fonts-local.css?v=${siteAssetVersion}`} />
-    <link rel="stylesheet" href={`/css/calendar.css?v=${siteAssetVersion}`} />
-    <link rel="stylesheet" href={`/css/calendar-desktop.css?v=${siteAssetVersion}`} media={`screen and ${DESKTOP_VIEWPORT_MEDIA_QUERY}`} />
-    <link rel="stylesheet" href={`/css/calendar-mobile.css?v=${siteAssetVersion}`} media={`screen and ${MOBILE_VIEWPORT_MEDIA_QUERY}`} />
+    <script is:inline src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
+
+    <script is:inline id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffdeac",
+                        "surface-container": "#1c2025",
+                        "on-primary-fixed": "#001d32",
+                        "on-tertiary": "#432c00",
+                        "inverse-on-surface": "#2d3136",
+                        "surface-container-highest": "#31353a",
+                        "surface-container-lowest": "#0a0f13",
+                        "on-secondary": "#680014",
+                        "inverse-surface": "#e0e2e9",
+                        "on-secondary-fixed-variant": "#920020",
+                        "outline-variant": "#404750",
+                        "surface-container-high": "#262a2f",
+                        "on-tertiary-fixed-variant": "#604100",
+                        "on-tertiary-fixed": "#281900",
+                        "primary-fixed": "#cde5ff",
+                        "tertiary": "#ffbb3d",
+                        "tertiary-fixed-dim": "#ffba38",
+                        "primary": "#97ccff",
+                        "error-container": "#93000a",
+                        "secondary-fixed": "#ffdad9",
+                        "primary-fixed-dim": "#95ccff",
+                        "on-error": "#690005",
+                        "surface-tint": "#95ccff",
+                        "on-primary": "#003352",
+                        "on-surface": "#e0e2e9",
+                        "secondary-fixed-dim": "#ffb3b2",
+                        "on-primary-container": "#00436a",
+                        "surface-bright": "#36393f",
+                        "primary-container": "#66b2f2",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#101418",
+                        "inverse-primary": "#00639a",
+                        "background": "#101418",
+                        "on-background": "#e0e2e9",
+                        "on-secondary-container": "#ffa8a8",
+                        "secondary": "#ffb3b2",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#004a75",
+                        "surface-container-low": "#181c21",
+                        "outline": "#8a919b",
+                        "on-surface-variant": "#c0c7d1",
+                        "tertiary-container": "#e39f00",
+                        "on-secondary-fixed": "#410009",
+                        "surface-variant": "#31353a",
+                        "secondary-container": "#9f0224",
+                        "surface": "#101418",
+                        "on-tertiary-container": "#573b00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Space Grotesk"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel { background: rgba(16, 20, 24, 0.7); backdrop-filter: blur(20px); }
+        .kinetic-gradient { background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #101418; }
+        ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }
+    </style>
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
@@ -131,7 +210,7 @@ const breadcrumbStructuredData = {
     ></script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
-<body data-page-type="event" data-event-id={normalizedEventId || undefined} data-build-version={siteAssetVersion}>
+<body class="bg-background text-on-background min-h-screen" data-page-type="event" data-event-id={normalizedEventId || undefined} data-build-version={siteAssetVersion}>
 <VersionUpdateNotice />
 <CardTemplates />
 
@@ -206,8 +285,8 @@ const breadcrumbStructuredData = {
     buildVersion={siteAssetVersion}
 />
 
-<script src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
-<script src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
-<script src={`/js/app.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/app.js?v=${siteAssetVersion}`}></script>
 </body>
 </html>

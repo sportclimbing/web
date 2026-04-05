@@ -183,8 +183,10 @@ const get_active_month_index_from_visible_events = () => {
     }
 
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-    const referenceLine = Math.min(Math.max(Math.round(viewportHeight * 0.2), 88), 220);
+    // Lower the reference line a bit more to catch the card that's clearly "in focus"
+    const referenceLine = Math.min(Math.max(Math.round(viewportHeight * 0.3), 100), 300);
 
+    // 1. Find the first card that spans across the reference line
     for (const card of cards) {
         const rect = card.getBoundingClientRect();
 
@@ -193,6 +195,16 @@ const get_active_month_index_from_visible_events = () => {
         }
     }
 
+    // 2. If no card spans the reference line, find the first card that's fully below the reference line
+    for (const card of cards) {
+        const rect = card.getBoundingClientRect();
+
+        if (rect.top > referenceLine && rect.top < viewportHeight) {
+            return get_month_index_from_dataset_value(card.dataset.eventStartMonth);
+        }
+    }
+
+    // 3. Fallback to any visible card
     for (const card of cards) {
         const rect = card.getBoundingClientRect();
 
@@ -325,4 +337,5 @@ const setup_month_navigation = () => {
 
     addEventListener('scroll', schedule_month_navigation_sync, { passive: true });
     addEventListener('resize', schedule_month_navigation_sync);
+    sync_active_month_navigation_link();
 };

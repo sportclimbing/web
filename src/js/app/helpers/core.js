@@ -2,7 +2,7 @@ const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
 const YOUTUBE_EMBED_BASE_URL = 'https://www.youtube-nocookie.com/embed';
 const GITHUB_BUTTON_SCRIPT_SRC = 'https://buttons.github.io/buttons.js';
 const GITHUB_BUTTON_SLOT_ID = 'season-github-button-slot';
-const NEXT_EVENT_START_LIST_AVATAR_LIMIT = 9;
+const NEXT_EVENT_START_LIST_AVATAR_LIMIT = 8;
 
 const CONFIG_CHECKBOX_BINDINGS = [
     { inputName: 'league[cups]', path: ['league', 'cups'] },
@@ -479,7 +479,9 @@ function restore_theme() {
 }
 
 function config_is_enabled(name) {
-    return first_element_by_name(name).checked;
+    const element = first_element_by_name(name);
+
+    return element ? element.checked : false;
 }
 
 function remove_all_children(element) {
@@ -541,6 +543,33 @@ function get_id_from_path(name) {
 }
 
 function load_config_from_modal() {
+    const hasModal = Boolean(document.querySelector('#config-leagues input[type="checkbox"]'));
+
+    if (!hasModal) {
+        return {
+            league: {
+                "cups": true,
+                "paraclimbing": true,
+                "games": true,
+            },
+            category: {
+                "women": true,
+                "men": true,
+            },
+            disciplines: {
+                "boulder": true,
+                "lead": true,
+                "speed": true,
+            },
+            rounds: {
+                "qualification": true,
+                "semi-final": true,
+                "final": true,
+            },
+            streamable: false,
+        };
+    }
+
     return {
         league: {
             "cups": config_is_enabled('league[cups]'),
@@ -576,7 +605,11 @@ function restore_config() {
         const config = JSON.parse(configRaw);
 
         CONFIG_CHECKBOX_BINDINGS.forEach(({ inputName, path }) => {
-            set_checkbox_checked(inputName, read_nested_value(config, path));
+            const value = read_nested_value(config, path);
+
+            if (value !== undefined) {
+                set_checkbox_checked(inputName, value);
+            }
         });
     } catch (error) {
         window.localStorage.clear();
@@ -584,8 +617,14 @@ function restore_config() {
 }
 
 function config_selected_leagues() {
-    return Array.from(document.querySelectorAll('#config-leagues input[type="checkbox"]:checked'))
-        .map((checkbox) => checkbox.value);
+    const leaguesContainer = document.getElementById('config-leagues');
+    const checkedCheckboxes = leaguesContainer ? Array.from(leaguesContainer.querySelectorAll('input[type="checkbox"]:checked')) : [];
+
+    if (!leaguesContainer || (checkedCheckboxes.length === 0 && leaguesContainer.querySelectorAll('input[type="checkbox"]').length === 0)) {
+        return ["World Cups and World Championships", "IFSC Paraclimbing", "Games"];
+    }
+
+    return checkedCheckboxes.map((checkbox) => checkbox.value);
 }
 
 function parse_round_metadata_tokens(value) {

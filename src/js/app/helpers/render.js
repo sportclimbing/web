@@ -87,6 +87,10 @@ function youtube_cover_url(videoId, frame = 0) {
 }
 
 function set_round_details(clone, round, isNextEvent) {
+    if (!clone || !round) {
+        return;
+    }
+
     set_round_name(clone.querySelector('.round-name'), round);
     set_round_date(clone.querySelector('.round-date'), round);
     set_round_time(clone.querySelector('.round-time'), round);
@@ -96,18 +100,30 @@ function set_round_details(clone, round, isNextEvent) {
 }
 
 function set_round_action_buttons_visibility(clone, isStreaming) {
+    if (!clone) {
+        return;
+    }
+
     const resultsButton = clone.querySelector('.button-results');
     const reminderButton = clone.querySelector('.button-reminder');
 
     if (isStreaming) {
-        resultsButton.style.setProperty('display', 'inline-grid', 'important');
-        reminderButton.style.setProperty('display', 'none', 'important');
+        if (resultsButton) {
+            resultsButton.style.setProperty('display', 'inline-grid', 'important');
+        }
+        if (reminderButton) {
+            reminderButton.style.setProperty('display', 'none', 'important');
+        }
 
         return;
     }
 
-    resultsButton.style.setProperty('display', 'none', 'important');
-    reminderButton.style.setProperty('display', 'inline-grid', 'important');
+    if (resultsButton) {
+        resultsButton.style.setProperty('display', 'none', 'important');
+    }
+    if (reminderButton) {
+        reminderButton.style.setProperty('display', 'inline-grid', 'important');
+    }
 }
 
 function remove_next_event_starts_in_label(clone) {
@@ -192,55 +208,66 @@ function set_next_event_title(element, label, eventName) {
     element.append(labelSpan, nameSpan);
 }
 
+function format_event_name_title(event) {
+    const location = typeof event.location === 'string' ? event.location.trim() : '';
+    let year = '';
+
+    if (event.starts_at) {
+        const match = /^(\d{4})/.exec(String(event.starts_at));
+
+        if (match) {
+            year = match[1];
+        }
+    }
+
+    return `${location.toUpperCase()} ${year}`.trim();
+}
+
 function set_next_event(round, event, isStreaming) {
     const nextEventContainer = document.querySelector('.next-event');
-    const nextEventDividers = document.querySelectorAll('.next-event-divider');
-    const eventDetails = document.querySelector('#next-event-details');
-    const template = document.getElementById('ifsc-event');
+    const nextEventTitle = document.getElementById('next-event-title');
+    const nextStatusBadgeLabel = document.getElementById('next-event-status-badge-label');
+    const nextWatchButton = document.getElementById('next-event-watch-button');
+    const nextDetailsButton = document.getElementById('next-event-details-button');
+    const nextCountdown = document.getElementById('next-event-countdown');
+    const nextEventLeagueName = document.getElementById('next-event-league-name');
 
-    if (!nextEventContainer || !eventDetails || !template) {
+    if (!nextEventContainer) {
         return;
     }
 
-    nextEventContainer.style.display = 'block';
+    nextEventContainer.hidden = false;
 
-    nextEventDividers.forEach((divider) => {
-        divider.style.display = 'block';
-    });
-
-    release_lazy_backgrounds(eventDetails);
-    remove_all_children(eventDetails);
-    const clone = template.content.cloneNode(true);
-
-    set_round_action_buttons_visibility(clone, isStreaming);
-    set_round_details(clone, round, true);
-    remove_next_event_starts_in_label(clone);
-    set_next_event_start_list(clone, event);
-
-    if (isStreaming) {
-        clone.querySelector('.button-results').href = `https://ifsc.results.info/event/${event.id}`;
+    if (nextStatusBadgeLabel) {
+        nextStatusBadgeLabel.textContent = `${isStreaming ? 'Live Now' : 'Coming Up Next'}${round.name ? `: ${round.name}` : ''}`;
     }
 
-    eventDetails.append(clone);
-    set_next_event_countdown(round, isStreaming);
-    schedule_next_event_mobile_countdown_height_sync();
-
-    const title = isStreaming ? '🔴 NOW STREAMING' : 'NEXT EVENT';
-
-    const nextEventTitle = document.getElementById('next-event-title');
-    const nextEventLeagueName = document.getElementById('next-event-league-name');
-
     if (nextEventTitle) {
-        set_next_event_title(nextEventTitle, title, event.name || '');
+        nextEventTitle.textContent = event.name;
+    }
+
+    if (nextCountdown) {
+        nextCountdown.classList.toggle('hidden', isStreaming);
+        nextCountdown.hidden = isStreaming;
+    }
+
+    if (nextWatchButton) {
+        const streamUrl = round.stream_url || '';
+        nextWatchButton.classList.toggle('hidden', !isStreaming || !streamUrl);
+        nextWatchButton.dataset.roundStreamUrl = streamUrl;
+    }
+
+    if (nextDetailsButton) {
+        nextDetailsButton.dataset.eventId = event.id;
     }
 
     if (nextEventLeagueName) {
         const leagueName = typeof event.league_name === 'string' ? event.league_name.trim() : '';
-
         nextEventLeagueName.textContent = leagueName;
         nextEventLeagueName.hidden = !leagueName;
     }
 
+    set_next_event_countdown(round, isStreaming);
     schedule_fit_event_name_titles();
 }
 
@@ -279,6 +306,10 @@ function set_youtube_cover_rotation(element, initialFrame = 0) {
 }
 
 function set_round_youtube_cover(element, round, isNextEvent) {
+    if (!element || !round) {
+        return;
+    }
+
     const youtubeVideoId = video_id_from_stream(round);
     const coverUrl = youtube_cover_url(youtubeVideoId, 0);
 
@@ -369,11 +400,19 @@ function round_fallback_url_from_target(target) {
 }
 
 function set_round_date(element, round) {
-    element.innerText = '📅 ' + dayjs(round.starts_at).format('ddd, D MMMM, YYYY');
+    if (!element || !round) {
+        return;
+    }
+
+  //  element.innerText = '📅 ' + dayjs(round.starts_at).format('ddd, D MMMM, YYYY');
 }
 
 function set_round_time(element, round) {
-    element.innerText = '⏰ ' + dayjs(round.starts_at).format('hh:mm A');
+    if (!element || !round) {
+        return;
+    }
+
+   // element.innerText = '⏰ ' + dayjs(round.starts_at).format('hh:mm A');
 
     const localTimeTooltip = round_local_time_tooltip(round);
 
@@ -386,6 +425,10 @@ function set_round_time(element, round) {
 }
 
 function set_round_name(element, round) {
+    if (!element || !round) {
+        return;
+    }
+
     element.innerText = round.name;
 }
 

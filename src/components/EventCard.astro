@@ -1,0 +1,320 @@
+---
+import EventRound from './EventRound.astro';
+import {
+  athlete_photo_local_sources_build,
+  video_id_from_stream,
+  youtube_thumbnail_local_path,
+} from '../lib/shared/media.js';
+import { round_will_be_streamed } from '../js/app/helpers/core.js';
+import { build_start_list_modal_url } from '../lib/start-list-modal-fragments';
+import { build_event_page_path } from '../lib/event-pages';
+
+const {
+  event,
+  shouldLinkEventTitles = false,
+} = Astro.props;
+
+const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+const ROUND_SCHEDULE_STATUS = {
+  confirmed: '☑️ Confirmed Schedule',
+  provisional: '⏳ Provisional Schedule',
+  estimated: '⏳ Estimated Schedule',
+};
+
+const ROUND_SCHEDULE_STATUS_TOOLTIPS = {
+  confirmed: 'Dates and times are confirmed and unlikely to change',
+  provisional: 'Dates and/or times are provisional and can still change',
+  estimated: 'Dates and times are estimated and may be adjusted when confirmed',
+};
+
+const event_schedule_status_key = (event) => {
+  const rounds = Array.isArray(event?.rounds) ? event.rounds : [];
+  let numNonQualificationRounds = 0;
+
+  for (const round of rounds) {
+    if (round.kind === 'qualification') {
+      continue;
+    }
+
+    numNonQualificationRounds += 1;
+
+    if (round.schedule_status === 'provisional') {
+      return 'provisional';
+    }
+
+    if (round.schedule_status === 'estimated') {
+      return 'estimated';
+    }
+  }
+
+  return numNonQualificationRounds > 0 ? 'confirmed' : 'provisional';
+};
+
+const event_schedule_status = (event) => {
+  const key = event_schedule_status_key(event);
+  return ROUND_SCHEDULE_STATUS[key] || ROUND_SCHEDULE_STATUS.provisional;
+};
+
+const event_schedule_status_tooltip = (event) => {
+  const key = event_schedule_status_key(event);
+  return ROUND_SCHEDULE_STATUS_TOOLTIPS[key] || ROUND_SCHEDULE_STATUS_TOOLTIPS.provisional;
+};
+
+const month_index_from_starts_at = (startsAt) => {
+  const match = /^(\d{4})-(\d{2})-/.exec(startsAt || '');
+
+  if (!match) {
+    return null;
+  }
+
+  const monthIndex = parseInt(match[2], 10) - 1;
+
+  if (monthIndex < 0 || monthIndex > 11) {
+    return null;
+  }
+
+  return monthIndex;
+};
+
+const parse_date_parts = (value) => {
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(value || '');
+
+  if (!match) {
+    return null;
+  }
+
+  const year = match[1];
+  const month = parseInt(match[2], 10) - 1;
+  const day = match[3];
+
+  if (month < 0 || month > 11) {
+    return null;
+  }
+
+  return { year, month, day };
+};
+
+const format_event_date = (event) => {
+  const startsAt = parse_date_parts(event?.starts_at);
+  const endsAt = parse_date_parts(event?.ends_at);
+
+  if (!startsAt || !endsAt) {
+    return '';
+  }
+
+  return `${startsAt.day} \u2013 ${endsAt.day} ${MONTH_NAMES[endsAt.month]}`;
+};
+
+const format_event_name_title = (event) => {
+  const location = String(event?.location || '').trim();
+  const startsAt = parse_date_parts(event?.starts_at);
+  const year = startsAt ? startsAt.year : '';
+
+  return `${location.toUpperCase()} ${year}`.trim();
+};
+
+const capitalize = (value) => {
+  const normalized = String(value || '');
+
+  if (!normalized) {
+    return '';
+  }
+
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+};
+
+const beautify_disciplines = (disciplines) => {
+  const normalized = (Array.isArray(disciplines) ? disciplines : []).map(capitalize);
+
+  if (normalized.length === 0) {
+    return '';
+  }
+
+  if (normalized.length === 1) {
+    return normalized[0];
+  }
+
+  const copy = [...normalized];
+  const last = copy.pop();
+
+  return `${copy.join(', ')} & ${last}`;
+};
+
+const parse_iso_date = (value) => {
+  const parsed = new Date(value || '');
+
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  return parsed;
+};
+
+const ROUND_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  day: 'numeric',
+  month: 'short',
+});
+
+const ROUND_TIME_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false,
+});
+
+const format_round_date_build = (round) => {
+  const date = parse_iso_date(round?.starts_at);
+
+  if (!date) {
+    return '';
+  }
+
+  return `${ROUND_DATE_FORMATTER.format(date).toUpperCase()}`;
+};
+
+const format_round_time_build = (round) => {
+  const date = parse_iso_date(round?.starts_at);
+
+  if (!date) {
+    return '';
+  }
+
+  return `${ROUND_TIME_FORMATTER.format(date)}`;
+};
+
+const event_is_upcoming_build = (round) => {
+  const startsAt = parse_iso_date(round?.starts_at);
+
+  if (!startsAt) {
+    return false;
+  }
+
+  return startsAt.getTime() > Date.now();
+};
+
+const athlete_name_build = (athlete) => `${athlete.first_name} ${athlete.last_name}`;
+
+const league_name_without_ifsc = (value) => String(value || '')
+  .replace(/\bIFSC\b/gi, '')
+  .replace(/\s+/g, ' ')
+  .replace('Paraclimbing', 'Para Climbing')
+  .trim();
+
+const eventId = String(event.id);
+const monthIndex = month_index_from_starts_at(event.starts_at);
+const startList = Array.isArray(event.start_list) ? event.start_list : [];
+const hasPhotos = startList.some((athlete) => Boolean(athlete && athlete.photo_url));
+const startListModalUrl = build_start_list_modal_url(event.season || '', eventId);
+const eventPagePath = build_event_page_path(event.season || '', event);
+const infosheetUrl = typeof event.infosheet_url === 'string' ? event.infosheet_url.trim() : '';
+const eventScheduleStatus = event_schedule_status(event);
+const eventScheduleStatusTooltip = event_schedule_status_tooltip(event);
+const prettyLeagueName = league_name_without_ifsc(event.league_name);
+const prettyEventName = format_event_name_title(event);
+const avatarsWithPhoto = startList
+    .filter((athlete) => Boolean(athlete && athlete.photo_url))
+    .slice(0, 5);
+
+const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
+
+const isEuropeanCup = event.league_name?.toLowerCase().includes('european cup');
+const textThemeClass = isEuropeanCup ? 'text-secondary' : 'text-primary';
+const hoverTextThemeClass = isEuropeanCup ? 'hover:text-secondary-container' : 'hover:text-primary-container';
+const borderThemeClass = isEuropeanCup ? 'border-secondary' : 'border-primary';
+const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hover:border-primary/20';
+
+---
+<div class={`bg-surface-container rounded-2xl overflow-hidden p-10 border border-outline-variant/10 shadow-2xl transition-all ${hoverBorderThemeClass} mb-8 ifsc-league-card`}
+     id={`event-${eventId}`}
+     data-event-id={eventId}
+     data-event-name={event.name || ''}
+     data-event-location={event.location || ''}
+     data-event-starts-at={event.starts_at || ''}
+     data-event-league-name={event.league_name}
+     data-event-start-month={monthIndex === null ? undefined : String(monthIndex)}>
+    <div id={`heading_${eventId}`} class="flex flex-col lg:flex-row justify-between items-start mb-8 gap-6">
+        <div>
+            <p class={`text-[0.6875rem] ${textThemeClass} tracking-[0.2em] uppercase font-label mb-1 event-league-name`}>{prettyLeagueName}</p>
+            <h3 class="text-5xl font-bold font-headline uppercase tracking-tight mb-4 event-name">
+              {shouldLinkEventTitles && eventPagePath ? (
+                <a href={eventPagePath} class={`hover:${textThemeClass} transition-colors event-name-title`}>{prettyEventName}</a>
+              ) : (
+                <span class="event-name-title">{prettyEventName}</span>
+              )}
+            </h3>
+            <div class="flex flex-wrap items-center gap-6 text-sm text-on-surface-variant gap-y-2">
+                <span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">calendar_today</span> {format_event_date(event)}</span>
+                <span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">location_on</span> {event.location}, {event.country}</span>
+                <div class="flex flex-wrap items-center gap-6 border-outline-variant/20">
+                    <span class="flex items-center gap-2 font-medium"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>exercise</span> {beautify_disciplines(event.disciplines)}</span>
+                    <span class="flex items-center gap-2 font-medium" title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus.includes('Confirmed') ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus.replace(/^[^\w]*/, '')}</span>
+                    {infosheetUrl && (
+                      <a class={`flex items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">description</span> PDF</a>
+                    )}
+                    <a class={`flex items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={event.event_url} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">link</span> IFSC Page</a>
+                </div>
+            </div>
+        </div>
+
+        {startList.length > 0 && (
+        <div class="flex flex-col gap-4 bg-surface-container-high p-6 rounded-xl w-full lg:w-auto min-w-[300px] event-start-list">
+            <p class="text-[0.6875rem] text-on-surface-variant tracking-widest uppercase font-label">Athletes Attending</p>
+            <div class="flex flex-wrap gap-2 flex-nowrap items-center cursor-pointer hover:opacity-80 transition-opacity event-start-list-trigger" data-bs-toggle="modal" data-bs-target="#start-list-modal" data-event-id={eventId} data-start-list-url={startListModalUrl || undefined}>
+                {hasPhotos ? avatarsWithPhoto.map((athlete) => {
+                  const photoSources = athlete_photo_local_sources_build(athlete);
+                  if (!photoSources) return null;
+                  return (
+                    <img alt={athlete_name_build(athlete)} class={`w-10 h-10 flex-shrink-0 rounded-full border-2 ${borderThemeClass} object-cover`} src={photoSources.src} data-fallback-src={photoSources.fallbackSrc} onerror="handle_start_list_photo_error(this)"/>
+                  );
+                }) : <span class="text-sm font-bold text-on-surface">View Start List</span>}
+                {hasPhotos && startList.length > 5 && (
+                  <div class={`w-10 h-10 flex-shrink-0 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold ${textThemeClass} border-2 ${borderThemeClass}`}>+{startList.length - 5}</div>
+                )}
+            </div>
+        </div>
+        )}
+    </div>
+
+    <ul class="flex flex-col gap-4">
+        {(Array.isArray(event.rounds) ? event.rounds : []).map((round) => {
+          const streamUrl = typeof round.stream_url === 'string' ? round.stream_url : '';
+          const fallbackUrl = streamUrl || STREAMS_FALLBACK_URL;
+          const hasStreamUrl = Boolean(streamUrl);
+          const isUpcoming = event_is_upcoming_build(round);
+          const isLive = !isUpcoming && hasStreamUrl; 
+          const videoId = video_id_from_stream(round);
+          const thumbnailUrl = youtube_thumbnail_local_path(videoId);
+          const isFinished = !isUpcoming && !isLive && round.stream_url;
+
+          return (
+            <EventRound 
+              round={round}
+              event={event}
+              formatRoundDate={format_round_date_build(round)}
+              formatRoundTime={format_round_time_build(round)}
+              hasStreamUrl={hasStreamUrl}
+              isUpcoming={isUpcoming}
+              isLive={isLive}
+              isFinished={isFinished}
+              thumbnailUrl={thumbnailUrl}
+              fallbackUrl={fallbackUrl}
+              STREAMS_FALLBACK_URL={STREAMS_FALLBACK_URL}
+              isEuropeanCup={isEuropeanCup}
+            />
+          );
+        })}
+    </ul>
+</div>

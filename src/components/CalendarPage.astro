@@ -1,17 +1,10 @@
 ---
 import { siteAssetVersion } from '../lib/site-shell';
-import {
-  DESKTOP_VIEWPORT_MEDIA_QUERY,
-  MOBILE_VIEWPORT_MEDIA_QUERY,
-} from '../lib/config';
-import CardTemplates from './CardTemplates.astro';
+import AppHeader from './AppHeader.astro';
+import AppFooter from './AppFooter.astro';
 import EventCards from './EventCards.astro';
-import Footer from './Footer.astro';
-import HeaderTitle from './HeaderTitle.astro';
 import Modals from './Modals.astro';
-import SeasonNavbar from './SeasonNavbar.astro';
-import SubheaderButtons from './SubheaderButtons.astro';
-import VersionUpdateNotice from './VersionUpdateNotice.astro';
+import CardTemplates from './CardTemplates.astro';
 
 const {
   season,
@@ -32,9 +25,41 @@ const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
 const socialImageUrl = socialImagePath.startsWith('http')
   ? socialImagePath
   : `https://ifsc.stream${socialImagePath}`;
+
+// Find next/live event
+const now = new Date();
+let nextEvent = null;
+let liveEvent = null;
+
+for (const event of events) {
+    const rounds = Array.isArray(event.rounds) ? event.rounds : [];
+    for (const round of rounds) {
+        const startsAt = new Date(round.starts_at);
+        const endsAt = new Date(round.ends_at);
+        
+        if (now >= startsAt && now <= endsAt) {
+            liveEvent = { ...event, currentRound: round };
+            break;
+        }
+        if (startsAt > now) {
+            if (!nextEvent || startsAt < new Date(nextEvent.currentRound.starts_at)) {
+                nextEvent = { ...event, currentRound: round };
+            }
+        }
+    }
+    if (liveEvent) break;
+}
+
+const heroEvent = liveEvent || nextEvent;
+const isLive = Boolean(liveEvent);
+
+const heroEventRounds = Array.isArray(heroEvent?.rounds) ? heroEvent.rounds : [];
+const heroRound = heroEvent?.currentRound || heroEventRounds[heroEventRounds.length - 1];
+const heroEventTitle = heroEvent?.name || 'World Climbing Series';
+const heroRoundName = heroRound?.name || '';
 ---
 <!doctype html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
     <meta charset="utf-8" />
     <title>{pageTitle}</title>
@@ -50,14 +75,106 @@ const socialImageUrl = socialImagePath.startsWith('http')
     <link rel="preconnect" href="https://buttons.github.io" />
     <link rel="preconnect" href="https://img.youtube.com" />
 
-    <link rel="preload" href="/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-medium.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-semibold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href={`/css/fonts-local.css?v=${siteAssetVersion}`} />
-    <link rel="stylesheet" href={`/css/calendar.css?v=${siteAssetVersion}`} />
-    <link rel="stylesheet" href={`/css/calendar-desktop.css?v=${siteAssetVersion}`} media={`screen and ${DESKTOP_VIEWPORT_MEDIA_QUERY}`} />
-    <link rel="stylesheet" href={`/css/calendar-mobile.css?v=${siteAssetVersion}`} media={`screen and ${MOBILE_VIEWPORT_MEDIA_QUERY}`} />
+    <script is:inline src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
+    
+    <script is:inline id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffdeac",
+                        "surface-container": "#1c2025",
+                        "on-primary-fixed": "#001d32",
+                        "on-tertiary": "#432c00",
+                        "inverse-on-surface": "#2d3136",
+                        "surface-container-highest": "#31353a",
+                        "surface-container-lowest": "#0a0f13",
+                        "on-secondary": "#680014",
+                        "inverse-surface": "#e0e2e9",
+                        "on-secondary-fixed-variant": "#920020",
+                        "outline-variant": "#404750",
+                        "surface-container-high": "#262a2f",
+                        "on-tertiary-fixed-variant": "#604100",
+                        "on-tertiary-fixed": "#281900",
+                        "primary-fixed": "#cde5ff",
+                        "tertiary": "#ffbb3d",
+                        "tertiary-fixed-dim": "#ffba38",
+                        "primary": "#97ccff",
+                        "error-container": "#93000a",
+                        "secondary-fixed": "#ffdad9",
+                        "primary-fixed-dim": "#95ccff",
+                        "on-error": "#690005",
+                        "surface-tint": "#95ccff",
+                        "on-primary": "#003352",
+                        "on-surface": "#e0e2e9",
+                        "secondary-fixed-dim": "#ffb3b2",
+                        "on-primary-container": "#00436a",
+                        "surface-bright": "#36393f",
+                        "primary-container": "#66b2f2",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#101418",
+                        "inverse-primary": "#00639a",
+                        "background": "#101418",
+                        "on-background": "#e0e2e9",
+                        "on-secondary-container": "#ffa8a8",
+                        "secondary": "#ffb3b2",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#004a75",
+                        "surface-container-low": "#181c21",
+                        "outline": "#8a919b",
+                        "on-surface-variant": "#c0c7d1",
+                        "tertiary-container": "#e39f00",
+                        "on-secondary-fixed": "#410009",
+                        "surface-variant": "#31353a",
+                        "secondary-container": "#9f0224",
+                        "surface": "#101418",
+                        "on-tertiary-container": "#573b00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Space Grotesk"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel { background: rgba(16, 20, 24, 0.7); backdrop-filter: blur(20px); }
+        .kinetic-gradient { background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #101418; }
+        ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }
+        .sticky-nav-container { top: 120px; }
+        .season-month-nav-link {
+            transition: all 0.2s ease;
+            transform-origin: left center;
+        }
+        .season-month-nav-link.is-active {
+            color: #97ccff !important;
+            transform: scale(1.25);
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(151, 204, 255, 0.4);
+        }
+        .season-month-nav-link.is-empty {
+            opacity: 0.2;
+            filter: grayscale(1);
+        }
+    </style>
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
@@ -89,78 +206,137 @@ const socialImageUrl = socialImagePath.startsWith('http')
     </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
-<body data-page-type="season" data-build-version={siteAssetVersion}>
-<VersionUpdateNotice />
-<CardTemplates />
+<body class="bg-background text-on-background min-h-screen" data-page-type="season" data-build-version={siteAssetVersion}>
 
-<div id="ifsc-season">
-    <HeaderTitle season={normalizedSeason} homeUrl={canonicalPath} />
-</div>
-
-<SeasonNavbar />
-<SubheaderButtons
-    seasons={normalizedSeasons}
-    selectedSeason={normalizedSeason}
-    showSeasonSelector={true}
-    showFiltersButton={true}
-/>
-
-<nav class="season-month-nav" id="season-month-nav" aria-label="Jump to month">
-    <ul class="season-month-nav-list">
-        <li><button type="button" class="season-month-nav-link" data-month-index="0">January</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="1">February</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="2">March</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="3">April</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="4">May</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="5">June</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="6">July</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="7">August</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="8">September</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="9">October</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="10">November</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="11">December</button></li>
-    </ul>
-</nav>
+<AppHeader />
 
 <main role="main">
-    <hr class="next-event-divider" id="next-event-divider-top" aria-hidden="true" />
-    <div class="next-event">
-        <h1 id="next-event-title"></h1>
-        <span id="next-event-league-name" class="event-league-name next-event-league-name" hidden></span>
-        <div class="event-not-started-countdown" id="next-event-countdown" aria-live="polite" aria-atomic="true" hidden>
-            <div class="event-not-started-countdown-grid">
-                <div class="event-not-started-countdown-chip">
-                    <span class="event-not-started-countdown-value" id="next-event-countdown-days">0</span>
-                    <span class="event-not-started-countdown-unit">Days</span>
+    <!-- Hero Section: Next Event -->
+    <section class="relative w-full h-[800px] overflow-hidden flex items-end pb-20">
+        <div class="absolute inset-0 z-0">
+            <img class="w-full h-full object-cover opacity-60" src="/img/hero/hero-bg.jpg" alt="Hero Event Poster" />
+            <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+        </div>
+        <div class="relative z-10 max-w-screen-2xl mx-auto px-6 w-full next-event">
+            <div class="max-w-5xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-tertiary text-on-tertiary rounded-full mb-6">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-on-tertiary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-on-tertiary"></span>
+</span>
+                <span id="next-event-status-badge-label" class="text-[0.6875rem] font-bold tracking-widest uppercase font-label">{isLive ? 'Live Now' : 'Coming Up Next'}{heroRoundName ? `: ${heroRoundName}` : ''}</span>
+            </div>
+            <h1 class="text-5xl md:text-8xl font-black font-headline tracking-tighter mb-4 uppercase leading-[0.9]" id="next-event-title">
+                {heroEventTitle}
+            </h1>
+            <div class="flex flex-wrap items-center gap-8 md:gap-12 mt-8">
+                <div class={`flex flex-col event-not-started-countdown ${isLive ? 'hidden' : ''}`} id="next-event-countdown" hidden={isLive}>
+                    <span class="text-[0.6875rem] text-on-surface-variant tracking-widest uppercase mb-2 font-label">Starts In</span>
+                    <div class="flex gap-4 font-headline text-3xl md:text-4xl font-bold event-not-started-countdown-grid">
+                        <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-days">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Days</span></div>
+                        <span>:</span>
+                        <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-hours">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Hrs</span></div>
+                        <span>:</span>
+                        <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-minutes">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Min</span></div>
+                    </div>
                 </div>
-                <div class="event-not-started-countdown-chip">
-                    <span class="event-not-started-countdown-value" id="next-event-countdown-hours">00</span>
-                    <span class="event-not-started-countdown-unit">Hours</span>
-                </div>
-                <div class="event-not-started-countdown-chip">
-                    <span class="event-not-started-countdown-value" id="next-event-countdown-minutes">00</span>
-                    <span class="event-not-started-countdown-unit">Minutes</span>
-                </div>
+
+                <button class={`kinetic-gradient text-on-primary-fixed px-10 py-4 rounded-lg font-bold text-lg uppercase tracking-tight flex items-center gap-3 transition-transform hover:scale-[1.02] active:scale-95 round-stream-button ${(!isLive || !heroRound?.stream_url) ? 'hidden' : ''}`}
+                        data-action="round-stream"
+                        data-round-stream-url={heroRound?.stream_url}
+                        id="next-event-watch-button">
+                    <span class="material-symbols-outlined">play_circle</span>
+                    Watch Live
+                </button>
+
+                <button class="border border-outline-variant hover:border-primary text-on-surface px-10 py-4 rounded-lg font-bold text-lg uppercase tracking-tight transition-all"
+                        data-bs-toggle="modal"
+                        data-bs-target="#event-modal"
+                        data-event-id={heroEvent?.id}
+                        id="next-event-details-button">
+                    Details
+                </button>
+
+                <div id="next-event-details" class="hidden"></div>
+            </div>
+            <span id="next-event-league-name" class="hidden">{heroEvent?.league_name}</span>
             </div>
         </div>
-        <ul id="next-event-details" class="list-group"></ul>
+    </section>
+
+    <!-- Main Content Area with Side Nav -->
+    <div class="max-w-screen-2xl mx-auto px-6 pt-16 flex gap-12 relative" id="accordion">
+        <!-- Sticky Vertical Navigation -->
+        <aside class="hidden lg:block w-48 shrink-0">
+            <div class="sticky sticky-nav-container flex flex-col gap-6 font-headline font-black uppercase season-month-nav" id="season-month-nav">
+                <div class="text-xs tracking-[0.2em] text-on-surface-variant mb-4 font-label">Timeline {normalizedSeason}</div>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="0">January</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="1">February</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="2">March</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="3">April</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="4">May</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="5">June</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="6">July</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="7">August</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="8">September</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="9">October</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="10">November</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="11">December</button>
+            </div>
+        </aside>
+
+        <!-- Events Content -->
+        <div class="flex-1 max-w-[75%] pb-24">
+            <!-- Filter & Search Bar -->
+            <section class="mb-12">
+                <div class="bg-surface-container-low p-2 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-2 p-1 bg-surface-container-lowest rounded-lg w-full md:w-auto">
+                        <button class="px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest">{normalizedSeason} Season</button>
+                        <button class="px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest">Archive</button>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high">Boulder</button>
+                        <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high">Lead</button>
+                        <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high">Speed</button>
+                        <div class="h-8 w-px bg-outline-variant mx-2"></div>
+                        <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high flex items-center gap-2" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                            <span class="material-symbols-outlined text-sm">filter_list</span> Filters
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Event Calendar -->
+            <section>
+                <div class="grid grid-cols-1 gap-12">
+                    <EventCards events={events} linkEventTitles={true} />
+                </div>
+            </section>
+        </div>
     </div>
-    <hr class="next-event-divider" id="next-event-divider" aria-hidden="true" />
-    <div id="accordion">
-      <EventCards events={events} linkEventTitles={true} />
-    </div>
+
+    <!-- Dynamic Ticker / Newsletter -->
+    <section class="bg-surface-container-lowest border-y border-outline-variant/15 py-20">
+        <div class="max-w-screen-2xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
+            <div class="max-w-xl">
+                <h3 class="text-4xl font-black font-headline uppercase leading-tight">Never Miss a Finals Session</h3>
+                <p class="text-on-surface-variant text-lg mt-4">Get real-time alerts for live streams, athlete results, and final boulder rankings directly to your inbox.</p>
+            </div>
+            <div class="flex w-full md:w-auto gap-3">
+                <input class="bg-surface-container-low border-outline-variant focus:ring-primary focus:border-primary rounded-xl px-8 py-5 text-base w-full md:w-96" placeholder="YOUR EMAIL ADDRESS" type="email"/>
+                <button class="kinetic-gradient text-on-primary-fixed px-10 py-5 rounded-xl font-bold uppercase text-sm tracking-widest whitespace-nowrap shadow-lg hover:shadow-primary/20 transition-all">Subscribe</button>
+            </div>
+        </div>
+    </section>
 </main>
 
 <Modals />
+<CardTemplates />
 
-<Footer
-    seasons={normalizedSeasons}
-    selectedSeason={normalizedSeason}
-    buildVersion={siteAssetVersion}
-/>
+<AppFooter />
 
-<script src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
-<script src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
-<script src={`/js/app.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/app.js?v=${siteAssetVersion}`}></script>
 </body>
 </html>

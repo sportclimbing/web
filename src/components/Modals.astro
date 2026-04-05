@@ -1,198 +1,271 @@
-<div id="calendar-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="calendar-modal-title">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="calendar-modal-title">📆 Free Calendar Subscription</h4>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
-      </div>
-      <div class="modal-body">
-        <h5>For Mobile and Desktop</h5>
-        <p>Automatically updating calendar for apps like Outlook, iOS &amp; macOS Calendar</p>
-        <a class="ifsc-action-button ifsc-action-button-secondary" href="webcal://calendar.ifsc.stream" role="button" rel="noopener">Add to Device's Calendar</a>
-        <hr />
-
-        <h5>For Google Calendar</h5>
-        <p>Automatically updating calendar for Google</p>
-        <a class="ifsc-action-button ifsc-action-button-secondary" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream" target="_blank" rel="noopener" role="button">Add to Google Calendar</a>
-        <hr />
-
-        <h5>Download <code>.ics</code> file</h5>
-        <p>Non-updating calendar (<code>.ics</code>) for calendars that can’t handle updating subscriptions</p>
-        <a class="ifsc-action-button ifsc-action-button-secondary" href="https://calendar.ifsc.stream" target="_blank" rel="noopener" role="button">Download .ics</a>
-        <a class="ifsc-action-button ifsc-action-button-secondary" href="https://github.com/sportclimbing/ifsc-calendar/wiki" role="button" target="_blank" rel="noopener">View Tutorial</a>
-        <hr />
-
-        <p class="small">This calendar will auto-update and be ready for future seasons as well. And it's fully <a href="https://github.com/sportclimbing">open source</a>.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
+---
+---
+<div id="calendar-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="calendar-modal-title">
+  <div class="modal-content bg-surface-container-lowest border border-outline-variant/30 rounded-2xl shadow-[0_48px_96px_-12px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col relative">
+    <!-- Background Graphic Layer -->
+    <div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
+      <img class="w-full h-full object-cover scale-110 blur-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl11SsOJ-BCuyn2zR5TOS6dYgp82T4wVYHqaxWdps_2Nj7_KzqHMTVPkxOD8MjNAHRH6W6CgbsOPgTnwZSv_kdvvJBFnvfEIzi-4qbXfq47XGZ4fZct7eibP4el1nUXseb1gbsM3qf2hLJquN43qCxzdy-cG7jiWxCh5bCjTdPK1UICv-ghTTyiPCdhSzL3H8t9mWktX6CuOlMO3EoJqY1ZUCurhyUrj8iyG2HoAgo1Rcx1orSLhYKkPemVgoO-IPs2uXnB5CfXpEw"/>
     </div>
-  </div>
-</div>
-
-<div id="video-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="youtube-video-title">
-  <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="youtube-video-title"></h4>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+    <!-- Modal Header -->
+    <div class="relative z-10 flex items-center justify-between px-10 py-8 border-b border-outline-variant/10 bg-surface-container-low/50">
+      <div class="flex items-center gap-5">
+        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20 shadow-[0_0_20px_rgba(102,178,242,0.1)]">
+          <span class="material-symbols-outlined text-primary text-3xl">event_upcoming</span>
+        </div>
+        <div>
+          <h2 class="font-headline text-2xl font-black uppercase tracking-tight text-on-surface leading-none" id="calendar-modal-title">Free Calendar Subscription</h2>
+          <p class="text-[0.625rem] font-bold tracking-[0.2em] uppercase text-primary mt-2">Never miss a single route</p>
+        </div>
       </div>
-      <div class="modal-body videoWrapper">
-        <iframe id="youtube-video" src="" title="Event livestream player" referrerpolicy="strict-origin-when-cross-origin" allow="" allowfullscreen></iframe>
-      </div>
-
-      <!--
-      <div id="live-chat">
-          <widgetbot
-                  server="1086875588087787561"
-                  channel="1087079770023546951"
-                  width="100%"
-                  height="280"
-          ></widgetbot>
-      </div>
-      -->
-
-      <div class="modal-footer">
-        <a class="ifsc-action-button ifsc-action-button-secondary video-modal-vpn-link" href="https://protonvpn.com/free-vpn" role="button" target="_blank" rel="noopener">Video blocked? Free VPN</a>
-        <button type="button" class="ifsc-action-button ifsc-action-button-secondary video-modal-chat-toggle" id="chat-toggle" onclick="handle_chat_toggle(this);">Hide Chat</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
+      <button type="button" class="w-12 h-12 flex items-center justify-center rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all text-on-surface-variant hover:text-on-surface active:scale-90 border border-outline-variant/20" data-bs-dismiss="modal" aria-label="Close">
+        <span class="material-symbols-outlined">close</span>
+      </button>
     </div>
-  </div>
-</div>
+    <!-- Modal Body -->
+    <div class="relative z-10 p-10 space-y-8 overflow-y-auto max-h-[65vh]">
+      <!-- Option 1: Mobile/Desktop -->
+      <div class="group flex gap-6 items-start">
+        <div class="shrink-0 w-12 h-12 bg-surface-container-high rounded-xl flex items-center justify-center border border-outline-variant/10 group-hover:border-primary/40 transition-colors">
+          <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">devices</span>
+        </div>
+        <div class="flex-grow">
+          <h3 class="text-xs font-black tracking-[0.15em] uppercase font-label text-on-surface-variant mb-2">Mobile &amp; Desktop Apps</h3>
+          <p class="text-on-surface/70 text-base mb-5 leading-relaxed font-medium">Automatically updating calendar for Outlook, Apple Calendar (iOS &amp; macOS), and other native apps.</p>
+          <a class="ifsc-action-button bg-primary hover:bg-primary-container text-on-primary-fixed px-8 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest transition-all shadow-[0_12px_24px_-8px_rgba(102,178,242,0.5)] active:scale-95 inline-block text-center" href="webcal://calendar.ifsc.stream" role="button" rel="noopener">Add to Device's Calendar</a>
+        </div>
+      </div>
+      <div class="h-px bg-gradient-to-r from-outline-variant/20 via-outline-variant/5 to-transparent"></div>
 
-<div id="start-list-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="start-list-modal-title">
-  <div class="modal-dialog start-list-modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="start-list-modal-title">📋 Start List</h4>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+      <!-- Option 2: Google Calendar -->
+      <div class="group flex gap-6 items-start">
+        <div class="shrink-0 w-12 h-12 bg-surface-container-high rounded-xl flex items-center justify-center border border-outline-variant/10 group-hover:border-primary/40 transition-colors">
+          <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">event_available</span>
+        </div>
+        <div class="flex-grow">
+          <h3 class="text-xs font-black tracking-[0.15em] uppercase font-label text-on-surface-variant mb-2">Google Calendar</h3>
+          <p class="text-on-surface/70 text-base mb-5 leading-relaxed font-medium">Automatically updating calendar for Google</p>
+          <a class="ifsc-action-button bg-primary hover:bg-primary-container text-on-primary-fixed px-8 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest transition-all shadow-[0_12px_24px_-8px_rgba(102,178,242,0.5)] active:scale-95 inline-block text-center" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream" target="_blank" rel="noopener" role="button">Add to Google Calendar</a>
+        </div>
       </div>
-      <div class="modal-body">
-        <ul id="start-list-modal-list" class="start-list-modal-list"></ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+      <div class="h-px bg-gradient-to-r from-outline-variant/20 via-outline-variant/5 to-transparent"></div>
 
-<div id="event-not-started-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-not-started-modal-title">
-  <div class="modal-dialog modal-dialog-centered compact-modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="event-not-started-modal-title">⏳ Event Not Started</h4>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="event-not-started-countdown" id="event-not-started-countdown" aria-live="polite" aria-atomic="true" hidden>
-          <p class="event-not-started-countdown-label" id="event-not-started-countdown-label">Starts in</p>
-          <div class="event-not-started-countdown-grid">
-            <div class="event-not-started-countdown-chip">
-              <span class="event-not-started-countdown-value" id="event-not-started-countdown-days">0</span>
-              <span class="event-not-started-countdown-unit">Days</span>
-            </div>
-            <div class="event-not-started-countdown-chip">
-              <span class="event-not-started-countdown-value" id="event-not-started-countdown-hours">00</span>
-              <span class="event-not-started-countdown-unit">Hours</span>
-            </div>
-            <div class="event-not-started-countdown-chip">
-              <span class="event-not-started-countdown-value" id="event-not-started-countdown-minutes">00</span>
-              <span class="event-not-started-countdown-unit">Minutes</span>
-            </div>
+      <!-- Option 3: ICS -->
+      <div class="group flex gap-6 items-start">
+        <div class="shrink-0 w-12 h-12 bg-surface-container-high rounded-xl flex items-center justify-center border border-outline-variant/10 group-hover:border-primary/40 transition-colors">
+          <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span>
+        </div>
+        <div class="flex-grow">
+          <h3 class="text-xs font-black tracking-[0.15em] uppercase font-label text-on-surface-variant mb-2">Download <code>.ics</code> file</h3>
+          <p class="text-on-surface/70 text-base mb-5 leading-relaxed font-medium">Non-updating calendar (<code>.ics</code>) for calendars that can’t handle updating subscriptions</p>
+          <div class="flex flex-wrap gap-4">
+            <a class="ifsc-action-button bg-primary hover:bg-primary-container text-on-primary-fixed px-8 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest transition-all shadow-[0_12px_24px_-8px_rgba(102,178,242,0.5)] active:scale-95 inline-block text-center flex-1" href="https://calendar.ifsc.stream" target="_blank" rel="noopener" role="button">Download .ics</a>
+            <a class="ifsc-action-button border border-outline-variant/30 text-on-surface px-6 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest transition-all hover:bg-surface-container-high hover:border-primary/30 inline-block text-center flex-1" href="https://github.com/sportclimbing/ifsc-calendar/wiki" role="button" target="_blank" rel="noopener">View Tutorial</a>
           </div>
         </div>
-        <p class="modal-body-tight-copy">The event has not started yet, and we couldn't find a link to it. Come back later or check the previous streams in the meantime!</p>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      <p class="text-xs text-on-surface-variant">This calendar will auto-update and be ready for future seasons as well. And it's fully <a href="https://github.com/sportclimbing" class="text-primary hover:underline">open source</a>.</p>
+    </div>
+    <div class="relative z-10 px-10 py-8 bg-surface-container-low/30 border-t border-outline-variant/10 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+        <p class="text-on-surface-variant text-[11px] font-bold uppercase tracking-widest">Auto-updates for future seasons included</p>
       </div>
+      <button type="button" class="px-10 py-3.5 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline font-bold uppercase text-xs tracking-[0.15em] rounded-xl transition-all border border-outline-variant/20" data-bs-dismiss="modal">Close</button>
     </div>
   </div>
 </div>
 
-<div id="event-link-missing-modal" class="modal fade" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-link-missing-modal-title">
-  <div class="modal-dialog modal-dialog-centered compact-modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="event-link-missing-modal-title">🔗 Link Not Found</h4>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
-      </div>
-      <div class="modal-body">
-        <p class="modal-body-tight-copy">We could not find a link for this event. Do you want to check World Climbing's YouTube channel?</p>
-        <p class="modal-body-note"><strong>Note:</strong> Qualification rounds are typically not streamed, with speed climbing as the primary exception.</p>
-      </div>
-      <div class="modal-footer">
-        <a
-          id="event-link-missing-modal-youtube"
-          class="ifsc-action-button ifsc-action-button-secondary"
-          href="https://www.youtube.com/@worldclimbing/streams"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Check YouTube channel</a>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
+<div id="video-modal" class="modal modal-xl" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="youtube-video-title">
+  <div class="modal-content bg-surface-container-high text-on-surface shadow-2xl rounded-2xl border-0 overflow-hidden">
+    <div class="modal-header border-b border-outline-variant/10 bg-surface-container-low/50 px-8 py-6">
+      <h4 class="modal-title font-headline font-bold text-xl" id="youtube-video-title"></h4>
+      <button type="button" class="close w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all text-on-surface-variant hover:text-on-surface active:scale-90 border border-outline-variant/20" data-bs-dismiss="modal" aria-label="Close">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="modal-body videoWrapper p-0">
+      <iframe id="youtube-video" src="" title="Event livestream player" referrerpolicy="strict-origin-when-cross-origin" allow="" allowfullscreen class="w-full aspect-video"></iframe>
+    </div>
+
+    <div class="modal-footer border-t border-outline-variant/10 bg-surface-container-low/30 px-8 py-6 flex flex-wrap gap-4 justify-end">
+      <a class="text-sm text-on-surface-variant hover:text-primary transition-colors mr-auto self-center flex items-center gap-2" href="https://protonvpn.com/free-vpn" role="button" target="_blank" rel="noopener">
+        <span class="material-symbols-outlined text-sm">vpn_key</span> Video blocked? Free VPN
+      </a>
+      <button type="button" class="px-8 py-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline font-bold uppercase text-xs tracking-widest transition-all border border-outline-variant/20" data-bs-dismiss="modal">Close</button>
     </div>
   </div>
 </div>
 
-<div id="filter-modal" class="modal fade filters-modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="filter-modal-title">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="filter-modal-title">⚙️ Configure Filters</h4>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+<div id="start-list-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="start-list-modal-title">
+  <div class="modal-content bg-surface-container-lowest rounded-xl shadow-[0_12px_32px_-4px_rgba(0,0,0,0.6)] border border-outline-variant/10 flex flex-col max-h-[870px] w-full max-w-2xl overflow-hidden">
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between p-6 border-b border-outline-variant/15">
+      <div class="flex flex-col">
+        <span id="start-list-modal-event" class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-1 uppercase leading-none"></span>
+        <h2 class="text-2xl font-headline font-bold text-on-surface tracking-tight kinetic-border" id="start-list-modal-title">ATHLETES ATTENDING</h2>
       </div>
-      <div class="modal-body">
-        <h4>League</h4>
-        <div id="config-leagues">
-          <p><label><input type="checkbox" name="league[cups]" value="World Cups and World Championships" checked /> 🏆 World Cups &amp; World Championships</label></p>
-          <p><label><input type="checkbox" name="league[games]" value="Games" /> 🎲 Games</label></p>
-          <p><label><input type="checkbox" name="league[paraclimbing]" value="IFSC Paraclimbing" /> 🧑‍🦽 Paraclimbing</label></p>
+      <button type="button" class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-surface-bright transition-colors group" data-bs-dismiss="modal" aria-label="Close">
+        <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">close</span>
+      </button>
+    </div>
+    <!-- Modal Body -->
+    <div class="modal-body flex-1 overflow-y-auto px-4 py-4">
+      <ul id="start-list-modal-list" class="flex flex-col gap-2"></ul>
+    </div>
+    <!-- Modal Footer -->
+    <div class="p-6 border-t border-outline-variant/15 flex items-center justify-between bg-surface-container-low/20 rounded-b-xl">
+      <div class="flex items-center gap-4">
+        <div class="flex -space-x-3">
+          <div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-bright"></div>
+          <div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high"></div>
+          <div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-lowest flex items-center justify-center text-[10px] font-bold text-primary">
+            +
+          </div>
         </div>
-        <hr />
+        <span class="text-xs font-label text-on-surface-variant/80 uppercase tracking-widest">More Athletes Confirmed</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-[10px] font-headline font-bold text-on-surface-variant uppercase">Updated: {new Date().toLocaleDateString('en-GB').replace(/\//g, '.')}</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <h4>Category</h4>
-        <p><label>
-          <input type="checkbox" name="category[women]" value="1" checked />
-          🙋‍♀️ Women</label></p>
-        <p><label>
-          <input type="checkbox" name="category[men]" value="1" checked />
-          🙋‍♂️️ Men</label></p>
-        <hr />
-        <h4>Discipline</h4>
-        <p><label>
-          <input type="checkbox" name="discipline[boulder]" value="1" checked />
-          🪨 Boulder</label></p>
-        <p><label>
-          <input type="checkbox" name="discipline[lead]" value="1" checked />
-          🧗🏽‍♀️ Lead</label></p>
-        <p><label>
-          <input type="checkbox" name="discipline[speed]" value="1" checked />
-          💨 Speed</label></p>
-        <hr />
-        <h4>Round</h4>
-        <p><label>
-          <input type="checkbox" name="round[qualifications]" value="1" checked />
-          🎯 Qualifications (usually not streamed)</label></p>
-        <p><label>
-          <input type="checkbox" name="round[semifinals]" value="1" checked />
-          🥈 Semi-Finals</label></p>
-        <p><label>
-          <input type="checkbox" name="round[finals]" value="1" checked />
-          🏆 Finals</label></p>
-        <hr />
-        <h4>Live-Streams Only</h4>
-        <p><label>
-          <input type="checkbox" name="streamable" />
-          🔗 Only show events we found links to
-        </label></p>
+<div id="event-not-started-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-not-started-modal-title">
+  <div class="modal-content bg-surface-container-lowest rounded-xl shadow-[0_12px_32px_-4px_rgba(0,0,0,0.6)] border border-outline-variant/15 flex flex-col w-full max-w-2xl overflow-hidden">
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between p-6 border-b border-outline-variant/15 bg-surface-container-lowest">
+      <div class="flex flex-col text-left">
+        <span class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-1 uppercase leading-none">PROVISIONAL WORLD CUP SCHEDULE</span>
+        <h2 class="text-2xl font-headline font-bold text-on-surface tracking-tight kinetic-border uppercase" id="event-not-started-modal-event"></h2>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="save-filters">Apply</button>
+      <button type="button" class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-surface-bright transition-colors group" data-bs-dismiss="modal" aria-label="Close">
+        <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">close</span>
+      </button>
+    </div>
+    <!-- Modal Body -->
+    <div class="relative px-8 py-10 text-center">
+      <div class="event-not-started-countdown mb-10 max-w-lg mx-auto" id="event-not-started-countdown" aria-live="polite" aria-atomic="true" hidden>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="flex flex-col items-center bg-surface-container-low p-4 rounded-xl border border-outline-variant/10">
+            <span class="font-headline text-4xl md:text-5xl font-bold text-primary-container tabular-nums" id="event-not-started-countdown-days">00</span>
+            <span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mt-2">Days</span>
+          </div>
+          <div class="flex flex-col items-center bg-surface-container-low p-4 rounded-xl border border-outline-variant/10">
+            <span class="font-headline text-4xl md:text-5xl font-bold text-primary-container tabular-nums" id="event-not-started-countdown-hours">00</span>
+            <span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mt-2">Hours</span>
+          </div>
+          <div class="flex flex-col items-center bg-surface-container-low p-4 rounded-xl border border-outline-variant/10">
+            <span class="font-headline text-4xl md:text-5xl font-bold text-primary-container tabular-nums" id="event-not-started-countdown-minutes">00</span>
+            <span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mt-2">Minutes</span>
+          </div>
+        </div>
       </div>
+
+      <div class="max-w-md mx-auto mb-10">
+        <p class="text-on-surface-variant leading-relaxed text-sm">
+          Don't miss a single route. Subscribe to the calendar to get real-time updates and reminders directly on your device.
+        </p>
+      </div>
+
+      <div class="flex justify-center items-center">
+        <button class="w-full md:w-auto px-12 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed font-headline font-bold rounded-lg hover:scale-[0.98] transition-all duration-200 uppercase tracking-wider text-sm flex items-center justify-center gap-2" data-bs-toggle="modal" data-bs-target="#calendar-modal">
+          <span class="material-symbols-outlined" data-weight="fill">calendar_today</span>
+          SYNC WITH CALENDAR
+        </button>
+      </div>
+    </div>
+    <!-- Decorative Bottom Tonal Bar -->
+    <div class="h-1 bg-gradient-to-r from-primary/10 via-primary-container to-primary/10"></div>
+  </div>
+</div>
+
+<div id="event-link-missing-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-link-missing-modal-title">
+  <div class="modal-content bg-surface-container-high text-on-surface shadow-2xl rounded-2xl border-0 overflow-hidden">
+    <div class="modal-header border-b border-outline-variant/10 bg-surface-container-low/50 px-8 py-6">
+      <h4 class="modal-title font-headline font-bold text-xl" id="event-link-missing-modal-title">🔗 Link Not Found</h4>
+      <button type="button" class="close w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all text-on-surface-variant hover:text-on-surface active:scale-90 border border-outline-variant/20" data-bs-dismiss="modal" aria-label="Close">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="modal-body p-10">
+      <p class="text-lg mb-8 text-on-surface/90">We could not find a link for this event. Do you want to check World Climbing's YouTube channel?</p>
+      <div class="bg-surface-container-highest/50 p-6 rounded-xl border border-outline-variant/10">
+        <p class="text-sm text-on-surface-variant leading-relaxed"><strong class="text-primary uppercase tracking-widest text-[10px] block mb-2">Note</strong> Qualification rounds are typically not streamed, with speed climbing as the primary exception.</p>
+      </div>
+    </div>
+    <div class="modal-footer border-t border-outline-variant/10 bg-surface-container-low/30 px-8 py-6 flex gap-4">
+      <button type="button" class="px-8 py-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline font-bold uppercase text-xs tracking-widest transition-all border border-outline-variant/20 flex-1" data-bs-dismiss="modal">Close</button>
+      <a id="event-link-missing-modal-youtube" class="px-8 py-3 rounded-xl bg-primary text-on-primary-fixed font-headline font-black uppercase text-xs tracking-widest transition-all shadow-lg flex-1 text-center" href="https://www.youtube.com/@worldclimbing/streams" target="_blank" rel="noopener noreferrer">Check YouTube</a>
+    </div>
+  </div>
+</div>
+
+<div id="filter-modal" class="modal filters-modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="filter-modal-title">
+  <div class="modal-content bg-surface-container-lowest border border-outline-variant/30 rounded-2xl shadow-[0_48px_96px_-12px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col relative">
+    <div class="modal-header border-b border-outline-variant/10 bg-surface-container-low/50 px-8 py-6">
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center border border-primary/20">
+          <span class="material-symbols-outlined text-primary">settings</span>
+        </div>
+        <h4 class="modal-title font-headline font-bold text-xl uppercase tracking-tight" id="filter-modal-title">Configure Filters</h4>
+      </div>
+      <button type="button" class="close w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all text-on-surface-variant hover:text-on-surface active:scale-90 border border-outline-variant/20" data-bs-dismiss="modal" aria-label="Close">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="modal-body p-10 space-y-8">
+      <section>
+        <h4 class="text-xs font-black tracking-[0.2em] uppercase font-label text-primary mb-4">League</h4>
+        <div id="config-leagues" class="space-y-3">
+          <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="league[cups]" value="World Cups and World Championships" checked class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">🏆 World Cups &amp; World Championships</span></label>
+          <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="league[games]" value="Games" checked class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">🎲 Games</span></label>
+          <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="league[paraclimbing]" value="IFSC Paraclimbing" checked class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">🧑‍🦽 Paraclimbing</span></label>
+        </div>
+      </section>
+
+      <div class="h-px bg-gradient-to-r from-outline-variant/20 via-outline-variant/5 to-transparent"></div>
+
+      <section>
+        <h4 class="text-xs font-black tracking-[0.2em] uppercase font-label text-primary mb-4">Category</h4>
+        <div class="space-y-3">
+          <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="category[women]" value="1" checked class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">🙋‍♀️ Women</span></label>
+          <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="category[men]" value="1" checked class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">🙋‍♂️️ Men</span></label>
+        </div>
+      </section>
+
+      <div class="h-px bg-gradient-to-r from-outline-variant/20 via-outline-variant/5 to-transparent"></div>
+
+      <section>
+        <h4 class="text-xs font-black tracking-[0.2em] uppercase font-label text-primary mb-4">Discipline</h4>
+        <div class="space-y-3">
+          <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="discipline[boulder]" value="1" checked class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">🪨 Boulder</span></label>
+          <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="discipline[lead]" value="1" checked class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">🧗🏽‍♀️ Lead</span></label>
+          <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="discipline[speed]" value="1" checked class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">💨 Speed</span></label>
+        </div>
+      </section>
+
+      <div class="h-px bg-gradient-to-r from-outline-variant/20 via-outline-variant/5 to-transparent"></div>
+
+      <section>
+        <h4 class="text-xs font-black tracking-[0.2em] uppercase font-label text-primary mb-4">Round</h4>
+        <div class="space-y-3">
+          <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="round[qualifications]" value="1" checked class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">🎯 Qualifications (usually not streamed)</span></label>
+          <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="round[semifinals]" value="1" checked class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">🥈 Semi-Finals</span></label>
+          <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="round[finals]" value="1" checked class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">🏆 Finals</span></label>
+        </div>
+      </section>
+
+      <div class="h-px bg-gradient-to-r from-outline-variant/20 via-outline-variant/5 to-transparent"></div>
+
+      <section>
+        <h4 class="text-xs font-black tracking-[0.2em] uppercase font-label text-primary mb-4">Live-Streams Only</h4>
+        <label class="flex items-center gap-4 cursor-pointer group"><input type="checkbox" name="streamable" class="rounded-md border-outline-variant bg-surface-container text-primary focus:ring-primary w-5 h-5 transition-all group-hover:border-primary/50" /> <span class="text-on-surface group-hover:text-primary transition-colors">🔗 Only show events we found links to</span></label>
+      </section>
+    </div>
+    <div class="modal-footer border-t border-outline-variant/10 bg-surface-container-low/30 px-8 py-6">
+      <button type="button" class="px-10 py-4 rounded-xl bg-primary text-on-primary-fixed font-headline font-black uppercase text-xs tracking-[0.2em] transition-all shadow-lg hover:shadow-primary/20 w-full" data-bs-dismiss="modal" id="save-filters">Apply Filters</button>
     </div>
   </div>
 </div>

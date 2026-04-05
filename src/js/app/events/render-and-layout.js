@@ -288,6 +288,8 @@ const refresh_event_page_ui = () => {
 
     seasonTimeline = compute_dom_season_timeline();
     setup_start_list_avatar_tooltips();
+    update_month_navigation_state();
+    schedule_month_nav_horizontal_position_sync();
     schedule_fit_event_name_titles();
     hide_static_event_fallback();
     set_favicon(seasonTimeline.liveRound);
@@ -464,6 +466,59 @@ const setup_modal_handlers = () => {
             stop_event_not_started_countdown();
         });
     }
+
+    // Modal global event listeners
+    document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('[data-bs-toggle="modal"]');
+        if (trigger) {
+            event.preventDefault();
+            const targetSelector = trigger.getAttribute('data-bs-target');
+            open_modal(targetSelector);
+            return;
+        }
+
+        const dismiss = event.target.closest('[data-bs-dismiss="modal"]');
+        if (dismiss) {
+            event.preventDefault();
+            const modal = dismiss.closest('.modal');
+            close_modal(modal);
+            return;
+        }
+
+        // Click outside of the modal content closes the modal
+        if (event.target.classList.contains('modal')) {
+            close_modal(event.target);
+        }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            const activeModal = document.querySelector('.modal.active, .modal.show');
+            if (activeModal) {
+                close_modal(activeModal);
+            }
+        }
+    });
+
+    // Sync our state if Bootstrap closes the modal itself (e.g. from its own data-api)
+    document.addEventListener('hidden.bs.modal', (event) => {
+        const modal = event.target.closest('.modal');
+        if (modal) {
+            modal.classList.remove('active', 'show');
+        }
+
+        // Always check if we should clear modal-open from html/body
+        // Use a small timeout to allow Bootstrap to finish its own state cleanup
+        window.setTimeout(() => {
+            if (!document.querySelector('.modal.active, .modal.show')) {
+                document.body.classList.remove('modal-open');
+                document.documentElement.classList.remove('modal-open');
+                document.body.style.removeProperty('overflow');
+                document.body.style.removeProperty('padding-right');
+            }
+        }, 0);
+    });
 };
 
 const setup_filter_handlers = () => {

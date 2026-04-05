@@ -76,11 +76,11 @@ const reset_next_event = () => {
     }
 
     if (nextEventContainer) {
-        nextEventContainer.style.display = 'none';
+        nextEventContainer.hidden = true;
     }
 
     nextEventDividers.forEach((divider) => {
-        divider.style.display = 'none';
+        divider.hidden = true;
     });
 };
 
@@ -90,10 +90,6 @@ const next_event_round_from_element = (roundElement) => {
     }
 
     const streamTrigger = roundElement.querySelector('.youtube-play-button, [data-action="round-stream"]');
-
-    if (!(streamTrigger instanceof HTMLElement)) {
-        return null;
-    }
 
     const startsAt = roundElement.dataset.roundStartsAt || '';
     const endsAt = roundElement.dataset.roundEndsAt || '';
@@ -117,7 +113,7 @@ const next_event_round_from_element = (roundElement) => {
     const roundLeagueName = eventCard && eventCard.dataset
         ? (eventCard.dataset.eventLeagueName || '')
         : '';
-    const streamUrl = streamTrigger.hasAttribute('data-round-stream-url')
+    const streamUrl = streamTrigger instanceof HTMLElement && streamTrigger.hasAttribute('data-round-stream-url')
         ? (streamTrigger.dataset.roundStreamUrl || '')
         : '';
 
@@ -160,10 +156,14 @@ const next_event_details_from_card = (eventCard) => {
         || (eventNameElement && eventNameElement.textContent ? eventNameElement.textContent.trim() : '');
     const eventLeagueName = eventCard.dataset.eventLeagueName
         || (eventLeagueNameElement && eventLeagueNameElement.textContent ? eventLeagueNameElement.textContent.trim() : '');
+    const eventLocation = eventCard.dataset.eventLocation || '';
+    const eventStartsAt = eventCard.dataset.eventStartsAt || '';
 
     return {
         id: parsedEventId,
         name: eventName,
+        location: eventLocation,
+        starts_at: eventStartsAt,
         league_name: eventLeagueName,
         season: String(get_selected_season() || ''),
         start_list: [],
@@ -218,7 +218,6 @@ const collect_visible_round_candidates_from_dom = () => {
 };
 
 const ranked_visible_round_candidates = () => collect_visible_round_candidates_from_dom()
-    .filter(({ round }) => round_will_be_streamed(round))
     .sort((a, b) => a.round.startsAtTimestamp - b.round.startsAtTimestamp || a.domIndex - b.domIndex);
 
 const compute_dom_season_timeline = () => {
@@ -275,13 +274,13 @@ const ensure_round_action_button = (roundElement, type, eventId) => {
     }
 
     const selector = type === 'results' ? '.button-results' : '.button-reminder';
-    const watchButton = roundElement.querySelector('.watch-button');
+    const actionsContainer = roundElement.querySelector('.round-actions');
 
-    if (!(watchButton instanceof HTMLElement)) {
+    if (!(actionsContainer instanceof HTMLElement)) {
         return null;
     }
 
-    const existingButton = watchButton.querySelector(selector);
+    const existingButton = actionsContainer.querySelector(selector);
 
     if (existingButton instanceof HTMLElement) {
         if (type === 'results') {
@@ -295,7 +294,7 @@ const ensure_round_action_button = (roundElement, type, eventId) => {
         ? create_round_results_button(eventId)
         : create_round_reminder_button();
 
-    watchButton.appendChild(createdButton);
+    // actionsContainer.appendChild(createdButton);
 
     return createdButton;
 };

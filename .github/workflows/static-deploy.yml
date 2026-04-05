@@ -44,26 +44,11 @@ jobs:
           path: public/images/thumb
           key: youtube-thumbs-${{ runner.os }}-${{ steps.thumb-cache-key.outputs.date }}
 
-      - name: "Setup PHP"
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.5'
-          extensions: gd, iconv
-
       - name: "Download latest calendar"
         run: |
           curl -sSL "${{ env.LATEST_CALENDAR_URL }}" \
               --output "events/events_${YEAR}.json" \
               --max-time 15
-
-      - name: "Cache athlete start-list photos"
-        run: php bin/cache-athlete-photos
-
-      - name: "Build structured data"
-        run: php bin/build-structured-data --minify
-
-      - name: "Build sitemap"
-        run: php bin/build-sitemap
 
       - name: "Setup Node"
         uses: actions/setup-node@v4
@@ -72,6 +57,15 @@ jobs:
 
       - name: "Install frontend dependencies"
         run: npm install --no-package-lock
+
+      - name: "Cache athlete start-list photos"
+        run: node bin/cache-athlete-photos.mjs
+
+      - name: "Build structured data"
+        run: node bin/build-structured-data.mjs --minify
+
+      - name: "Build sitemap"
+        run: node bin/build-sitemap.mjs
 
       - name: "Cache YouTube thumbnails"
         run: node bin/cache-youtube-thumbnails.mjs

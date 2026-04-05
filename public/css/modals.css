@@ -1,0 +1,117 @@
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1055;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    padding: 1rem;
+}
+
+.modal.show, .modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-open {
+    overflow: hidden;
+}
+
+.modal-open body > *:not(.modal):not(.modal-backdrop):not(script):not(style) {
+    filter: blur(8px);
+    transition: filter 0.3s ease;
+}
+
+body > *:not(.modal):not(.modal-backdrop):not(script):not(style) {
+    transition: filter 0.3s ease;
+}
+
+.modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 42rem;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-xl .modal-content {
+    max-width: 1140px;
+}
+
+.modal.show .modal-content, .modal.active .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+.kinetic-border {
+    position: relative;
+}
+
+.kinetic-border::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: #97ccff;
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: #181c21;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: #31353a;
+    border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #97ccff;
+}
+
+.videoWrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.videoWrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.ifsc-action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    white-space: nowrap;
+}
