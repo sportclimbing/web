@@ -10,6 +10,7 @@ const SOURCE_FILES = [
   'src/js/app/helpers/render.js',
   'src/js/app/helpers/modals-and-start-list.js',
   'src/js/app/events/state.js',
+  'src/js/app/events/filters.js',
   'src/js/app/events/render-and-layout.js',
   'src/js/app/events/navigation-and-tooltips.js',
   'src/js/app/bootstrap/init.js',

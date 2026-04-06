@@ -3,6 +3,10 @@ const YOUTUBE_EMBED_BASE_URL = 'https://www.youtube-nocookie.com/embed';
 const GITHUB_BUTTON_SCRIPT_SRC = 'https://buttons.github.io/buttons.js';
 const GITHUB_BUTTON_SLOT_ID = 'season-github-button-slot';
 const NEXT_EVENT_START_LIST_AVATAR_LIMIT = 8;
+const SITE_TIME_FORMAT_OPTIONS = {
+    hour: '2-digit',
+    minute: '2-digit',
+};
 
 const CONFIG_CHECKBOX_BINDINGS = [
     { inputName: 'league[cups]', path: ['league', 'cups'] },
@@ -20,14 +24,7 @@ const CONFIG_CHECKBOX_BINDINGS = [
 ];
 
 function get_page_type() {
-    if (!document.body) {
-        return 'season';
-    }
-
-    const rawPageType = typeof document.body.dataset.pageType === 'string' ? document.body.dataset.pageType : '';
-    const pageType = rawPageType.trim().toLowerCase();
-
-    return pageType || 'season';
+    return document.body.dataset.pageType || 'season';
 }
 
 function is_event_page() {
@@ -514,6 +511,7 @@ function set_checkbox_checked(inputName, checked) {
     }
 
     checkbox.checked = Boolean(checked);
+    checkbox.dispatchEvent(new Event('change'));
 }
 
 function get_id_from_hash(name) {
@@ -642,10 +640,16 @@ function apply_search_filters() {
     const config = load_config_from_modal();
     const enabledDisciplines = new Set(get_enabled_filter_keys(config.disciplines));
     const enabledCategories = new Set(get_enabled_filter_keys(config.category));
-    const selectedLeagues = new Set(config_selected_leagues());
     const visibleEventIds = new Set();
     const visibleRoundKeyCountsByEventId = new Map();
     let visibleRoundCount = 0;
+
+    const league_matches_config = (leagueName) => {
+        const league = leagueName.toLowerCase();
+        return (config.league.cups && (league.includes('world cup') || league.includes('world championship'))) ||
+               (config.league.paraclimbing && league.includes('paraclimbing')) ||
+               (config.league.games && (league.includes('games') || league.includes('olympic')));
+    };
 
     const round_matches_filters = (roundElement) => {
         if (!(roundElement instanceof HTMLElement)) {
@@ -683,7 +687,7 @@ function apply_search_filters() {
 
         const eventId = eventCard.dataset.eventId || '';
         const eventLeagueName = eventCard.dataset.eventLeagueName || '';
-        const eventMatchesLeague = Boolean(eventId && selectedLeagues.has(eventLeagueName));
+        const eventMatchesLeague = Boolean(eventId) && league_matches_config(eventLeagueName);
 
         const roundKeyCounts = new Map();
 

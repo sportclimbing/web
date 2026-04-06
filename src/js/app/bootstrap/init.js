@@ -1,9 +1,9 @@
 (() => {
-    restore_theme();
+   // restore_theme();
     restore_config();
     schedule_fit_mobile_hero_title();
     schedule_fit_event_name_titles();
-    setup_season_header_toggle();
+   // setup_season_header_toggle();
     setup_accordion_handlers();
     setup_layout_handlers();
     setup_tooltips();

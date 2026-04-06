@@ -148,6 +148,7 @@ const hide_event_card = (card) => {
     }
 
     card.hidden = true;
+    card.style.display = 'none';
 };
 
 const show_event_card = (card) => {
@@ -156,6 +157,7 @@ const show_event_card = (card) => {
     }
 
     card.hidden = false;
+    card.style.display = '';
 };
 
 const toggle_no_results_message = (accordion, hasResults) => {
@@ -175,8 +177,8 @@ const apply_filtered_event_cards = (filterResult, accordion) => {
     } = filterResult;
 
     accordion.querySelectorAll('.ifsc-league-card[data-event-id]').forEach((card) => {
-        const eventId = card.dataset.eventId;
-        const isVisible = Boolean(eventId && nextVisibleEventIds.has(eventId));
+        const eventId = card.dataset.eventId || '';
+        const isVisible = Boolean(eventId && nextVisibleEventIds.has(String(eventId)));
 
         if (isVisible) {
             show_event_card(card);
@@ -523,6 +525,8 @@ const setup_modal_handlers = () => {
 
 const setup_filter_handlers = () => {
     const saveFiltersButton = document.getElementById('save-filters');
+    const resetFiltersButton = document.getElementById('reset-filters');
+    const filterModal = document.getElementById('filter-modal');
 
     if (saveFiltersButton) {
         saveFiltersButton.addEventListener('click', () => {
@@ -532,8 +536,29 @@ const setup_filter_handlers = () => {
         });
     }
 
+    if (resetFiltersButton) {
+        resetFiltersButton.addEventListener('click', () => {
+            document.querySelectorAll('#filter-modal input[type="checkbox"]').forEach((checkbox) => {
+                set_checkbox_checked(checkbox.name, checkbox.name !== 'streamable');
+            });
+        });
+    }
+
+    if (filterModal) {
+        filterModal.addEventListener('show.bs.modal', () => {
+            document.querySelectorAll('#filter-modal input[type="checkbox"]').forEach((checkbox) => {
+                sync_filter_button_ui(checkbox.name, checkbox.checked);
+            });
+        });
+    }
+
     document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-        checkbox.addEventListener('change', () => refresh_event_ui());
+        checkbox.addEventListener('change', () => {
+            sync_filter_button_ui(checkbox.name, checkbox.checked);
+            if (!checkbox.closest('#filter-modal')) {
+                refresh_event_ui();
+            }
+        });
     });
 };
 

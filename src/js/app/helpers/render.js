@@ -125,15 +125,6 @@ function set_round_action_buttons_visibility(clone, isStreaming) {
         reminderButton.style.setProperty('display', 'inline-grid', 'important');
     }
 }
-
-function remove_next_event_starts_in_label(clone) {
-    const startsIn = clone.querySelector('.round-starts-in');
-
-    if (startsIn) {
-        startsIn.remove();
-    }
-}
-
 function set_next_event_countdown(round, isStreaming) {
     if (isStreaming || !event_is_upcoming(round)) {
         stop_next_event_countdown();
@@ -143,86 +134,6 @@ function set_next_event_countdown(round, isStreaming) {
 
     start_next_event_countdown(round);
 }
-
-function set_next_event_start_list(clone, event) {
-    const roundCopy = clone.querySelector('.round-copy');
-    const normalizedEvent = event || {};
-    const startList = Array.isArray(normalizedEvent.start_list) ? normalizedEvent.start_list : [];
-    const providedStartListTrigger = normalizedEvent.nextEventStartListTrigger instanceof Element
-        ? normalizedEvent.nextEventStartListTrigger.cloneNode(true)
-        : null;
-    const providedPendingText = typeof normalizedEvent.nextEventStartListPendingText === 'string'
-        ? normalizedEvent.nextEventStartListPendingText.trim()
-        : '';
-
-    if (!roundCopy) {
-        return;
-    }
-
-    const startListWrapper = document.createElement('div');
-    startListWrapper.className = 'next-event-start-list event-start-list';
-    startListWrapper.classList.toggle('event-start-list-has-avatars', Boolean(normalizedEvent.nextEventStartListHasAvatars));
-
-    if (providedStartListTrigger) {
-        if (!providedStartListTrigger.dataset.eventName) {
-            providedStartListTrigger.dataset.eventName = normalizedEvent.name || '';
-        }
-
-        startListWrapper.appendChild(providedStartListTrigger);
-        roundCopy.appendChild(startListWrapper);
-
-        return;
-    }
-
-    if (!startList.length) {
-        const pendingLine = document.createElement('h6');
-        pendingLine.className = 'round-date';
-        pendingLine.innerText = providedPendingText || '📋 Start List: Pending';
-        startListWrapper.appendChild(pendingLine);
-        roundCopy.appendChild(startListWrapper);
-
-        return;
-    }
-
-    const button = build_event_start_list_button(normalizedEvent.id, startList, normalizedEvent.season, NEXT_EVENT_START_LIST_AVATAR_LIMIT);
-    button.dataset.eventName = normalizedEvent.name || '';
-    startListWrapper.appendChild(button);
-    roundCopy.appendChild(startListWrapper);
-}
-
-function set_next_event_title(element, label, eventName) {
-    if (!(element instanceof HTMLElement)) {
-        return;
-    }
-
-    remove_all_children(element);
-
-    const labelSpan = document.createElement('span');
-    labelSpan.className = 'next-event-title-label';
-    labelSpan.textContent = `${label}:`;
-
-    const nameSpan = document.createElement('span');
-    nameSpan.className = 'next-event-title-name';
-    nameSpan.textContent = eventName;
-
-    element.append(labelSpan, nameSpan);
-}
-
-function format_event_name_title(event) {
-    const location = typeof event.location === 'string' ? event.location.trim() : '';
-    let year = '';
-
-    if (event.starts_at) {
-        const match = /^(\d{4})/.exec(String(event.starts_at));
-
-        if (match) {
-            year = match[1];
-        }
-    }
-
-    return `${location.toUpperCase()} ${year}`.trim();
-}
-
 function set_next_event(round, event, isStreaming) {
     const nextEventContainer = document.querySelector('.next-event');
     const nextEventTitle = document.getElementById('next-event-title');
@@ -351,17 +262,6 @@ function set_round_stream_metadata(element, round) {
     roundContainer.dataset.roundStartsAt = round.starts_at || '';
     roundContainer.dataset.roundEndsAt = round.ends_at || '';
 }
-
-function round_from_stream_button(element) {
-    const roundContainer = element instanceof Element ? (element.closest('.event-round-card, .ifsc-event') || element) : null;
-
-    return {
-        name: roundContainer ? (roundContainer.dataset.roundName || '') : '',
-        starts_at: roundContainer ? (roundContainer.dataset.roundStartsAt || '') : '',
-        ends_at: roundContainer ? (roundContainer.dataset.roundEndsAt || '') : '',
-    };
-}
-
 function set_round_stream_button(element, round) {
     if (!element) {
         return;
@@ -387,6 +287,16 @@ function set_round_stream_button(element, round) {
     element.removeAttribute('href');
 }
 
+function round_from_stream_button(element) {
+    const roundContainer = element instanceof Element ? (element.closest('.event-round-card, .ifsc-event') || element) : null;
+
+    return {
+        name: roundContainer ? (roundContainer.dataset.roundName || '') : '',
+        starts_at: roundContainer ? (roundContainer.dataset.roundStartsAt || '') : '',
+        ends_at: roundContainer ? (roundContainer.dataset.roundEndsAt || '') : '',
+    };
+}
+
 function round_stream_url_from_target(target) {
     if (!(target instanceof Element) || !target.hasAttribute('data-round-stream-url')) {
         return '';
@@ -404,7 +314,6 @@ function set_round_date(element, round) {
         return;
     }
 
-  //  element.innerText = '📅 ' + dayjs(round.starts_at).format('ddd, D MMMM, YYYY');
 }
 
 function set_round_time(element, round) {
@@ -412,7 +321,6 @@ function set_round_time(element, round) {
         return;
     }
 
-   // element.innerText = '⏰ ' + dayjs(round.starts_at).format('hh:mm A');
 
     const localTimeTooltip = round_local_time_tooltip(round);
 

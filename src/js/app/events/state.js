@@ -42,15 +42,6 @@ let monthNavHorizontalFrameId = null;
 
 const is_mobile_viewport = () => window.matchMedia(MOBILE_VIEWPORT_MEDIA_QUERY).matches;
 
-const clear_element_children = (element) => {
-    if (!element) {
-        return;
-    }
-
-    while (element.lastElementChild) {
-        element.removeChild(element.lastElementChild);
-    }
-};
 
 const reset_next_event = () => {
     const nextEventContainer = document.querySelector('.next-event');
@@ -63,7 +54,7 @@ const reset_next_event = () => {
 
     if (nextEventDetails) {
         release_lazy_backgrounds(nextEventDetails);
-        clear_element_children(nextEventDetails);
+        remove_all_children(nextEventDetails);
     }
 
     if (nextEventTitle) {
@@ -294,7 +285,6 @@ const ensure_round_action_button = (roundElement, type, eventId) => {
         ? create_round_results_button(eventId)
         : create_round_reminder_button();
 
-    // actionsContainer.appendChild(createdButton);
 
     return createdButton;
 };

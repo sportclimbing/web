@@ -1,19 +1,3 @@
-function handle_chat_toggle(button) {
-    const chat = document.getElementById('live-chat');
-
-    if (!chat) {
-        return;
-    }
-
-    if (chat.style.display === 'none') {
-        chat.style.display = 'block';
-        button.innerText = 'Hide Chat';
-    } else {
-        chat.style.display = 'none';
-        button.innerText = 'Show Chat';
-    }
-}
-
 function policy_feature_names(policy) {
     if (!policy) {
         return [];
@@ -272,12 +256,6 @@ function handle_round_stream_click(e) {
     handle_watch_event_no_url(e);
 }
 
-Object.defineProperty(String.prototype, 'capitalize', {
-    value: function() {
-        return this.charAt(0).toUpperCase() + this.slice(1);
-    },
-    enumerable: false
-});
 
 function athlete_photo_sources_build(athlete) {
     return athlete_photo_local_sources_build(athlete);

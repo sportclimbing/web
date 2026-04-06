@@ -1,0 +1,46 @@
+<template id="live-event-template">
+    <div class="ifsc-event p-6 bg-primary/5 rounded-2xl border border-primary/20 shadow-xl flex flex-col md:flex-row gap-8 items-center mb-12">
+        <div class="w-full md:w-64 aspect-video bg-black rounded-xl overflow-hidden relative shadow-lg">
+            <img class="youtube-thumbnail w-full h-full object-cover opacity-90" src="" alt="Live Event Preview" />
+            <div class="absolute inset-0 flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-5xl animate-pulse">live_tv</span>
+            </div>
+            <button class="absolute inset-0 w-full h-full cursor-pointer z-10 opacity-0" data-action="round-stream" aria-label="Watch live stream"></button>
+        </div>
+        <div class="flex-1 text-center md:text-left">
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-3">
+                <span class="text-[10px] bg-primary text-on-primary font-bold uppercase tracking-widest px-2.5 py-1 rounded-full animate-pulse">Live Now</span>
+                <span class="text-xs text-on-surface-variant font-medium"><span class="round-date"></span> | <span class="round-time"></span></span>
+            </div>
+            <h3 class="text-2xl font-bold font-headline uppercase tracking-tight text-on-surface mb-4 round-name"></h3>
+            <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                <button class="px-8 py-3 bg-primary text-on-primary font-bold rounded-xl text-xs uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" data-action="round-stream">Watch Live</button>
+                <button class="px-8 py-3 bg-surface-container-highest text-on-surface font-bold rounded-xl text-xs uppercase tracking-widest hover:bg-surface-variant transition-colors button-results">Results</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="next-event-template">
+    <div class="ifsc-event p-6 bg-surface-container-high rounded-2xl border border-outline-variant/10 shadow-xl flex flex-col md:flex-row gap-8 items-center mb-12">
+        <div class="w-full md:w-64 aspect-video bg-black rounded-xl overflow-hidden relative shadow-lg">
+            <img class="youtube-thumbnail w-full h-full object-cover opacity-90" src="" alt="Next Event Preview" />
+            <div class="absolute inset-0 flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-5xl">play_circle</span>
+            </div>
+            <button class="absolute inset-0 w-full h-full cursor-pointer z-10 opacity-0" data-action="round-stream" aria-label="Watch stream"></button>
+        </div>
+        <div class="flex-1 text-center md:text-left">
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-3">
+                <span class="text-[10px] bg-primary/10 text-primary font-bold uppercase tracking-widest px-2.5 py-1 rounded-full">Next Up</span>
+                <span class="text-xs text-on-surface-variant font-medium"><span class="round-date"></span> | <span class="round-time"></span></span>
+            </div>
+            <h3 class="text-2xl font-bold font-headline uppercase tracking-tight text-on-surface mb-4 round-name"></h3>
+            <div class="flex flex-wrap justify-center md:justify-start gap-4">
+                <button class="px-8 py-3 bg-primary text-on-primary font-bold rounded-xl text-xs uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all" data-action="round-stream">Watch Stream</button>
+                <button class="px-8 py-3 bg-surface-container-highest text-on-surface font-bold rounded-xl text-xs uppercase tracking-widest hover:bg-surface-variant transition-colors button-results">Results</button>
+                <button class="px-8 py-3 border border-outline-variant text-on-surface font-bold rounded-xl text-xs uppercase tracking-widest hover:border-primary/50 transition-colors button-reminder">Remind Me</button>
+            </div>
+        </div>
+    </div>
+</template>

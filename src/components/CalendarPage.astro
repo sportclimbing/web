@@ -291,7 +291,14 @@ const heroRoundName = heroRound?.name || '';
             <section class="mb-12">
                 <div class="bg-surface-container-low p-2 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4">
                     <div class="flex items-center gap-2 p-1 bg-surface-container-lowest rounded-lg w-full md:w-auto">
-                        <button class="px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest">{normalizedSeason} Season</button>
+                        <div class="relative">
+                            <select id="season-selector" name="season-selector" class="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10">
+                                {normalizedSeasons.map((s) => (
+                                    <option value={s} selected={s === normalizedSeason}>{s} Season</option>
+                                ))}
+                            </select>
+                            <button class="px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest">{normalizedSeason} Season</button>
+                        </div>
                         <button class="px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest">Archive</button>
                     </div>
                     <div class="flex flex-wrap justify-center gap-2">
@@ -299,7 +306,7 @@ const heroRoundName = heroRound?.name || '';
                         <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high">Lead</button>
                         <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high">Speed</button>
                         <div class="h-8 w-px bg-outline-variant mx-2"></div>
-                        <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high flex items-center gap-2" data-bs-toggle="modal" data-bs-target="#filter-modal">
+                        <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high flex items-center gap-2 filters-button" data-bs-toggle="modal" data-bs-target="#filter-modal">
                             <span class="material-symbols-outlined text-sm">filter_list</span> Filters
                         </button>
                     </div>

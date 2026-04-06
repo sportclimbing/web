@@ -107,9 +107,9 @@ const setup_theme_handlers = () => {
     }
 
     if (typeof systemThemeQuery.addEventListener === 'function') {
-        systemThemeQuery.addEventListener('change', sync_system_theme);
+  //      systemThemeQuery.addEventListener('change', sync_system_theme);
     } else if (typeof systemThemeQuery.addListener === 'function') {
-        systemThemeQuery.addListener(sync_system_theme);
+ //       systemThemeQuery.addListener(sync_system_theme);
     }
 };
 

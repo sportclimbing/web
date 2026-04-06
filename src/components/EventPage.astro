@@ -1,13 +1,10 @@
 ---
 import { siteAssetVersion } from '../lib/site-shell';
-import CardTemplates from './CardTemplates.astro';
+import AppHeader from './AppHeader.astro';
+import AppFooter from './AppFooter.astro';
 import EventCards from './EventCards.astro';
-import Footer from './Footer.astro';
-import HeaderTitle from './HeaderTitle.astro';
 import Modals from './Modals.astro';
-import SeasonNavbar from './SeasonNavbar.astro';
-import SubheaderButtons from './SubheaderButtons.astro';
-import VersionUpdateNotice from './VersionUpdateNotice.astro';
+import CardTemplates from './CardTemplates.astro';
 import {
   DEFAULT_SEASON,
 } from '../lib/config';
@@ -31,6 +28,32 @@ const normalizedEventId = String(event.id)
 const eventName = String(event?.name || '').trim() || 'Event';
 const seasonHomePath = normalizedSeason === DEFAULT_SEASON ? '/' : `/season/${normalizedSeason}/`;
 const seasonPagePath = `/season/${normalizedSeason}/`;
+
+// Hero section logic
+const rounds = Array.isArray(event.rounds) ? event.rounds : [];
+const now = new Date();
+let liveRound = null;
+let nextRound = null;
+
+for (const round of rounds) {
+    const startsAt = new Date(round.starts_at);
+    const endsAt = new Date(round.ends_at);
+    if (now >= startsAt && now <= endsAt) {
+        liveRound = round;
+        break;
+    }
+    if (startsAt > now) {
+        if (!nextRound || startsAt < new Date(nextRound.starts_at)) {
+            nextRound = round;
+        }
+    }
+}
+
+const heroRound = liveRound || nextRound || rounds[rounds.length - 1];
+const isLive = Boolean(liveRound);
+const heroRoundName = heroRound?.name || '';
+const heroEventTitle = eventName;
+
 const previousEventLink = relatedLinks?.previousEvent || null;
 const nextEventLink = relatedLinks?.nextEvent || null;
 const sameSeasonEventLinks = Array.isArray(relatedLinks?.sameSeasonEvents) ? relatedLinks.sameSeasonEvents : [];
@@ -70,7 +93,7 @@ const breadcrumbStructuredData = {
 };
 ---
 <!doctype html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
     <meta charset="utf-8" />
     <title>{pageTitle}</title>
@@ -85,10 +108,7 @@ const breadcrumbStructuredData = {
     <link rel="preconnect" href="https://calendar.ifsc.stream" />
     <link rel="preconnect" href="https://buttons.github.io" />
     <link rel="preconnect" href="https://img.youtube.com" />
-    <link rel="preload" href="/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-medium.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-semibold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-bold.woff2" as="font" type="font/woff2" crossorigin />
+
     <script is:inline src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -211,79 +231,167 @@ const breadcrumbStructuredData = {
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
 <body class="bg-background text-on-background min-h-screen" data-page-type="event" data-event-id={normalizedEventId || undefined} data-build-version={siteAssetVersion}>
-<VersionUpdateNotice />
-<CardTemplates />
 
-<div id="ifsc-season">
-    <HeaderTitle season={normalizedSeason} homeUrl={seasonHomePath} />
-</div>
-
-<SeasonNavbar />
-<SubheaderButtons
-    breadcrumbItems={[
-      { label: 'Home', href: '/' },
-      { label: `Season ${normalizedSeason}`, href: seasonPagePath },
-      { label: eventName, current: true },
-    ]}
-/>
+<AppHeader />
 
 <main role="main">
-    <div id="accordion">
-        <EventCards
-          events={[event]}
-          expandAllRounds={true}
-          hideRoundCollapseControls={true}
-          showNoResultsMessage={false}
-        />
+    <!-- Hero Section -->
+    <section class="relative w-full h-[600px] overflow-hidden flex items-end pb-20">
+        <div class="absolute inset-0 z-0">
+            <img class="w-full h-full object-cover opacity-60" src="/img/hero/hero-bg.jpg" alt="Hero Event Poster" />
+            <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+        </div>
+        <div class="relative z-10 max-w-screen-2xl mx-auto px-6 w-full next-event">
+            <div class="max-w-5xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-tertiary text-on-tertiary rounded-full mb-6">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-on-tertiary opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-on-tertiary"></span>
+                    </span>
+                    <span class="text-[0.6875rem] font-bold tracking-widest uppercase font-label">
+                        {isLive ? 'Live Now' : (new Date(heroRound?.starts_at) > now ? 'Coming Up Next' : 'Event Replay')}{heroRoundName ? `: ${heroRoundName}` : ''}
+                    </span>
+                </div>
+                <h1 class="text-5xl md:text-8xl font-black font-headline tracking-tighter mb-4 uppercase leading-[0.9]">
+                    {heroEventTitle}
+                </h1>
+
+                <div class="flex flex-wrap items-center gap-8 md:gap-12 mt-8">
+                    {heroRound?.stream_url && (
+                        <button class={`kinetic-gradient text-on-primary-fixed px-10 py-4 rounded-lg font-bold text-lg uppercase tracking-tight flex items-center gap-3 transition-transform hover:scale-[1.02] active:scale-95 round-stream-button ${(!isLive || !heroRound?.stream_url) ? 'hidden' : ''}`}
+                                data-action="round-stream"
+                                data-round-stream-url={heroRound?.stream_url}
+                                id="next-event-watch-button">
+                            <span class="material-symbols-outlined">play_circle</span>
+                            Watch Live
+                        </button>
+                    )}
+
+                    <div class={`flex flex-col event-not-started-countdown ${isLive ? 'hidden' : ''}`} id="next-event-countdown" hidden={isLive}>
+                        <span class="text-[0.6875rem] text-on-surface-variant tracking-widest uppercase mb-2 font-label">Starts In</span>
+                        <div class="flex gap-4 font-headline text-3xl md:text-4xl font-bold event-not-started-countdown-grid">
+                            <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-days">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Days</span></div>
+                            <span>:</span>
+                            <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-hours">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Hrs</span></div>
+                            <span>:</span>
+                            <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-minutes">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Min</span></div>
+                        </div>
+                    </div>
+                </div>
+                <span id="next-event-league-name" class="hidden">{event?.league_name}</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="max-w-screen-2xl mx-auto px-6 pt-16 flex gap-12 relative" id="accordion">
+        <div class="flex-1 pb-24">
+            <!-- Breadcrumbs -->
+            <nav class="mb-12" aria-label="Breadcrumb">
+                <div class="bg-surface-container-low p-2 rounded-xl flex items-center gap-2 overflow-x-auto no-scrollbar">
+                    <div class="flex items-center gap-2 p-1 bg-surface-container-lowest rounded-lg whitespace-nowrap">
+                        <a href="/" class="px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold">Home</a>
+                        <div class="h-4 w-px bg-outline-variant mx-1"></div>
+                        <a href={seasonPagePath} class="px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold">{normalizedSeason} Season</a>
+                        <div class="h-4 w-px bg-outline-variant mx-1"></div>
+                        <span class="px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest">{eventName}</span>
+                    </div>
+                </div>
+            </nav>
+
+            <section>
+                <div class="grid grid-cols-1 gap-12">
+                    <EventCards
+                      events={[event]}
+                      expandAllRounds={true}
+                      hideRoundCollapseControls={true}
+                      showNoResultsMessage={false}
+                    />
+                </div>
+            </section>
+
+            {hasRelatedEventLinks ? (
+              <section class="mt-20 border-t border-outline-variant/20 pt-20" aria-labelledby="event-internal-links-title">
+                <h2 id="event-internal-links-title" class="text-3xl font-black font-headline uppercase mb-12 tracking-tight">Related Events</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    {previousEventLink || nextEventLink ? (
+                      <div class="flex flex-col gap-6">
+                        <h3 class="text-on-surface-variant uppercase text-xs font-bold tracking-[0.2em]">Sequence</h3>
+                        <div class="flex flex-col gap-4">
+                            {previousEventLink && (
+                              <a class="group flex items-center justify-between p-6 bg-surface-container-low rounded-xl border border-outline-variant/10 hover:border-primary/50 transition-all" href={previousEventLink.href}>
+                                <div class="flex flex-col gap-1">
+                                    <span class="text-[10px] uppercase tracking-widest text-primary font-bold">Previous Event</span>
+                                    <span class="text-lg font-headline font-bold uppercase">{previousEventLink.label}</span>
+                                </div>
+                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_back</span>
+                              </a>
+                            )}
+                            {nextEventLink && (
+                              <a class="group flex items-center justify-between p-6 bg-surface-container-low rounded-xl border border-outline-variant/10 hover:border-primary/50 transition-all" href={nextEventLink.href}>
+                                <div class="flex flex-col gap-1">
+                                    <span class="text-[10px] uppercase tracking-widest text-primary font-bold">Next Event</span>
+                                    <span class="text-lg font-headline font-bold uppercase">{nextEventLink.label}</span>
+                                </div>
+                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_forward</span>
+                              </a>
+                            )}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {sameSeasonEventLinks.length ? (
+                      <div class="flex flex-col gap-6">
+                        <h3 class="text-on-surface-variant uppercase text-xs font-bold tracking-[0.2em]">Season {normalizedSeason}</h3>
+                        <div class="grid grid-cols-1 gap-3">
+                          {sameSeasonEventLinks.map((link) => (
+                            <a class="text-on-surface hover:text-primary transition-colors py-2 flex items-center gap-3 group" href={link.href}>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/30 group-hover:bg-primary transition-colors"></span>
+                                {link.label}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {sameDisciplineEventLinks.length ? (
+                      <div class="flex flex-col gap-6">
+                        <h3 class="text-on-surface-variant uppercase text-xs font-bold tracking-[0.2em]">Similar Disciplines</h3>
+                        <div class="grid grid-cols-1 gap-3">
+                          {sameDisciplineEventLinks.map((link) => (
+                            <a class="text-on-surface hover:text-primary transition-colors py-2 flex items-center gap-3 group" href={link.href}>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/30 group-hover:bg-primary transition-colors"></span>
+                                {link.label}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+                </div>
+              </section>
+            ) : null}
+        </div>
     </div>
-    {hasRelatedEventLinks ? (
-      <section class="event-internal-links" aria-labelledby="event-internal-links-title">
-        <h2 id="event-internal-links-title">Related Events</h2>
-        {previousEventLink || nextEventLink ? (
-          <div class="event-internal-links-primary">
-            {previousEventLink ? (
-              <a class="event-internal-links-link" href={previousEventLink.href}>
-                Previous Event: {previousEventLink.label}
-              </a>
-            ) : null}
-            {nextEventLink ? (
-              <a class="event-internal-links-link" href={nextEventLink.href}>
-                Next Event: {nextEventLink.label}
-              </a>
-            ) : null}
-          </div>
-        ) : null}
-        {sameSeasonEventLinks.length ? (
-          <div class="event-internal-links-group">
-            <h3>More Events in Season {normalizedSeason}</h3>
-            <ul class="event-internal-links-list">
-              {sameSeasonEventLinks.map((link) => (
-                <li><a class="event-internal-links-link" href={link.href}>{link.label}</a></li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-        {sameDisciplineEventLinks.length ? (
-          <div class="event-internal-links-group">
-            <h3>Events With Similar Disciplines</h3>
-            <ul class="event-internal-links-list">
-              {sameDisciplineEventLinks.map((link) => (
-                <li><a class="event-internal-links-link" href={link.href}>{link.label}</a></li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-      </section>
-    ) : null}
+
+    <!-- Dynamic Ticker / Newsletter -->
+    <section class="bg-surface-container-lowest border-y border-outline-variant/15 py-20">
+        <div class="max-w-screen-2xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
+            <div class="max-w-xl">
+                <h3 class="text-4xl font-black font-headline uppercase leading-tight">Never Miss a Finals Session</h3>
+                <p class="text-on-surface-variant text-lg mt-4">Get real-time alerts for live streams, athlete results, and final boulder rankings directly to your inbox.</p>
+            </div>
+            <div class="flex w-full md:w-auto gap-3">
+                <input class="bg-surface-container-low border-outline-variant focus:ring-primary focus:border-primary rounded-xl px-8 py-5 text-base w-full md:w-96" placeholder="YOUR EMAIL ADDRESS" type="email"/>
+                <button class="kinetic-gradient text-on-primary-fixed px-10 py-5 rounded-xl font-bold uppercase text-sm tracking-widest whitespace-nowrap shadow-lg hover:shadow-primary/20 transition-all">Subscribe</button>
+            </div>
+        </div>
+    </section>
 </main>
 
 <Modals />
+<CardTemplates />
 
-<Footer
-    seasons={normalizedSeasons}
-    selectedSeason={normalizedSeason}
-    buildVersion={siteAssetVersion}
-/>
+<AppFooter />
 
 <script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
 <script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>

@@ -18,10 +18,10 @@ const shouldShowNoResultsMessage = Boolean(showNoResultsMessage);
   />
 ))}
 {shouldShowNoResultsMessage && (
-  <div class="no-results hidden" id="no-results-message">
+  <div class="no-results" id="no-results-message" hidden>
       <div class="bg-surface-container-low p-8 rounded-xl text-center border border-outline-variant/20">
           <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-4">search_off</span>
-          <p class="text-xl font-headline font-bold mb-2">No events found</p>
+          <p class="text-xl font-headline font-bold mb-2 no-results-text">No events found</p>
           <p class="text-on-surface-variant">Please adjust your filters to see more results.</p>
       </div>
   </div>
