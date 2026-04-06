@@ -1,0 +1,36 @@
+---
+---
+<div id="video-modal" class="modal modal-xl" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="youtube-video-title">
+  <div class="modal-dialog modal-content bg-surface-container-low rounded-xl shadow-2xl shadow-black/60 border border-outline-variant/15 overflow-hidden">
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between px-8 py-6 bg-surface-container-high/50 border-b border-outline-variant/10">
+      <div class="flex items-center gap-5">
+        <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-primary-container/10 border border-primary-container/20">
+          <span class="material-symbols-outlined text-primary text-3xl">play_circle</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-headline text-[10px] uppercase tracking-[0.2em] text-primary/80 font-bold mb-1">LIVE STREAM</span>
+          <h4 class="font-headline text-2xl font-bold tracking-tight text-on-surface leading-none" id="youtube-video-title"></h4>
+        </div>
+      </div>
+      <button type="button" class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors group" data-bs-dismiss="modal" aria-label="Close">
+        <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-3xl">close</span>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="p-4 md:p-8">
+      <div class="videoWrapper">
+        <iframe id="youtube-video" src="" title="Event livestream player" referrerpolicy="strict-origin-when-cross-origin" allow="" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="px-8 py-5 bg-surface-container-high/30 border-t border-outline-variant/10 flex flex-wrap items-center gap-4">
+      <a class="text-sm text-on-surface-variant hover:text-primary transition-colors mr-auto self-center flex items-center gap-2" href="https://protonvpn.com/free-vpn" role="button" target="_blank" rel="noopener">
+        <span class="material-symbols-outlined text-sm">vpn_key</span> Video blocked? Free VPN
+      </a>
+      <button type="button" class="px-8 py-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline font-bold uppercase text-xs tracking-widest transition-all border border-outline-variant/20" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
