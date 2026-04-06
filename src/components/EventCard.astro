@@ -196,12 +196,7 @@ const format_round_time_build = (round) => {
 };
 
 const event_is_upcoming_build = (round) => {
-  const startsAt = parse_iso_date(round?.starts_at);
-
-  if (!startsAt) {
-    return false;
-  }
-
+  const startsAt = parse_iso_date(round.starts_at);
   return startsAt.getTime() > Date.now();
 };
 
@@ -289,12 +284,12 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
     </div>
 
     <ul class="flex flex-col gap-4">
-        {(Array.isArray(event.rounds) ? event.rounds : []).map((round) => {
+        {event.rounds.map((round) => {
           const streamUrl = typeof round.stream_url === 'string' ? round.stream_url : '';
           const fallbackUrl = streamUrl || STREAMS_FALLBACK_URL;
           const hasStreamUrl = Boolean(streamUrl);
           const isUpcoming = event_is_upcoming_build(round);
-          const isLive = !isUpcoming && hasStreamUrl; 
+          const isLive = false;
           const videoId = video_id_from_stream(round);
           const thumbnailUrl = youtube_thumbnail_local_path(videoId);
           const isFinished = !isUpcoming && !isLive && round.stream_url;
