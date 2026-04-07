@@ -6,6 +6,7 @@ import EventCards from './EventCards.astro';
 import Modals from './Modals.astro';
 import VideoModal from './VideoModal.astro';
 import CardTemplates from './CardTemplates.astro';
+import CookieConsent from './CookieConsent.astro';
 import HeroSection from './HeroSection.astro';
 import {
   DEFAULT_SEASON,
@@ -378,6 +379,7 @@ const breadcrumbStructuredData = {
 <CardTemplates />
 
 <AppFooter />
+<CookieConsent />
 
 <script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
 <script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>

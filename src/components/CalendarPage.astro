@@ -7,6 +7,7 @@ import Modals from './Modals.astro';
 import VideoModal from './VideoModal.astro';
 import CardTemplates from './CardTemplates.astro';
 import HeroSection from './HeroSection.astro';
+import CookieConsent from './CookieConsent.astro';
 import { build_event_page_path } from '../lib/event-pages';
 import { HERO_BG_OVERRIDES } from '../lib/config';
 
@@ -328,6 +329,7 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
 <CardTemplates />
 
 <AppFooter />
+<CookieConsent />
 
 <script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
 <script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
