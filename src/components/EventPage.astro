@@ -9,6 +9,7 @@ import CardTemplates from './CardTemplates.astro';
 import HeroSection from './HeroSection.astro';
 import {
   DEFAULT_SEASON,
+  HERO_BG_OVERRIDES,
 } from '../lib/config';
 import { getSeasonEventsPayload } from '../lib/events-data';
 
@@ -56,6 +57,23 @@ const heroRound = liveRound || nextRound || rounds[rounds.length - 1];
 const isLive = Boolean(liveRound);
 const heroRoundName = heroRound?.name || '';
 const heroEventTitle = eventName;
+
+const youtube_video_id_from_url = (url) => {
+    if (!url) return null;
+    const matches = String(url).match(
+        /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|live\/|embed\/|shorts\/))(?<video_id>[A-Za-z0-9_-]{10,})/i,
+    );
+    return matches?.groups?.video_id || null;
+};
+
+const firstStreamRound = rounds.find((r) => r.stream_url && youtube_video_id_from_url(r.stream_url));
+const heroYouTubeVideoId = firstStreamRound ? youtube_video_id_from_url(firstStreamRound.stream_url) : null;
+const seasonOverride = HERO_BG_OVERRIDES[normalizedSeason] || {};
+const resolvedBgVideoId = seasonOverride.youTubeVideoId ?? heroYouTubeVideoId;
+const heroBgImage = resolvedBgVideoId
+    ? `https://img.youtube.com/vi/${resolvedBgVideoId}/maxresdefault.jpg`
+    : '/img/hero/hero-bg.jpg';
+const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
 
 const updatedAt = getSeasonEventsPayload(season)?.metadata?.updated_at || undefined;
 const previousEventLink = relatedLinks?.previousEvent || null;
@@ -246,6 +264,8 @@ const breadcrumbStructuredData = {
         heroRound={heroRound}
         heroRoundName={heroRoundName}
         leagueName={event?.league_name}
+        heroBgImage={heroBgImage}
+        heroBgPosition={heroBgPosition}
     />
 
     <div class="max-w-screen-2xl mx-auto px-6 pt-16 flex gap-12 relative" id="accordion">

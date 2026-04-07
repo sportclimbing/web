@@ -8,6 +8,7 @@ import VideoModal from './VideoModal.astro';
 import CardTemplates from './CardTemplates.astro';
 import HeroSection from './HeroSection.astro';
 import { build_event_page_path } from '../lib/event-pages';
+import { HERO_BG_OVERRIDES } from '../lib/config';
 
 const {
   season,
@@ -62,6 +63,26 @@ const heroRound = heroEvent?.currentRound || heroEventRounds[heroEventRounds.len
 const heroEventTitle = heroEvent?.name || 'World Climbing Series';
 const heroRoundName = heroRound?.name || '';
 const heroEventPagePath = build_event_page_path(normalizedSeason, heroEvent);
+
+const youtube_video_id_from_url = (url) => {
+    if (!url) return null;
+    const matches = String(url).match(
+        /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|live\/|embed\/|shorts\/))(?<video_id>[A-Za-z0-9_-]{10,})/i,
+    );
+    return matches?.groups?.video_id || null;
+};
+
+const firstStreamUrl = events
+    .flatMap((e) => Array.isArray(e.rounds) ? e.rounds : [])
+    .map((r) => r.stream_url)
+    .find((url) => url && youtube_video_id_from_url(url));
+const heroBgVideoId = firstStreamUrl ? youtube_video_id_from_url(firstStreamUrl) : null;
+const seasonOverride = HERO_BG_OVERRIDES[normalizedSeason] || {};
+const resolvedBgVideoId = seasonOverride.youTubeVideoId ?? heroBgVideoId;
+const heroBgImage = resolvedBgVideoId
+    ? `https://img.youtube.com/vi/${resolvedBgVideoId}/maxresdefault.jpg`
+    : '/img/hero/hero-bg.jpg';
+const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
 ---
 <!doctype html>
 <html class="dark" lang="en">
@@ -225,6 +246,8 @@ const heroEventPagePath = build_event_page_path(normalizedSeason, heroEvent);
         leagueName={heroEvent?.league_name}
         eventId={heroEvent?.id}
         eventPagePath={heroEventPagePath}
+        heroBgImage={heroBgImage}
+        heroBgPosition={heroBgPosition}
     />
 
     <!-- Main Content Area with Side Nav -->
