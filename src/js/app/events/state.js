@@ -149,6 +149,7 @@ const next_event_details_from_card = (eventCard) => {
         || (eventLeagueNameElement && eventLeagueNameElement.textContent ? eventLeagueNameElement.textContent.trim() : '');
     const eventLocation = eventCard.dataset.eventLocation || '';
     const eventStartsAt = eventCard.dataset.eventStartsAt || '';
+    const eventPagePath = eventCard.dataset.eventPagePath || '';
 
     return {
         id: parsedEventId,
@@ -156,6 +157,7 @@ const next_event_details_from_card = (eventCard) => {
         location: eventLocation,
         starts_at: eventStartsAt,
         league_name: eventLeagueName,
+        page_path: eventPagePath,
         season: String(get_selected_season() || ''),
         start_list: [],
         nextEventStartListTrigger: startListTrigger || null,

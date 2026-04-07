@@ -239,7 +239,8 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
      data-event-location={event.location || ''}
      data-event-starts-at={event.starts_at || ''}
      data-event-league-name={event.league_name}
-     data-event-start-month={monthIndex === null ? undefined : String(monthIndex)}>
+     data-event-start-month={monthIndex === null ? undefined : String(monthIndex)}
+     data-event-page-path={eventPagePath || undefined}>
     <div id={`heading_${eventId}`} class="flex flex-col lg:flex-row justify-between items-start mb-8 gap-6">
         <div>
             <p class={`text-[0.6875rem] ${textThemeClass} tracking-[0.2em] uppercase font-label mb-1 event-league-name`}>{prettyLeagueName}</p>

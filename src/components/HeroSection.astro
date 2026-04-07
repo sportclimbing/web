@@ -6,6 +6,7 @@ const {
   heroRoundName = '',
   leagueName = '',
   eventId,
+  eventPagePath = '',
 } = Astro.props;
 
 const now = new Date();
@@ -51,13 +52,12 @@ const showDetailsButton = eventId != null;
                 </button>
 
                 {showDetailsButton && (
-                    <button class="border border-outline-variant hover:border-primary text-on-surface px-10 py-4 rounded-lg font-bold text-lg uppercase tracking-tight transition-all"
-                            data-bs-toggle="modal"
-                            data-bs-target="#event-modal"
-                            data-event-id={eventId}
-                            id="next-event-details-button">
+                    <a class="border border-outline-variant hover:border-primary text-on-surface px-10 py-4 rounded-lg font-bold text-lg uppercase tracking-tight transition-all"
+                       href={eventPagePath || undefined}
+                       data-event-id={eventId}
+                       id="next-event-details-button">
                         Details
-                    </button>
+                    </a>
                 )}
 
                 <div id="next-event-details" class="hidden"></div>

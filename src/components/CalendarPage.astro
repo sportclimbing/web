@@ -7,6 +7,7 @@ import Modals from './Modals.astro';
 import VideoModal from './VideoModal.astro';
 import CardTemplates from './CardTemplates.astro';
 import HeroSection from './HeroSection.astro';
+import { build_event_page_path } from '../lib/event-pages';
 
 const {
   season,
@@ -60,6 +61,7 @@ const heroEventRounds = Array.isArray(heroEvent?.rounds) ? heroEvent.rounds : []
 const heroRound = heroEvent?.currentRound || heroEventRounds[heroEventRounds.length - 1];
 const heroEventTitle = heroEvent?.name || 'World Climbing Series';
 const heroRoundName = heroRound?.name || '';
+const heroEventPagePath = build_event_page_path(normalizedSeason, heroEvent);
 ---
 <!doctype html>
 <html class="dark" lang="en">
@@ -222,6 +224,7 @@ const heroRoundName = heroRound?.name || '';
         heroRoundName={heroRoundName}
         leagueName={heroEvent?.league_name}
         eventId={heroEvent?.id}
+        eventPagePath={heroEventPagePath}
     />
 
     <!-- Main Content Area with Side Nav -->

@@ -170,6 +170,9 @@ function set_next_event(round, event, isStreaming) {
 
     if (nextDetailsButton) {
         nextDetailsButton.dataset.eventId = event.id;
+        if (event.page_path) {
+            nextDetailsButton.href = event.page_path;
+        }
     }
 
     if (nextEventLeagueName) {
