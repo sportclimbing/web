@@ -202,11 +202,21 @@ const event_is_upcoming_build = (round) => {
 
 const athlete_name_build = (athlete) => `${athlete.first_name} ${athlete.last_name}`;
 
-const league_name_without_ifsc = (value) => String(value || '')
-  .replace(/\bIFSC\b/gi, '')
-  .replace(/\s+/g, ' ')
-  .replace('Paraclimbing', 'Para Climbing')
-  .trim();
+const league_name_without_ifsc = (value, season) => {
+  let name = String(value || '')
+    .replace(/\bIFSC\b/gi, '')
+    .replace(/\s+/g, ' ')
+    .replace('Paraclimbing', 'Para Climbing')
+    .trim();
+
+  if (Number(season) >= 2026) {
+    name = name
+      .replace(/World Cups and World Championships/i, 'World Climbing Series')
+      .replace(/Para Climbing/i, 'Para Climbing Series');
+  }
+
+  return name;
+};
 
 const eventId = String(event.id);
 const monthIndex = month_index_from_starts_at(event.starts_at);
@@ -217,7 +227,7 @@ const eventPagePath = build_event_page_path(event.season || '', event);
 const infosheetUrl = typeof event.infosheet_url === 'string' ? event.infosheet_url.trim() : '';
 const eventScheduleStatus = event_schedule_status(event);
 const eventScheduleStatusTooltip = event_schedule_status_tooltip(event);
-const prettyLeagueName = league_name_without_ifsc(event.league_name);
+const prettyLeagueName = league_name_without_ifsc(event.league_name, event.season);
 const prettyEventName = format_event_name_title(event);
 const avatarsWithPhoto = startList
     .filter((athlete) => Boolean(athlete && athlete.photo_url))
