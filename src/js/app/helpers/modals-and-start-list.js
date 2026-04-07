@@ -319,7 +319,7 @@ function start_list_modal_url_build(season, eventId) {
         return '';
     }
 
-    return `/start-list-modals/${normalizedSeason}/${normalizedEventId}.html`;
+    return `/modals/start-list/${normalizedSeason}/${normalizedEventId}.html`;
 }
 
 function athlete_name_build(athlete) {

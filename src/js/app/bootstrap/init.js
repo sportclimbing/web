@@ -19,8 +19,7 @@
         refresh_event_page_ui();
     } else {
         refresh_event_ui();
-        config = load_config_from_modal();
-        setup_filter_handlers();
+        setup_lazy_filter_modal();
         setup_season_picker_click_target();
         setup_month_navigation();
     }

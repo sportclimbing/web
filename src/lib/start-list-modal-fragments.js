@@ -105,5 +105,5 @@ export const build_start_list_modal_url = (season, eventId) => {
     return '';
   }
 
-  return `/start-list-modals/${normalizedSeason}/${normalizedEventId}.html`;
+  return `/modals/start-list/${normalizedSeason}/${normalizedEventId}.html`;
 };

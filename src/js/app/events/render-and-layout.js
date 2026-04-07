@@ -552,13 +552,54 @@ const setup_filter_handlers = () => {
         });
     }
 
-    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+    document.querySelectorAll('#filter-modal input[type="checkbox"]').forEach((checkbox) => {
         checkbox.addEventListener('change', () => {
             sync_filter_button_ui(checkbox.name, checkbox.checked);
-            if (!checkbox.closest('#filter-modal')) {
-                refresh_event_ui();
-            }
         });
+    });
+};
+
+let filterModalContentLoaded = false;
+
+const setup_lazy_filter_modal = () => {
+    const filtersButton = document.querySelector('[data-open-filter-modal]');
+
+    if (!filtersButton) {
+        return;
+    }
+
+    filtersButton.addEventListener('click', async () => {
+        const filterModal = document.getElementById('filter-modal');
+
+        if (!filterModal) {
+            return;
+        }
+
+        if (filterModalContentLoaded) {
+            open_modal('#filter-modal');
+            return;
+        }
+
+        try {
+            const response = await window.fetch('/modals/filters.html');
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const modalDialog = doc.querySelector('.modal-dialog');
+
+            if (modalDialog) {
+                filterModal.innerHTML = modalDialog.outerHTML;
+                filterModalContentLoaded = true;
+                restore_config();
+                setup_filter_handlers();
+            }
+        } catch (_) {
+            // ignore fetch errors
+        }
+
+        if (filterModalContentLoaded) {
+            open_modal('#filter-modal');
+        }
     });
 };
 

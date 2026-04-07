@@ -1,0 +1,181 @@
+---
+---
+<div class="modal-dialog max-w-5xl mx-auto my-10">
+    <div class="modal-content bg-surface-container-low w-full rounded-3xl overflow-hidden flex flex-col shadow-[0_32px_64px_-12px_rgba(0,0,0,0.6)] relative border-0">
+      <!-- Modal Background Graphic (Subtle) -->
+      <div class="absolute top-0 right-0 w-1/2 h-1/2 opacity-10 pointer-events-none">
+        <img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgMAo2zNkKkc40gutAYCWlH7ZK0aCc2btW0PaBzZAiHmMJ6kxUSviIqscO0CpDFO0vBlMJ7Fih4WWb9mMQKcf1smlg4lNOYcz6CKDu4mKmWVPYdo8gUVw5IOGje1nI4NoWDKK_BMJ3QVGLs5Nqnux801VGqiov5CnlM_vPHAH7orcZjy4jRq8dUGMzjLc2a_3dp7IPefHr7zcsc0MkCDwLlfEjXsrw1-6cJ2ZklcQhoGRB3qADBDa3N7bwitpbEEaEDyJk9dT8D1Wo"/>
+      </div>
+      <!-- Header Section -->
+      <div class="modal-header px-6 py-5 flex items-center justify-between border-b border-outline-variant/15 bg-surface-container-high/50 backdrop-blur-xl z-10">
+        <div class="flex items-center gap-4">
+          <span class="material-symbols-outlined text-primary text-2xl">tune</span>
+          <div class="flex flex-col">
+            <span class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-1 uppercase">Event Filters</span>
+            <h2 class="text-2xl font-headline font-bold text-on-surface tracking-tight kinetic-border uppercase relative inline-block" id="filter-modal-title">Configure Filters</h2>
+          </div>
+        </div>
+        <button type="button" class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-surface-bright transition-colors group close" data-bs-dismiss="modal">
+          <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">close</span>
+        </button>
+      </div>
+      <!-- Multi-Column Body -->
+      <div class="modal-body flex-1 overflow-y-auto no-scrollbar p-8">
+        <div class="grid grid-cols-1 gap-12 items-start md:grid-cols-[0.8fr_1.2fr]">
+          <!-- Left Column: League & Category -->
+          <div class="space-y-10">
+            <!-- League Section -->
+            <section id="config-leagues">
+              <div class="flex items-center gap-3 mb-6">
+                <span class="w-1 h-6 bg-primary rounded-full"></span>
+                <h3 class="font-headline text-lg font-bold uppercase tracking-tight text-on-surface">League / Series</h3>
+              </div>
+              <div class="grid grid-cols-1 gap-3">
+                <label data-filter-name="league[cups]" class="filter-button flex items-center justify-between p-4 bg-primary/10 border border-primary/20 rounded-xl text-left group active relative cursor-pointer">
+                  <input type="checkbox" name="league[cups]" value="World Cups and World Championships" checked class="opacity-0 absolute inset-0 cursor-pointer z-10" />
+                  <div class="flex items-center gap-4 pointer-events-none">
+                    <span class="material-symbols-outlined text-primary">emoji_events</span>
+                    <span class="font-body font-bold text-sm uppercase tracking-wide">World Series</span>
+                  </div>
+                  <span class="material-symbols-outlined text-primary check-icon pointer-events-none">check_circle</span>
+                </label>
+
+                <label data-filter-name="league[paraclimbing]" class="filter-button flex items-center justify-between p-4 bg-primary/10 border border-primary/20 rounded-xl text-left group active relative cursor-pointer">
+                  <input type="checkbox" name="league[paraclimbing]" value="IFSC Paraclimbing" checked class="opacity-0 absolute inset-0 cursor-pointer z-10" />
+                  <div class="flex items-center gap-4 pointer-events-none">
+                    <span class="material-symbols-outlined text-primary">military_tech</span>
+                    <span class="font-body font-bold text-sm uppercase tracking-wide">Para Series</span>
+                  </div>
+                  <span class="material-symbols-outlined text-primary check-icon pointer-events-none">check_circle</span>
+                </label>
+
+                <label data-filter-name="league[games]" class="filter-button flex items-center justify-between p-4 bg-primary/10 border border-primary/20 rounded-xl text-left group active relative cursor-pointer">
+                  <input type="checkbox" name="league[games]" value="Games" checked class="opacity-0 absolute inset-0 cursor-pointer z-10" />
+                  <div class="flex items-center gap-4 pointer-events-none">
+                    <span class="material-symbols-outlined text-primary">stars</span>
+                    <span class="font-body font-bold text-sm uppercase tracking-wide">Games</span>
+                  </div>
+                  <span class="material-symbols-outlined text-primary check-icon pointer-events-none">check_circle</span>
+                </label>
+              </div>
+            </section>
+            <!-- Category Section -->
+            <section>
+              <div class="flex items-center gap-3 mb-6">
+                <span class="w-1 h-6 bg-tertiary rounded-full"></span>
+                <h3 class="font-headline text-lg font-bold uppercase tracking-tight text-on-surface">Category</h3>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                <label data-filter-name="category[men]" class="filter-button px-6 py-3 bg-primary text-on-primary font-bold rounded-xl text-xs uppercase tracking-widest shadow-lg shadow-primary/20 active relative cursor-pointer">
+                  <input type="checkbox" name="category[men]" value="1" checked class="opacity-0 absolute inset-0 cursor-pointer z-10" />
+                  <span class="pointer-events-none">Men</span>
+                </label>
+
+                <label data-filter-name="category[women]" class="filter-button px-6 py-3 bg-primary text-on-primary font-bold rounded-xl text-xs uppercase tracking-widest shadow-lg shadow-primary/20 active relative cursor-pointer">
+                  <input type="checkbox" name="category[women]" value="1" checked class="opacity-0 absolute inset-0 cursor-pointer z-10" />
+                  <span class="pointer-events-none">Women</span>
+                </label>
+              </div>
+            </section>
+          </div>
+          <!-- Right Column: Discipline & Round -->
+          <div class="space-y-10">
+            <!-- Discipline Section -->
+            <section>
+              <div class="flex items-center gap-3 mb-6">
+                <span class="w-1 h-6 bg-secondary rounded-full"></span>
+                <h3 class="font-headline text-lg font-bold uppercase tracking-tight text-on-surface">Discipline</h3>
+              </div>
+              <div class="grid gap-4 grid-cols-3">
+                <label data-filter-name="discipline[boulder]" class="filter-button flex flex-col gap-3 p-5 bg-primary/10 border border-primary/30 rounded-2xl transition-all active relative cursor-pointer">
+                  <input type="checkbox" name="discipline[boulder]" value="1" checked class="opacity-0 absolute inset-0 cursor-pointer z-10" />
+                  <span class="material-symbols-outlined text-3xl text-primary pointer-events-none">landslide</span>
+                  <div class="flex flex-col pointer-events-none">
+                    <span class="font-headline font-bold text-sm uppercase">Boulder</span>
+                    <span class="font-body text-[10px] text-on-surface-variant">Technical Power</span>
+                  </div>
+                </label>
+
+                <label data-filter-name="discipline[lead]" class="filter-button flex flex-col gap-3 p-5 bg-primary/10 border border-primary/30 rounded-2xl transition-all active relative cursor-pointer">
+                  <input type="checkbox" name="discipline[lead]" value="1" checked class="opacity-0 absolute inset-0 cursor-pointer z-10" />
+                  <span class="material-symbols-outlined text-3xl text-primary pointer-events-none">altitude</span>
+                  <div class="flex flex-col pointer-events-none">
+                    <span class="font-headline font-bold text-sm uppercase">Lead</span>
+                    <span class="font-body text-[10px] text-on-surface-variant">Endurance Master</span>
+                  </div>
+                </label>
+
+                <label data-filter-name="discipline[speed]" class="filter-button flex flex-col gap-3 p-5 bg-primary/10 border border-primary/30 rounded-2xl transition-all active relative cursor-pointer">
+                  <input type="checkbox" name="discipline[speed]" value="1" checked class="opacity-0 absolute inset-0 cursor-pointer z-10" />
+                  <span class="material-symbols-outlined text-3xl text-primary pointer-events-none">speed</span>
+                  <div class="flex flex-col pointer-events-none">
+                    <span class="font-headline font-bold text-sm uppercase">Speed</span>
+                    <span class="font-body text-[10px] text-on-surface-variant">Explosive Velocity</span>
+                  </div>
+                </label>
+              </div>
+            </section>
+            <!-- Round Section -->
+            <section>
+              <div class="flex items-center gap-3 mb-6">
+                <span class="w-1 h-6 bg-primary-container rounded-full"></span>
+                <h3 class="font-headline text-lg font-bold uppercase tracking-tight text-on-surface">Round Type</h3>
+              </div>
+              <div class="space-y-4">
+                <label class="flex items-center justify-between cursor-pointer group p-1 rounded-lg hover:bg-surface-container-high transition-colors">
+                  <span class="font-body text-sm font-semibold text-on-surface-variant group-hover:text-on-surface transition-colors">Qualifications</span>
+                  <div class="relative inline-flex items-center">
+                    <input type="checkbox" name="round[qualifications]" value="1" checked class="sr-only peer" />
+                    <div class="w-11 h-6 bg-surface-container-highest rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  </div>
+                </label>
+                <label class="flex items-center justify-between cursor-pointer group p-1 rounded-lg hover:bg-surface-container-high transition-colors">
+                  <span class="font-body text-sm font-semibold text-on-surface-variant group-hover:text-on-surface transition-colors">Semi-Finals</span>
+                  <div class="relative inline-flex items-center">
+                    <input type="checkbox" name="round[semifinals]" value="1" checked class="sr-only peer" />
+                    <div class="w-11 h-6 bg-surface-container-highest rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  </div>
+                </label>
+                <label class="flex items-center justify-between cursor-pointer group p-1 rounded-lg hover:bg-surface-container-high transition-colors">
+                  <span class="font-body text-sm font-semibold text-on-surface-variant group-hover:text-on-surface transition-colors">Finals</span>
+                  <div class="relative inline-flex items-center">
+                    <input type="checkbox" name="round[finals]" value="1" checked class="sr-only peer" />
+                    <div class="w-11 h-6 bg-surface-container-highest rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  </div>
+                </label>
+              </div>
+            </section>
+            <!-- Streamable Section -->
+            <section>
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-1 h-6 bg-outline rounded-full"></span>
+                    <h3 class="font-headline text-lg font-bold uppercase tracking-tight text-on-surface">Live-Streams Only</h3>
+                </div>
+                <label class="flex items-center justify-between cursor-pointer group p-1 rounded-lg hover:bg-surface-container-high transition-colors">
+                  <span class="font-body text-sm font-semibold text-on-surface-variant group-hover:text-on-surface transition-colors">Only show events we found links to</span>
+                  <div class="relative inline-flex items-center">
+                    <input type="checkbox" name="streamable" class="sr-only peer" />
+                    <div class="w-11 h-6 bg-surface-container-highest rounded-full peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                  </div>
+                </label>
+            </section>
+          </div>
+        </div>
+      </div>
+      <!-- Footer Action Bar -->
+      <div class="modal-footer p-8 bg-surface-container-low/50 backdrop-blur-md border-t border-outline-variant/10 flex items-center justify-between">
+        <button type="button" id="reset-filters" class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-xl">restart_alt</span>
+          <span class="font-label text-xs font-bold uppercase tracking-widest">Reset All</span>
+        </button>
+        <div class="flex items-center gap-4">
+          <button type="button" class="px-8 py-4 bg-surface-container-highest text-on-surface font-bold rounded-xl text-xs uppercase tracking-widest hover:bg-surface-variant transition-colors" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <button type="button" id="save-filters" class="bg-[#00639a] text-white font-bold px-12 py-4 rounded-xl text-xs uppercase tracking-widest shadow-xl shadow-[#00639a]/30 active:scale-95 transition-transform" data-bs-dismiss="modal">
+            Apply Filters
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

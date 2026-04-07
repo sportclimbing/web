@@ -544,6 +544,16 @@ function load_config_from_modal() {
     const hasModal = Boolean(document.querySelector('#config-leagues input[type="checkbox"]'));
 
     if (!hasModal) {
+        const configRaw = window.localStorage.getItem('config');
+
+        if (configRaw) {
+            try {
+                return JSON.parse(configRaw);
+            } catch (_) {
+                // fall through to defaults
+            }
+        }
+
         return {
             league: {
                 "cups": true,

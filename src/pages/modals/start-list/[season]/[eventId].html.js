@@ -1,5 +1,5 @@
-import { getAllSeasons, getSeasonEventsPayload } from '../../../lib/events-data';
-import { build_start_list_modal_fragment } from '../../../lib/start-list-modal-fragments';
+import { getAllSeasons, getSeasonEventsPayload } from '../../../../lib/events-data';
+import { build_start_list_modal_fragment } from '../../../../lib/start-list-modal-fragments';
 
 export function getStaticPaths() {
   const paths = [];
