@@ -1,0 +1,68 @@
+---
+const {
+  heroEventTitle,
+  isLive,
+  heroRound,
+  heroRoundName = '',
+  leagueName = '',
+  eventId,
+} = Astro.props;
+
+const now = new Date();
+const isUpcoming = heroRound?.starts_at && new Date(heroRound.starts_at) > now;
+const statusLabel = isLive ? 'Live Now' : (isUpcoming ? 'Coming Up Next' : 'Event Replay');
+const showDetailsButton = eventId != null;
+---
+<section class="relative w-full h-[500px] overflow-hidden flex items-end pb-10">
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 opacity-60" style="background-image: url('/img/hero/hero-bg.jpg'); background-size: cover; background-position: center 30%;"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-screen-2xl mx-auto px-6 w-full next-event">
+        <div class="max-w-5xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-tertiary text-on-tertiary rounded-full mb-6">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-on-tertiary opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-on-tertiary"></span>
+                </span>
+                <span id="next-event-status-badge-label" class="text-[0.6875rem] font-bold tracking-widest uppercase font-label">{statusLabel}{heroRoundName ? `: ${heroRoundName}` : ''}</span>
+            </div>
+            <h1 class="text-5xl md:text-8xl font-black font-headline tracking-tighter mb-4 uppercase leading-[0.9]" id="next-event-title">
+                {heroEventTitle}
+            </h1>
+            <div class="flex flex-wrap items-center gap-8 md:gap-12 mt-8">
+                <div class={`flex flex-col event-not-started-countdown ${isLive ? 'hidden' : ''}`} id="next-event-countdown" hidden={isLive}>
+                    <span class="text-[0.6875rem] text-on-surface-variant tracking-widest uppercase mb-2 font-label">Starts In</span>
+                    <div class="flex gap-4 font-headline text-3xl md:text-4xl font-bold event-not-started-countdown-grid">
+                        <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-days">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Days</span></div>
+                        <span>:</span>
+                        <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-hours">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Hrs</span></div>
+                        <span>:</span>
+                        <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-minutes">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Min</span></div>
+                    </div>
+                </div>
+
+                <button class={`kinetic-gradient text-on-primary-fixed px-10 py-4 rounded-lg font-bold text-lg uppercase tracking-tight flex items-center gap-3 transition-transform hover:scale-[1.02] active:scale-95 round-stream-button ${(!isLive || !heroRound?.stream_url) ? 'hidden' : ''}`}
+                        data-action="round-stream"
+                        data-round-stream-url={heroRound?.stream_url}
+                        id="next-event-watch-button">
+                    <span class="material-symbols-outlined">play_circle</span>
+                    Watch Live
+                </button>
+
+                {showDetailsButton && (
+                    <button class="border border-outline-variant hover:border-primary text-on-surface px-10 py-4 rounded-lg font-bold text-lg uppercase tracking-tight transition-all"
+                            data-bs-toggle="modal"
+                            data-bs-target="#event-modal"
+                            data-event-id={eventId}
+                            id="next-event-details-button">
+                        Details
+                    </button>
+                )}
+
+                <div id="next-event-details" class="hidden"></div>
+            </div>
+            <span id="next-event-league-name" class="hidden">{leagueName}</span>
+        </div>
+    </div>
+</section>
