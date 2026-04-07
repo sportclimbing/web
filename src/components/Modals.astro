@@ -1,77 +1,18 @@
 ---
+import { DEFAULT_SEASON } from '../lib/config.js';
+
+const allEventsFiles = import.meta.glob('../../events/events_*.json', { eager: true }) as Record<string, { metadata: { updated_at: string } }>;
+const eventsData = allEventsFiles[`../../events/events_${DEFAULT_SEASON}.json`];
+
+const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefined, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+});
 ---
-<div id="calendar-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="calendar-modal-title">
-  <div class="modal-dialog modal-content bg-surface-container-lowest border border-outline-variant/30 rounded-2xl shadow-[0_48px_96px_-12px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col relative">
-    <!-- Background Graphic Layer -->
-    <div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
-      <img class="w-full h-full object-cover scale-110 blur-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl11SsOJ-BCuyn2zR5TOS6dYgp82T4wVYHqaxWdps_2Nj7_KzqHMTVPkxOD8MjNAHRH6W6CgbsOPgTnwZSv_kdvvJBFnvfEIzi-4qbXfq47XGZ4fZct7eibP4el1nUXseb1gbsM3qf2hLJquN43qCxzdy-cG7jiWxCh5bCjTdPK1UICv-ghTTyiPCdhSzL3H8t9mWktX6CuOlMO3EoJqY1ZUCurhyUrj8iyG2HoAgo1Rcx1orSLhYKkPemVgoO-IPs2uXnB5CfXpEw"/>
-    </div>
-    <!-- Modal Header -->
-    <div class="relative z-10 flex items-center justify-between px-10 py-8 border-b border-outline-variant/10 bg-surface-container-low/50">
-      <div class="flex items-center gap-5">
-        <div class="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center border border-primary/20 shadow-[0_0_20px_rgba(102,178,242,0.1)]">
-          <span class="material-symbols-outlined text-primary text-3xl">event_upcoming</span>
-        </div>
-        <div>
-          <h2 class="font-headline text-2xl font-black uppercase tracking-tight text-on-surface leading-none" id="calendar-modal-title">Free Calendar Subscription</h2>
-          <p class="text-[0.625rem] font-bold tracking-[0.2em] uppercase text-primary mt-2">Never miss a single route</p>
-        </div>
-      </div>
-      <button type="button" class="w-12 h-12 flex items-center justify-center rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all text-on-surface-variant hover:text-on-surface active:scale-90 border border-outline-variant/20" data-bs-dismiss="modal" aria-label="Close">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
-    <!-- Modal Body -->
-    <div class="relative z-10 p-10 space-y-8 overflow-y-auto max-h-[65vh]">
-      <!-- Option 1: Mobile/Desktop -->
-      <div class="group flex gap-6 items-start">
-        <div class="shrink-0 w-12 h-12 bg-surface-container-high rounded-xl flex items-center justify-center border border-outline-variant/10 group-hover:border-primary/40 transition-colors">
-          <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">devices</span>
-        </div>
-        <div class="flex-grow">
-          <h3 class="text-xs font-black tracking-[0.15em] uppercase font-label text-on-surface-variant mb-2">Mobile &amp; Desktop Apps</h3>
-          <p class="text-on-surface/70 text-base mb-5 leading-relaxed font-medium">Automatically updating calendar for Outlook, Apple Calendar (iOS &amp; macOS), and other native apps.</p>
-          <a class="ifsc-action-button bg-primary hover:bg-primary-container text-on-primary-fixed px-8 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest transition-all shadow-[0_12px_24px_-8px_rgba(102,178,242,0.5)] active:scale-95 inline-block text-center" href="webcal://calendar.ifsc.stream" role="button" rel="noopener">Add to Device's Calendar</a>
-        </div>
-      </div>
-      <div class="h-px bg-gradient-to-r from-outline-variant/20 via-outline-variant/5 to-transparent"></div>
-
-      <!-- Option 2: Google Calendar -->
-      <div class="group flex gap-6 items-start">
-        <div class="shrink-0 w-12 h-12 bg-surface-container-high rounded-xl flex items-center justify-center border border-outline-variant/10 group-hover:border-primary/40 transition-colors">
-          <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">event_available</span>
-        </div>
-        <div class="flex-grow">
-          <h3 class="text-xs font-black tracking-[0.15em] uppercase font-label text-on-surface-variant mb-2">Google Calendar</h3>
-          <p class="text-on-surface/70 text-base mb-5 leading-relaxed font-medium">Automatically updating calendar for Google</p>
-          <a class="ifsc-action-button bg-primary hover:bg-primary-container text-on-primary-fixed px-8 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest transition-all shadow-[0_12px_24px_-8px_rgba(102,178,242,0.5)] active:scale-95 inline-block text-center" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream" target="_blank" rel="noopener" role="button">Add to Google Calendar</a>
-        </div>
-      </div>
-      <div class="h-px bg-gradient-to-r from-outline-variant/20 via-outline-variant/5 to-transparent"></div>
-
-      <!-- Option 3: ICS -->
-      <div class="group flex gap-6 items-start">
-        <div class="shrink-0 w-12 h-12 bg-surface-container-high rounded-xl flex items-center justify-center border border-outline-variant/10 group-hover:border-primary/40 transition-colors">
-          <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span>
-        </div>
-        <div class="flex-grow">
-          <h3 class="text-xs font-black tracking-[0.15em] uppercase font-label text-on-surface-variant mb-2">Download <code>.ics</code> file</h3>
-          <p class="text-on-surface/70 text-base mb-5 leading-relaxed font-medium">Non-updating calendar (<code>.ics</code>) for calendars that can’t handle updating subscriptions</p>
-          <div class="flex flex-wrap gap-4">
-            <a class="ifsc-action-button bg-primary hover:bg-primary-container text-on-primary-fixed px-8 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest transition-all shadow-[0_12px_24px_-8px_rgba(102,178,242,0.5)] active:scale-95 inline-block text-center flex-1" href="https://calendar.ifsc.stream" target="_blank" rel="noopener" role="button">Download .ics</a>
-            <a class="ifsc-action-button border border-outline-variant/30 text-on-surface px-6 py-3.5 rounded-xl font-headline font-black text-xs uppercase tracking-widest transition-all hover:bg-surface-container-high hover:border-primary/30 inline-block text-center flex-1" href="https://github.com/sportclimbing/ifsc-calendar/wiki" role="button" target="_blank" rel="noopener">View Tutorial</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="relative z-10 px-10 py-8 bg-surface-container-low/30 border-t border-outline-variant/10 flex flex-col sm:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-3">
-        <div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-        <p class="text-on-surface-variant text-[11px] font-bold uppercase tracking-widest">Auto-updates for future seasons included</p>
-      </div>
-      <button type="button" class="px-10 py-3.5 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline font-bold uppercase text-xs tracking-[0.15em] rounded-xl transition-all border border-outline-variant/20" data-bs-dismiss="modal">Close</button>
-    </div>
-  </div>
+<div id="calendar-modal" class="modal modal-xl" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="calendar-modal-title">
 </div>
 
 <div id="start-list-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="start-list-modal-title">
@@ -103,7 +44,7 @@
         <span class="text-xs font-label text-on-surface-variant/80 uppercase tracking-widest">More Athletes Confirmed</span>
       </div>
       <div class="flex items-center gap-2">
-        <span class="text-[10px] font-headline font-bold text-on-surface-variant uppercase">Updated: {new Date().toLocaleDateString('en-GB').replace(/\//g, '.')}</span>
+        <span class="text-[10px] font-headline font-bold text-on-surface-variant uppercase">Updated: {updatedAt}</span>
       </div>
     </div>
   </div>

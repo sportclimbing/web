@@ -23,6 +23,7 @@ const {
 const normalizedSeason = String(season);
 const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
 const events = Array.isArray(eventsPayload?.events) ? eventsPayload.events : [];
+const updatedAt = eventsPayload?.metadata?.updated_at || undefined;
 const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
 const socialImageUrl = socialImagePath.startsWith('http')
   ? socialImagePath
@@ -208,7 +209,7 @@ const heroRoundName = heroRound?.name || '';
     </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
-<body class="bg-background text-on-background min-h-screen" data-page-type="season" data-build-version={siteAssetVersion}>
+<body class="bg-background text-on-background min-h-screen" data-page-type="season" data-build-version={siteAssetVersion} data-updated-at={updatedAt}>
 
 <AppHeader />
 

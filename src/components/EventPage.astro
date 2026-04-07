@@ -10,6 +10,7 @@ import HeroSection from './HeroSection.astro';
 import {
   DEFAULT_SEASON,
 } from '../lib/config';
+import { getSeasonEventsPayload } from '../lib/events-data';
 
 const {
   season,
@@ -56,6 +57,7 @@ const isLive = Boolean(liveRound);
 const heroRoundName = heroRound?.name || '';
 const heroEventTitle = eventName;
 
+const updatedAt = getSeasonEventsPayload(season)?.metadata?.updated_at || undefined;
 const previousEventLink = relatedLinks?.previousEvent || null;
 const nextEventLink = relatedLinks?.nextEvent || null;
 const sameSeasonEventLinks = Array.isArray(relatedLinks?.sameSeasonEvents) ? relatedLinks.sameSeasonEvents : [];
@@ -232,7 +234,7 @@ const breadcrumbStructuredData = {
     ></script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
-<body class="bg-background text-on-background min-h-screen" data-page-type="event" data-event-id={normalizedEventId || undefined} data-build-version={siteAssetVersion}>
+<body class="bg-background text-on-background min-h-screen" data-page-type="event" data-event-id={normalizedEventId || undefined} data-build-version={siteAssetVersion} data-updated-at={updatedAt}>
 
 <AppHeader />
 
