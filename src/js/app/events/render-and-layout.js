@@ -289,6 +289,11 @@ const refresh_event_page_ui = () => {
     });
 
     seasonTimeline = compute_dom_season_timeline();
+
+    if (!refresh_next_event_status()) {
+        update_next_event_panel();
+    }
+
     setup_start_list_avatar_tooltips();
     update_month_navigation_state();
     schedule_month_nav_horizontal_position_sync();
