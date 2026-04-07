@@ -22,6 +22,7 @@ const themeClass = isEuropeanCup ? 'secondary' : 'primary';
 const borderThemeClass = isEuropeanCup ? 'border-secondary' : 'border-primary';
 const textThemeClass = isEuropeanCup ? 'text-secondary' : 'text-primary';
 
+const willBeStreamed = round_will_be_streamed(round);
 const liveBadgeClass = isEuropeanCup ? 'text-secondary bg-secondary/10' : 'text-primary bg-primary/10';
 const watchButtonClass = isLive 
     ? (isEuropeanCup ? 'bg-secondary text-on-secondary hover:bg-secondary-container' : 'bg-primary text-on-primary hover:bg-primary-container')
@@ -56,8 +57,9 @@ const watchButtonClass = isLive
     <div class="flex-grow">
         <div class="flex items-start flex-col sm:flex-row sm:items-center gap-2 mb-1">
             {isLive && <span class={`text-[10px] ${liveBadgeClass} font-bold uppercase tracking-widest px-2 py-0.5 rounded live-badge`}>Live Now</span>}
-            {!isLive && isUpcoming && <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest bg-surface-container-lowest px-2 py-0.5 rounded upcoming-badge">Upcoming</span>}
-            {!isLive && !isUpcoming && <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest bg-surface-container-lowest px-2 py-0.5 rounded replay-badge">Replay</span>}
+            {!isLive && isUpcoming && willBeStreamed && <span class="text-[10px] text-on-tertiary font-bold uppercase tracking-widest bg-tertiary px-2 py-0.5 rounded upcoming-badge">Upcoming</span>}
+            {!isLive && !isUpcoming && willBeStreamed && <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest bg-surface-container-lowest px-2 py-0.5 rounded replay-badge">Replay</span>}
+            {!willBeStreamed && <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest bg-surface-container-lowest px-2 py-0.5 rounded">No Stream</span>}
             <span class="text-[11px] text-on-surface-variant font-mono"><span class="round-date">{formatRoundDate}</span> | <span class="round-time">{formatRoundTime}</span> <span class="round-starts-in hidden ml-2"></span></span>
         </div>
         <h4 class={`font-bold text-lg uppercase leading-tight round-name ${isFinished ? 'text-on-surface-variant' : 'text-on-surface'}`}>{round.name}</h4>
