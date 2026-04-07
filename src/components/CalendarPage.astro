@@ -10,6 +10,7 @@ import HeroSection from './HeroSection.astro';
 import CookieConsent from './CookieConsent.astro';
 import CalendarSyncBanner from './CalendarSyncBanner.astro';
 import { build_event_page_path } from '../lib/event-pages';
+import { round_will_be_streamed } from '../js/app/helpers/core.js';
 import { HERO_BG_OVERRIDES } from '../lib/config';
 
 const {
@@ -39,11 +40,15 @@ let nextEvent = null;
 let liveEvent = null;
 
 for (const event of events) {
-    const rounds = Array.isArray(event.rounds) ? event.rounds : [];
+    const rounds = event.rounds;
     for (const round of rounds) {
+        if (!round_will_be_streamed(round)) {
+            continue;
+        }
+
         const startsAt = new Date(round.starts_at);
         const endsAt = new Date(round.ends_at);
-        
+
         if (now >= startsAt && now <= endsAt) {
             liveEvent = { ...event, currentRound: round };
             break;
