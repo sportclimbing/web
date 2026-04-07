@@ -172,7 +172,7 @@ const ROUND_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
 const ROUND_TIME_FORMATTER = new Intl.DateTimeFormat('en-US', {
   hour: '2-digit',
   minute: '2-digit',
-  hour12: false,
+  hour12: true,
 });
 
 const format_round_date_build = (round) => {
@@ -187,6 +187,16 @@ const format_round_date_build = (round) => {
 
 const format_round_time_build = (round) => {
   const date = parse_iso_date(round?.starts_at);
+
+  if (!date) {
+    return '';
+  }
+
+  return `${ROUND_TIME_FORMATTER.format(date)}`;
+};
+
+const format_round_end_time_build = (round) => {
+  const date = parse_iso_date(round?.ends_at);
 
   if (!date) {
     return '';
@@ -263,14 +273,14 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
             </h3>
             <div class="flex flex-wrap items-center gap-6 text-sm text-on-surface-variant gap-y-2">
                 <span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">calendar_today</span> {format_event_date(event)}</span>
-                <span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">location_on</span> {event.location}, {event.country}</span>
+                <!--<span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">location_on</span> {event.location}, {event.country}</span>-->
                 <div class="flex flex-wrap items-center gap-6 border-outline-variant/20">
                     <span class="flex items-center gap-2 font-medium"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>exercise</span> {beautify_disciplines(event.disciplines)}</span>
                     <span class="flex items-center gap-2 font-medium" title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus.includes('Confirmed') ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus.replace(/^[^\w]*/, '')}</span>
                     {infosheetUrl && (
                       <a class={`flex items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">description</span> PDF</a>
                     )}
-                    <a class={`flex items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={event.event_url} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">link</span> IFSC Page</a>
+                    <!--<a class={`flex items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={event.event_url} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">link</span> IFSC Page</a>-->
                 </div>
             </div>
         </div>
@@ -311,6 +321,7 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
               event={event}
               formatRoundDate={format_round_date_build(round)}
               formatRoundTime={format_round_time_build(round)}
+              formatRoundEndTime={format_round_end_time_build(round)}
               hasStreamUrl={hasStreamUrl}
               isUpcoming={isUpcoming}
               isLive={isLive}
