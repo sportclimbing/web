@@ -23,13 +23,14 @@ const borderThemeClass = isEuropeanCup ? 'border-secondary' : 'border-primary';
 const textThemeClass = isEuropeanCup ? 'text-secondary' : 'text-primary';
 
 const willBeStreamed = round_will_be_streamed(round);
+const isDimmed = !willBeStreamed || (isFinished && !hasStreamUrl);
 const liveBadgeClass = isEuropeanCup ? 'text-secondary bg-secondary/10' : 'text-primary bg-primary/10';
 const watchButtonClass = isLive 
     ? (isEuropeanCup ? 'bg-secondary text-on-secondary hover:bg-secondary-container' : 'bg-primary text-on-primary hover:bg-primary-container')
     : `border border-outline-variant text-on-surface hover:border-${themeClass} hover:text-${themeClass}`;
 
 ---
-<li class={`flex flex-col sm:flex-row items-start sm:items-center gap-6 p-5 bg-surface-container-high rounded-xl group cursor-pointer hover:bg-surface-container-highest transition-colors event-round-card ifsc-event ${isLive ? `border-l-4 ${borderThemeClass}` : ''} ${isFinished ? 'opacity-80' : ''}`}
+<li class={`flex flex-col sm:flex-row items-start sm:items-center gap-6 p-5 bg-surface-container-high rounded-xl group cursor-pointer hover:bg-surface-container-highest transition-colors event-round-card ifsc-event ${isLive ? `border-l-4 ${borderThemeClass}` : ''} ${isDimmed ? 'opacity-80' : ''}`}
      data-round-kind={round.kind}
      data-round-disciplines={(Array.isArray(round.disciplines) ? round.disciplines : []).join(',')}
      data-round-categories={(Array.isArray(round.categories) ? round.categories : []).join(',')}
@@ -40,7 +41,7 @@ const watchButtonClass = isLive
     
     <div class="w-full sm:w-32 h-20 bg-black rounded-lg overflow-hidden flex-shrink-0 relative">
         {thumbnailUrl ? (
-            <img class={`w-full h-full object-cover ${isFinished ? 'opacity-50' : 'opacity-80'}`} src={thumbnailUrl} alt="Stream Thumbnail" loading="lazy" />
+            <img class={`w-full h-full object-cover ${isDimmed ? 'opacity-50' : 'opacity-80'}`} src={thumbnailUrl} alt="Stream Thumbnail" loading="lazy" />
         ) : (
             <div class="w-full h-full flex items-center justify-center bg-surface-container-highest text-on-surface-variant"><span class="material-symbols-outlined">live_tv</span></div>
         )}
@@ -62,15 +63,15 @@ const watchButtonClass = isLive
             {!willBeStreamed && <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest bg-surface-container-lowest px-2 py-0.5 rounded">No Stream</span>}
             <span class="text-[11px] text-on-surface-variant font-mono"><span class="round-date">{formatRoundDate}</span> | <span class="round-time">{formatRoundTime}</span> <span class="round-starts-in hidden ml-2"></span></span>
         </div>
-        <h4 class={`font-bold text-lg uppercase leading-tight round-name ${isFinished ? 'text-on-surface-variant' : 'text-on-surface'}`}>{round.name}</h4>
+        <h4 class={`font-bold text-lg uppercase leading-tight round-name ${isDimmed ? 'text-on-surface-variant' : 'text-on-surface'}`}>{round.name}</h4>
     </div>
 
     <div class="flex gap-3 sm:ml-auto w-full sm:w-auto round-actions">
-           <button class={`text-sm font-bold flex flex-1 sm:flex-none justify-center items-center gap-2 px-4 py-2 rounded-lg transition-colors ${watchButtonClass} whitespace-nowrap round-stream-button`}
+           {willBeStreamed && <button class={`text-sm font-bold flex flex-1 sm:flex-none justify-center items-center gap-2 px-4 py-2 rounded-lg transition-colors ${watchButtonClass} whitespace-nowrap round-stream-button`}
                    data-action="round-stream"
                    data-round-stream-url={round.stream_url}>
                <span class="material-symbols-outlined text-[18px]">{isFinished ? 'replay' : 'play_circle'}</span> {isFinished ? 'REPLAY' : 'WATCH'}
-           </button>
+           </button>}
 
     </div>
 </li>
