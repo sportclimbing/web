@@ -7,6 +7,7 @@ import Modals from './Modals.astro';
 import VideoModal from './VideoModal.astro';
 import CardTemplates from './CardTemplates.astro';
 import CookieConsent from './CookieConsent.astro';
+import CalendarSyncBanner from './CalendarSyncBanner.astro';
 import HeroSection from './HeroSection.astro';
 import {
   DEFAULT_SEASON,
@@ -359,19 +360,7 @@ const breadcrumbStructuredData = {
         </div>
     </div>
 
-    <!-- Dynamic Ticker / Newsletter -->
-    <section class="bg-surface-container-lowest border-y border-outline-variant/15 py-20">
-        <div class="max-w-screen-2xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
-            <div class="max-w-xl">
-                <h3 class="text-4xl font-black font-headline uppercase leading-tight">Never Miss a Finals Session</h3>
-                <p class="text-on-surface-variant text-lg mt-4">Get real-time alerts for live streams, athlete results, and final boulder rankings directly to your inbox.</p>
-            </div>
-            <div class="flex w-full md:w-auto gap-3">
-                <input class="bg-surface-container-low border-outline-variant focus:ring-primary focus:border-primary rounded-xl px-8 py-5 text-base w-full md:w-96" placeholder="YOUR EMAIL ADDRESS" type="email"/>
-                <button class="kinetic-gradient text-on-primary-fixed px-10 py-5 rounded-xl font-bold uppercase text-sm tracking-widest whitespace-nowrap shadow-lg hover:shadow-primary/20 transition-all">Subscribe</button>
-            </div>
-        </div>
-    </section>
+    <CalendarSyncBanner />
 </main>
 
 <Modals />
