@@ -69,7 +69,7 @@ function handle_watch_event(e) {
     }
 
     if (youtubeVideoTitle) {
-        youtubeVideoTitle.textContent = `🍿 ${round.name}`;
+        youtubeVideoTitle.textContent = `${round.name}`;
         schedule_fit_modal_titles();
     }
 
