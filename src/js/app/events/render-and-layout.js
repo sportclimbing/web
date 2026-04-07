@@ -636,21 +636,6 @@ const setup_lazy_filter_modal = () => {
     });
 };
 
-const setup_tracking_pixel = () => {
-    if (document.location.hostname !== 'ifsc.stream') {
-        return;
-    }
-
-    const normalize = (referrer) => encodeURIComponent(referrer.replace('https://', '').replace(/\/$/, ''));
-    const img = new Image();
-    img.src = 'https://calendar.ifsc.stream/pixel.gif' + (document.referrer ? `?r=${normalize(document.referrer)}` : '');
-    img.width = 1;
-    img.height = 1;
-    img.alt = 'pixel';
-
-    document.body.appendChild(img);
-};
-
 const setup_season_picker_click_target = () => {
     const seasonLabel = document.querySelector('.season-label');
     const seasonSelect = document.querySelector(SEASON_SELECTOR);
