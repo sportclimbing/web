@@ -489,16 +489,21 @@ const get_accordion_state = (accordion) => {
 };
 
 const update_next_event_panel = () => {
+    const hasLive = seasonTimeline.liveRound && seasonTimeline.liveEvent;
+    const hasNext = seasonTimeline.nextRound && seasonTimeline.nextEvent;
+
+    if (!hasLive && !hasNext) {
+        return;
+    }
+
     reset_next_event();
 
-    if (seasonTimeline.liveRound && seasonTimeline.liveEvent) {
+    if (hasLive) {
         set_next_event(seasonTimeline.liveRound, seasonTimeline.liveEvent, true);
         return;
     }
 
-    if (seasonTimeline.nextRound && seasonTimeline.nextEvent) {
-        set_next_event(seasonTimeline.nextRound, seasonTimeline.nextEvent, false);
-    }
+    set_next_event(seasonTimeline.nextRound, seasonTimeline.nextEvent, false);
 };
 
 const hide_static_event_fallback = () => {

@@ -67,7 +67,7 @@ const isLive = Boolean(liveEvent);
 
 const heroEventRounds = Array.isArray(heroEvent?.rounds) ? heroEvent.rounds : [];
 const heroRound = heroEvent?.currentRound || heroEventRounds[heroEventRounds.length - 1];
-const heroEventTitle = heroEvent?.name || 'World Climbing Series';
+const heroEventTitle = heroEvent?.name || `World Climbing Series ${normalizedSeason}`;
 const heroRoundName = heroRound?.name || '';
 const heroEventPagePath = build_event_page_path(normalizedSeason, heroEvent);
 
