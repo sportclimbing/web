@@ -708,6 +708,7 @@ function apply_search_filters() {
 
             const roundMatches = eventMatchesLeague && round_matches_filters(roundElement);
             roundElement.hidden = !roundMatches;
+            roundElement.style.display = roundMatches ? '' : 'none';
 
             if (!roundMatches) {
                 return;
