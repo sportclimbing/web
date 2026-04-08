@@ -293,7 +293,7 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
                   const photoSources = athlete_photo_local_sources_build(athlete);
                   if (!photoSources) return null;
                   return (
-                    <img alt={athlete_name_build(athlete)} class={`w-10 h-10 flex-shrink-0 rounded-full border-2 ${borderThemeClass} object-cover`} src={photoSources.src} data-fallback-src={photoSources.fallbackSrc} onerror="handle_start_list_photo_error(this)"/>
+                    <img alt={athlete_name_build(athlete)} class={`w-10 h-10 flex-shrink-0 rounded-full border-2 ${borderThemeClass} object-cover`} src={photoSources.src} data-fallback-src={photoSources.fallbackSrc} onerror="handle_start_list_photo_error(this)" loading="lazy" referrerpolicy="no-referrer"/>
                   );
                 }) : <span class="text-sm font-bold text-on-surface">View Start List</span>}
                 {hasPhotos && startList.length > 5 && (
