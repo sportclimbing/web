@@ -85,34 +85,7 @@ const setup_start_list_avatar_tooltips = () => {
         setup_tooltip_instance(element, tooltipOptions);
     });
 };
-/*
-const setup_theme_handlers = () => {
-    const systemThemeQuery = window.matchMedia('(prefers-color-scheme: light)');
-    const themeToggle = document.getElementById('theme-toggle');
 
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            toggle_theme();
-
-            if (is_mobile_viewport()) {
-                return;
-            }
-
-            const tooltip = get_bootstrap_tooltip(themeToggle);
-
-            if (tooltip) {
-                tooltip.hide();
-            }
-        });
-    }
-
-    if (typeof systemThemeQuery.addEventListener === 'function') {
-  //      systemThemeQuery.addEventListener('change', sync_system_theme);
-    } else if (typeof systemThemeQuery.addListener === 'function') {
- //       systemThemeQuery.addListener(sync_system_theme);
-    }
-};
-*/
 const setup_season_navigation = () => {
     const seasonSelector = document.querySelector(SEASON_SELECTOR);
 
@@ -268,22 +241,6 @@ const schedule_month_nav_horizontal_position_sync = () => {
         sync_month_nav_horizontal_position();
     });
 };
-/*
-const setup_modal_layout_handlers = () => {
-    document.addEventListener('show.bs.modal', schedule_month_nav_horizontal_position_sync);
-    document.addEventListener('shown.bs.modal', schedule_month_nav_horizontal_position_sync);
-    document.addEventListener('hide.bs.modal', schedule_month_nav_horizontal_position_sync);
-    document.addEventListener('hidden.bs.modal', schedule_month_nav_horizontal_position_sync);
-    document.addEventListener('show.bs.modal', schedule_fit_modal_titles);
-    document.addEventListener('shown.bs.modal', schedule_fit_modal_titles);
-    document.addEventListener('hidden.bs.modal', schedule_fit_modal_titles);
-    addEventListener('resize', schedule_month_nav_horizontal_position_sync);
-    addEventListener('resize', schedule_fit_modal_titles);
-    sync_month_nav_horizontal_position();
-    schedule_fit_modal_titles();
-};
-
- */
 
 const update_month_navigation_state = () => {
     const monthNav = document.getElementById('season-month-nav');

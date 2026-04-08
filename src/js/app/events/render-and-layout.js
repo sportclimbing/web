@@ -204,31 +204,7 @@ const is_event_panel_visible = (eventPanel) => {
 
     return !eventCard.hidden;
 };
-/*
-const restore_open_accordion_panel = (currentOpenId, allCollapsed, autoExpandWhenCollapsed = false) => {
-    const selectedEventElement = document.getElementById(`event-${selectedEvent}`);
 
-    if (allCollapsed && !autoExpandWhenCollapsed) {
-        return null;
-    }
-
-    if (currentOpenId) {
-        const currentOpenElement = document.getElementById(currentOpenId);
-
-        if (currentOpenElement && is_event_panel_visible(currentOpenElement)) {
-            currentOpenElement.classList.add('show');
-            return currentOpenId.replace('event-', '');
-        }
-    }
-
-    if (selectedEventElement && is_event_panel_visible(selectedEventElement)) {
-        selectedEventElement.classList.add('show');
-        return selectedEvent;
-    }
-
-    return null;
-};
-*/
 const refresh_event_ui = () => {
     const accordion = document.getElementById('accordion');
 
@@ -237,8 +213,6 @@ const refresh_event_ui = () => {
     }
 
     const filterResult = apply_search_filters();
-    // const { currentOpenId, allCollapsed } = get_accordion_state(accordion);
-
     visibleEventIds = filterResult.visibleEventIds;
     apply_filtered_event_cards(filterResult, accordion);
 
@@ -316,27 +290,8 @@ const handle_event_toggle_click = (event) => {
     selectedEvent = parsedEventId;
 };
 
-const handle_event_panel_hidden = (eventElement, accordionElement) => {
-    reset_collapsed_rounds(eventElement);
-
-    window.setTimeout(() => {
-        if (!accordionElement) {
-            return;
-        }
-
-        const hasOpenPanels = Boolean(accordionElement.querySelector('.event-rounds-panel.show, .event-rounds-panel.collapsing'));
-
-        if (hasOpenPanels) {
-            return;
-        }
-
-        selectedEvent = null;
-    }, 0);
-};
-
 const setup_accordion_handlers = () => {
     const accordionElement = document.getElementById('accordion');
-    // const nextEventElement = document.querySelector('.next-event');
 
     if (!accordionElement) {
         return;
@@ -349,14 +304,6 @@ const setup_accordion_handlers = () => {
             return;
         }
 
-        /*
-        const eventName = target.closest('.event-name');
-
-        if (eventName) {
-            handle_event_toggle_click({ currentTarget: eventName });
-            return;
-        }
-*/
         const streamTrigger = target.closest('.youtube-play-button, [data-action="round-stream"]');
 
         if (streamTrigger) {
@@ -380,72 +327,8 @@ const setup_accordion_handlers = () => {
             handle_start_list_trigger_click({ currentTarget: startListTrigger });
         }
     });
-/*
-    accordionElement.addEventListener('show.bs.collapse', (event) => {
-        const collapseElement = event.target;
-
-        if (!(collapseElement instanceof Element) || !collapseElement.classList.contains('collapse')) {
-            return;
-        }
-
-        render_event_rounds(collapseElement.id.replace('event-', ''));
-    });
-
-    accordionElement.addEventListener('hidden.bs.collapse', (event) => {
-        const collapseElement = event.target;
-
-        if (!(collapseElement instanceof Element) || !collapseElement.classList.contains('collapse')) {
-            return;
-        }
-
-        handle_event_panel_hidden(collapseElement, accordionElement);
-    });
-
-    if (nextEventElement) {
-        nextEventElement.addEventListener('click', (event) => {
-            const target = event.target instanceof Element ? event.target : null;
-
-            if (!target) {
-                return;
-            }
-
-            const streamTrigger = target.closest('.youtube-play-button, [data-action="round-stream"]');
-
-            if (streamTrigger) {
-                handle_round_stream_click({
-                    currentTarget: streamTrigger,
-                    preventDefault: () => event.preventDefault(),
-                });
-                return;
-            }
-
-            const startListTrigger = target.closest('.event-start-list-trigger');
-
-            if (startListTrigger) {
-                handle_start_list_trigger_click({ currentTarget: startListTrigger });
-            }
-        });
-    }
-    */
 };
-/*
-const setup_layout_handlers = () => {
-    if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => {
-            schedule_fit_mobile_hero_title();
-            schedule_fit_modal_titles();
-            schedule_fit_event_name_titles();
-            schedule_next_event_mobile_countdown_height_sync();
-        });
-    }
 
-    addEventListener('resize', () => {
-        schedule_fit_mobile_hero_title();
-        schedule_fit_event_name_titles();
-        schedule_next_event_mobile_countdown_height_sync();
-    });
-};
-*/
 const setup_modal_handlers = () => {
     const videoModal = document.getElementById('video-modal');
     const eventNotStartedModal = document.getElementById('event-not-started-modal');

@@ -92,39 +92,11 @@ function set_round_details(clone, round, isNextEvent) {
     }
 
     set_round_name(clone.querySelector('.round-name'), round);
-    set_round_date(clone.querySelector('.round-date'), round);
     set_round_time(clone.querySelector('.round-time'), round);
-    // set_round_youtube_cover(clone.querySelector('.youtube-thumbnail'), round, isNextEvent);
     set_round_stream_button(clone.querySelector('[data-action="round-stream"]'), round);
     set_round_stream_button(clone.querySelector('.youtube-play-button'), round);
 }
 
-function set_round_action_buttons_visibility(clone, isStreaming) {
-    if (!clone) {
-        return;
-    }
-
-    const resultsButton = clone.querySelector('.button-results');
-    const reminderButton = clone.querySelector('.button-reminder');
-
-    if (isStreaming) {
-        if (resultsButton) {
-            resultsButton.style.setProperty('display', 'inline-grid', 'important');
-        }
-        if (reminderButton) {
-            reminderButton.style.setProperty('display', 'none', 'important');
-        }
-
-        return;
-    }
-
-    if (resultsButton) {
-        resultsButton.style.setProperty('display', 'none', 'important');
-    }
-    if (reminderButton) {
-        reminderButton.style.setProperty('display', 'inline-grid', 'important');
-    }
-}
 function set_next_event_countdown(round, isStreaming) {
     if (isStreaming || !event_is_upcoming(round)) {
         stop_next_event_countdown();
@@ -184,80 +156,7 @@ function set_next_event(round, event, isStreaming) {
     set_next_event_countdown(round, isStreaming);
     schedule_fit_event_name_titles();
 }
-/*
-function set_youtube_cover_rotation(element, initialFrame = 0) {
-    let interval = null;
-    let frame = initialFrame;
 
-    const stop_rotation = () => {
-        if (interval) {
-            window.clearInterval(interval);
-            interval = null;
-        }
-    };
-
-    element.onmouseover = () => {
-        if (interval) {
-            stop_rotation();
-        }
-
-        interval = window.setInterval(() => {
-            frame += 1;
-
-            if (frame > 3) {
-                frame = 1;
-            }
-
-            set_youtube_cover(element, frame);
-        }, 500);
-    };
-
-    element.onmouseout = () => {
-        stop_rotation();
-        frame = initialFrame;
-        set_youtube_cover(element, initialFrame);
-    };
-}
-*/
-
-/*
-function set_round_youtube_cover(element, round, isNextEvent) {
-    if (!element || !round) {
-        return;
-    }
-
-    const youtubeVideoId = video_id_from_stream(round);
-    const coverUrl = youtube_cover_url(youtubeVideoId, 0);
-
-    element.dataset.youtubeVideoId = youtubeVideoId;
-    if (isNextEvent) {
-        set_background_image_now(element, coverUrl);
-    } else {
-        lazy_set_background_image(element, coverUrl);
-    }
-
-    if (event_is_streaming(round) || event_is_upcoming(round)) {
-        element.onmouseover = null;
-        element.onmouseout = null;
-
-        return;
-    }
-
-    set_youtube_cover_rotation(element, 0);
-}
-*/
-
-/*
-function set_youtube_cover(element, counter) {
-    const youtubeVideoId = element.dataset.youtubeVideoId;
-
-    if (!youtubeVideoId) {
-        return;
-    }
-
-    set_background_image_now(element, youtube_cover_url(youtubeVideoId, counter));
-}
-*/
 function set_round_stream_metadata(element, round) {
     if (!element) {
         return;
@@ -269,6 +168,7 @@ function set_round_stream_metadata(element, round) {
     roundContainer.dataset.roundStartsAt = round.starts_at || '';
     roundContainer.dataset.roundEndsAt = round.ends_at || '';
 }
+
 function set_round_stream_button(element, round) {
     if (!element) {
         return;
@@ -319,18 +219,10 @@ function round_fallback_url_from_target(target) {
     return target.href || STREAMS_FALLBACK_URL;
 }
 
-function set_round_date(element, round) {
-    if (!element || !round) {
-        return;
-    }
-
-}
-
 function set_round_time(element, round) {
     if (!element || !round) {
         return;
     }
-
 
     const localTimeTooltip = round_local_time_tooltip(round);
 
