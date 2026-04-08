@@ -5,8 +5,7 @@ DOCKER_RUN = docker run --rm --init --ipc=host -u "$(shell id -u):$(shell id -g)
 .PHONY: test test-local test-docker serve build
 
 build:
-	npm run build:js
-	npm run build:astro -- --mode production
+	npm run build
 
 test:
 	@if docker info >/dev/null 2>&1; then \

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Climb Archive - Historical Seasons</title>
+    <link rel="stylesheet" href="/css/tailwind.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#101418]/90 backdrop-blur-md shadow-2xl shadow-black/40 h-16 flex justify-between items-center px-8">
+    <div class="flex items-center gap-8">
+        <span class="text-2xl font-black text-[#97CCFF] tracking-tighter font-['Space_Grotesk'] uppercase">CLIMB ARCHIVE</span>
+        <nav class="hidden md:flex gap-6 items-center h-full">
+            <a class="font-['Space_Grotesk'] tracking-tight font-bold uppercase text-[#C0C7D1] hover:text-[#97CCFF] transition-colors" href="#">Seasons</a>
+            <a class="font-['Space_Grotesk'] tracking-tight font-bold uppercase text-[#97CCFF] border-b-2 border-[#97CCFF] pb-1" href="#">Events</a>
+            <a class="font-['Space_Grotesk'] tracking-tight font-bold uppercase text-[#C0C7D1] hover:text-[#97CCFF] transition-colors" href="#">Athletes</a>
+            <a class="font-['Space_Grotesk'] tracking-tight font-bold uppercase text-[#C0C7D1] hover:text-[#97CCFF] transition-colors" href="#">Rankings</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-4">
+        <button class="p-2 text-[#C0C7D1] hover:bg-[#97CCFF]/5 transition-all duration-300 rounded-full active:scale-95">
+            <span class="material-symbols-outlined">history</span>
+        </button>
+        <button class="p-2 text-[#C0C7D1] hover:bg-[#97CCFF]/5 transition-all duration-300 rounded-full active:scale-95">
+            <span class="material-symbols-outlined">account_circle</span>
+        </button>
+    </div>
+    <div class="absolute bottom-0 left-0 w-full bg-gradient-to-r from-transparent via-[#97CCFF]/10 to-transparent h-[1px]"></div>
+</header>
+<!-- Main Content -->
+<main class="pt-32 pb-32 px-6 md:px-12 max-w-6xl mx-auto">
+    <header class="mb-16 text-center max-w-3xl mx-auto">
+        <h1 class="text-6xl md:text-8xl font-black text-primary tracking-tighter uppercase mb-6 leading-none">The Archive</h1>
+        <p class="text-on-surface-variant text-xl font-medium">Historical performance metrics and competition results indexed by season.</p>
+    </header>
+    <!-- Centered Vertical List of Seasons -->
+    <div class="flex flex-col gap-6">
+        <!-- Season Row 2024 -->
+        <div class="group relative bg-surface-container-low border border-outline-variant/10 rounded-2xl p-8 hover:bg-surface-container hover:border-primary/30 transition-all duration-500 shadow-xl overflow-hidden">
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
+                <!-- Year Badge -->
+                <div class="flex flex-col items-center justify-center min-w-[140px] border-r border-outline-variant/20 pr-8">
+                    <span class="text-primary font-headline text-xs tracking-[0.2em] uppercase mb-2 font-bold">Current</span>
+                    <h2 class="text-6xl font-black text-on-surface font-headline leading-none">2024</h2>
+                </div>
+                <!-- Stats Grid -->
+                <div class="flex-grow grid grid-cols-2 gap-6 md:gap-12 md:grid-cols-4">
+                    <div class="flex flex-col">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Total Events</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-on-surface leading-none">12</span>
+                            <span class="material-symbols-outlined text-primary mb-1">emoji_events</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Athletes</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-on-surface leading-none">482</span>
+                            <span class="material-symbols-outlined text-primary mb-1">groups</span>
+                        </div>
+                    </div><div class="flex flex-col"><span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Num Streams</span><div class="flex items-end gap-2"><span class="text-3xl font-black text-on-surface leading-none">42</span><span class="material-symbols-outlined text-primary mb-1">play_circle</span></div></div>
+                    <div class="flex flex-col col-span-2 md:col-span-1">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Stream Hours</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-[#97CCFF] leading-none">1.2K</span>
+                            <span class="material-symbols-outlined text-primary mb-1">live_tv</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Action -->
+                <div class="flex items-center">
+                    <a class="group/btn flex items-center justify-center w-full md:w-auto px-8 py-4 bg-primary text-on-primary font-black text-xs uppercase tracking-[0.2em] rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20" href="#">
+                        Explore
+                        <span class="material-symbols-outlined ml-2 text-lg group-hover/btn:translate-x-1 transition-transform">arrow_right_alt</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Season Row 2023 -->
+        <div class="group relative bg-surface-container-low border border-outline-variant/10 rounded-2xl p-8 hover:bg-surface-container hover:border-secondary/30 transition-all duration-500 shadow-xl overflow-hidden">
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
+                <div class="flex flex-col items-center justify-center min-w-[140px] border-r border-outline-variant/20 pr-8">
+                    <span class="font-headline text-xs tracking-[0.2em] uppercase mb-2 font-bold text-on-surface-variant">Historical</span>
+                    <h2 class="text-6xl font-black text-on-surface font-headline leading-none">2023</h2>
+                </div>
+                <div class="flex-grow grid grid-cols-2 gap-6 md:gap-12 md:grid-cols-4">
+                    <div class="flex flex-col">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Total Events</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-on-surface leading-none">10</span>
+                            <span class="material-symbols-outlined text-secondary mb-1">emoji_events</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Athletes</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-on-surface leading-none">415</span>
+                            <span class="material-symbols-outlined text-secondary mb-1">groups</span>
+                        </div>
+                    </div><div class="flex flex-col"><span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Num Streams</span><div class="flex items-end gap-2"><span class="text-3xl font-black text-on-surface leading-none">38</span><span class="material-symbols-outlined text-secondary mb-1">play_circle</span></div></div>
+                    <div class="flex flex-col col-span-2 md:col-span-1">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Stream Hours</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-secondary leading-none">980</span>
+                            <span class="material-symbols-outlined text-secondary mb-1">live_tv</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a class="group/btn flex items-center justify-center w-full md:w-auto px-8 py-4 bg-surface-container-high border border-outline-variant/20 text-on-surface font-black text-xs uppercase tracking-[0.2em] rounded-xl transition-all hover:bg-surface-container-highest hover:scale-105 active:scale-95" href="#">
+                        Explore
+                        <span class="material-symbols-outlined ml-2 text-lg group-hover/btn:translate-x-1 transition-transform">arrow_right_alt</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Season Row 2022 -->
+        <div class="group relative bg-surface-container-low border border-outline-variant/10 rounded-2xl p-8 hover:bg-surface-container transition-all duration-500 shadow-xl overflow-hidden">
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
+                <div class="flex flex-col items-center justify-center min-w-[140px] border-r border-outline-variant/20 pr-8">
+                    <span class="text-on-surface-variant font-headline text-xs tracking-[0.2em] uppercase mb-2 font-bold">Historical</span>
+                    <h2 class="text-6xl font-black text-on-surface font-headline leading-none">2022</h2>
+                </div>
+                <div class="flex-grow grid grid-cols-2 gap-6 md:gap-12 md:grid-cols-4">
+                    <div class="flex flex-col">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Total Events</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-on-surface leading-none">9</span>
+                            <span class="material-symbols-outlined text-outline mb-1">emoji_events</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Athletes</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-on-surface leading-none">388</span>
+                            <span class="material-symbols-outlined text-outline mb-1">groups</span>
+                        </div>
+                    </div><div class="flex flex-col"><span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Num Streams</span><div class="flex items-end gap-2"><span class="text-3xl font-black text-on-surface leading-none">35</span><span class="material-symbols-outlined text-outline mb-1">play_circle</span></div></div>
+                    <div class="flex flex-col col-span-2 md:col-span-1">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Stream Hours</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-on-surface leading-none">850</span>
+                            <span class="material-symbols-outlined text-outline mb-1">live_tv</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a class="group/btn flex items-center justify-center w-full md:w-auto px-8 py-4 bg-surface-container-high border border-outline-variant/20 text-on-surface font-black text-xs uppercase tracking-[0.2em] rounded-xl transition-all hover:bg-surface-container-highest hover:scale-105 active:scale-95" href="#">
+                        Explore
+                        <span class="material-symbols-outlined ml-2 text-lg group-hover/btn:translate-x-1 transition-transform">arrow_right_alt</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Season Row 2021 -->
+        <div class="group relative bg-surface-container-low border border-outline-variant/10 rounded-2xl p-8 hover:bg-surface-container transition-all duration-500 shadow-xl overflow-hidden">
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
+                <div class="flex flex-col items-center justify-center min-w-[140px] border-r border-outline-variant/20 pr-8">
+                    <span class="text-on-surface-variant font-headline text-xs tracking-[0.2em] uppercase mb-2 font-bold">Historical</span>
+                    <h2 class="text-6xl font-black text-on-surface font-headline leading-none">2021</h2>
+                </div>
+                <div class="flex-grow grid grid-cols-2 gap-6 md:gap-12 md:grid-cols-4">
+                    <div class="flex flex-col">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Total Events</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-on-surface leading-none">7</span>
+                            <span class="material-symbols-outlined text-outline mb-1">emoji_events</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Athletes</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-on-surface leading-none">320</span>
+                            <span class="material-symbols-outlined text-outline mb-1">groups</span>
+                        </div>
+                    </div><div class="flex flex-col"><span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Num Streams</span><div class="flex items-end gap-2"><span class="text-3xl font-black text-on-surface leading-none">28</span><span class="material-symbols-outlined text-outline mb-1">play_circle</span></div></div>
+                    <div class="flex flex-col col-span-2 md:col-span-1">
+                        <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Stream Hours</span>
+                        <div class="flex items-end gap-2">
+                            <span class="text-3xl font-black text-on-surface leading-none">720</span>
+                            <span class="material-symbols-outlined text-outline mb-1">live_tv</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a class="group/btn flex items-center justify-center w-full md:w-auto px-8 py-4 bg-surface-container-high border border-outline-variant/20 text-on-surface font-black text-xs uppercase tracking-[0.2em] rounded-xl transition-all hover:bg-surface-container-highest hover:scale-105 active:scale-95" href="#">
+                        Explore
+                        <span class="material-symbols-outlined ml-2 text-lg group-hover/btn:translate-x-1 transition-transform">arrow_right_alt</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#101418]/80 backdrop-blur-xl border-t border-[#97CCFF]/15 shadow-[0_-8px_30px_rgb(0,0,0,0.5)] z-50 rounded-t-2xl">
+    <div class="flex flex-col items-center justify-center text-[#C0C7D1] px-5 py-1 hover:text-[#97CCFF] transition-all active:scale-90 duration-150">
+        <span class="material-symbols-outlined">home</span>
+        <span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-widest mt-1">Home</span>
+    </div>
+    <div class="flex flex-col items-center justify-center bg-gradient-to-br from-[#97CCFF] to-[#66B2F2] text-[#101418] rounded-xl px-5 py-1 active:scale-90 duration-150">
+        <span class="material-symbols-outlined">bookmarks</span>
+        <span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-widest mt-1">Archive</span>
+    </div>
+    <div class="flex flex-col items-center justify-center text-[#C0C7D1] px-5 py-1 hover:text-[#97CCFF] transition-all active:scale-90 duration-150">
+        <span class="material-symbols-outlined">search</span>
+        <span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-widest mt-1">Search</span>
+    </div>
+    <div class="flex flex-col items-center justify-center text-[#C0C7D1] px-5 py-1 hover:text-[#97CCFF] transition-all active:scale-90 duration-150">
+        <span class="material-symbols-outlined">person</span>
+        <span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-widest mt-1">Profile</span>
+    </div>
+</nav>
+</body></html>
