@@ -223,9 +223,14 @@ function handle_watch_event_no_url(e) {
 
         if (eventNotStartedModal) {
             const eventName = document.getElementById('event-not-started-modal-event');
+            const eventLeague = document.getElementById('event-not-started-modal-league');
 
             if (eventName) {
                 eventName.innerText = round.name || '';
+            }
+
+            if (eventLeague) {
+                eventLeague.innerText = round.event_name || '';
             }
 
             open_modal(eventNotStartedModal);

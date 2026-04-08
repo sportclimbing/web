@@ -297,8 +297,11 @@ function set_round_stream_button(element, round) {
 function round_from_stream_button(element) {
     const roundContainer = element instanceof Element ? (element.closest('.event-round-card, .ifsc-event') || element) : null;
 
+    const eventContainer = element instanceof Element ? element.closest('.ifsc-league-card') : null;
+
     return {
         name: roundContainer ? (roundContainer.dataset.roundName || '') : '',
+        event_name: eventContainer ? (eventContainer.dataset.eventName || '') : '',
         starts_at: roundContainer ? (roundContainer.dataset.roundStartsAt || '') : '',
         ends_at: roundContainer ? (roundContainer.dataset.roundEndsAt || '') : '',
     };

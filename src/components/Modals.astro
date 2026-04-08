@@ -55,7 +55,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
     <!-- Modal Header -->
     <div class="flex items-center justify-between p-6 border-b border-outline-variant/15 bg-surface-container-lowest">
       <div class="flex flex-col text-left">
-        <span class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-1 uppercase leading-none">PROVISIONAL WORLD CUP SCHEDULE</span>
+        <span class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-1 uppercase leading-none" id="event-not-started-modal-league"></span>
         <h2 class="text-2xl font-headline font-bold text-on-surface tracking-tight kinetic-border uppercase" id="event-not-started-modal-event"></h2>
       </div>
       <button type="button" class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-surface-bright transition-colors group" data-bs-dismiss="modal" aria-label="Close">
@@ -65,6 +65,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
     <!-- Modal Body -->
     <div class="relative px-8 py-10 text-center">
       <div class="event-not-started-countdown mb-10 max-w-lg mx-auto" id="event-not-started-countdown" aria-live="polite" aria-atomic="true" hidden>
+        <p class="text-sm font-label text-on-surface-variant uppercase tracking-widest mb-4">This stream starts in</p>
         <div class="grid grid-cols-3 gap-4">
           <div class="flex flex-col items-center bg-surface-container-low p-4 rounded-xl border border-outline-variant/10">
             <span class="font-headline text-4xl md:text-5xl font-bold text-primary-container tabular-nums" id="event-not-started-countdown-days">00</span>
@@ -88,7 +89,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
       </div>
 
       <div class="flex justify-center items-center">
-        <button class="w-full md:w-auto px-12 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed font-headline font-bold rounded-lg hover:scale-[0.98] transition-all duration-200 uppercase tracking-wider text-sm flex items-center justify-center gap-2" data-bs-toggle="modal" data-bs-target="#calendar-modal">
+        <button class="w-full md:w-auto px-12 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed font-headline font-bold rounded-lg hover:scale-[0.98] transition-all duration-200 uppercase tracking-wider text-sm flex items-center justify-center gap-2" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#calendar-modal">
           <span class="material-symbols-outlined" data-weight="fill">calendar_today</span>
           SYNC WITH CALENDAR
         </button>

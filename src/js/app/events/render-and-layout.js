@@ -474,6 +474,10 @@ const setup_modal_handlers = () => {
         const trigger = event.target.closest('[data-bs-toggle="modal"]');
         if (trigger) {
             event.preventDefault();
+            if (trigger.hasAttribute('data-bs-dismiss')) {
+                const currentModal = trigger.closest('.modal');
+                close_modal(currentModal);
+            }
             const targetSelector = trigger.getAttribute('data-bs-target');
             if (targetSelector === '#calendar-modal') {
                 load_lazy_calendar_modal().then(() => open_modal(targetSelector));
