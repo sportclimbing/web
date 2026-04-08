@@ -204,7 +204,7 @@ const is_event_panel_visible = (eventPanel) => {
 
     return !eventCard.hidden;
 };
-
+/*
 const restore_open_accordion_panel = (currentOpenId, allCollapsed, autoExpandWhenCollapsed = false) => {
     const selectedEventElement = document.getElementById(`event-${selectedEvent}`);
 
@@ -228,7 +228,7 @@ const restore_open_accordion_panel = (currentOpenId, allCollapsed, autoExpandWhe
 
     return null;
 };
-
+*/
 const refresh_event_ui = () => {
     const accordion = document.getElementById('accordion');
 
@@ -237,7 +237,7 @@ const refresh_event_ui = () => {
     }
 
     const filterResult = apply_search_filters();
-    const { currentOpenId, allCollapsed } = get_accordion_state(accordion);
+    // const { currentOpenId, allCollapsed } = get_accordion_state(accordion);
 
     visibleEventIds = filterResult.visibleEventIds;
     apply_filtered_event_cards(filterResult, accordion);
@@ -256,14 +256,7 @@ const refresh_event_ui = () => {
     schedule_fit_event_name_titles();
     hide_static_event_fallback();
 
-    const shouldAutoExpandNextEventOnInitialLoad = !hasAppliedInitialSeasonAutoExpand && allCollapsed && !currentOpenId;
-    const eventIdToRender = restore_open_accordion_panel(currentOpenId, allCollapsed, shouldAutoExpandNextEventOnInitialLoad);
-
     hasAppliedInitialSeasonAutoExpand = true;
-
-    if (eventIdToRender !== null) {
-        render_event_rounds(eventIdToRender);
-    }
 
     set_favicon(seasonTimeline.liveRound);
 };
@@ -343,7 +336,7 @@ const handle_event_panel_hidden = (eventElement, accordionElement) => {
 
 const setup_accordion_handlers = () => {
     const accordionElement = document.getElementById('accordion');
-    const nextEventElement = document.querySelector('.next-event');
+    // const nextEventElement = document.querySelector('.next-event');
 
     if (!accordionElement) {
         return;
@@ -356,13 +349,14 @@ const setup_accordion_handlers = () => {
             return;
         }
 
+        /*
         const eventName = target.closest('.event-name');
 
         if (eventName) {
             handle_event_toggle_click({ currentTarget: eventName });
             return;
         }
-
+*/
         const streamTrigger = target.closest('.youtube-play-button, [data-action="round-stream"]');
 
         if (streamTrigger) {
@@ -386,7 +380,7 @@ const setup_accordion_handlers = () => {
             handle_start_list_trigger_click({ currentTarget: startListTrigger });
         }
     });
-
+/*
     accordionElement.addEventListener('show.bs.collapse', (event) => {
         const collapseElement = event.target;
 
@@ -432,8 +426,9 @@ const setup_accordion_handlers = () => {
             }
         });
     }
+    */
 };
-
+/*
 const setup_layout_handlers = () => {
     if (document.fonts && document.fonts.ready) {
         document.fonts.ready.then(() => {
@@ -450,7 +445,7 @@ const setup_layout_handlers = () => {
         schedule_next_event_mobile_countdown_height_sync();
     });
 };
-
+*/
 const setup_modal_handlers = () => {
     const videoModal = document.getElementById('video-modal');
     const eventNotStartedModal = document.getElementById('event-not-started-modal');

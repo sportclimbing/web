@@ -94,7 +94,7 @@ function set_round_details(clone, round, isNextEvent) {
     set_round_name(clone.querySelector('.round-name'), round);
     set_round_date(clone.querySelector('.round-date'), round);
     set_round_time(clone.querySelector('.round-time'), round);
-    set_round_youtube_cover(clone.querySelector('.youtube-thumbnail'), round, isNextEvent);
+    // set_round_youtube_cover(clone.querySelector('.youtube-thumbnail'), round, isNextEvent);
     set_round_stream_button(clone.querySelector('[data-action="round-stream"]'), round);
     set_round_stream_button(clone.querySelector('.youtube-play-button'), round);
 }
@@ -184,7 +184,7 @@ function set_next_event(round, event, isStreaming) {
     set_next_event_countdown(round, isStreaming);
     schedule_fit_event_name_titles();
 }
-
+/*
 function set_youtube_cover_rotation(element, initialFrame = 0) {
     let interval = null;
     let frame = initialFrame;
@@ -218,7 +218,9 @@ function set_youtube_cover_rotation(element, initialFrame = 0) {
         set_youtube_cover(element, initialFrame);
     };
 }
+*/
 
+/*
 function set_round_youtube_cover(element, round, isNextEvent) {
     if (!element || !round) {
         return;
@@ -243,7 +245,9 @@ function set_round_youtube_cover(element, round, isNextEvent) {
 
     set_youtube_cover_rotation(element, 0);
 }
+*/
 
+/*
 function set_youtube_cover(element, counter) {
     const youtubeVideoId = element.dataset.youtubeVideoId;
 
@@ -253,7 +257,7 @@ function set_youtube_cover(element, counter) {
 
     set_background_image_now(element, youtube_cover_url(youtubeVideoId, counter));
 }
-
+*/
 function set_round_stream_metadata(element, round) {
     if (!element) {
         return;

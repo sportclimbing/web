@@ -4,7 +4,7 @@ const SEASON_SELECTOR = 'select[name="season-selector"]';
 const MONTH_NAV_LEFT_CSS_VAR = '--season-month-nav-left';
 
 let config;
-
+/*
 const set_local_timezone_message = () => {
     const timezoneElement = document.getElementById('footer-timezone-name');
     let timezone = EVENT_TIMEZONE;
@@ -25,7 +25,7 @@ const set_local_timezone_message = () => {
 
     timezoneElement.textContent = timezone;
 };
-
+*/
 let selectedEvent = null;
 let visibleEventIds = new Set();
 let seasonTimeline = {
@@ -234,7 +234,7 @@ const get_next_event_from_visible_rounds = () => {
 
     return timeline.liveEvent || timeline.nextEvent || null;
 };
-
+/*
 const create_round_reminder_button = () => {
     const reminderButton = document.createElement('a');
     reminderButton.className = 'ifsc-action-button ifsc-action-button-primary button-reminder';
@@ -248,7 +248,8 @@ const create_round_reminder_button = () => {
 
     return reminderButton;
 };
-
+ */
+/*
 const create_round_results_button = (eventId) => {
     const resultsButton = document.createElement('a');
     resultsButton.className = 'ifsc-action-button ifsc-action-button-primary button-results';
@@ -260,7 +261,9 @@ const create_round_results_button = (eventId) => {
 
     return resultsButton;
 };
+*/
 
+/*
 const ensure_round_action_button = (roundElement, type, eventId) => {
     if (!(roundElement instanceof HTMLElement)) {
         return null;
@@ -290,7 +293,7 @@ const ensure_round_action_button = (roundElement, type, eventId) => {
 
     return createdButton;
 };
-
+*/
 const update_round_card_status_and_actions = (roundElement, round, parsedEventId, includeRoundDetails = true) => {
     const roundKey = round.roundKey || (roundElement.dataset.roundKey || '');
     const streamButton = roundElement.querySelector('[data-action="round-stream"]');
@@ -303,12 +306,12 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
     }
 
     if (event_is_streaming(round)) {
-        resultsButton = ensure_round_action_button(roundElement, 'results', parsedEventId) || resultsButton;
+        //resultsButton = ensure_round_action_button(roundElement, 'results', parsedEventId) || resultsButton;
 
         if (startsIn) {
             startsIn.innerText = '🔴 Live Now';
         }
-
+/*
         if (resultsButton) {
             resultsButton.style.setProperty('display', 'inline-grid', 'important');
             resultsButton.href = `https://ifsc.results.info/event/${parsedEventId}`;
@@ -321,12 +324,12 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
         if (streamButton) {
             streamButton.style.display = '';
         }
-
+*/
         return false;
     }
 
     if (event_is_upcoming(round)) {
-        reminderButton = ensure_round_action_button(roundElement, 'reminder', parsedEventId) || reminderButton;
+        // reminderButton = ensure_round_action_button(roundElement, 'reminder', parsedEventId) || reminderButton;
         const isNextRound = !seasonTimeline.liveRoundKey
             && Boolean(seasonTimeline.nextRoundKey)
             && seasonTimeline.nextRoundKey === roundKey;
@@ -340,7 +343,7 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
                 startsIn.innerText = `⌛ Starts ${pretty_starts_in(round)}`;
             }
         }
-
+/*
         if (reminderButton) {
             reminderButton.style.setProperty('display', 'inline-grid', 'important');
         }
@@ -352,7 +355,7 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
         if (streamButton) {
             streamButton.style.display = '';
         }
-
+*/
         return !isNextRound;
     }
 
@@ -360,8 +363,8 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
         startsIn.innerText = `🏁 ${pretty_finished_ago(round)}`;
     }
 
-    resultsButton = ensure_round_action_button(roundElement, 'results', parsedEventId) || resultsButton;
-
+    // resultsButton = ensure_round_action_button(roundElement, 'results', parsedEventId) || resultsButton;
+/*
     if (resultsButton) {
         resultsButton.style.setProperty('display', 'inline-grid', 'important');
         resultsButton.href = `https://ifsc.results.info/event/${parsedEventId}`;
@@ -374,7 +377,7 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
     if (streamButton) {
         streamButton.style.display = '';
     }
-
+*/
     return false;
 };
 
@@ -416,16 +419,17 @@ const update_event_round_rows = (eventId, includeRoundDetails = true) => {
             posterShouldBeBw = true;
         }
     });
-
+/*
     if (poster) {
         poster.classList.toggle('bw', posterShouldBeBw);
     }
+    */
 };
-
+/*
 const render_event_rounds = (eventId) => {
     update_event_round_rows(eventId, true);
 };
-
+*/
 const refresh_event_round_statuses = (eventId) => {
     update_event_round_rows(eventId, false);
 };
@@ -462,7 +466,7 @@ const refresh_next_event_status = () => {
         return false;
     }
 
-    set_round_action_buttons_visibility(nextEventRow, target.isStreaming);
+    // set_round_action_buttons_visibility(nextEventRow, target.isStreaming);
 
     if (target.isStreaming) {
         const resultsButton = nextEventRow.querySelector('.button-results');
@@ -476,7 +480,7 @@ const refresh_next_event_status = () => {
 
     return true;
 };
-
+/*
 const get_accordion_state = (accordion) => {
     const currentOpenElement = accordion.querySelector('.show');
     const currentOpenId = currentOpenElement ? currentOpenElement.getAttribute('id') : null;
@@ -487,7 +491,7 @@ const get_accordion_state = (accordion) => {
         allCollapsed,
     };
 };
-
+*/
 const update_next_event_panel = () => {
     const hasLive = seasonTimeline.liveRound && seasonTimeline.liveEvent;
     const hasNext = seasonTimeline.nextRound && seasonTimeline.nextEvent;
