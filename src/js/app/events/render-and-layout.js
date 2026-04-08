@@ -640,6 +640,32 @@ const setup_lazy_filter_modal = () => {
     });
 };
 
+const setup_discipline_quick_filters = () => {
+    const buttons = document.querySelectorAll('.discipline-quick-filter[data-quick-filter]');
+
+    if (!buttons.length) {
+        return;
+    }
+
+    const update_button_states = (activeFilter) => {
+        buttons.forEach((btn) => {
+            const isActive = btn.dataset.quickFilter === activeFilter;
+            btn.dataset.active = isActive ? 'true' : 'false';
+        });
+    };
+
+    buttons.forEach((button) => {
+        button.dataset.active = 'false';
+        button.addEventListener('click', () => {
+            const discipline = button.dataset.quickFilter;
+            const newFilter = quickDisciplineFilter === discipline ? null : discipline;
+            quickDisciplineFilter = newFilter;
+            update_button_states(newFilter);
+            refresh_event_ui();
+        });
+    });
+};
+
 const setup_season_picker_click_target = () => {
     const seasonLabel = document.querySelector('.season-label');
     const seasonSelect = document.querySelector(SEASON_SELECTOR);

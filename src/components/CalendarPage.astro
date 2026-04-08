@@ -138,6 +138,14 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
             opacity: 0.2;
             filter: grayscale(1);
         }
+        .discipline-quick-filter[data-active="true"] {
+            background-color: rgba(151, 204, 255, 0.15);
+            color: #97ccff;
+            border-color: #97ccff;
+        }
+        .discipline-quick-filter[data-active="true"]:hover {
+            background-color: rgba(151, 204, 255, 0.25);
+        }
     </style>
 
     <meta property="og:type" content="website" />
@@ -226,9 +234,9 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
                         <a href="/archive/" class="px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold">Archive</a>
                     </div>
                     <div class="flex flex-wrap justify-center gap-2">
-                        <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high">Boulder</button>
-                        <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high">Lead</button>
-                        <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high">Speed</button>
+                        <button class="discipline-quick-filter px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="boulder">Boulder</button>
+                        <button class="discipline-quick-filter px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="lead">Lead</button>
+                        <button class="discipline-quick-filter px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="speed">Speed</button>
                         <div class="h-8 w-px bg-outline-variant mx-2"></div>
                         <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high flex items-center gap-2 filters-button" data-open-filter-modal>
                             <span class="material-symbols-outlined text-sm">filter_list</span> Filters

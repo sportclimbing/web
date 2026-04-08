@@ -8,6 +8,8 @@ const SITE_TIME_FORMAT_OPTIONS = {
     minute: '2-digit',
 };
 
+let quickDisciplineFilter = null;
+
 const CONFIG_CHECKBOX_BINDINGS = [
     { inputName: 'league[cups]', path: ['league', 'cups'] },
     { inputName: 'league[paraclimbing]', path: ['league', 'paraclimbing'] },
@@ -648,7 +650,10 @@ function parse_round_metadata_tokens(value) {
 
 function apply_search_filters() {
     const config = load_config_from_modal();
-    const enabledDisciplines = new Set(get_enabled_filter_keys(config.disciplines));
+    const configDisciplines = new Set(get_enabled_filter_keys(config.disciplines));
+    const enabledDisciplines = quickDisciplineFilter !== null
+        ? new Set([quickDisciplineFilter])
+        : configDisciplines;
     const enabledCategories = new Set(get_enabled_filter_keys(config.category));
     const visibleEventIds = new Set();
     const visibleRoundKeyCountsByEventId = new Map();
