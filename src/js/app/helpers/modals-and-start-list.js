@@ -159,8 +159,6 @@ function render_countdown(startsAt, prefix) {
         if (nextEvent) {
             nextEvent.classList.add('next-event-has-countdown');
         }
-
-        schedule_next_event_mobile_countdown_height_sync();
     }
 }
 

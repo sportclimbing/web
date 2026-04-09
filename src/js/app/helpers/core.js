@@ -9,6 +9,9 @@ const SITE_TIME_FORMAT_OPTIONS = {
 };
 
 let quickDisciplineFilter = null;
+let nextEventMobileCountdownSyncFrame = null;
+let eventNotStartedCountdownIntervalId = null;
+let nextEventCountdownIntervalId = null;
 
 const CONFIG_CHECKBOX_BINDINGS = [
     { inputName: 'league[cups]', path: ['league', 'cups'] },
@@ -63,57 +66,8 @@ export function round_will_be_streamed(round) {
     return (round && round.kind !== 'qualification') || disciplines.includes('speed');
 }
 
-let nextEventMobileCountdownSyncFrame = null;
-let eventNotStartedCountdownIntervalId = null;
-let nextEventCountdownIntervalId = null;
-
-
-function sync_next_event_mobile_countdown_height() {
-    const nextEventContainer = document.querySelector('.next-event');
-    const countdown = document.getElementById('next-event-countdown');
-
-    if (!nextEventContainer) {
-        return;
-    }
-
-    if (!countdown || countdown.hidden || !window.matchMedia(MOBILE_VIEWPORT_MEDIA_QUERY).matches) {
-        nextEventContainer.style.removeProperty('--next-event-mobile-media-height');
-
-        return;
-    }
-
-    const thumbnail = document.querySelector('#next-event-details .youtube-thumbnail');
-
-    if (!thumbnail) {
-        nextEventContainer.style.removeProperty('--next-event-mobile-media-height');
-
-        return;
-    }
-
-    const thumbnailHeight = Math.round(thumbnail.getBoundingClientRect().height);
-
-    if (!thumbnailHeight) {
-        nextEventContainer.style.removeProperty('--next-event-mobile-media-height');
-
-        return;
-    }
-
-    nextEventContainer.style.setProperty('--next-event-mobile-media-height', `${thumbnailHeight}px`);
-}
-
-function schedule_next_event_mobile_countdown_height_sync() {
-    if (nextEventMobileCountdownSyncFrame) {
-        window.cancelAnimationFrame(nextEventMobileCountdownSyncFrame);
-    }
-
-    nextEventMobileCountdownSyncFrame = window.requestAnimationFrame(() => {
-        nextEventMobileCountdownSyncFrame = null;
-        sync_next_event_mobile_countdown_height();
-    });
-}
-
 function get_selected_season() {
-    return get_id_from_path('season') || get_id_from_hash('season') || DEFAULT_SEASON;
+    return get_id_from_path('season') || DEFAULT_SEASON;
 }
 
 function get_event_page_event_id() {
@@ -343,19 +297,6 @@ function set_checkbox_checked(inputName, checked) {
     checkbox.dispatchEvent(new Event('change'));
 }
 
-function get_id_from_hash(name) {
-    if (window.location.hash) {
-        const regex = new RegExp(`/${name}/(?<id>\\d+)`);
-        const match = regex.exec(window.location.hash);
-
-        if (match) {
-            return parseInt(match.groups.id);
-        }
-    }
-
-    return '';
-}
-
 function get_id_from_path(name) {
     if (window.location.pathname) {
         const regex = new RegExp(`/${name}/(?<id>\\d+)(?:/|$)`);
@@ -451,17 +392,6 @@ function restore_config() {
     } catch (error) {
         window.localStorage.clear();
     }
-}
-
-function config_selected_leagues() {
-    const leaguesContainer = document.getElementById('config-leagues');
-    const checkedCheckboxes = leaguesContainer ? Array.from(leaguesContainer.querySelectorAll('input[type="checkbox"]:checked')) : [];
-
-    if (!leaguesContainer || (checkedCheckboxes.length === 0 && leaguesContainer.querySelectorAll('input[type="checkbox"]').length === 0)) {
-        return ["World Cups and World Championships", "IFSC Paraclimbing", "Games"];
-    }
-
-    return checkedCheckboxes.map((checkbox) => checkbox.value);
 }
 
 function parse_round_metadata_tokens(value) {

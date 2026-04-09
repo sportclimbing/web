@@ -10,9 +10,7 @@ export const HERO_BG_OVERRIDES = {
      '2024': { youTubeVideoId: '7gKXBsmdeWQ', backgroundPosition: 'center 20%' },
 };
 
-export const GITHUB_REPO = 'https://github.com/sportclimbing/ifsc-calendar';
 export const START_LIST_OVERFLOW_THRESHOLD = 40;
 export const MOBILE_VIEWPORT_MAX_WIDTH_PX = 800;
 export const DESKTOP_VIEWPORT_MIN_WIDTH_PX = MOBILE_VIEWPORT_MAX_WIDTH_PX + 1;
 export const MOBILE_VIEWPORT_MEDIA_QUERY = `(max-width: ${MOBILE_VIEWPORT_MAX_WIDTH_PX}px)`;
-export const DESKTOP_VIEWPORT_MEDIA_QUERY = `(min-width: ${DESKTOP_VIEWPORT_MIN_WIDTH_PX}px)`;

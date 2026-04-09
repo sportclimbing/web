@@ -256,6 +256,12 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
     <CalendarSyncBanner />
 </main>
 
+<div id="sticky-event-title" class="fixed top-[62px] left-0 right-0 z-40 lg:hidden px-4 pointer-events-none transition-opacity duration-150 opacity-0">
+    <div class="bg-surface-container/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg border border-outline-variant/10">
+        <span id="sticky-event-title-text" class="text-xs font-bold font-headline uppercase tracking-tight text-on-surface"></span>
+    </div>
+</div>
+
 <Modals />
 <VideoModal />
 <CardTemplates />

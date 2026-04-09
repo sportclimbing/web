@@ -16,6 +16,7 @@ let seasonTimeline = {
 };
 let monthNavigationFrameId = null;
 let monthNavHorizontalFrameId = null;
+let stickyTitleFrameId = null;
 
 const is_mobile_viewport = () => window.matchMedia(MOBILE_VIEWPORT_MEDIA_QUERY).matches;
 
