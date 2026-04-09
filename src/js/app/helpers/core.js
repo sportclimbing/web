@@ -560,7 +560,7 @@ function load_config_from_modal() {
             league: {
                 "cups": true,
                 "paraclimbing": true,
-                "games": true,
+                "games": false,
             },
             category: {
                 "women": true,
