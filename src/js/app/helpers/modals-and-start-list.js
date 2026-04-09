@@ -324,7 +324,10 @@ function start_list_modal_url_build(season, eventId) {
         return '';
     }
 
-    return `/modals/start-list/${normalizedSeason}/${normalizedEventId}.html`;
+    const version = String(document.body.dataset.buildVersion || '').trim();
+    const query = version ? `?v=${encodeURIComponent(version)}` : '';
+
+    return `/modals/start-list/${normalizedSeason}/${normalizedEventId}.html${query}`;
 }
 
 function athlete_name_build(athlete) {
@@ -344,6 +347,8 @@ function set_start_list_modal_content(eventNameText, titleText, listHtml) {
     const eventName = document.getElementById('start-list-modal-event');
     const title = document.getElementById('start-list-modal-title');
     const list = document.getElementById('start-list-modal-list');
+    const footerAvatars = document.getElementById('start-list-modal-footer-avatars');
+    const footerMoreAthletes = document.getElementById('start-list-modal-more-athletes');
 
     if (!title || !list) {
         return;
@@ -356,6 +361,32 @@ function set_start_list_modal_content(eventNameText, titleText, listHtml) {
     title.setAttribute('title', title.innerText);
     schedule_fit_modal_titles();
     list.innerHTML = listHtml || '<li class="p-8 text-center text-on-surface-variant font-medium bg-surface-container-low/20 rounded-xl border border-dashed border-outline-variant/30">Start list unavailable right now.</li>';
+
+    if (footerAvatars) {
+        const overflowLi = list.querySelector('.start-list-overflow-athletes');
+        const overflowAvatarContainer = overflowLi && overflowLi.querySelector('.flex');
+        const overflowAvatars = overflowAvatarContainer
+            ? Array.from(overflowAvatarContainer.children)
+            : [];
+        if (footerMoreAthletes) {
+            footerMoreAthletes.classList.toggle('hidden', overflowAvatars.length === 0);
+        }
+        if (overflowAvatars.length > 0) {
+            footerAvatars.innerHTML = '';
+            overflowAvatars.forEach((el) => {
+                const clone = el.cloneNode(true);
+                clone.className = clone.className
+                    .replace(/\bw-10\b/g, 'w-8')
+                    .replace(/\bh-10\b/g, 'h-8');
+                clone.style.cssText += '; border: 2px solid var(--color-surface, #000)';
+                footerAvatars.appendChild(clone);
+            });
+            const plus = document.createElement('div');
+            plus.className = 'w-8 h-8 rounded-full border-2 border-surface bg-surface-container-lowest flex items-center justify-center text-[10px] font-bold text-primary';
+            plus.textContent = '+';
+            footerAvatars.appendChild(plus);
+        }
+    }
 }
 
 function start_list_modal_loading_event(trigger) {
