@@ -17,11 +17,11 @@ const seasonStats = Object.fromEntries(seasons.map((s) => {
   const payload = getSeasonEventsPayload(s);
   const events = payload?.events ?? [];
   const totalEvents = events.length;
-  const numStreams = events.reduce((acc, e) => acc + e.rounds.filter((r) => r.stream_url).length, 0);
-  const athletes = new Set(
-    events.flatMap((e) => e.start_list.map((a) => `${a.first_name} ${a.last_name}`))
-  );
-  return [s, { totalEvents, numStreams, athletes: athletes.size }];
+  const numStreams = new Set(events.flatMap((e) => e.rounds.map((r) => r.stream_url).filter(Boolean))).size;
+  const athleteCount = events.every((e) => typeof e.start_list_total === 'number')
+    ? events.reduce((acc, e) => acc + e.start_list_total, 0)
+    : new Set(events.flatMap((e) => e.start_list.map((a) => a.athlete_id ?? `${a.first_name} ${a.last_name}`))).size;
+  return [s, { totalEvents, numStreams, athletes: athleteCount }];
 }));
 
 const pageTitle = `World Climbing Archive - Historical Seasons | ifsc.stream`;
@@ -41,18 +41,16 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
 
   <base href="/" />
   <link rel="canonical" href={canonicalUrl} />
+  <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preconnect" href="https://api.github.com" />
   <link rel="preconnect" href="https://calendar.ifsc.stream" />
   <link rel="preconnect" href="https://img.youtube.com" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-
   <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
 
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #101418; }
     ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }
@@ -127,14 +125,13 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
   <section class="pb-32 px-6 md:px-12 max-w-6xl mx-auto" aria-labelledby="archive-title">
     <h2 id="archive-title" class="sr-only">Historical Seasons</h2>
     <div class="flex flex-col gap-6">
-      {seasons.map((s, index) => {
+      {seasons.map((s) => {
         const isCurrent = s === DEFAULT_SEASON;
-        const isSecond = index === 1;
         const stats = seasonStats[s];
-        const iconColor = isCurrent ? 'text-primary' : isSecond ? 'text-secondary' : 'text-outline';
-        const streamHoursColor = isCurrent ? 'text-primary' : isSecond ? 'text-secondary' : 'text-on-surface';
+        const iconColor = isCurrent ? 'text-primary' : 'text-outline';
+        const streamHoursColor = isCurrent ? 'text-primary' : 'text-on-surface';
         return (
-          <div class={`group relative bg-surface-container-low border rounded-2xl p-8 transition-all duration-500 shadow-xl overflow-hidden ${isCurrent ? 'border-outline-variant/10 hover:bg-surface-container hover:border-primary/30' : isSecond ? 'border-outline-variant/10 hover:bg-surface-container hover:border-secondary/30' : 'border-outline-variant/10 hover:bg-surface-container'}`}>
+          <div class={`group relative bg-surface-container-low border rounded-2xl p-8 transition-all duration-500 shadow-xl overflow-hidden ${isCurrent ? 'border-outline-variant/10 hover:bg-surface-container hover:border-primary/30' : 'border-outline-variant/10 hover:bg-surface-container'}`}>
             <div class="relative z-10 flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
               <!-- Year Badge -->
               <div class="flex flex-col items-center justify-center min-w-[140px] border-r border-outline-variant/20 pr-8">
@@ -153,17 +150,17 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
                   </div>
                 </div>
                 <div class="flex flex-col">
-                  <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Athletes</span>
-                  <div class="flex items-end gap-2">
-                    <span class="text-3xl font-black text-on-surface leading-none">{stats.athletes}</span>
-                    <span class={`material-symbols-outlined mb-1 ${iconColor}`}>groups</span>
-                  </div>
-                </div>
-                <div class="flex flex-col col-span-2 md:col-span-1">
                   <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Streams</span>
                   <div class="flex items-end gap-2">
                     <span class={`text-3xl font-black leading-none ${streamHoursColor}`}>{stats.numStreams}</span>
                     <span class={`material-symbols-outlined mb-1 ${iconColor}`}>play_circle</span>
+                  </div>
+                </div>
+                <div class="flex flex-col col-span-2 md:col-span-1">
+                  <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Athletes</span>
+                  <div class="flex items-end gap-2">
+                    <span class="text-3xl font-black text-on-surface leading-none">{stats.athletes}</span>
+                    <span class={`material-symbols-outlined mb-1 ${iconColor}`}>groups</span>
                   </div>
                 </div>
               </div>

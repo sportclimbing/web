@@ -57,19 +57,17 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
 
   <base href="/" />
   <link rel="canonical" href={canonicalUrl} />
+  <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preconnect" href="https://api.github.com" />
   <link rel="preconnect" href="https://calendar.ifsc.stream" />
   <link rel="preconnect" href="https://buttons.github.io" />
   <link rel="preconnect" href="https://img.youtube.com" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-
   <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
 
   <style>
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #101418; }
     ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }

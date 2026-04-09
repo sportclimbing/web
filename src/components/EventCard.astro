@@ -7,6 +7,7 @@ import {
 } from '../lib/shared/media.js';
 import { round_will_be_streamed } from '../js/app/helpers/core.js';
 import { build_start_list_modal_url } from '../lib/start-list-modal-fragments';
+import { siteAssetVersion } from '../lib/site-shell';
 import { build_event_page_path } from '../lib/event-pages';
 
 const {
@@ -121,10 +122,12 @@ const format_event_date = (event) => {
 
 const format_event_name_title = (event) => {
   const location = String(event?.location || '').trim();
+  const countryName = event?.country === 'USA' ? 'USA' : String(event?.country_name || '').trim();
   const startsAt = parse_date_parts(event?.starts_at);
   const year = startsAt ? startsAt.year : '';
+  const locationWithCountry = countryName ? `${location}, ${countryName}` : location;
 
-  return `${location.toUpperCase()} ${year}`.trim();
+  return `${locationWithCountry.toUpperCase()} ${year}`.trim();
 };
 
 const capitalize = (value) => {
@@ -232,7 +235,7 @@ const eventId = String(event.id);
 const monthIndex = month_index_from_starts_at(event.starts_at);
 const startList = Array.isArray(event.start_list) ? event.start_list : [];
 const hasPhotos = startList.some((athlete) => Boolean(athlete && athlete.photo_url));
-const startListModalUrl = build_start_list_modal_url(event.season || '', eventId);
+const startListModalUrl = build_start_list_modal_url(event.season || '', eventId, siteAssetVersion);
 const eventPagePath = build_event_page_path(event.season || '', event);
 const infosheetUrl = typeof event.infosheet_url === 'string' ? event.infosheet_url.trim() : '';
 const eventScheduleStatus = event_schedule_status(event);
@@ -242,6 +245,8 @@ const prettyEventName = format_event_name_title(event);
 const avatarsWithPhoto = startList
     .filter((athlete) => Boolean(athlete && athlete.photo_url))
     .slice(0, 5);
+
+const startListTotal = typeof event.start_list_total === 'number' ? event.start_list_total : startList.length;
 
 const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
 
@@ -296,8 +301,8 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
                     <img alt={athlete_name_build(athlete)} class={`w-10 h-10 flex-shrink-0 rounded-full border-2 ${borderThemeClass} object-cover`} src={photoSources.src} data-fallback-src={photoSources.fallbackSrc} onerror="handle_start_list_photo_error(this)" loading="lazy" referrerpolicy="no-referrer"/>
                   );
                 }) : <span class="text-sm font-bold text-on-surface">View Start List</span>}
-                {hasPhotos && startList.length > 5 && (
-                  <div class={`w-10 h-10 flex-shrink-0 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold ${textThemeClass} border-2 ${borderThemeClass}`}>+{startList.length - 5}</div>
+                {hasPhotos && startListTotal > 5 && (
+                  <div class={`w-10 h-10 flex-shrink-0 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold ${textThemeClass} border-2 ${borderThemeClass}`}>+{startListTotal - 5}</div>
                 )}
             </div>
         </div>

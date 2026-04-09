@@ -430,7 +430,7 @@ const setup_filter_handlers = () => {
     if (resetFiltersButton) {
         resetFiltersButton.addEventListener('click', () => {
             document.querySelectorAll('#filter-modal input[type="checkbox"]').forEach((checkbox) => {
-                set_checkbox_checked(checkbox.name, checkbox.name !== 'streamable');
+                set_checkbox_checked(checkbox.name, checkbox.name !== 'streamable' && checkbox.name !== 'league[games]');
             });
         });
     }
@@ -478,6 +478,8 @@ const load_lazy_calendar_modal = async () => {
         // ignore fetch errors
     }
 };
+
+window.load_lazy_calendar_modal = load_lazy_calendar_modal;
 
 let filterModalContentLoaded = false;
 

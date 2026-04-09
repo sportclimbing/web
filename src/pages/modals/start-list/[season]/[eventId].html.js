@@ -25,6 +25,7 @@ export function getStaticPaths() {
             eventName: event?.name || '',
             startList: Array.isArray(event?.start_list) ? event.start_list : [],
             eventId,
+            startListTotal: typeof event?.start_list_total === 'number' ? event.start_list_total : null,
           }),
         },
       });

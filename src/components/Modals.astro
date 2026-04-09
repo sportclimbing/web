@@ -34,14 +34,10 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
     <!-- Modal Footer -->
     <div class="p-6 border-t border-outline-variant/15 flex items-center justify-between bg-surface-container-low/20 rounded-b-xl">
       <div class="flex items-center gap-4">
-        <div class="flex -space-x-3">
-          <div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-bright"></div>
-          <div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-high"></div>
-          <div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-lowest flex items-center justify-center text-[10px] font-bold text-primary">
-            +
-          </div>
+        <div id="start-list-modal-more-athletes" class="hidden flex items-center gap-4">
+          <div id="start-list-modal-footer-avatars" class="flex -space-x-3"></div>
+          <span class="text-xs font-label text-on-surface-variant/80 uppercase tracking-widest">More Athletes Confirmed</span>
         </div>
-        <span class="text-xs font-label text-on-surface-variant/80 uppercase tracking-widest">More Athletes Confirmed</span>
       </div>
       <div class="flex items-center gap-2">
         <span class="text-[10px] font-headline font-bold text-on-surface-variant uppercase">Updated: {updatedAt}</span>
@@ -58,7 +54,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
         <span class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-1 uppercase leading-none" id="event-not-started-modal-league"></span>
         <h2 class="text-2xl font-headline font-bold text-on-surface tracking-tight kinetic-border uppercase" id="event-not-started-modal-event"></h2>
       </div>
-      <button type="button" class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-surface-bright transition-colors group" data-bs-dismiss="modal" aria-label="Close">
+      <button type="button" class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high hover:bg-surface-bright transition-colors group" onclick="close_modal(document.getElementById('event-not-started-modal'));" aria-label="Close">
         <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">close</span>
       </button>
     </div>
@@ -89,7 +85,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
       </div>
 
       <div class="flex justify-center items-center">
-        <button class="w-full md:w-auto px-12 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed font-headline font-bold rounded-lg hover:scale-[0.98] transition-all duration-200 uppercase tracking-wider text-sm flex items-center justify-center gap-2" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#calendar-modal">
+        <button class="w-full md:w-auto px-12 py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed font-headline font-bold rounded-lg hover:scale-[0.98] transition-all duration-200 uppercase tracking-wider text-sm flex items-center justify-center gap-2" onclick="close_modal(document.getElementById('event-not-started-modal')); load_lazy_calendar_modal().then(() => open_modal('#calendar-modal'));">
           <span class="material-symbols-outlined" data-weight="fill">calendar_today</span>
           SYNC WITH CALENDAR
         </button>
