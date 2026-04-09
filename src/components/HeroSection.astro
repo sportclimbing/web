@@ -16,7 +16,7 @@ const isUpcoming = heroRound?.starts_at && new Date(heroRound.starts_at) > now;
 const statusLabel = isLive ? 'Live Now' : (isUpcoming ? 'Coming Up Next' : 'Event Replay');
 const showDetailsButton = eventId != null;
 ---
-<section class="relative w-full h-[500px] overflow-hidden flex items-end pb-10">
+<section class="relative w-full h-[340px] lg:h-[500px] overflow-hidden flex items-start pt-8 lg:items-end lg:pt-0 lg:pb-10">
     <div class="absolute inset-0 z-0">
         <div class="absolute inset-0 opacity-60" style={`background-image: url('${heroBgImage}'); background-size: cover; background-position: ${heroBgPosition};`}></div>
         <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
@@ -36,7 +36,7 @@ const showDetailsButton = eventId != null;
             <div class="flex flex-wrap items-center gap-8 md:gap-12 mt-8">
                 <div class={`flex flex-col event-not-started-countdown ${isLive ? 'hidden' : ''}`} id="next-event-countdown" hidden={isLive}>
                     <span class="text-[0.6875rem] text-on-surface-variant tracking-widest uppercase mb-2 font-label">Starts In</span>
-                    <div class="flex gap-4 font-headline text-3xl md:text-4xl font-bold event-not-started-countdown-grid">
+                    <div class="flex gap-2 lg:gap-4 font-headline text-xl lg:text-4xl font-bold event-not-started-countdown-grid">
                         <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-days">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Days</span></div>
                         <span>:</span>
                         <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-hours">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Hrs</span></div>
@@ -54,7 +54,7 @@ const showDetailsButton = eventId != null;
                 </button>
 
                 {showDetailsButton && (
-                    <a class="border border-outline-variant hover:border-primary text-on-surface px-10 py-4 rounded-lg font-bold text-lg uppercase tracking-tight transition-all"
+                    <a class="border border-outline-variant hover:border-primary text-on-surface px-6 py-2 lg:px-10 lg:py-4 rounded-lg font-bold text-sm lg:text-lg uppercase tracking-tight transition-all"
                        href={eventPagePath || undefined}
                        data-event-id={eventId}
                        id="next-event-details-button">

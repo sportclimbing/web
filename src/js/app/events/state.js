@@ -213,10 +213,7 @@ const get_next_event_from_visible_rounds = () => {
 
 const update_round_card_status_and_actions = (roundElement, round, parsedEventId, includeRoundDetails = true) => {
     const roundKey = round.roundKey || (roundElement.dataset.roundKey || '');
-    const streamButton = roundElement.querySelector('[data-action="round-stream"]');
     const startsIn = roundElement.querySelector('.round-starts-in');
-    let resultsButton = roundElement.querySelector('.button-results');
-    let reminderButton = roundElement.querySelector('.button-reminder');
 
     if (includeRoundDetails) {
         set_round_details(roundElement, round, false);

@@ -217,7 +217,7 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
         </aside>
 
         <!-- Events Content -->
-        <div class="flex-1 max-w-[75%] pb-24">
+        <div class="flex-1 lg:max-w-[75%] pb-24">
             <!-- Filter & Search Bar -->
             <section class="mb-12">
                 <div class="bg-surface-container-low p-2 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4">
@@ -230,14 +230,14 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
                             </select>
                             <button class="px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest">{normalizedSeason} Season</button>
                         </div>
-                        <a href="/archive/" class="px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold">Archive</a>
+                        <a href="/archive/" class="flex-1 text-center px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold">Archive</a>
                     </div>
-                    <div class="flex flex-wrap justify-center gap-2">
-                        <button class="discipline-quick-filter px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="boulder">Boulder</button>
-                        <button class="discipline-quick-filter px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="lead">Lead</button>
-                        <button class="discipline-quick-filter px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="speed">Speed</button>
+                    <div class="flex flex-nowrap justify-center gap-2">
+                        <button class="discipline-quick-filter px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="boulder">Boulder</button>
+                        <button class="discipline-quick-filter px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="lead">Lead</button>
+                        <button class="discipline-quick-filter px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="speed">Speed</button>
                         <div class="h-8 w-px bg-outline-variant mx-2"></div>
-                        <button class="px-4 py-2 border border-outline-variant text-on-surface-variant rounded-lg text-sm font-medium hover:bg-surface-container-high flex items-center gap-2 filters-button" data-open-filter-modal>
+                        <button class="px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high flex items-center gap-1.5 lg:gap-2 filters-button" data-open-filter-modal>
                             <span class="material-symbols-outlined text-sm">filter_list</span> Filters
                         </button>
                     </div>

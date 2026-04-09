@@ -1,30 +1,20 @@
 ---
 ---
 <nav class="sticky top-0 w-full z-50 bg-[#101418]/80 backdrop-blur-xl border-b border-outline-variant/10">
-    <div class="flex items-center px-6 py-4 max-w-screen-2xl mx-auto w-full gap-12">
-        <div class="w-56 shrink-0 hidden lg:block">
-            <button class="bg-primary text-on-primary-fixed px-6 py-2 rounded-lg font-headline font-bold text-sm uppercase tracking-tighter transition-transform hover:scale-[1.02] active:scale-95 flex items-center gap-2 whitespace-nowrap calendar-sync-tooltip" data-bs-toggle="modal" data-bs-target="#calendar-modal">
-                <span class="material-symbols-outlined text-sm">sync</span>
-                Sync with Calendar
-            </button>
-        </div>
-        <div class="flex justify-end items-center flex-1 max-w-[75%]">
-            <div class="lg:hidden mr-auto">
-                <button class="bg-primary text-on-primary-fixed px-6 py-2 rounded-lg font-headline font-bold text-sm uppercase tracking-tighter transition-transform hover:scale-[1.02] active:scale-95 flex items-center gap-2 whitespace-nowrap calendar-sync-tooltip" data-bs-toggle="modal" data-bs-target="#calendar-modal">
-                    <span class="material-symbols-outlined text-sm">sync</span>
-                    Sync with Calendar
-                </button>
-            </div>
-            <div class="hidden md:flex gap-4 items-center">
-                <a class="bg-tertiary text-on-tertiary px-6 py-2 rounded-lg font-headline font-bold text-sm uppercase tracking-tighter transition-transform hover:scale-[1.02] active:scale-95 flex items-center gap-2" href="https://www.buymeacoffee.com/sportclimbing" target="_blank">
-                    <span class="material-symbols-outlined text-sm">local_cafe</span>
-                    Buy me a Coffee
-                </a>
-                <a class="border border-primary text-primary px-6 py-2 rounded-lg font-headline font-bold text-sm tracking-tighter transition-transform hover:scale-[1.02] active:scale-95 flex items-center gap-2" href="https://www.instagram.com/nicoswd/" target="_blank">
-                    <img src="/img/nico.png" class="w-4 h-4 rounded-full object-cover" alt="Nico" />
-                    @nicoswd
-                </a>
-            </div>
+    <div class="flex items-center justify-between px-6 py-4 max-w-screen-2xl mx-auto w-full">
+        <button class="bg-primary text-on-primary-fixed px-4 py-2 rounded-lg font-headline font-bold text-sm uppercase tracking-tighter transition-transform hover:scale-[1.02] active:scale-95 flex items-center gap-2 whitespace-nowrap calendar-sync-tooltip" data-bs-toggle="modal" data-bs-target="#calendar-modal">
+            <span class="material-symbols-outlined text-sm">sync</span>
+            Sync with Calendar
+        </button>
+        <div class="flex items-center gap-2">
+            <a class="bg-tertiary text-on-tertiary px-4 py-2 rounded-lg font-headline font-bold text-sm uppercase tracking-tighter transition-transform hover:scale-[1.02] active:scale-95 flex items-center gap-2 whitespace-nowrap" href="https://www.buymeacoffee.com/sportclimbing" target="_blank">
+                <span class="material-symbols-outlined text-sm">local_cafe</span>
+                <span class="hidden md:inline">Buy me a Coffee</span>
+            </a>
+            <a class="border border-primary text-primary px-4 py-2 rounded-lg font-headline font-bold text-sm tracking-tighter transition-transform hover:scale-[1.02] active:scale-95 flex items-center gap-2 whitespace-nowrap" href="https://www.instagram.com/nicoswd/" target="_blank">
+                <img src="/img/nico.png" class="w-4 h-4 rounded-full object-cover" alt="Nico" />
+                <span class="hidden md:inline">@nicoswd</span>
+            </a>
         </div>
     </div>
 </nav>

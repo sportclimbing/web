@@ -70,7 +70,6 @@ function handle_watch_event(e) {
 
     if (youtubeVideoTitle) {
         youtubeVideoTitle.textContent = `${round.name}`;
-        schedule_fit_modal_titles();
     }
 
     if (videoModalElement) {
@@ -359,7 +358,6 @@ function set_start_list_modal_content(eventNameText, titleText, listHtml) {
     }
     title.innerText = titleText || 'ATHLETES ATTENDING';
     title.setAttribute('title', title.innerText);
-    schedule_fit_modal_titles();
     list.innerHTML = listHtml || '<li class="p-8 text-center text-on-surface-variant font-medium bg-surface-container-low/20 rounded-xl border border-dashed border-outline-variant/30">Start list unavailable right now.</li>';
 
     if (footerAvatars) {

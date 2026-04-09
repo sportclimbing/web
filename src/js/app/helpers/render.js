@@ -154,7 +154,6 @@ function set_next_event(round, event, isStreaming) {
     }
 
     set_next_event_countdown(round, isStreaming);
-    schedule_fit_event_name_titles();
 }
 
 function set_round_stream_metadata(element, round) {

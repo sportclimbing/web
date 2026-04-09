@@ -40,7 +40,7 @@ const watchButtonClass = isLive
      data-round-name={round.name}
      data-round-key={roundKey}>
     
-    <div class="w-full sm:w-32 h-20 bg-black rounded-lg overflow-hidden flex-shrink-0 relative">
+    <div class="w-full sm:w-32 h-36 sm:h-20 bg-black rounded-lg overflow-hidden flex-shrink-0 relative">
         {thumbnailUrl ? (
             <img class={`w-full h-full object-cover ${isDimmed ? 'opacity-50' : 'opacity-80'}`} src={thumbnailUrl} alt="Stream Thumbnail" loading="lazy" />
         ) : (
@@ -64,7 +64,7 @@ const watchButtonClass = isLive
             {!willBeStreamed && <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest bg-surface-container-lowest px-2 py-0.5 rounded">Not Streamed</span>}
             <span class="text-[11px] text-on-surface-variant font-mono"><span class="round-date">{formatRoundDate}</span> | <span class="round-time">{formatRoundTime}</span>{formatRoundEndTime && <span class="round-end-time"> - {formatRoundEndTime}</span>} <span class="round-starts-in hidden ml-2"></span></span>
         </div>
-        <h4 class={`font-bold text-lg uppercase leading-tight round-name ${isDimmed ? 'text-on-surface-variant' : 'text-on-surface'}`}>{round.name}</h4>
+        <h4 class={`font-bold text-sm lg:text-lg uppercase leading-tight round-name ${isDimmed ? 'text-on-surface-variant' : 'text-on-surface'}`}>{round.name}</h4>
     </div>
 
     <div class="flex gap-3 sm:ml-auto w-full sm:w-auto round-actions">

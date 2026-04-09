@@ -227,7 +227,6 @@ const refresh_event_ui = () => {
     setup_start_list_avatar_tooltips();
     update_month_navigation_state();
     schedule_month_nav_horizontal_position_sync();
-    schedule_fit_event_name_titles();
     hide_static_event_fallback();
 
     hasAppliedInitialSeasonAutoExpand = true;
@@ -264,7 +263,6 @@ const refresh_event_page_ui = () => {
     setup_start_list_avatar_tooltips();
     update_month_navigation_state();
     schedule_month_nav_horizontal_position_sync();
-    schedule_fit_event_name_titles();
     hide_static_event_fallback();
     set_favicon(seasonTimeline.liveRound);
 };

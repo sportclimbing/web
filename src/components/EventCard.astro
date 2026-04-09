@@ -244,7 +244,7 @@ const prettyLeagueName = league_name_without_ifsc(event.league_name, event.seaso
 const prettyEventName = format_event_name_title(event);
 const avatarsWithPhoto = startList
     .filter((athlete) => Boolean(athlete && athlete.photo_url))
-    .slice(0, 5);
+    .slice(0, 4);
 
 const startListTotal = typeof event.start_list_total === 'number' ? event.start_list_total : startList.length;
 
@@ -257,7 +257,7 @@ const borderThemeClass = isEuropeanCup ? 'border-secondary' : 'border-primary';
 const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hover:border-primary/20';
 
 ---
-<div class={`bg-surface-container rounded-2xl overflow-hidden p-10 border border-outline-variant/10 shadow-2xl transition-all ${hoverBorderThemeClass} mb-8 ifsc-league-card`}
+<div class={`bg-surface-container rounded-2xl overflow-hidden p-6 lg:p-10 border border-outline-variant/10 shadow-2xl transition-all ${hoverBorderThemeClass} mb-4 lg:mb-8 ifsc-league-card`}
      id={`event-${eventId}`}
      data-event-id={eventId}
      data-event-name={event.name || ''}
@@ -269,24 +269,20 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
     <div id={`heading_${eventId}`} class="flex flex-col lg:flex-row justify-between items-start mb-8 gap-6">
         <div>
             <p class={`text-[0.6875rem] ${textThemeClass} tracking-[0.2em] uppercase font-label mb-1 event-league-name`}>{prettyLeagueName}</p>
-            <h3 class="text-5xl font-bold font-headline uppercase tracking-tight mb-4 event-name">
+            <h3 class="text-2xl lg:text-5xl font-bold font-headline uppercase tracking-tight mb-4 event-name">
               {shouldLinkEventTitles && eventPagePath ? (
                 <a href={eventPagePath} class={`hover:${textThemeClass} transition-colors event-name-title`}>{prettyEventName}</a>
               ) : (
                 <span class="event-name-title">{prettyEventName}</span>
               )}
             </h3>
-            <div class="flex flex-wrap items-center gap-6 text-sm text-on-surface-variant gap-y-2">
+            <div class="flex flex-col lg:flex-row lg:flex-wrap lg:items-center gap-2 lg:gap-6 text-sm text-on-surface-variant">
                 <span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">calendar_today</span> {format_event_date(event)}</span>
-                <!--<span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">location_on</span> {event.location}, {event.country}</span>-->
-                <div class="flex flex-wrap items-center gap-6 border-outline-variant/20">
-                    <span class="flex items-center gap-2 font-medium"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>exercise</span> {beautify_disciplines(event.disciplines)}</span>
-                    <span class="flex items-center gap-2 font-medium" title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus.includes('Confirmed') ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus.replace(/^[^\w]*/, '')}</span>
-                    {infosheetUrl && (
-                      <a class={`flex items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">description</span> PDF</a>
-                    )}
-                    <!--<a class={`flex items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={event.event_url} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">link</span> IFSC Page</a>-->
-                </div>
+                <span class="flex items-center gap-2 font-medium"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>exercise</span> {beautify_disciplines(event.disciplines)}</span>
+                <span class="flex items-center gap-2 font-medium" title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus.includes('Confirmed') ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus.replace(/^[^\w]*/, '')}</span>
+                {infosheetUrl && (
+                  <a class={`flex items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">description</span> PDF</a>
+                )}
             </div>
         </div>
 
@@ -301,8 +297,8 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
                     <img alt={athlete_name_build(athlete)} class={`w-10 h-10 flex-shrink-0 rounded-full border-2 ${borderThemeClass} object-cover`} src={photoSources.src} data-fallback-src={photoSources.fallbackSrc} onerror="handle_start_list_photo_error(this)" loading="lazy" referrerpolicy="no-referrer"/>
                   );
                 }) : <span class="text-sm font-bold text-on-surface">View Start List</span>}
-                {hasPhotos && startListTotal > 5 && (
-                  <div class={`w-10 h-10 flex-shrink-0 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold ${textThemeClass} border-2 ${borderThemeClass}`}>+{startListTotal - 5}</div>
+                {hasPhotos && startListTotal > 4 && (
+                  <div class={`w-10 h-10 flex-shrink-0 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold ${textThemeClass} border-2 ${borderThemeClass}`}>+{startListTotal - 4}</div>
                 )}
             </div>
         </div>
