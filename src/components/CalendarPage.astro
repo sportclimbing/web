@@ -82,7 +82,7 @@ const seasonOverride = HERO_BG_OVERRIDES[normalizedSeason] || {};
 const resolvedBgVideoId = seasonOverride.youTubeVideoId ?? heroBgVideoId;
 const heroBgImage = resolvedBgVideoId
     ? `https://img.youtube.com/vi/${resolvedBgVideoId}/maxresdefault.jpg`
-    : '/img/hero/hero-bg.jpg';
+    : '/img/hero/hero-bg.webp';
 const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
 ---
 <!doctype html>
