@@ -1,7 +1,8 @@
 (function () {
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-        event: 'default_consent',
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('consent', 'default', {
         analytics_storage: 'denied',
         security_storage: 'granted'
     });
@@ -14,12 +15,10 @@
 
     const storedConsent = readConsent();
 
-    loadTagManager();
-
     if (storedConsent === 'granted') {
-        updateConsent('granted');
+        loadGtag();
     } else if (storedConsent === 'denied') {
-        updateConsent('denied');
+        // do nothing — never load gtag without consent
     } else {
         showBanner();
     }
@@ -27,6 +26,7 @@
     acceptBtn.addEventListener('click', function () {
         saveConsent('granted');
         updateConsent('granted');
+        loadGtag();
         hideBanner();
     });
 
@@ -63,27 +63,18 @@
     }
 
     function updateConsent(analyticsValue) {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({
-            event: 'consent_update',
+        gtag('consent', 'update', {
             analytics_storage: analyticsValue,
             security_storage: 'granted'
         });
     }
 
-    function loadTagManager() {
-        (function(w,d,s,l,i){
-            w[l]=w[l]||[];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l !== 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-W529GT79');
+    function loadGtag() {
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-8M4HP3B344';
+        document.head.appendChild(s);
+        gtag('js', new Date());
+        gtag('config', 'G-8M4HP3B344');
     }
 })();
