@@ -3,6 +3,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { extract_youtube_video_id } from '../src/lib/shared/media.js'
 
 const EVENT_SCHEDULED = 'https://schema.org/EventScheduled';
 const EVENT_IN_PROGRESS = 'https://schema.org/EventInProgress';
@@ -194,27 +195,9 @@ const schema_event_performer_team = (event) => {
     };
 };
 
-const youtube_video_id_from_url = (url) => {
-    const normalizedUrl = trim(url);
-
-    if (!normalizedUrl) {
-        return null;
-    }
-
-    const matches = normalizedUrl.match(
-        /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|live\/|embed\/|shorts\/))(?<video_id>[A-Za-z0-9_-]{10,})/i,
-    );
-
-    if (!matches?.groups?.video_id) {
-        return null;
-    }
-
-    return matches.groups.video_id;
-};
-
 const schema_round_images = (round) => {
     const streamUrl = trim(round?.stream_url);
-    const videoId = youtube_video_id_from_url(streamUrl) || DEFAULT_YOUTUBE_VIDEO_ID;
+    const videoId = extract_youtube_video_id(streamUrl) || DEFAULT_YOUTUBE_VIDEO_ID;
     return YOUTUBE_IMAGE_RESOLUTIONS.map((resolution) => `https://img.youtube.com/vi/${videoId}/${resolution}.jpg`);
 };
 

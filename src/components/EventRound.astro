@@ -1,0 +1,78 @@
+---
+import { round_will_be_streamed } from '../js/app/helpers/core.js';
+
+const {
+  round,
+  event,
+  formatRoundDate,
+  formatRoundTime,
+  formatRoundEndTime,
+  hasStreamUrl,
+  isUpcoming,
+  isLive,
+  isFinished,
+  thumbnailUrl,
+  fallbackUrl,
+  STREAMS_FALLBACK_URL,
+  isEuropeanCup = false
+} = Astro.props;
+
+const showReminder = isUpcoming;
+const roundKey = `${round.kind || ''}-${(Array.isArray(round.disciplines) ? round.disciplines : []).sort().join(',')}-${(Array.isArray(round.categories) ? round.categories : []).sort().join(',')}`;
+const themeClass = isEuropeanCup ? 'secondary' : 'primary';
+const borderThemeClass = isEuropeanCup ? 'border-secondary' : 'border-primary';
+const textThemeClass = isEuropeanCup ? 'text-secondary' : 'text-primary';
+
+const willBeStreamed = round_will_be_streamed(round);
+const isDimmed = !willBeStreamed || (isFinished && !hasStreamUrl);
+const liveBadgeClass = isEuropeanCup ? 'text-secondary bg-secondary/10' : 'text-primary bg-primary/10';
+const watchButtonClass = isLive 
+    ? (isEuropeanCup ? 'bg-secondary text-on-secondary hover:bg-secondary-container' : 'bg-primary text-on-primary hover:bg-primary-container')
+    : `border border-outline-variant text-on-surface hover:border-${themeClass} hover:text-${themeClass}`;
+
+---
+<li class={`flex flex-col sm:flex-row items-start sm:items-center gap-6 p-5 bg-surface-container-high rounded-xl group cursor-pointer hover:bg-surface-container-highest transition-colors event-round-card ifsc-event ${isLive ? `border-l-4 ${borderThemeClass}` : ''} ${isDimmed ? 'opacity-80' : ''}`}
+     data-round-kind={round.kind}
+     data-round-disciplines={(Array.isArray(round.disciplines) ? round.disciplines : []).join(',')}
+     data-round-categories={(Array.isArray(round.categories) ? round.categories : []).join(',')}
+     data-round-starts-at={round.starts_at}
+     data-round-ends-at={round.ends_at}
+     data-round-name={round.name}
+     data-round-key={roundKey}>
+    
+    <div class="w-full sm:w-32 h-36 sm:h-20 bg-black rounded-lg overflow-hidden flex-shrink-0 relative">
+        {thumbnailUrl ? (
+            <img class={`w-full h-full object-cover ${isDimmed ? 'opacity-50' : 'opacity-80'}`} src={thumbnailUrl} alt="Stream Thumbnail" loading="lazy" />
+        ) : (
+            <div class="w-full h-full flex items-center justify-center bg-surface-container-highest text-on-surface-variant"><span class="material-symbols-outlined">live_tv</span></div>
+        )}
+        <div class="absolute inset-0 flex items-center justify-center">
+            {hasStreamUrl ? (
+              <span class="material-symbols-outlined text-white text-3xl opacity-0 group-hover:opacity-100 transition-opacity stream-icon">play_arrow</span>
+            ) : (
+              showReminder && <span class="material-symbols-outlined text-white text-3xl opacity-0 group-hover:opacity-100 transition-opacity">notifications</span>
+            )}
+        </div>
+        {hasStreamUrl && <button class="youtube-play-button" type="button" aria-label="Watch stream" data-action="round-stream" data-round-stream-url={round.stream_url}></button>}
+    </div>
+
+    <div class="flex-grow">
+        <div class="flex items-start flex-col sm:flex-row sm:items-center gap-2 mb-1">
+            {isLive && <span class={`text-[10px] ${liveBadgeClass} font-bold uppercase tracking-widest px-2 py-0.5 rounded live-badge`}>Live Now</span>}
+            {!isLive && isUpcoming && willBeStreamed && <span class="text-[10px] text-on-tertiary font-bold uppercase tracking-widest bg-tertiary px-2 py-0.5 rounded upcoming-badge">Upcoming</span>}
+            {!isLive && !isUpcoming && willBeStreamed && <span class="text-[10px] text-on-primary-fixed font-bold uppercase tracking-widest bg-primary px-2 py-0.5 rounded replay-badge">Replay</span>}
+            {!willBeStreamed && <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest bg-surface-container-lowest px-2 py-0.5 rounded">Not Streamed</span>}
+            <span class="text-[11px] text-on-surface-variant font-mono"><span class="round-date">{formatRoundDate}</span> | <span class="round-time">{formatRoundTime}</span>{formatRoundEndTime && <span class="round-end-time"> - {formatRoundEndTime}</span>} <span class="round-starts-in hidden ml-2"></span></span>
+        </div>
+        <h4 class={`font-bold text-sm lg:text-lg uppercase leading-tight round-name ${isDimmed ? 'text-on-surface-variant' : 'text-on-surface'}`}>{round.name}</h4>
+    </div>
+
+    <div class="flex gap-3 sm:ml-auto w-full sm:w-auto round-actions">
+           {willBeStreamed && <button class={`text-sm font-bold flex flex-1 sm:flex-none justify-center items-center gap-2 px-4 py-2 rounded-lg transition-colors ${watchButtonClass} whitespace-nowrap round-stream-button`}
+                   data-action="round-stream"
+                   data-round-stream-url={round.stream_url}>
+               <span class="material-symbols-outlined text-[18px]">{isFinished ? 'replay' : 'play_circle'}</span> {isFinished ? 'REPLAY' : 'WATCH'}
+           </button>}
+
+    </div>
+</li>

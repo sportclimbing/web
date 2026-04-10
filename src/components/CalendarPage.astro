@@ -1,17 +1,19 @@
 ---
 import { siteAssetVersion } from '../lib/site-shell';
-import {
-  DESKTOP_VIEWPORT_MEDIA_QUERY,
-  MOBILE_VIEWPORT_MEDIA_QUERY,
-} from '../lib/config';
-import CardTemplates from './CardTemplates.astro';
+import { extract_youtube_video_id } from '../lib/shared/media';
+import '../styles/tailwind.css';
+import AppHeader from './AppHeader.astro';
+import AppFooter from './AppFooter.astro';
 import EventCards from './EventCards.astro';
-import Footer from './Footer.astro';
-import HeaderTitle from './HeaderTitle.astro';
 import Modals from './Modals.astro';
-import SeasonNavbar from './SeasonNavbar.astro';
-import SubheaderButtons from './SubheaderButtons.astro';
-import VersionUpdateNotice from './VersionUpdateNotice.astro';
+import VideoModal from './VideoModal.astro';
+import CardTemplates from './CardTemplates.astro';
+import HeroSection from './HeroSection.astro';
+import CookieConsent from './CookieConsent.astro';
+import CalendarSyncBanner from './CalendarSyncBanner.astro';
+import { build_event_page_path } from '../lib/event-pages';
+import { round_will_be_streamed } from '../js/app/helpers/core.js';
+import { HERO_BG_OVERRIDES } from '../lib/config';
 
 const {
   season,
@@ -28,13 +30,63 @@ const {
 const normalizedSeason = String(season);
 const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
 const events = Array.isArray(eventsPayload?.events) ? eventsPayload.events : [];
+const updatedAt = eventsPayload?.metadata?.updated_at || undefined;
 const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
 const socialImageUrl = socialImagePath.startsWith('http')
   ? socialImagePath
   : `https://ifsc.stream${socialImagePath}`;
+
+// Find next/live event
+const now = new Date();
+let nextEvent = null;
+let liveEvent = null;
+
+for (const event of events) {
+    const rounds = event.rounds;
+    for (const round of rounds) {
+        if (!round_will_be_streamed(round)) {
+            continue;
+        }
+
+        const startsAt = new Date(round.starts_at);
+        const endsAt = new Date(round.ends_at);
+
+        if (now >= startsAt && now <= endsAt) {
+            liveEvent = { ...event, currentRound: round };
+            break;
+        }
+        if (startsAt > now) {
+            if (!nextEvent || startsAt < new Date(nextEvent.currentRound.starts_at)) {
+                nextEvent = { ...event, currentRound: round };
+            }
+        }
+    }
+    if (liveEvent) break;
+}
+
+const heroEvent = liveEvent || nextEvent;
+const isLive = Boolean(liveEvent);
+
+const heroEventRounds = Array.isArray(heroEvent?.rounds) ? heroEvent.rounds : [];
+const heroRound = heroEvent?.currentRound || heroEventRounds[heroEventRounds.length - 1];
+const heroEventTitle = heroEvent?.name || `World Climbing Series ${normalizedSeason}`;
+const heroRoundName = heroRound?.name || '';
+const heroEventPagePath = build_event_page_path(normalizedSeason, heroEvent);
+
+const firstStreamUrl = events
+    .flatMap((e) => Array.isArray(e.rounds) ? e.rounds : [])
+    .map((r) => r.stream_url)
+    .find((url) => url && extract_youtube_video_id(url));
+const heroBgVideoId = firstStreamUrl ? extract_youtube_video_id(firstStreamUrl) : null;
+const seasonOverride = HERO_BG_OVERRIDES[normalizedSeason] || {};
+const resolvedBgVideoId = seasonOverride.youTubeVideoId ?? heroBgVideoId;
+const heroBgImage = resolvedBgVideoId
+    ? `https://img.youtube.com/vi/${resolvedBgVideoId}/maxresdefault.jpg`
+    : '/img/hero/hero-bg.jpg';
+const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
 ---
 <!doctype html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
     <meta charset="utf-8" />
     <title>{pageTitle}</title>
@@ -45,19 +97,46 @@ const socialImageUrl = socialImagePath.startsWith('http')
 
     <base href="/" />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="preconnect" href="https://api.github.com" />
+    <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://calendar.ifsc.stream" />
-    <link rel="preconnect" href="https://buttons.github.io" />
     <link rel="preconnect" href="https://img.youtube.com" />
-
-    <link rel="preload" href="/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-medium.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-semibold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href={`/css/fonts-local.css?v=${siteAssetVersion}`} />
-    <link rel="stylesheet" href={`/css/calendar.css?v=${siteAssetVersion}`} />
-    <link rel="stylesheet" href={`/css/calendar-desktop.css?v=${siteAssetVersion}`} media={`screen and ${DESKTOP_VIEWPORT_MEDIA_QUERY}`} />
-    <link rel="stylesheet" href={`/css/calendar-mobile.css?v=${siteAssetVersion}`} media={`screen and ${MOBILE_VIEWPORT_MEDIA_QUERY}`} />
+    
+    <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel { background: rgba(16, 20, 24, 0.7); backdrop-filter: blur(20px); }
+        .kinetic-gradient { background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%); }
+::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #101418; }
+        ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }
+        .sticky-nav-container { top: 120px; }
+        .season-month-nav-link {
+            transition: all 0.2s ease;
+            transform-origin: left center;
+        }
+        .season-month-nav-link.is-active {
+            color: #97ccff !important;
+            transform: scale(1.25);
+            font-weight: 900;
+            text-shadow: 0 0 20px rgba(151, 204, 255, 0.4);
+        }
+        .season-month-nav-link.is-empty {
+            opacity: 0.2;
+            filter: grayscale(1);
+        }
+        .discipline-quick-filter[data-active="true"] {
+            background-color: rgba(151, 204, 255, 0.15);
+            color: #97ccff;
+            border-color: #97ccff;
+        }
+        .discipline-quick-filter[data-active="true"]:hover {
+            background-color: rgba(151, 204, 255, 0.25);
+        }
+    </style>
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
@@ -89,78 +168,95 @@ const socialImageUrl = socialImagePath.startsWith('http')
     </script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
-<body data-page-type="season" data-build-version={siteAssetVersion}>
-<VersionUpdateNotice />
-<CardTemplates />
+<body class="bg-background text-on-background min-h-screen" data-page-type="season" data-build-version={siteAssetVersion} data-updated-at={updatedAt}>
 
-<div id="ifsc-season">
-    <HeaderTitle season={normalizedSeason} homeUrl={canonicalPath} />
-</div>
-
-<SeasonNavbar />
-<SubheaderButtons
-    seasons={normalizedSeasons}
-    selectedSeason={normalizedSeason}
-    showSeasonSelector={true}
-    showFiltersButton={true}
-/>
-
-<nav class="season-month-nav" id="season-month-nav" aria-label="Jump to month">
-    <ul class="season-month-nav-list">
-        <li><button type="button" class="season-month-nav-link" data-month-index="0">January</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="1">February</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="2">March</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="3">April</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="4">May</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="5">June</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="6">July</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="7">August</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="8">September</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="9">October</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="10">November</button></li>
-        <li><button type="button" class="season-month-nav-link" data-month-index="11">December</button></li>
-    </ul>
-</nav>
+<AppHeader />
 
 <main role="main">
-    <hr class="next-event-divider" id="next-event-divider-top" aria-hidden="true" />
-    <div class="next-event">
-        <h1 id="next-event-title"></h1>
-        <span id="next-event-league-name" class="event-league-name next-event-league-name" hidden></span>
-        <div class="event-not-started-countdown" id="next-event-countdown" aria-live="polite" aria-atomic="true" hidden>
-            <div class="event-not-started-countdown-grid">
-                <div class="event-not-started-countdown-chip">
-                    <span class="event-not-started-countdown-value" id="next-event-countdown-days">0</span>
-                    <span class="event-not-started-countdown-unit">Days</span>
-                </div>
-                <div class="event-not-started-countdown-chip">
-                    <span class="event-not-started-countdown-value" id="next-event-countdown-hours">00</span>
-                    <span class="event-not-started-countdown-unit">Hours</span>
-                </div>
-                <div class="event-not-started-countdown-chip">
-                    <span class="event-not-started-countdown-value" id="next-event-countdown-minutes">00</span>
-                    <span class="event-not-started-countdown-unit">Minutes</span>
-                </div>
+    <!-- Hero Section: Next Event -->
+    <HeroSection
+        heroEventTitle={heroEventTitle}
+        isLive={isLive}
+        heroRound={heroRound}
+        heroRoundName={heroRoundName}
+        leagueName={heroEvent?.league_name}
+        eventId={heroEvent?.id}
+        eventPagePath={heroEventPagePath}
+        heroBgImage={heroBgImage}
+        heroBgPosition={heroBgPosition}
+    />
+
+    <!-- Main Content Area with Side Nav -->
+    <div class="max-w-screen-2xl mx-auto px-6 pt-0 lg:pt-16 flex gap-12 relative" id="accordion">
+        <!-- Sticky Vertical Navigation -->
+        <aside class="hidden lg:block w-48 shrink-0">
+            <div class="sticky sticky-nav-container flex flex-col gap-6 font-headline font-black uppercase season-month-nav" id="season-month-nav">
+                <div class="text-xs tracking-[0.2em] text-on-surface-variant mb-4 font-label">Timeline {normalizedSeason}</div>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="0">January</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="1">February</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="2">March</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="3">April</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="4">May</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="5">June</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="6">July</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="7">August</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="8">September</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="9">October</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="10">November</button>
+                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="11">December</button>
             </div>
+        </aside>
+
+        <!-- Events Content -->
+        <div class="flex-1 lg:max-w-[75%] pb-24">
+            <!-- Filter & Search Bar -->
+            <section class="mb-4 lg:mb-12">
+                <div class="bg-surface-container-low p-2 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-2 p-1 bg-surface-container-lowest rounded-lg w-full md:w-auto">
+                        <div class="relative">
+                            <select id="season-selector" name="season-selector" class="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10">
+                                {normalizedSeasons.map((s) => (
+                                    <option value={s} selected={s === normalizedSeason}>{s} Season</option>
+                                ))}
+                            </select>
+                            <button class="px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest">{normalizedSeason} Season</button>
+                        </div>
+                        <a href="/archive/" class="flex-1 text-center px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold">Archive</a>
+                    </div>
+                    <div class="flex flex-nowrap justify-center gap-2">
+                        <button class="discipline-quick-filter px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="boulder">Boulder</button>
+                        <button class="discipline-quick-filter px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="lead">Lead</button>
+                        <button class="discipline-quick-filter px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="speed">Speed</button>
+                        <div class="h-8 w-px bg-outline-variant mx-2"></div>
+                        <button class="px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high flex items-center gap-1.5 lg:gap-2 filters-button" data-open-filter-modal>
+                            <span class="material-symbols-outlined text-sm">filter_list</span> Filters
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Event Calendar -->
+            <section>
+                <div class="grid grid-cols-1 gap-4 lg:gap-12">
+                    <EventCards events={events} linkEventTitles={true} hideRounds={true} />
+                </div>
+            </section>
         </div>
-        <ul id="next-event-details" class="list-group"></ul>
     </div>
-    <hr class="next-event-divider" id="next-event-divider" aria-hidden="true" />
-    <div id="accordion">
-      <EventCards events={events} linkEventTitles={true} />
-    </div>
+
+    <CalendarSyncBanner />
 </main>
 
+
 <Modals />
+<VideoModal />
+<CardTemplates />
 
-<Footer
-    seasons={normalizedSeasons}
-    selectedSeason={normalizedSeason}
-    buildVersion={siteAssetVersion}
-/>
+<AppFooter />
+<CookieConsent />
 
-<script src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
-<script src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
-<script src={`/js/app.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/app.js?v=${siteAssetVersion}`}></script>
 </body>
 </html>

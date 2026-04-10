@@ -70,6 +70,9 @@ jobs:
       - name: "Cache YouTube thumbnails"
         run: node bin/cache-youtube-thumbnails.mjs
 
+      - name: "Build Tailwind CSS"
+        run: npm run build:tailwind -- --minify
+
       - name: "Minify non-min CSS files"
         run: |
           find public/css -maxdepth 1 -type f -name "*.css" ! -name "*min*.css" -print0 | while IFS= read -r -d '' css_file; do

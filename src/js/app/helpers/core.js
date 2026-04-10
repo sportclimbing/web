@@ -2,7 +2,16 @@ const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
 const YOUTUBE_EMBED_BASE_URL = 'https://www.youtube-nocookie.com/embed';
 const GITHUB_BUTTON_SCRIPT_SRC = 'https://buttons.github.io/buttons.js';
 const GITHUB_BUTTON_SLOT_ID = 'season-github-button-slot';
-const NEXT_EVENT_START_LIST_AVATAR_LIMIT = 9;
+const NEXT_EVENT_START_LIST_AVATAR_LIMIT = 8;
+const SITE_TIME_FORMAT_OPTIONS = {
+    hour: '2-digit',
+    minute: '2-digit',
+};
+
+let quickDisciplineFilter = null;
+let nextEventMobileCountdownSyncFrame = null;
+let eventNotStartedCountdownIntervalId = null;
+let nextEventCountdownIntervalId = null;
 
 const CONFIG_CHECKBOX_BINDINGS = [
     { inputName: 'league[cups]', path: ['league', 'cups'] },
@@ -20,14 +29,7 @@ const CONFIG_CHECKBOX_BINDINGS = [
 ];
 
 function get_page_type() {
-    if (!document.body) {
-        return 'season';
-    }
-
-    const rawPageType = typeof document.body.dataset.pageType === 'string' ? document.body.dataset.pageType : '';
-    const pageType = rawPageType.trim().toLowerCase();
-
-    return pageType || 'season';
+    return document.body.dataset.pageType || 'season';
 }
 
 function is_event_page() {
@@ -64,230 +66,8 @@ export function round_will_be_streamed(round) {
     return (round && round.kind !== 'qualification') || disciplines.includes('speed');
 }
 
-let mobileHeroTitleFitFrame = null;
-let modalTitleFitFrame = null;
-let eventNameTitleFitFrame = null;
-let nextEventMobileCountdownSyncFrame = null;
-let eventNotStartedCountdownIntervalId = null;
-let nextEventCountdownIntervalId = null;
-
-function fit_mobile_hero_title() {
-    const heading = document.querySelector('#ifsc-season .header-title h2');
-
-    if (!heading) {
-        return;
-    }
-
-    const isMobile = window.matchMedia(MOBILE_VIEWPORT_MEDIA_QUERY).matches;
-
-    if (!isMobile) {
-        heading.style.removeProperty('font-size');
-        heading.style.removeProperty('white-space');
-
-        return;
-    }
-
-    const minFontSize = 11;
-    const maxFontSize = 28;
-    const precision = 0.1;
-    const availableWidth = heading.clientWidth || heading.parentElement?.clientWidth || 0;
-
-    if (!availableWidth) {
-        return;
-    }
-
-    heading.style.whiteSpace = 'nowrap';
-
-    let low = minFontSize;
-    let high = maxFontSize;
-    let best = minFontSize;
-
-    while ((high - low) > precision) {
-        const mid = (low + high) / 2;
-        heading.style.fontSize = `${mid}px`;
-
-        if (heading.scrollWidth <= availableWidth) {
-            best = mid;
-            low = mid;
-        } else {
-            high = mid;
-        }
-    }
-
-    heading.style.fontSize = `${best.toFixed(2)}px`;
-}
-
-function schedule_fit_mobile_hero_title() {
-    if (mobileHeroTitleFitFrame) {
-        window.cancelAnimationFrame(mobileHeroTitleFitFrame);
-    }
-
-    mobileHeroTitleFitFrame = window.requestAnimationFrame(() => {
-        fit_mobile_hero_title();
-    });
-}
-
-function setup_season_header_toggle() {
-    const seasonHeader = document.querySelector('.season-header');
-    const navbarHeader = document.getElementById('navbarHeader');
-
-    if (!navbarHeader || !seasonHeader) {
-        return;
-    }
-
-    const set_open_state = (isOpen) => {
-        seasonHeader.classList.toggle('is-open', isOpen);
-    };
-
-    set_open_state(navbarHeader.classList.contains('show'));
-    navbarHeader.addEventListener('show.bs.collapse', () => set_open_state(true));
-    navbarHeader.addEventListener('shown.bs.collapse', () => set_open_state(true));
-    navbarHeader.addEventListener('hide.bs.collapse', () => set_open_state(false));
-    navbarHeader.addEventListener('hidden.bs.collapse', () => set_open_state(false));
-}
-
-function fit_single_line_text_to_width(element, minFontSize, precision = 0.1) {
-    if (!(element instanceof HTMLElement)) {
-        return;
-    }
-
-    const availableWidth = element.clientWidth || Math.round(element.getBoundingClientRect().width);
-
-    if (!availableWidth) {
-        return;
-    }
-
-    element.style.whiteSpace = 'nowrap';
-    element.style.overflow = 'visible';
-    element.style.textOverflow = 'clip';
-    element.style.removeProperty('font-size');
-
-    const computedFontSize = Number.parseFloat(window.getComputedStyle(element).fontSize);
-    const maxFontSize = Number.isFinite(computedFontSize) ? computedFontSize : minFontSize;
-    let low = minFontSize;
-    let high = Math.max(minFontSize, maxFontSize);
-    let best = minFontSize;
-
-    while ((high - low) > precision) {
-        const mid = (low + high) / 2;
-        element.style.fontSize = `${mid}px`;
-
-        if (element.scrollWidth <= availableWidth) {
-            best = mid;
-            low = mid;
-        } else {
-            high = mid;
-        }
-    }
-
-    element.style.fontSize = `${best.toFixed(2)}px`;
-}
-
-function fit_modal_titles() {
-    const modalTitles = document.querySelectorAll('.modal .modal-title');
-
-    if (!modalTitles.length) {
-        return;
-    }
-
-    const minFontSize = 9;
-
-    modalTitles.forEach((title) => {
-        fit_single_line_text_to_width(title, minFontSize);
-    });
-}
-
-function schedule_fit_modal_titles() {
-    if (modalTitleFitFrame !== null) {
-        window.cancelAnimationFrame(modalTitleFitFrame);
-    }
-
-    modalTitleFitFrame = window.requestAnimationFrame(() => {
-        modalTitleFitFrame = null;
-        fit_modal_titles();
-    });
-}
-
-function fit_event_name_titles() {
-    const eventNameTitles = document.querySelectorAll('.event-name-title, #next-event-title');
-
-    if (!eventNameTitles.length) {
-        return;
-    }
-
-    const minFontSize = 8;
-    const isMobileViewport = window.matchMedia(MOBILE_VIEWPORT_MEDIA_QUERY).matches;
-
-    if (!isMobileViewport) {
-        eventNameTitles.forEach((title) => {
-            title.style.removeProperty('font-size');
-        });
-
-        return;
-    }
-
-    eventNameTitles.forEach((title) => {
-        fit_single_line_text_to_width(title, minFontSize);
-    });
-}
-
-function schedule_fit_event_name_titles() {
-    if (eventNameTitleFitFrame !== null) {
-        window.cancelAnimationFrame(eventNameTitleFitFrame);
-    }
-
-    eventNameTitleFitFrame = window.requestAnimationFrame(() => {
-        eventNameTitleFitFrame = null;
-        fit_event_name_titles();
-    });
-}
-
-function sync_next_event_mobile_countdown_height() {
-    const nextEventContainer = document.querySelector('.next-event');
-    const countdown = document.getElementById('next-event-countdown');
-
-    if (!nextEventContainer) {
-        return;
-    }
-
-    if (!countdown || countdown.hidden || !window.matchMedia(MOBILE_VIEWPORT_MEDIA_QUERY).matches) {
-        nextEventContainer.style.removeProperty('--next-event-mobile-media-height');
-
-        return;
-    }
-
-    const thumbnail = document.querySelector('#next-event-details .youtube-thumbnail');
-
-    if (!thumbnail) {
-        nextEventContainer.style.removeProperty('--next-event-mobile-media-height');
-
-        return;
-    }
-
-    const thumbnailHeight = Math.round(thumbnail.getBoundingClientRect().height);
-
-    if (!thumbnailHeight) {
-        nextEventContainer.style.removeProperty('--next-event-mobile-media-height');
-
-        return;
-    }
-
-    nextEventContainer.style.setProperty('--next-event-mobile-media-height', `${thumbnailHeight}px`);
-}
-
-function schedule_next_event_mobile_countdown_height_sync() {
-    if (nextEventMobileCountdownSyncFrame) {
-        window.cancelAnimationFrame(nextEventMobileCountdownSyncFrame);
-    }
-
-    nextEventMobileCountdownSyncFrame = window.requestAnimationFrame(() => {
-        nextEventMobileCountdownSyncFrame = null;
-        sync_next_event_mobile_countdown_height();
-    });
-}
-
 function get_selected_season() {
-    return get_id_from_path('season') || get_id_from_hash('season') || DEFAULT_SEASON;
+    return get_id_from_path('season') || DEFAULT_SEASON;
 }
 
 function get_event_page_event_id() {
@@ -479,7 +259,9 @@ function restore_theme() {
 }
 
 function config_is_enabled(name) {
-    return first_element_by_name(name).checked;
+    const element = first_element_by_name(name);
+
+    return element ? element.checked : false;
 }
 
 function remove_all_children(element) {
@@ -512,19 +294,7 @@ function set_checkbox_checked(inputName, checked) {
     }
 
     checkbox.checked = Boolean(checked);
-}
-
-function get_id_from_hash(name) {
-    if (window.location.hash) {
-        const regex = new RegExp(`/${name}/(?<id>\\d+)`);
-        const match = regex.exec(window.location.hash);
-
-        if (match) {
-            return parseInt(match.groups.id);
-        }
-    }
-
-    return '';
+    checkbox.dispatchEvent(new Event('change'));
 }
 
 function get_id_from_path(name) {
@@ -541,6 +311,43 @@ function get_id_from_path(name) {
 }
 
 function load_config_from_modal() {
+    const hasModal = Boolean(document.querySelector('#config-leagues input[type="checkbox"]'));
+
+    if (!hasModal) {
+        const configRaw = window.localStorage.getItem('config');
+
+        if (configRaw) {
+            try {
+                return JSON.parse(configRaw);
+            } catch (_) {
+                // fall through to defaults
+            }
+        }
+
+        return {
+            league: {
+                "cups": true,
+                "paraclimbing": true,
+                "games": false,
+            },
+            category: {
+                "women": true,
+                "men": true,
+            },
+            disciplines: {
+                "boulder": true,
+                "lead": true,
+                "speed": true,
+            },
+            rounds: {
+                "qualification": true,
+                "semi-final": true,
+                "final": true,
+            },
+            streamable: false,
+        };
+    }
+
     return {
         league: {
             "cups": config_is_enabled('league[cups]'),
@@ -576,16 +383,15 @@ function restore_config() {
         const config = JSON.parse(configRaw);
 
         CONFIG_CHECKBOX_BINDINGS.forEach(({ inputName, path }) => {
-            set_checkbox_checked(inputName, read_nested_value(config, path));
+            const value = read_nested_value(config, path);
+
+            if (value !== undefined) {
+                set_checkbox_checked(inputName, value);
+            }
         });
     } catch (error) {
         window.localStorage.clear();
     }
-}
-
-function config_selected_leagues() {
-    return Array.from(document.querySelectorAll('#config-leagues input[type="checkbox"]:checked'))
-        .map((checkbox) => checkbox.value);
 }
 
 function parse_round_metadata_tokens(value) {
@@ -601,12 +407,21 @@ function parse_round_metadata_tokens(value) {
 
 function apply_search_filters() {
     const config = load_config_from_modal();
-    const enabledDisciplines = new Set(get_enabled_filter_keys(config.disciplines));
+    const configDisciplines = new Set(get_enabled_filter_keys(config.disciplines));
+    const enabledDisciplines = quickDisciplineFilter !== null
+        ? new Set([quickDisciplineFilter])
+        : configDisciplines;
     const enabledCategories = new Set(get_enabled_filter_keys(config.category));
-    const selectedLeagues = new Set(config_selected_leagues());
     const visibleEventIds = new Set();
     const visibleRoundKeyCountsByEventId = new Map();
     let visibleRoundCount = 0;
+
+    const league_matches_config = (leagueName) => {
+        const league = leagueName.toLowerCase();
+        return (config.league.cups && (league.includes('world cup') || league.includes('world championship'))) ||
+               (config.league.paraclimbing && league.includes('paraclimbing')) ||
+               (config.league.games && (league.includes('games') || league.includes('olympic')));
+    };
 
     const round_matches_filters = (roundElement) => {
         if (!(roundElement instanceof HTMLElement)) {
@@ -644,7 +459,7 @@ function apply_search_filters() {
 
         const eventId = eventCard.dataset.eventId || '';
         const eventLeagueName = eventCard.dataset.eventLeagueName || '';
-        const eventMatchesLeague = Boolean(eventId && selectedLeagues.has(eventLeagueName));
+        const eventMatchesLeague = Boolean(eventId) && league_matches_config(eventLeagueName);
 
         const roundKeyCounts = new Map();
 
@@ -655,6 +470,7 @@ function apply_search_filters() {
 
             const roundMatches = eventMatchesLeague && round_matches_filters(roundElement);
             roundElement.hidden = !roundMatches;
+            roundElement.style.display = roundMatches ? '' : 'none';
 
             if (!roundMatches) {
                 return;

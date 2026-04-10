@@ -62,7 +62,7 @@ const setup_tooltips = () => {
 };
 
 const setup_start_list_avatar_tooltips = () => {
-    document.querySelectorAll('.event-start-list-avatar-tooltip').forEach((element) => {
+    document.querySelectorAll('.event-start-list-trigger img').forEach((element) => {
         const tooltip = get_bootstrap_tooltip(element);
 
         if (tooltip) {
@@ -78,39 +78,16 @@ const setup_start_list_avatar_tooltips = () => {
         container: 'body',
         placement: 'bottom',
         trigger: 'hover',
-        template: TOOLTIP_TEMPLATE,
+        template: AVATAR_TOOLTIP_TEMPLATE,
     };
 
-    document.querySelectorAll('.event-start-list-avatar-tooltip').forEach((element) => {
+    document.querySelectorAll('.event-start-list-trigger img').forEach((element) => {
+        if (!element.title && element.alt) {
+            element.title = element.alt;
+        }
+
         setup_tooltip_instance(element, tooltipOptions);
     });
-};
-
-const setup_theme_handlers = () => {
-    const systemThemeQuery = window.matchMedia('(prefers-color-scheme: light)');
-    const themeToggle = document.getElementById('theme-toggle');
-
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            toggle_theme();
-
-            if (is_mobile_viewport()) {
-                return;
-            }
-
-            const tooltip = get_bootstrap_tooltip(themeToggle);
-
-            if (tooltip) {
-                tooltip.hide();
-            }
-        });
-    }
-
-    if (typeof systemThemeQuery.addEventListener === 'function') {
-        systemThemeQuery.addEventListener('change', sync_system_theme);
-    } else if (typeof systemThemeQuery.addListener === 'function') {
-        systemThemeQuery.addListener(sync_system_theme);
-    }
 };
 
 const setup_season_navigation = () => {
@@ -134,10 +111,11 @@ const scroll_to_first_event_starting_in_month = (monthIndex) => {
         return;
     }
 
-    firstEventInMonth.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-    });
+    const header = document.querySelector('nav.sticky');
+    const headerHeight = header ? header.offsetHeight : 0;
+    const top = firstEventInMonth.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+    window.scrollTo({ top, behavior: 'smooth' });
 };
 
 const get_month_index_from_dataset_value = (monthIndexValue) => {
@@ -183,8 +161,10 @@ const get_active_month_index_from_visible_events = () => {
     }
 
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
-    const referenceLine = Math.min(Math.max(Math.round(viewportHeight * 0.2), 88), 220);
+    // Lower the reference line a bit more to catch the card that's clearly "in focus"
+    const referenceLine = Math.min(Math.max(Math.round(viewportHeight * 0.3), 100), 300);
 
+    // 1. Find the first card that spans across the reference line
     for (const card of cards) {
         const rect = card.getBoundingClientRect();
 
@@ -193,6 +173,16 @@ const get_active_month_index_from_visible_events = () => {
         }
     }
 
+    // 2. If no card spans the reference line, find the first card that's fully below the reference line
+    for (const card of cards) {
+        const rect = card.getBoundingClientRect();
+
+        if (rect.top > referenceLine && rect.top < viewportHeight) {
+            return get_month_index_from_dataset_value(card.dataset.eventStartMonth);
+        }
+    }
+
+    // 3. Fallback to any visible card
     for (const card of cards) {
         const rect = card.getBoundingClientRect();
 
@@ -257,20 +247,6 @@ const schedule_month_nav_horizontal_position_sync = () => {
     });
 };
 
-const setup_modal_layout_handlers = () => {
-    document.addEventListener('show.bs.modal', schedule_month_nav_horizontal_position_sync);
-    document.addEventListener('shown.bs.modal', schedule_month_nav_horizontal_position_sync);
-    document.addEventListener('hide.bs.modal', schedule_month_nav_horizontal_position_sync);
-    document.addEventListener('hidden.bs.modal', schedule_month_nav_horizontal_position_sync);
-    document.addEventListener('show.bs.modal', schedule_fit_modal_titles);
-    document.addEventListener('shown.bs.modal', schedule_fit_modal_titles);
-    document.addEventListener('hidden.bs.modal', schedule_fit_modal_titles);
-    addEventListener('resize', schedule_month_nav_horizontal_position_sync);
-    addEventListener('resize', schedule_fit_modal_titles);
-    sync_month_nav_horizontal_position();
-    schedule_fit_modal_titles();
-};
-
 const update_month_navigation_state = () => {
     const monthNav = document.getElementById('season-month-nav');
 
@@ -325,4 +301,5 @@ const setup_month_navigation = () => {
 
     addEventListener('scroll', schedule_month_navigation_sync, { passive: true });
     addEventListener('resize', schedule_month_navigation_sync);
+    sync_active_month_navigation_link();
 };

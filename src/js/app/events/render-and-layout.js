@@ -148,6 +148,7 @@ const hide_event_card = (card) => {
     }
 
     card.hidden = true;
+    card.style.display = 'none';
 };
 
 const show_event_card = (card) => {
@@ -156,6 +157,7 @@ const show_event_card = (card) => {
     }
 
     card.hidden = false;
+    card.style.display = '';
 };
 
 const toggle_no_results_message = (accordion, hasResults) => {
@@ -175,8 +177,8 @@ const apply_filtered_event_cards = (filterResult, accordion) => {
     } = filterResult;
 
     accordion.querySelectorAll('.ifsc-league-card[data-event-id]').forEach((card) => {
-        const eventId = card.dataset.eventId;
-        const isVisible = Boolean(eventId && nextVisibleEventIds.has(eventId));
+        const eventId = card.dataset.eventId || '';
+        const isVisible = Boolean(eventId && nextVisibleEventIds.has(String(eventId)));
 
         if (isVisible) {
             show_event_card(card);
@@ -189,44 +191,6 @@ const apply_filtered_event_cards = (filterResult, accordion) => {
     toggle_no_results_message(accordion, visibleRoundCount > 0);
 };
 
-const is_event_panel_visible = (eventPanel) => {
-    if (!eventPanel) {
-        return false;
-    }
-
-    const eventCard = eventPanel.closest('.ifsc-league-card');
-
-    if (!eventCard) {
-        return false;
-    }
-
-    return !eventCard.hidden;
-};
-
-const restore_open_accordion_panel = (currentOpenId, allCollapsed, autoExpandWhenCollapsed = false) => {
-    const selectedEventElement = document.getElementById(`event-${selectedEvent}`);
-
-    if (allCollapsed && !autoExpandWhenCollapsed) {
-        return null;
-    }
-
-    if (currentOpenId) {
-        const currentOpenElement = document.getElementById(currentOpenId);
-
-        if (currentOpenElement && is_event_panel_visible(currentOpenElement)) {
-            currentOpenElement.classList.add('show');
-            return currentOpenId.replace('event-', '');
-        }
-    }
-
-    if (selectedEventElement && is_event_panel_visible(selectedEventElement)) {
-        selectedEventElement.classList.add('show');
-        return selectedEvent;
-    }
-
-    return null;
-};
-
 const refresh_event_ui = () => {
     const accordion = document.getElementById('accordion');
 
@@ -235,8 +199,6 @@ const refresh_event_ui = () => {
     }
 
     const filterResult = apply_search_filters();
-    const { currentOpenId, allCollapsed } = get_accordion_state(accordion);
-
     visibleEventIds = filterResult.visibleEventIds;
     apply_filtered_event_cards(filterResult, accordion);
 
@@ -251,17 +213,9 @@ const refresh_event_ui = () => {
     setup_start_list_avatar_tooltips();
     update_month_navigation_state();
     schedule_month_nav_horizontal_position_sync();
-    schedule_fit_event_name_titles();
     hide_static_event_fallback();
 
-    const shouldAutoExpandNextEventOnInitialLoad = !hasAppliedInitialSeasonAutoExpand && allCollapsed && !currentOpenId;
-    const eventIdToRender = restore_open_accordion_panel(currentOpenId, allCollapsed, shouldAutoExpandNextEventOnInitialLoad);
-
     hasAppliedInitialSeasonAutoExpand = true;
-
-    if (eventIdToRender !== null) {
-        render_event_rounds(eventIdToRender);
-    }
 
     set_favicon(seasonTimeline.liveRound);
 };
@@ -287,8 +241,14 @@ const refresh_event_page_ui = () => {
     });
 
     seasonTimeline = compute_dom_season_timeline();
+
+    if (!refresh_next_event_status()) {
+        update_next_event_panel();
+    }
+
     setup_start_list_avatar_tooltips();
-    schedule_fit_event_name_titles();
+    update_month_navigation_state();
+    schedule_month_nav_horizontal_position_sync();
     hide_static_event_fallback();
     set_favicon(seasonTimeline.liveRound);
 };
@@ -314,27 +274,8 @@ const handle_event_toggle_click = (event) => {
     selectedEvent = parsedEventId;
 };
 
-const handle_event_panel_hidden = (eventElement, accordionElement) => {
-    reset_collapsed_rounds(eventElement);
-
-    window.setTimeout(() => {
-        if (!accordionElement) {
-            return;
-        }
-
-        const hasOpenPanels = Boolean(accordionElement.querySelector('.event-rounds-panel.show, .event-rounds-panel.collapsing'));
-
-        if (hasOpenPanels) {
-            return;
-        }
-
-        selectedEvent = null;
-    }, 0);
-};
-
 const setup_accordion_handlers = () => {
     const accordionElement = document.getElementById('accordion');
-    const nextEventElement = document.querySelector('.next-event');
 
     if (!accordionElement) {
         return;
@@ -344,13 +285,6 @@ const setup_accordion_handlers = () => {
         const target = event.target instanceof Element ? event.target : null;
 
         if (!target) {
-            return;
-        }
-
-        const eventName = target.closest('.event-name');
-
-        if (eventName) {
-            handle_event_toggle_click({ currentTarget: eventName });
             return;
         }
 
@@ -377,69 +311,6 @@ const setup_accordion_handlers = () => {
             handle_start_list_trigger_click({ currentTarget: startListTrigger });
         }
     });
-
-    accordionElement.addEventListener('show.bs.collapse', (event) => {
-        const collapseElement = event.target;
-
-        if (!(collapseElement instanceof Element) || !collapseElement.classList.contains('collapse')) {
-            return;
-        }
-
-        render_event_rounds(collapseElement.id.replace('event-', ''));
-    });
-
-    accordionElement.addEventListener('hidden.bs.collapse', (event) => {
-        const collapseElement = event.target;
-
-        if (!(collapseElement instanceof Element) || !collapseElement.classList.contains('collapse')) {
-            return;
-        }
-
-        handle_event_panel_hidden(collapseElement, accordionElement);
-    });
-
-    if (nextEventElement) {
-        nextEventElement.addEventListener('click', (event) => {
-            const target = event.target instanceof Element ? event.target : null;
-
-            if (!target) {
-                return;
-            }
-
-            const streamTrigger = target.closest('.youtube-play-button, [data-action="round-stream"]');
-
-            if (streamTrigger) {
-                handle_round_stream_click({
-                    currentTarget: streamTrigger,
-                    preventDefault: () => event.preventDefault(),
-                });
-                return;
-            }
-
-            const startListTrigger = target.closest('.event-start-list-trigger');
-
-            if (startListTrigger) {
-                handle_start_list_trigger_click({ currentTarget: startListTrigger });
-            }
-        });
-    }
-};
-
-const setup_layout_handlers = () => {
-    if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => {
-            schedule_fit_mobile_hero_title();
-            schedule_fit_modal_titles();
-            schedule_fit_event_name_titles();
-            schedule_next_event_mobile_countdown_height_sync();
-        });
-    }
-
-    addEventListener('resize', () => {
-        schedule_fit_mobile_hero_title();
-        schedule_fit_event_name_titles();
-        schedule_next_event_mobile_countdown_height_sync();
-    });
 };
 
 const setup_modal_handlers = () => {
@@ -464,10 +335,73 @@ const setup_modal_handlers = () => {
             stop_event_not_started_countdown();
         });
     }
+
+    // Modal global event listeners
+    document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('[data-bs-toggle="modal"]');
+        if (trigger) {
+            event.preventDefault();
+            if (trigger.hasAttribute('data-bs-dismiss')) {
+                const currentModal = trigger.closest('.modal');
+                close_modal(currentModal);
+            }
+            const targetSelector = trigger.getAttribute('data-bs-target');
+            if (targetSelector === '#calendar-modal') {
+                load_lazy_calendar_modal().then(() => open_modal(targetSelector));
+                return;
+            }
+            open_modal(targetSelector);
+            return;
+        }
+
+        const dismiss = event.target.closest('[data-bs-dismiss="modal"]');
+        if (dismiss) {
+            event.preventDefault();
+            const modal = dismiss.closest('.modal');
+            close_modal(modal);
+            return;
+        }
+
+        // Click outside of the modal content closes the modal
+        if (event.target.classList.contains('modal')) {
+            close_modal(event.target);
+        }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            const activeModal = document.querySelector('.modal.active, .modal.show');
+            if (activeModal) {
+                close_modal(activeModal);
+            }
+        }
+    });
+
+    // Sync our state if Bootstrap closes the modal itself (e.g. from its own data-api)
+    document.addEventListener('hidden.bs.modal', (event) => {
+        const modal = event.target.closest('.modal');
+        if (modal) {
+            modal.classList.remove('active', 'show');
+        }
+
+        // Always check if we should clear modal-open from html/body
+        // Use a small timeout to allow Bootstrap to finish its own state cleanup
+        window.setTimeout(() => {
+            if (!document.querySelector('.modal.active, .modal.show')) {
+                document.body.classList.remove('modal-open');
+                document.documentElement.classList.remove('modal-open');
+                document.body.style.removeProperty('overflow');
+                document.body.style.removeProperty('padding-right');
+            }
+        }, 0);
+    });
 };
 
 const setup_filter_handlers = () => {
     const saveFiltersButton = document.getElementById('save-filters');
+    const resetFiltersButton = document.getElementById('reset-filters');
+    const filterModal = document.getElementById('filter-modal');
 
     if (saveFiltersButton) {
         saveFiltersButton.addEventListener('click', () => {
@@ -477,24 +411,128 @@ const setup_filter_handlers = () => {
         });
     }
 
-    document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-        checkbox.addEventListener('change', () => refresh_event_ui());
+    if (resetFiltersButton) {
+        resetFiltersButton.addEventListener('click', () => {
+            document.querySelectorAll('#filter-modal input[type="checkbox"]').forEach((checkbox) => {
+                set_checkbox_checked(checkbox.name, checkbox.name !== 'streamable' && checkbox.name !== 'league[games]');
+            });
+        });
+    }
+
+    if (filterModal) {
+        filterModal.addEventListener('show.bs.modal', () => {
+            document.querySelectorAll('#filter-modal input[type="checkbox"]').forEach((checkbox) => {
+                sync_filter_button_ui(checkbox.name, checkbox.checked);
+            });
+        });
+    }
+
+    document.querySelectorAll('#filter-modal input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.addEventListener('change', () => {
+            sync_filter_button_ui(checkbox.name, checkbox.checked);
+        });
     });
 };
 
-const setup_tracking_pixel = () => {
-    if (document.location.hostname !== 'ifsc.stream') {
+let calendarModalContentLoaded = false;
+
+const load_lazy_calendar_modal = async () => {
+    if (calendarModalContentLoaded) {
         return;
     }
 
-    const normalize = (referrer) => encodeURIComponent(referrer.replace('https://', '').replace(/\/$/, ''));
-    const img = new Image();
-    img.src = 'https://calendar.ifsc.stream/pixel.gif' + (document.referrer ? `?r=${normalize(document.referrer)}` : '');
-    img.width = 1;
-    img.height = 1;
-    img.alt = 'pixel';
+    const calendarModal = document.getElementById('calendar-modal');
 
-    document.body.appendChild(img);
+    if (!calendarModal) {
+        return;
+    }
+
+    try {
+        const response = await window.fetch('/modals/sync.html');
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const modalDialog = doc.querySelector('.modal-dialog');
+
+        if (modalDialog) {
+            calendarModal.innerHTML = modalDialog.outerHTML;
+            calendarModalContentLoaded = true;
+        }
+    } catch (_) {
+        // ignore fetch errors
+    }
+};
+
+window.load_lazy_calendar_modal = load_lazy_calendar_modal;
+
+let filterModalContentLoaded = false;
+
+const setup_lazy_filter_modal = () => {
+    const filtersButton = document.querySelector('[data-open-filter-modal]');
+
+    if (!filtersButton) {
+        return;
+    }
+
+    filtersButton.addEventListener('click', async () => {
+        const filterModal = document.getElementById('filter-modal');
+
+        if (!filterModal) {
+            return;
+        }
+
+        if (filterModalContentLoaded) {
+            open_modal('#filter-modal');
+            return;
+        }
+
+        try {
+            const response = await window.fetch('/modals/filters.html');
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const modalDialog = doc.querySelector('.modal-dialog');
+
+            if (modalDialog) {
+                filterModal.innerHTML = modalDialog.outerHTML;
+                filterModalContentLoaded = true;
+                restore_config();
+                setup_filter_handlers();
+            }
+        } catch (_) {
+            // ignore fetch errors
+        }
+
+        if (filterModalContentLoaded) {
+            open_modal('#filter-modal');
+        }
+    });
+};
+
+const setup_discipline_quick_filters = () => {
+    const buttons = document.querySelectorAll('.discipline-quick-filter[data-quick-filter]');
+
+    if (!buttons.length) {
+        return;
+    }
+
+    const update_button_states = (activeFilter) => {
+        buttons.forEach((btn) => {
+            const isActive = btn.dataset.quickFilter === activeFilter;
+            btn.dataset.active = isActive ? 'true' : 'false';
+        });
+    };
+
+    buttons.forEach((button) => {
+        button.dataset.active = 'false';
+        button.addEventListener('click', () => {
+            const discipline = button.dataset.quickFilter;
+            const newFilter = quickDisciplineFilter === discipline ? null : discipline;
+            quickDisciplineFilter = newFilter;
+            update_button_states(newFilter);
+            refresh_event_ui();
+        });
+    });
 };
 
 const setup_season_picker_click_target = () => {

@@ -12,6 +12,16 @@
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://ifsc.stream/archive/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://ifsc.stream/privacy-policy/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.30</priority>
+  </url>
+  <url>
     <loc>https://ifsc.stream/season/2020/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.40</priority>
@@ -327,117 +337,117 @@
     <priority>0.63</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-keqiao-1405/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-keqiao-2025-1405/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-wujiang-1406/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-wujiang-2025-1406/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-bali-1407/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-bali-2025-1407/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-curitiba-1408/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-curitiba-2025-1408/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-salt-lake-city-1461/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-para-climbing-world-cup-salt-lake-city-2025-1461/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-salt-lake-city-1409/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-salt-lake-city-2025-1409/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-denver-1455/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-denver-2025-1455/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-prague-1410/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-prague-2025-1410/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-bern-1411/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-bern-2025-1411/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-innsbruck-1463/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-para-climbing-world-cup-innsbruck-2025-1463/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-innsbruck-1412/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-innsbruck-2025-1412/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-krakow-1413/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-krakow-2025-1413/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-chamonix-1414/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-chamonix-2025-1414/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-madrid-1454/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-comunidad-de-madrid-2025-1454/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-the-world-games-chengdu-1419/</loc>
+    <loc>https://ifsc.stream/season/2025/event/the-world-games-chengdu-2025-1419/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-koper-1416/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-koper-2025-1416/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-guiyang-1467/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-guiyang-2025-1467/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-championships-seoul-1462/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-world-championships-seoul-2025-1417/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-championships-seoul-1417/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-para-climbing-world-championships-seoul-2025-1462/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-para-climbing-master-fukuoka-1473/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-para-climbing-master-fukuoka-2025-1473/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-world-cup-laval-1464/</loc>
+    <loc>https://ifsc.stream/season/2025/event/ifsc-para-climbing-world-cup-laval-2025-1464/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-central-american-games-jalapa-1474/</loc>
+    <loc>https://ifsc.stream/season/2025/event/central-american-games-1474/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
-    <loc>https://ifsc.stream/season/2025/event/ifsc-bolivarian-games-cancelled-lima-1475/</loc>
+    <loc>https://ifsc.stream/season/2025/event/bolivarian-games-cancelled--1475/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>

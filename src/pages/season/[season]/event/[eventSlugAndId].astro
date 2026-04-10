@@ -282,22 +282,28 @@ const dateRangeLabel = startsAtLabel && endsAtLabel
   ? `${startsAtLabel} to ${endsAtLabel}`
   : startsAtLabel || endsAtLabel;
 const titleLocationPart = eventCity || eventLocation || `Season ${season}`;
-const titleDatePart = dateRangeLabel || `Season ${season}`;
 const titleDisciplinePart = eventDisciplines || 'World Climbing';
-const pageTitle = [
-  eventName,
-  titleLocationPart,
-  titleDatePart,
-  titleDisciplinePart,
-  'Live Stream & Schedule',
-].filter(Boolean).join(' | ');
-const pageDescription = [
-  `${eventName} (${season})`,
-  eventLocation ? `in ${eventLocation}` : '',
-  dateRangeLabel ? `from ${dateRangeLabel}` : '',
-  eventDisciplines ? `covering ${eventDisciplines}` : '',
-  'including stream links and schedule updates.',
-].join(' ').replace(/\s+/g, ' ').trim();
+const pageTitle = `IFSC World Cup ${titleLocationPart} ${season} – ${titleDisciplinePart} | Schedule, Dates & Live Stream`;
+const formatCompactDateRange = (startsAt, endsAt) => {
+  const tz = event?.timezone || 'UTC';
+  const start = new Date(startsAt || '');
+  const end = new Date(endsAt || '');
+  if (Number.isNaN(start.getTime())) return '';
+  const opts = { timeZone: tz };
+  const startMonth = new Intl.DateTimeFormat('en-US', { ...opts, month: 'short' }).format(start);
+  const startDay = new Intl.DateTimeFormat('en-US', { ...opts, day: 'numeric' }).format(start);
+  if (Number.isNaN(end.getTime())) return `${startMonth} ${startDay}`;
+  const endMonth = new Intl.DateTimeFormat('en-US', { ...opts, month: 'short' }).format(end);
+  const endDay = new Intl.DateTimeFormat('en-US', { ...opts, day: 'numeric' }).format(end);
+  return startMonth === endMonth
+    ? `${startMonth} ${startDay}–${endDay}`
+    : `${startMonth} ${startDay} – ${endMonth} ${endDay}`;
+};
+const compactDateRange = formatCompactDateRange(event?.starts_at, event?.ends_at);
+const descCity = eventCity || eventLocation;
+const descLocationFull = [descCity, eventCountry].filter(Boolean).join(', ');
+const descDisciplines = eventDisciplines ? eventDisciplines.toLowerCase() : 'world climbing';
+const pageDescription = `IFSC World Cup ${descCity || `Season ${season}`} ${season}. Full schedule, live streams, and event details for ${descDisciplines} climbing${descLocationFull ? ` in ${descLocationFull}` : ''}${compactDateRange ? ` (${compactDateRange})` : ''}.`;
 const socialImagePath = `/img/event/${season}/${event.id}.svg`;
 const socialImageAlt = `${eventName}${eventLocation ? ` in ${eventLocation}` : ''}${dateRangeLabel ? ` (${dateRangeLabel})` : ''} preview image`;
 ---

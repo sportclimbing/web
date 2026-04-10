@@ -1,0 +1,235 @@
+---
+import AppFooter from '../../components/AppFooter.astro';
+import CookieConsent from '../../components/CookieConsent.astro';
+import AppHeader from '../../components/AppHeader.astro';
+import CardTemplates from '../../components/CardTemplates.astro';
+import Modals from '../../components/Modals.astro';
+import { siteAssetVersion } from '../../lib/site-shell';
+import '../../styles/tailwind.css';
+
+const pageTitle = 'World Climbing Calendar | Privacy Policy & Cookies';
+const pageDescription = 'Learn how ifsc.stream uses cookies and analytics to understand site usage. Manage your consent preferences at any time.';
+const canonicalUrl = 'https://ifsc.stream/privacy-policy/';
+---
+<!doctype html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription} />
+  <meta name="robots" content="index,follow" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <base href="/" />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #101418; }
+    ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }
+  </style>
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:site_name" content="ifsc.stream" />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={pageDescription} />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col selection:bg-primary/30" data-page-type="privacy-policy" data-build-version={siteAssetVersion}>
+
+<AppHeader />
+
+<main class="pt-16 flex-1">
+  <div class="max-w-4xl mx-auto px-6 pt-2 lg:pt-16 pb-24">
+
+    <!-- Header Section -->
+    <header class="mb-16">
+      <a href="/" class="inline-flex items-center gap-2 text-primary font-label font-bold text-xs uppercase tracking-widest hover:underline mb-8">
+        <span class="material-symbols-outlined text-base">arrow_back</span>
+        Back to Calendar
+      </a>
+      <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-6 leading-none italic font-headline">
+        Cookies &amp; <span class="text-primary">Analytics</span>
+      </h1>
+      <p class="text-on-surface-variant text-lg leading-relaxed font-medium max-w-2xl">
+        This website is a personal project and does not directly collect or store personal data from visitors. However, it uses cookies and similar technologies to understand how the site is used and to improve its performance.
+      </p>
+      <div class="mt-8 p-4 bg-surface-container-low border-l-4 border-primary/40 flex items-center gap-4">
+        <span class="material-symbols-outlined text-primary">security</span>
+        <p class="text-sm font-label uppercase tracking-wider text-on-surface-variant">Last updated: April 2026</p>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <div class="space-y-12">
+
+      <!-- 01 Types of Storage -->
+      <section class="group">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="text-xs font-black bg-primary text-on-primary px-2 py-1 rounded">01</span>
+          <h2 class="text-2xl font-bold tracking-tight uppercase font-headline">Types of storage we use</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-8 bg-surface-container-low rounded-xl border border-outline-variant/10 group-hover:border-primary/30 transition-all">
+            <h3 class="text-primary font-bold uppercase tracking-wider text-sm mb-4">Strictly Necessary Storage</h3>
+            <p class="text-on-surface-variant text-sm leading-relaxed mb-4">
+              This is required for the website to function properly and securely. It includes storing your cookie preferences so we can remember your choices.
+            </p>
+            <span class="text-[10px] font-bold uppercase bg-surface-container-highest px-2 py-1 rounded text-on-surface-variant">No Consent Required</span>
+          </div>
+          <div class="p-8 bg-surface-container-low rounded-xl border border-outline-variant/10 group-hover:border-primary/30 transition-all">
+            <h3 class="text-primary font-bold uppercase tracking-wider text-sm mb-4">Analytics Cookies (Optional)</h3>
+            <p class="text-on-surface-variant text-sm leading-relaxed">
+              Used to measure traffic and understand how visitors use the website. If enabled, technologies may process IP addresses, device info, and interaction data.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 Legal Bases -->
+      <section>
+        <div class="flex items-center gap-4 mb-6">
+          <span class="text-xs font-black bg-primary text-on-primary px-2 py-1 rounded">02</span>
+          <h2 class="text-2xl font-bold tracking-tight uppercase font-headline">Legal bases for processing</h2>
+        </div>
+        <div class="p-8 bg-surface-container-low rounded-xl border border-outline-variant/10">
+          <p class="text-on-surface-variant leading-relaxed">
+            Where required by applicable law (such as in the EEA and UK), analytics cookies are only used with your <span class="text-primary font-bold">consent</span>. In other jurisdictions, analytics may be used based on legitimate interests or consent. Analytics cookies are disabled by default.
+          </p>
+        </div>
+      </section>
+
+      <!-- 03 How Consent Works -->
+      <section>
+        <div class="flex items-center gap-4 mb-6">
+          <span class="text-xs font-black bg-primary text-on-primary px-2 py-1 rounded">03</span>
+          <h2 class="text-2xl font-bold tracking-tight uppercase font-headline">How consent works</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-6 bg-surface-container-lowest rounded-lg border border-outline-variant/5">
+            <span class="material-symbols-outlined text-primary mb-3 block">ads_click</span>
+            <p class="text-xs text-on-surface-variant leading-relaxed">Option to accept or reject analytics on first visit.</p>
+          </div>
+          <div class="p-6 bg-surface-container-lowest rounded-lg border border-outline-variant/5">
+            <span class="material-symbols-outlined text-primary mb-3 block">block</span>
+            <p class="text-xs text-on-surface-variant leading-relaxed">No analytics cookies used without explicit consent.</p>
+          </div>
+          <div class="p-6 bg-surface-container-lowest rounded-lg border border-outline-variant/5">
+            <span class="material-symbols-outlined text-primary mb-3 block">save</span>
+            <p class="text-xs text-on-surface-variant leading-relaxed">Choice is stored on your device to remember preferences.</p>
+          </div>
+          <div class="p-6 bg-surface-container-lowest rounded-lg border border-outline-variant/5">
+            <span class="material-symbols-outlined text-primary mb-3 block">do_not_disturb_on</span>
+            <p class="text-xs text-on-surface-variant leading-relaxed">If rejected, no analytics tracking takes place.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 & 05 Managing Preferences & Third Party -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section>
+          <div class="flex items-center gap-4 mb-6">
+            <span class="text-xs font-black bg-primary text-on-primary px-2 py-1 rounded">04</span>
+            <h2 class="text-xl font-bold tracking-tight uppercase font-headline">Managing preferences</h2>
+          </div>
+          <div class="p-8 bg-surface-container-low rounded-xl border border-primary/20">
+            <p class="text-on-surface-variant text-sm mb-6">Change or withdraw consent at any time via the settings link.</p>
+            <button
+              id="open-cookie-settings-page"
+              type="button"
+              class="w-full py-4 bg-primary text-on-primary font-black uppercase tracking-widest text-[10px] rounded hover:scale-[0.98] transition-transform"
+            >
+              Open Cookie Settings
+            </button>
+          </div>
+        </section>
+        <section>
+          <div class="flex items-center gap-4 mb-6">
+            <span class="text-xs font-black bg-primary text-on-primary px-2 py-1 rounded">05</span>
+            <h2 class="text-xl font-bold tracking-tight uppercase font-headline">Third-party services</h2>
+          </div>
+          <div class="px-8 py-10 bg-surface-container-low rounded-xl border border-outline-variant/10">
+            <p class="text-on-surface-variant text-sm leading-relaxed">
+              Usage data may be processed by third-party analytics providers under their own privacy policies and applicable laws. Appropriate safeguards are used for data transfers.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- 06 Data Retention & Rights -->
+      <section>
+        <div class="flex items-center gap-4 mb-6">
+          <span class="text-xs font-black bg-primary text-on-primary px-2 py-1 rounded">06</span>
+          <h2 class="text-2xl font-bold tracking-tight uppercase font-headline">Data retention &amp; Your rights</h2>
+        </div>
+        <div class="p-8 bg-surface-container-low rounded-xl border border-outline-variant/10 space-y-6">
+          <div>
+            <h4 class="font-bold text-primary uppercase text-xs tracking-widest mb-2">Retention</h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed">
+              Analytics data is retained according to third-party provider periods and is deleted or anonymized when no longer necessary.
+            </p>
+          </div>
+          <div class="pt-6 border-t border-outline-variant/10">
+            <h4 class="font-bold text-primary uppercase text-xs tracking-widest mb-2">Rights</h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed mb-4">
+              Depending on location, you may have rights to access, correct, or delete personal data. Since this site doesn't directly store PII, you may need to contact third-party providers for rights related to analytics data.
+            </p>
+            <p class="text-[10px] text-on-surface-variant/60 uppercase font-bold">You also have the right to lodge a complaint with a data protection authority.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 Additional Info & Updates -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="flex flex-col gap-4">
+          <h3 class="font-bold uppercase tracking-tighter text-lg italic font-headline">Additional Information</h3>
+          <p class="text-on-surface-variant text-sm">Detailed information about specific cookies (purpose, duration, provider) may be provided in additional documentation or upon request.</p>
+        </div>
+        <div class="flex flex-col gap-4">
+          <h3 class="font-bold uppercase tracking-tighter text-lg italic font-headline">Updates to this policy</h3>
+          <p class="text-on-surface-variant text-sm">This policy may be updated to reflect changes in legal requirements or website operation. Updates will be posted on this page.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<Modals />
+<CardTemplates />
+
+<AppFooter />
+<CookieConsent />
+
+<!-- Background Decoration -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
+  <div class="absolute top-[-10%] left-[-5%] w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px]"></div>
+  <div class="absolute bottom-[5%] right-[-10%] w-[600px] h-[600px] bg-secondary-container/5 rounded-full blur-[150px]"></div>
+</div>
+
+<script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/app.js?v=${siteAssetVersion}`}></script>
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('open-cookie-settings-page');
+    var trigger = document.getElementById('open-cookie-settings');
+    if (btn && trigger) {
+      btn.addEventListener('click', function () { trigger.click(); });
+    }
+  })();
+</script>
+</body>
+</html>

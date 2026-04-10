@@ -1,31 +1,9 @@
-const EVENT_TIMEZONE = 'Europe/Madrid';
 const TOOLTIP_TEMPLATE = '<div class="tooltip sync-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>';
+const AVATAR_TOOLTIP_TEMPLATE = '<div class="tooltip avatar-tooltip" role="tooltip"><div class="tooltip-inner"></div></div>';
 const SEASON_SELECTOR = 'select[name="season-selector"]';
 const MONTH_NAV_LEFT_CSS_VAR = '--season-month-nav-left';
 
 let config;
-
-const set_local_timezone_message = () => {
-    const timezoneElement = document.getElementById('footer-timezone-name');
-    let timezone = EVENT_TIMEZONE;
-
-    if (!timezoneElement) {
-        return;
-    }
-
-    try {
-        const detectedTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-        if (detectedTimezone) {
-            timezone = detectedTimezone;
-        }
-    } catch (_error) {
-        timezone = EVENT_TIMEZONE;
-    }
-
-    timezoneElement.textContent = timezone;
-};
-
 let selectedEvent = null;
 let visibleEventIds = new Set();
 let seasonTimeline = {
@@ -42,16 +20,6 @@ let monthNavHorizontalFrameId = null;
 
 const is_mobile_viewport = () => window.matchMedia(MOBILE_VIEWPORT_MEDIA_QUERY).matches;
 
-const clear_element_children = (element) => {
-    if (!element) {
-        return;
-    }
-
-    while (element.lastElementChild) {
-        element.removeChild(element.lastElementChild);
-    }
-};
-
 const reset_next_event = () => {
     const nextEventContainer = document.querySelector('.next-event');
     const nextEventDividers = document.querySelectorAll('.next-event-divider');
@@ -63,7 +31,7 @@ const reset_next_event = () => {
 
     if (nextEventDetails) {
         release_lazy_backgrounds(nextEventDetails);
-        clear_element_children(nextEventDetails);
+        remove_all_children(nextEventDetails);
     }
 
     if (nextEventTitle) {
@@ -76,11 +44,11 @@ const reset_next_event = () => {
     }
 
     if (nextEventContainer) {
-        nextEventContainer.style.display = 'none';
+        nextEventContainer.hidden = true;
     }
 
     nextEventDividers.forEach((divider) => {
-        divider.style.display = 'none';
+        divider.hidden = true;
     });
 };
 
@@ -90,10 +58,6 @@ const next_event_round_from_element = (roundElement) => {
     }
 
     const streamTrigger = roundElement.querySelector('.youtube-play-button, [data-action="round-stream"]');
-
-    if (!(streamTrigger instanceof HTMLElement)) {
-        return null;
-    }
 
     const startsAt = roundElement.dataset.roundStartsAt || '';
     const endsAt = roundElement.dataset.roundEndsAt || '';
@@ -117,7 +81,7 @@ const next_event_round_from_element = (roundElement) => {
     const roundLeagueName = eventCard && eventCard.dataset
         ? (eventCard.dataset.eventLeagueName || '')
         : '';
-    const streamUrl = streamTrigger.hasAttribute('data-round-stream-url')
+    const streamUrl = streamTrigger instanceof HTMLElement && streamTrigger.hasAttribute('data-round-stream-url')
         ? (streamTrigger.dataset.roundStreamUrl || '')
         : '';
 
@@ -160,11 +124,17 @@ const next_event_details_from_card = (eventCard) => {
         || (eventNameElement && eventNameElement.textContent ? eventNameElement.textContent.trim() : '');
     const eventLeagueName = eventCard.dataset.eventLeagueName
         || (eventLeagueNameElement && eventLeagueNameElement.textContent ? eventLeagueNameElement.textContent.trim() : '');
+    const eventLocation = eventCard.dataset.eventLocation || '';
+    const eventStartsAt = eventCard.dataset.eventStartsAt || '';
+    const eventPagePath = eventCard.dataset.eventPagePath || '';
 
     return {
         id: parsedEventId,
         name: eventName,
+        location: eventLocation,
+        starts_at: eventStartsAt,
         league_name: eventLeagueName,
+        page_path: eventPagePath,
         season: String(get_selected_season() || ''),
         start_list: [],
         nextEventStartListTrigger: startListTrigger || null,
@@ -218,13 +188,12 @@ const collect_visible_round_candidates_from_dom = () => {
 };
 
 const ranked_visible_round_candidates = () => collect_visible_round_candidates_from_dom()
-    .filter(({ round }) => round_will_be_streamed(round))
     .sort((a, b) => a.round.startsAtTimestamp - b.round.startsAtTimestamp || a.domIndex - b.domIndex);
 
 const compute_dom_season_timeline = () => {
     const candidates = ranked_visible_round_candidates();
     const liveCandidate = candidates.find(({ round }) => event_is_streaming(round)) || null;
-    const nextCandidate = liveCandidate ? null : (candidates.find(({ round }) => event_is_upcoming(round)) || null);
+    const nextCandidate = liveCandidate ? null : (candidates.find(({ round }) => event_is_upcoming(round) && round_will_be_streamed(round)) || null);
 
     return {
         liveRound: liveCandidate ? liveCandidate.round : null,
@@ -243,99 +212,23 @@ const get_next_event_from_visible_rounds = () => {
     return timeline.liveEvent || timeline.nextEvent || null;
 };
 
-const create_round_reminder_button = () => {
-    const reminderButton = document.createElement('a');
-    reminderButton.className = 'ifsc-action-button ifsc-action-button-primary button-reminder';
-    reminderButton.href = 'https://github.com/sportclimbing/ifsc-calendar/wiki';
-    reminderButton.rel = 'noopener';
-    reminderButton.role = 'button';
-    reminderButton.target = '_blank';
-    reminderButton.dataset.bsToggle = 'modal';
-    reminderButton.dataset.bsTarget = '#calendar-modal';
-    reminderButton.textContent = '📆 Set Reminder';
-
-    return reminderButton;
-};
-
-const create_round_results_button = (eventId) => {
-    const resultsButton = document.createElement('a');
-    resultsButton.className = 'ifsc-action-button ifsc-action-button-primary button-results';
-    resultsButton.href = `https://ifsc.results.info/event/${eventId}`;
-    resultsButton.role = 'button';
-    resultsButton.target = '_blank';
-    resultsButton.rel = 'noopener';
-    resultsButton.textContent = '🏆 Results';
-
-    return resultsButton;
-};
-
-const ensure_round_action_button = (roundElement, type, eventId) => {
-    if (!(roundElement instanceof HTMLElement)) {
-        return null;
-    }
-
-    const selector = type === 'results' ? '.button-results' : '.button-reminder';
-    const watchButton = roundElement.querySelector('.watch-button');
-
-    if (!(watchButton instanceof HTMLElement)) {
-        return null;
-    }
-
-    const existingButton = watchButton.querySelector(selector);
-
-    if (existingButton instanceof HTMLElement) {
-        if (type === 'results') {
-            existingButton.href = `https://ifsc.results.info/event/${eventId}`;
-        }
-
-        return existingButton;
-    }
-
-    const createdButton = type === 'results'
-        ? create_round_results_button(eventId)
-        : create_round_reminder_button();
-
-    watchButton.appendChild(createdButton);
-
-    return createdButton;
-};
-
 const update_round_card_status_and_actions = (roundElement, round, parsedEventId, includeRoundDetails = true) => {
     const roundKey = round.roundKey || (roundElement.dataset.roundKey || '');
-    const streamButton = roundElement.querySelector('[data-action="round-stream"]');
     const startsIn = roundElement.querySelector('.round-starts-in');
-    let resultsButton = roundElement.querySelector('.button-results');
-    let reminderButton = roundElement.querySelector('.button-reminder');
 
     if (includeRoundDetails) {
         set_round_details(roundElement, round, false);
     }
 
     if (event_is_streaming(round)) {
-        resultsButton = ensure_round_action_button(roundElement, 'results', parsedEventId) || resultsButton;
-
         if (startsIn) {
             startsIn.innerText = '🔴 Live Now';
-        }
-
-        if (resultsButton) {
-            resultsButton.style.setProperty('display', 'inline-grid', 'important');
-            resultsButton.href = `https://ifsc.results.info/event/${parsedEventId}`;
-        }
-
-        if (reminderButton) {
-            reminderButton.style.setProperty('display', 'none', 'important');
-        }
-
-        if (streamButton) {
-            streamButton.style.display = '';
         }
 
         return false;
     }
 
     if (event_is_upcoming(round)) {
-        reminderButton = ensure_round_action_button(roundElement, 'reminder', parsedEventId) || reminderButton;
         const isNextRound = !seasonTimeline.liveRoundKey
             && Boolean(seasonTimeline.nextRoundKey)
             && seasonTimeline.nextRoundKey === roundKey;
@@ -350,38 +243,11 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
             }
         }
 
-        if (reminderButton) {
-            reminderButton.style.setProperty('display', 'inline-grid', 'important');
-        }
-
-        if (resultsButton) {
-            resultsButton.style.setProperty('display', 'none', 'important');
-        }
-
-        if (streamButton) {
-            streamButton.style.display = '';
-        }
-
         return !isNextRound;
     }
 
     if (startsIn) {
         startsIn.innerText = `🏁 ${pretty_finished_ago(round)}`;
-    }
-
-    resultsButton = ensure_round_action_button(roundElement, 'results', parsedEventId) || resultsButton;
-
-    if (resultsButton) {
-        resultsButton.style.setProperty('display', 'inline-grid', 'important');
-        resultsButton.href = `https://ifsc.results.info/event/${parsedEventId}`;
-    }
-
-    if (reminderButton) {
-        reminderButton.style.setProperty('display', 'none', 'important');
-    }
-
-    if (streamButton) {
-        streamButton.style.display = '';
     }
 
     return false;
@@ -425,14 +291,6 @@ const update_event_round_rows = (eventId, includeRoundDetails = true) => {
             posterShouldBeBw = true;
         }
     });
-
-    if (poster) {
-        poster.classList.toggle('bw', posterShouldBeBw);
-    }
-};
-
-const render_event_rounds = (eventId) => {
-    update_event_round_rows(eventId, true);
 };
 
 const refresh_event_round_statuses = (eventId) => {
@@ -471,8 +329,6 @@ const refresh_next_event_status = () => {
         return false;
     }
 
-    set_round_action_buttons_visibility(nextEventRow, target.isStreaming);
-
     if (target.isStreaming) {
         const resultsButton = nextEventRow.querySelector('.button-results');
 
@@ -486,28 +342,22 @@ const refresh_next_event_status = () => {
     return true;
 };
 
-const get_accordion_state = (accordion) => {
-    const currentOpenElement = accordion.querySelector('.show');
-    const currentOpenId = currentOpenElement ? currentOpenElement.getAttribute('id') : null;
-    const allCollapsed = accordion.childElementCount > 0 && !currentOpenId;
-
-    return {
-        currentOpenId,
-        allCollapsed,
-    };
-};
-
 const update_next_event_panel = () => {
+    const hasLive = seasonTimeline.liveRound && seasonTimeline.liveEvent;
+    const hasNext = seasonTimeline.nextRound && seasonTimeline.nextEvent;
+
+    if (!hasLive && !hasNext) {
+        return;
+    }
+
     reset_next_event();
 
-    if (seasonTimeline.liveRound && seasonTimeline.liveEvent) {
+    if (hasLive) {
         set_next_event(seasonTimeline.liveRound, seasonTimeline.liveEvent, true);
         return;
     }
 
-    if (seasonTimeline.nextRound && seasonTimeline.nextEvent) {
-        set_next_event(seasonTimeline.nextRound, seasonTimeline.nextEvent, false);
-    }
+    set_next_event(seasonTimeline.nextRound, seasonTimeline.nextEvent, false);
 };
 
 const hide_static_event_fallback = () => {

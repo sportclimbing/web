@@ -1,5 +1,5 @@
-import { getAllSeasons, getSeasonEventsPayload } from '../../../lib/events-data';
-import { build_start_list_modal_fragment } from '../../../lib/start-list-modal-fragments';
+import { getAllSeasons, getSeasonEventsPayload } from '../../../../lib/events-data';
+import { build_start_list_modal_fragment } from '../../../../lib/start-list-modal-fragments';
 
 export function getStaticPaths() {
   const paths = [];
@@ -25,6 +25,7 @@ export function getStaticPaths() {
             eventName: event?.name || '',
             startList: Array.isArray(event?.start_list) ? event.start_list : [],
             eventId,
+            startListTotal: typeof event?.start_list_total === 'number' ? event.start_list_total : null,
           }),
         },
       });

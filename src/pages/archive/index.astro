@@ -1,0 +1,204 @@
+---
+import AppFooter from '../../components/AppFooter.astro';
+import AppHeader from '../../components/AppHeader.astro';
+import CookieConsent from '../../components/CookieConsent.astro';
+import CardTemplates from '../../components/CardTemplates.astro';
+import Modals from '../../components/Modals.astro';
+import { DEFAULT_SEASON } from '../../lib/config';
+import { getAllSeasons, getSeasonEventsPayload } from '../../lib/events-data';
+import { siteAssetVersion } from '../../lib/site-shell';
+import '../../styles/tailwind.css';
+import CalendarSyncBanner from "../../components/CalendarSyncBanner.astro";
+
+const season = DEFAULT_SEASON;
+const seasons = getAllSeasons().sort((a, b) => Number(b) - Number(a));
+
+const seasonStats = Object.fromEntries(seasons.map((s) => {
+  const payload = getSeasonEventsPayload(s);
+  const events = payload?.events ?? [];
+  const totalEvents = events.length;
+  const numStreams = new Set(events.flatMap((e) => e.rounds.map((r) => r.stream_url).filter(Boolean))).size;
+  const athleteCount = events.every((e) => typeof e.start_list_total === 'number')
+    ? events.reduce((acc, e) => acc + e.start_list_total, 0)
+    : new Set(events.flatMap((e) => e.start_list.map((a) => a.athlete_id ?? `${a.first_name} ${a.last_name}`))).size;
+  return [s, { totalEvents, numStreams, athletes: athleteCount }];
+}));
+
+const pageTitle = `World Climbing Archive - Re-watch Historical Seasons`;
+const pageDescription = `Browse historical World Climbing seasons, competition results, and statistics from past IFSC events.`;
+const canonicalUrl = 'https://ifsc.stream/archive/';
+const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
+---
+<!doctype html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={pageDescription} />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <base href="/" />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preconnect" href="https://calendar.ifsc.stream" />
+  <link rel="preconnect" href="https://img.youtube.com" />
+  <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #101418; }
+    ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }
+  </style>
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:site_name" content="ifsc.stream" />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} />
+  <meta property="og:image" content={socialImageUrl} />
+  <meta property="og:image:alt" content={`World Climbing historical seasons archive`} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={pageDescription} />
+  <meta name="twitter:image" content={socialImageUrl} />
+  <meta name="twitter:image:alt" content={`World Climbing historical seasons archive`} />
+
+  <script
+    is:inline
+    type="application/ld+json"
+    id="structured-data-breadcrumbs"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: `${DEFAULT_SEASON} Season`, item: 'https://ifsc.stream/' },
+        { '@type': 'ListItem', position: 2, name: 'Archive', item: canonicalUrl },
+      ],
+    })}
+  ></script>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
+</head>
+<body class="bg-background text-on-background min-h-screen" data-page-type="archive" data-build-version={siteAssetVersion}>
+
+<AppHeader />
+
+<main class="flex-1">
+    <!-- Hero Section -->
+  <section class="relative w-full h-[280px] lg:h-[500px] overflow-hidden flex items-end pb-20 lg:pb-24">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 opacity-60" style="background-image: url('/img/hero/hero-bg.jpg'); background-size: cover; background-position: center 30%;"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-screen-2xl mx-auto px-6 w-full">
+      <div class="max-w-5xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-tertiary text-on-tertiary rounded-full mb-6">
+          <span class="material-symbols-outlined text-base leading-none">history</span>
+          <span class="text-[0.5rem] lg:text-[0.6875rem] font-bold tracking-widest uppercase font-label">Historical Seasons</span>
+        </div>
+        <h1 class="text-4xl md:text-8xl font-black font-headline tracking-tighter mb-4 uppercase leading-[0.9] line-clamp-2 md:line-clamp-none">World Climbing Archive</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumbs -->
+  <div class="px-6 lg:px-12 pt-0 lg:pt-16 lg:max-w-6xl lg:mx-auto">
+    <nav class="mb-4" aria-label="Breadcrumb">
+      <div class="bg-surface-container-low p-2 rounded-xl flex items-center gap-2 overflow-x-auto no-scrollbar">
+        <div class="flex items-center gap-2 p-1 bg-surface-container-lowest rounded-lg whitespace-nowrap w-full lg:w-auto">
+          <a href="/" class="px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold">{DEFAULT_SEASON} Season</a>
+          <div class="h-4 w-px bg-outline-variant mx-1"></div>
+          <span class="flex-1 lg:flex-none text-center lg:text-left px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest">Archive</span>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Season List -->
+  <section class="pb-32 px-6 md:px-12 max-w-6xl mx-auto" aria-labelledby="archive-title">
+    <h2 id="archive-title" class="sr-only">Historical Seasons</h2>
+    <div class="flex flex-col gap-6">
+      {seasons.map((s) => {
+        const isCurrent = s === DEFAULT_SEASON;
+        const stats = seasonStats[s];
+        const iconColor = isCurrent ? 'text-primary' : 'text-outline';
+        const streamHoursColor = isCurrent ? 'text-primary' : 'text-on-surface';
+        return (
+          <div class={`group relative bg-surface-container-low border rounded-2xl p-8 transition-all duration-500 shadow-xl overflow-hidden ${isCurrent ? 'border-outline-variant/10 hover:bg-surface-container hover:border-primary/30' : 'border-outline-variant/10 hover:bg-surface-container'}`}>
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center gap-8 md:gap-12">
+              <!-- Year Badge -->
+              <div class="flex flex-col items-center justify-center min-w-[140px] border-r border-outline-variant/20 pr-8">
+                <span class={`font-headline text-xs tracking-[0.2em] uppercase mb-2 font-bold ${isCurrent ? 'text-primary' : 'text-on-surface-variant'}`}>
+                  {isCurrent ? 'Current' : 'Historical'}
+                </span>
+                <h2 class="text-6xl font-black text-on-surface font-headline leading-none">{s}</h2>
+              </div>
+              <!-- Stats Grid -->
+              <div class="flex-grow flex justify-between md:grid md:grid-cols-3 md:gap-12">
+                <div class="flex flex-col">
+                  <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1"><span class="hidden md:inline">Total </span>Events</span>
+                  <div class="flex items-end gap-1 md:gap-2">
+                    <span class="text-xl md:text-3xl font-black text-on-surface leading-none">{stats.totalEvents}</span>
+                    <span class={`material-symbols-outlined mb-1 ${iconColor}`}>emoji_events</span>
+                  </div>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Streams</span>
+                  <div class="flex items-end gap-1 md:gap-2">
+                    <span class={`text-xl md:text-3xl font-black leading-none ${streamHoursColor}`}>{stats.numStreams}</span>
+                    <span class={`material-symbols-outlined mb-1 ${iconColor}`}>play_circle</span>
+                  </div>
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-on-surface-variant text-[10px] uppercase tracking-widest font-bold mb-1">Athletes</span>
+                  <div class="flex items-end gap-1 md:gap-2">
+                    <span class="text-xl md:text-3xl font-black text-on-surface leading-none">{stats.athletes}</span>
+                    <span class={`material-symbols-outlined mb-1 ${iconColor}`}>groups</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Action -->
+              <div class="flex items-center">
+                <a
+                  href={`/season/${s}/`}
+                  class={`group/btn flex items-center justify-center w-full md:w-auto px-8 py-4 font-black text-xs uppercase tracking-[0.2em] rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg ${isCurrent ? 'bg-primary text-on-primary shadow-primary/20' : 'bg-surface-container-high border border-outline-variant/20 text-on-surface hover:bg-surface-container-highest'}`}
+                >
+                  Explore
+                  <span class="material-symbols-outlined ml-2 text-lg group-hover/btn:translate-x-1 transition-transform">arrow_right_alt</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <CalendarSyncBanner />
+
+</main>
+
+<Modals />
+<CardTemplates />
+
+<AppFooter />
+<CookieConsent />
+
+<!-- Background Decoration -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
+  <div class="absolute top-[-10%] left-[-5%] w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px]"></div>
+  <div class="absolute bottom-[5%] right-[-10%] w-[600px] h-[600px] bg-secondary-container/5 rounded-full blur-[150px]"></div>
+</div>
+
+<script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/app.js?v=${siteAssetVersion}`}></script>
+
+</body>
+</html>

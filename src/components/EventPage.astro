@@ -1,18 +1,21 @@
 ---
 import { siteAssetVersion } from '../lib/site-shell';
-import CardTemplates from './CardTemplates.astro';
+import { extract_youtube_video_id } from '../lib/shared/media';
+import '../styles/tailwind.css';
+import AppHeader from './AppHeader.astro';
+import AppFooter from './AppFooter.astro';
 import EventCards from './EventCards.astro';
-import Footer from './Footer.astro';
-import HeaderTitle from './HeaderTitle.astro';
 import Modals from './Modals.astro';
-import SeasonNavbar from './SeasonNavbar.astro';
-import SubheaderButtons from './SubheaderButtons.astro';
-import VersionUpdateNotice from './VersionUpdateNotice.astro';
+import VideoModal from './VideoModal.astro';
+import CardTemplates from './CardTemplates.astro';
+import CookieConsent from './CookieConsent.astro';
+import CalendarSyncBanner from './CalendarSyncBanner.astro';
+import HeroSection from './HeroSection.astro';
 import {
   DEFAULT_SEASON,
-  DESKTOP_VIEWPORT_MEDIA_QUERY,
-  MOBILE_VIEWPORT_MEDIA_QUERY,
+  HERO_BG_OVERRIDES,
 } from '../lib/config';
+import { getSeasonEventsPayload } from '../lib/events-data';
 
 const {
   season,
@@ -27,12 +30,46 @@ const {
 } = Astro.props;
 
 const normalizedSeason = String(season);
-const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
 const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
 const normalizedEventId = String(event.id)
 const eventName = String(event?.name || '').trim() || 'Event';
-const seasonHomePath = normalizedSeason === DEFAULT_SEASON ? '/' : `/season/${normalizedSeason}/`;
+const eventLocation = String(event?.location || '').trim() || eventName;
 const seasonPagePath = `/season/${normalizedSeason}/`;
+
+// Hero section logic
+const rounds = Array.isArray(event.rounds) ? event.rounds : [];
+const now = new Date();
+let liveRound = null;
+let nextRound = null;
+
+for (const round of rounds) {
+    const startsAt = new Date(round.starts_at);
+    const endsAt = new Date(round.ends_at);
+    if (now >= startsAt && now <= endsAt) {
+        liveRound = round;
+        break;
+    }
+    if (startsAt > now) {
+        if (!nextRound || startsAt < new Date(nextRound.starts_at)) {
+            nextRound = round;
+        }
+    }
+}
+
+const heroRound = liveRound || nextRound || rounds[rounds.length - 1];
+const isLive = Boolean(liveRound);
+const heroRoundName = heroRound?.name || '';
+const heroEventTitle = eventName;
+const firstStreamRound = rounds.find((r) => r.stream_url && extract_youtube_video_id(r.stream_url));
+const heroYouTubeVideoId = firstStreamRound ? extract_youtube_video_id(firstStreamRound.stream_url) : null;
+const seasonOverride = HERO_BG_OVERRIDES[normalizedSeason] || {};
+const resolvedBgVideoId = seasonOverride.youTubeVideoId ?? heroYouTubeVideoId;
+const heroBgImage = resolvedBgVideoId
+    ? `https://img.youtube.com/vi/${resolvedBgVideoId}/maxresdefault.jpg`
+    : '/img/hero/hero-bg.jpg';
+const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
+
+const updatedAt = getSeasonEventsPayload(season)?.metadata?.updated_at || undefined;
 const previousEventLink = relatedLinks?.previousEvent || null;
 const nextEventLink = relatedLinks?.nextEvent || null;
 const sameSeasonEventLinks = Array.isArray(relatedLinks?.sameSeasonEvents) ? relatedLinks.sameSeasonEvents : [];
@@ -72,7 +109,7 @@ const breadcrumbStructuredData = {
 };
 ---
 <!doctype html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
     <meta charset="utf-8" />
     <title>{pageTitle}</title>
@@ -83,18 +120,22 @@ const breadcrumbStructuredData = {
 
     <base href="/" />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="preconnect" href="https://api.github.com" />
+    <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://calendar.ifsc.stream" />
-    <link rel="preconnect" href="https://buttons.github.io" />
     <link rel="preconnect" href="https://img.youtube.com" />
-    <link rel="preload" href="/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-medium.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-semibold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/rajdhani-bold.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href={`/css/fonts-local.css?v=${siteAssetVersion}`} />
-    <link rel="stylesheet" href={`/css/calendar.css?v=${siteAssetVersion}`} />
-    <link rel="stylesheet" href={`/css/calendar-desktop.css?v=${siteAssetVersion}`} media={`screen and ${DESKTOP_VIEWPORT_MEDIA_QUERY}`} />
-    <link rel="stylesheet" href={`/css/calendar-mobile.css?v=${siteAssetVersion}`} media={`screen and ${MOBILE_VIEWPORT_MEDIA_QUERY}`} />
+    <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel { background: rgba(16, 20, 24, 0.7); backdrop-filter: blur(20px); }
+        .kinetic-gradient { background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #101418; }
+        ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }
+    </style>
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
@@ -131,83 +172,124 @@ const breadcrumbStructuredData = {
     ></script>
     <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
 </head>
-<body data-page-type="event" data-event-id={normalizedEventId || undefined} data-build-version={siteAssetVersion}>
-<VersionUpdateNotice />
-<CardTemplates />
+<body class="bg-background text-on-background min-h-screen" data-page-type="event" data-event-id={normalizedEventId || undefined} data-build-version={siteAssetVersion} data-updated-at={updatedAt}>
 
-<div id="ifsc-season">
-    <HeaderTitle season={normalizedSeason} homeUrl={seasonHomePath} />
-</div>
-
-<SeasonNavbar />
-<SubheaderButtons
-    breadcrumbItems={[
-      { label: 'Home', href: '/' },
-      { label: `Season ${normalizedSeason}`, href: seasonPagePath },
-      { label: eventName, current: true },
-    ]}
-/>
+<AppHeader />
 
 <main role="main">
-    <div id="accordion">
-        <EventCards
-          events={[event]}
-          expandAllRounds={true}
-          hideRoundCollapseControls={true}
-          showNoResultsMessage={false}
-        />
+    <!-- Hero Section -->
+    <HeroSection
+        heroEventTitle={heroEventTitle}
+        isLive={isLive}
+        heroRound={heroRound}
+        heroRoundName={heroRoundName}
+        leagueName={event?.league_name}
+        heroBgImage={heroBgImage}
+        heroBgPosition={heroBgPosition}
+    />
+
+    <div class="lg:max-w-6xl mx-auto px-6 pt-0 lg:pt-16 flex gap-12 relative" id="accordion">
+        <div class="flex-1 min-w-0 pb-24">
+            <!-- Breadcrumbs -->
+            <nav class="mb-4 lg:mb-12" aria-label="Breadcrumb">
+                <div class="bg-surface-container-low p-2 rounded-xl flex items-center gap-2 overflow-x-auto no-scrollbar">
+                    <div class="flex items-center gap-0 p-1 bg-surface-container-lowest rounded-lg w-full">
+                        <a href="/" class="flex-1 text-center px-3 lg:px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold whitespace-nowrap">Home</a>
+                        <div class="h-4 w-px bg-outline-variant mx-1 shrink-0"></div>
+                        <a href={seasonPagePath} class="flex-1 text-center px-3 lg:px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold whitespace-nowrap">{normalizedSeason}<span class="hidden lg:inline"> Season</span></a>
+                        <div class="h-4 w-px bg-outline-variant mx-1 shrink-0"></div>
+                        <span class="flex-1 text-center px-3 lg:px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest truncate" aria-current="page"><span class="lg:hidden">{eventLocation}</span><span class="hidden lg:inline">{eventName}</span></span>
+                    </div>
+                </div>
+            </nav>
+
+            <section>
+                <div class="grid grid-cols-1 gap-12">
+                    <EventCards
+                      events={[event]}
+                      expandAllRounds={true}
+                      hideRoundCollapseControls={true}
+                      showNoResultsMessage={false}
+                    />
+                </div>
+            </section>
+
+            {hasRelatedEventLinks ? (
+              <section class="mt-10 border-t border-outline-variant/20 pt-10" aria-labelledby="event-internal-links-title">
+                <h2 id="event-internal-links-title" class="text-3xl font-black font-headline uppercase mb-12 tracking-tight">Related Events</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    {previousEventLink || nextEventLink ? (
+                      <div class="flex flex-col gap-6">
+                        <h3 class="text-on-surface-variant uppercase text-xs font-bold tracking-[0.2em]">Sequence</h3>
+                        <div class="flex flex-col gap-4">
+                            {previousEventLink && (
+                              <a class="group flex items-center justify-between p-6 bg-surface-container-low rounded-xl border border-outline-variant/10 hover:border-primary/50 transition-all" href={previousEventLink.href}>
+                                <div class="flex flex-col gap-1">
+                                    <span class="text-[10px] uppercase tracking-widest text-primary font-bold">Previous Event</span>
+                                    <span class="text-lg font-headline font-bold uppercase">{previousEventLink.label}</span>
+                                </div>
+                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_back</span>
+                              </a>
+                            )}
+                            {nextEventLink && (
+                              <a class="group flex items-center justify-between p-6 bg-surface-container-low rounded-xl border border-outline-variant/10 hover:border-primary/50 transition-all" href={nextEventLink.href}>
+                                <div class="flex flex-col gap-1">
+                                    <span class="text-[10px] uppercase tracking-widest text-primary font-bold">Next Event</span>
+                                    <span class="text-lg font-headline font-bold uppercase">{nextEventLink.label}</span>
+                                </div>
+                                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_forward</span>
+                              </a>
+                            )}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {sameSeasonEventLinks.length ? (
+                      <div class="flex flex-col gap-6">
+                        <h3 class="text-on-surface-variant uppercase text-xs font-bold tracking-[0.2em]">Season {normalizedSeason}</h3>
+                        <div class="grid grid-cols-1 gap-3">
+                          {sameSeasonEventLinks.map((link) => (
+                            <a class="text-on-surface hover:text-primary transition-colors py-2 flex items-center gap-3 group" href={link.href}>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/30 group-hover:bg-primary transition-colors"></span>
+                                {link.label}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {sameDisciplineEventLinks.length ? (
+                      <div class="flex flex-col gap-6">
+                        <h3 class="text-on-surface-variant uppercase text-xs font-bold tracking-[0.2em]">Similar Disciplines</h3>
+                        <div class="grid grid-cols-1 gap-3">
+                          {sameDisciplineEventLinks.map((link) => (
+                            <a class="text-on-surface hover:text-primary transition-colors py-2 flex items-center gap-3 group" href={link.href}>
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/30 group-hover:bg-primary transition-colors"></span>
+                                {link.label}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+                </div>
+              </section>
+            ) : null}
+        </div>
     </div>
-    {hasRelatedEventLinks ? (
-      <section class="event-internal-links" aria-labelledby="event-internal-links-title">
-        <h2 id="event-internal-links-title">Related Events</h2>
-        {previousEventLink || nextEventLink ? (
-          <div class="event-internal-links-primary">
-            {previousEventLink ? (
-              <a class="event-internal-links-link" href={previousEventLink.href}>
-                Previous Event: {previousEventLink.label}
-              </a>
-            ) : null}
-            {nextEventLink ? (
-              <a class="event-internal-links-link" href={nextEventLink.href}>
-                Next Event: {nextEventLink.label}
-              </a>
-            ) : null}
-          </div>
-        ) : null}
-        {sameSeasonEventLinks.length ? (
-          <div class="event-internal-links-group">
-            <h3>More Events in Season {normalizedSeason}</h3>
-            <ul class="event-internal-links-list">
-              {sameSeasonEventLinks.map((link) => (
-                <li><a class="event-internal-links-link" href={link.href}>{link.label}</a></li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-        {sameDisciplineEventLinks.length ? (
-          <div class="event-internal-links-group">
-            <h3>Events With Similar Disciplines</h3>
-            <ul class="event-internal-links-list">
-              {sameDisciplineEventLinks.map((link) => (
-                <li><a class="event-internal-links-link" href={link.href}>{link.label}</a></li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-      </section>
-    ) : null}
+
+    <CalendarSyncBanner />
 </main>
 
 <Modals />
+<VideoModal />
+<CardTemplates />
 
-<Footer
-    seasons={normalizedSeasons}
-    selectedSeason={normalizedSeason}
-    buildVersion={siteAssetVersion}
-/>
+<AppFooter />
+<CookieConsent />
 
-<script src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
-<script src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
-<script src={`/js/app.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
+<script is:inline src={`/js/app.js?v=${siteAssetVersion}`}></script>
 </body>
 </html>

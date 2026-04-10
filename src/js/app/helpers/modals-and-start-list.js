@@ -1,19 +1,3 @@
-function handle_chat_toggle(button) {
-    const chat = document.getElementById('live-chat');
-
-    if (!chat) {
-        return;
-    }
-
-    if (chat.style.display === 'none') {
-        chat.style.display = 'block';
-        button.innerText = 'Hide Chat';
-    } else {
-        chat.style.display = 'none';
-        button.innerText = 'Show Chat';
-    }
-}
-
 function policy_feature_names(policy) {
     if (!policy) {
         return [];
@@ -85,13 +69,11 @@ function handle_watch_event(e) {
     }
 
     if (youtubeVideoTitle) {
-        youtubeVideoTitle.textContent = `🍿 ${round.name}`;
-        schedule_fit_modal_titles();
+        youtubeVideoTitle.textContent = `${round.name}`;
     }
 
-    if (videoModalElement && window.bootstrap && window.bootstrap.Modal) {
-        const videoModal = window.bootstrap.Modal.getOrCreateInstance(videoModalElement);
-        videoModal.show();
+    if (videoModalElement) {
+        open_modal(videoModalElement);
     }
 }
 
@@ -177,8 +159,6 @@ function render_countdown(startsAt, prefix) {
         if (nextEvent) {
             nextEvent.classList.add('next-event-has-countdown');
         }
-
-        schedule_next_event_mobile_countdown_height_sync();
     }
 }
 
@@ -230,6 +210,21 @@ function start_next_event_countdown(round) {
     render_next_event_countdown(startsAt);
 }
 
+function fit_modal_title_to_one_line(element) {
+    element.style.whiteSpace = 'nowrap';
+    element.style.fontSize = '';
+
+    const available = element.parentElement ? element.parentElement.clientWidth : 0;
+
+    if (!available || element.scrollWidth <= available) {
+        return;
+    }
+
+    const ratio = available / element.scrollWidth;
+    const current = parseFloat(getComputedStyle(element).fontSize);
+    element.style.fontSize = Math.max(13, Math.floor(current * ratio)) + 'px';
+}
+
 function handle_watch_event_no_url(e) {
     const round = round_from_stream_button(e.currentTarget);
     e.preventDefault();
@@ -238,8 +233,23 @@ function handle_watch_event_no_url(e) {
         start_event_not_started_countdown(round);
         const eventNotStartedModal = document.getElementById('event-not-started-modal');
 
-        if (eventNotStartedModal && window.bootstrap && window.bootstrap.Modal) {
-            window.bootstrap.Modal.getOrCreateInstance(eventNotStartedModal).show();
+        if (eventNotStartedModal) {
+            const eventName = document.getElementById('event-not-started-modal-event');
+            const eventLeague = document.getElementById('event-not-started-modal-league');
+
+            if (eventName) {
+                eventName.innerText = round.name || '';
+            }
+
+            if (eventLeague) {
+                eventLeague.innerText = round.event_name || '';
+            }
+
+            open_modal(eventNotStartedModal);
+
+            if (is_mobile_viewport() && eventName) {
+                fit_modal_title_to_one_line(eventName);
+            }
         }
     } else {
         stop_event_not_started_countdown();
@@ -251,8 +261,8 @@ function handle_watch_event_no_url(e) {
             eventLinkMissingModalYoutube.setAttribute('href', fallbackUrl);
         }
 
-        if (eventLinkMissingModal && window.bootstrap && window.bootstrap.Modal) {
-            window.bootstrap.Modal.getOrCreateInstance(eventLinkMissingModal).show();
+        if (eventLinkMissingModal) {
+            open_modal(eventLinkMissingModal);
         }
     }
 }
@@ -267,12 +277,6 @@ function handle_round_stream_click(e) {
     handle_watch_event_no_url(e);
 }
 
-Object.defineProperty(String.prototype, 'capitalize', {
-    value: function() {
-        return this.charAt(0).toUpperCase() + this.slice(1);
-    },
-    enumerable: false
-});
 
 function athlete_photo_sources_build(athlete) {
     return athlete_photo_local_sources_build(athlete);
@@ -294,12 +298,12 @@ function handle_start_list_photo_error(imageElement) {
     imageElement.src = fallbackSrc;
 }
 
-function start_list_build(startList, season, maxAthletesWithPhoto = 6) {
+function start_list_build(startList, season, maxAthletesWithPhoto = 5) {
     if (!startList.length) {
         return '📋 Start List: Pending';
     }
 
-    const maxAthletes = Number.isFinite(maxAthletesWithPhoto) ? Math.max(0, maxAthletesWithPhoto) : 6;
+    const maxAthletes = Number.isFinite(maxAthletesWithPhoto) ? Math.max(0, maxAthletesWithPhoto) : 5;
     const athletesWithPhoto = startList.filter((athlete) => Boolean(athlete.photo_url)).slice(0, maxAthletes);
 
     if (!athletesWithPhoto.length) {
@@ -336,7 +340,10 @@ function start_list_modal_url_build(season, eventId) {
         return '';
     }
 
-    return `/start-list-modals/${normalizedSeason}/${normalizedEventId}.html`;
+    const version = String(document.body.dataset.buildVersion || '').trim();
+    const query = version ? `?v=${encodeURIComponent(version)}` : '';
+
+    return `/modals/start-list/${normalizedSeason}/${normalizedEventId}.html${query}`;
 }
 
 function athlete_name_build(athlete) {
@@ -352,43 +359,69 @@ function escape_html(value) {
         .replace(/'/g, '&#39;');
 }
 
-function set_start_list_modal_content(titleText, listHtml) {
+function set_start_list_modal_content(eventNameText, titleText, listHtml) {
+    const eventName = document.getElementById('start-list-modal-event');
     const title = document.getElementById('start-list-modal-title');
     const list = document.getElementById('start-list-modal-list');
+    const footerAvatars = document.getElementById('start-list-modal-footer-avatars');
+    const footerMoreAthletes = document.getElementById('start-list-modal-more-athletes');
 
     if (!title || !list) {
         return;
     }
 
-    title.innerText = titleText || '📋 Start List';
+    if (eventName) {
+        eventName.innerText = eventNameText || '';
+    }
+    title.innerText = titleText || 'ATHLETES ATTENDING';
     title.setAttribute('title', title.innerText);
-    schedule_fit_modal_titles();
-    list.innerHTML = listHtml || '<li class="start-list-modal-empty">Start list unavailable right now.</li>';
+    list.innerHTML = listHtml || '<li class="p-8 text-center text-on-surface-variant font-medium bg-surface-container-low/20 rounded-xl border border-dashed border-outline-variant/30">Start list unavailable right now.</li>';
+
+    if (footerAvatars) {
+        const overflowLi = list.querySelector('.start-list-overflow-athletes');
+        const overflowAvatarContainer = overflowLi && overflowLi.querySelector('.flex');
+        const overflowAvatars = overflowAvatarContainer
+            ? Array.from(overflowAvatarContainer.children)
+            : [];
+        if (footerMoreAthletes) {
+            footerMoreAthletes.classList.toggle('hidden', overflowAvatars.length === 0);
+        }
+        if (overflowAvatars.length > 0) {
+            footerAvatars.innerHTML = '';
+            overflowAvatars.forEach((el) => {
+                const clone = el.cloneNode(true);
+                clone.className = clone.className
+                    .replace(/\bw-10\b/g, 'w-8')
+                    .replace(/\bh-10\b/g, 'h-8');
+                clone.style.cssText += '; border: 2px solid var(--color-surface, #000)';
+                footerAvatars.appendChild(clone);
+            });
+            const plus = document.createElement('div');
+            plus.className = 'w-8 h-8 rounded-full border-2 border-surface bg-surface-container-lowest flex items-center justify-center text-[10px] font-bold text-primary';
+            plus.textContent = '+';
+            footerAvatars.appendChild(plus);
+        }
+    }
 }
 
-function start_list_modal_loading_title(trigger) {
-    const eventName = trigger && trigger.dataset && typeof trigger.dataset.eventName === 'string'
+function start_list_modal_loading_event(trigger) {
+    return trigger && trigger.dataset && typeof trigger.dataset.eventName === 'string'
         ? trigger.dataset.eventName.trim()
         : '';
-
-    if (!eventName) {
-        return '📋 Start List';
-    }
-
-    return `📋 ${eventName} Start List`;
 }
 
 function set_start_list_modal_loading(trigger) {
-    set_start_list_modal_content(start_list_modal_loading_title(trigger), '<li class="start-list-modal-empty">Loading start list...</li>');
+    set_start_list_modal_content(start_list_modal_loading_event(trigger), 'ATHLETES ATTENDING', '<li class="p-8 text-center text-on-surface-variant font-medium bg-surface-container-low/20 rounded-xl border border-dashed border-outline-variant/30 animate-pulse">Loading start list...</li>');
 }
 
 function set_start_list_modal_error(trigger) {
-    set_start_list_modal_content(start_list_modal_loading_title(trigger), '<li class="start-list-modal-empty">Start list unavailable right now.</li>');
+    set_start_list_modal_content(start_list_modal_loading_event(trigger), 'ATHLETES ATTENDING', '<li class="p-8 text-center text-on-surface-variant font-medium bg-surface-container-low/20 rounded-xl border border-dashed border-outline-variant/30 start-list-modal-empty">Start list unavailable right now.</li>');
 }
 
 function parse_start_list_modal_fragment(fragmentHtml) {
     const parser = new DOMParser();
     const documentFragment = parser.parseFromString(String(fragmentHtml || ''), 'text/html');
+    const eventName = documentFragment.querySelector('.start-list-modal-fragment-event');
     const title = documentFragment.querySelector('.start-list-modal-fragment-title');
     const list = documentFragment.querySelector('.start-list-modal-fragment-list');
 
@@ -397,7 +430,8 @@ function parse_start_list_modal_fragment(fragmentHtml) {
     }
 
     return {
-        title: title && title.textContent ? title.textContent : '📋 Start List',
+        eventName: eventName && eventName.textContent ? eventName.textContent : '',
+        title: title && title.textContent ? title.textContent : 'ATHLETES ATTENDING',
         listHtml: list.innerHTML,
     };
 }
@@ -440,7 +474,7 @@ function apply_start_list_modal_fragment(fragmentPayload) {
         return;
     }
 
-    set_start_list_modal_content(fragmentPayload.title, fragmentPayload.listHtml);
+    set_start_list_modal_content(fragmentPayload.eventName, fragmentPayload.title, fragmentPayload.listHtml);
 }
 
 async function load_start_list_modal_fragment(startListUrl, requestId, trigger) {
@@ -471,7 +505,7 @@ function handle_start_list_trigger_click(e) {
     load_start_list_modal_fragment(startListUrl, startListModalRequestId, trigger).then();
 }
 
-function build_event_start_list_button(eventId, startList, season, maxAthletesWithPhoto = 6) {
+function build_event_start_list_button(eventId, startList, season, maxAthletesWithPhoto = 5) {
     const button = document.createElement('button');
 
     button.type = 'button';
@@ -483,4 +517,40 @@ function build_event_start_list_button(eventId, startList, season, maxAthletesWi
     button.dataset.startListUrl = start_list_modal_url_build(season, eventId);
 
     return button;
+}
+
+function open_modal(modalId) {
+    const modalElement = typeof modalId === 'string' ? document.querySelector(modalId) : modalId;
+    if (!modalElement) return;
+
+    modalElement.classList.add('active', 'show');
+    document.body.classList.add('modal-open');
+    document.documentElement.classList.add('modal-open');
+
+    // Trigger custom events for compatibility
+    modalElement.dispatchEvent(new CustomEvent('show.bs.modal', { bubbles: true }));
+    modalElement.dispatchEvent(new CustomEvent('shown.bs.modal', { bubbles: true }));
+}
+
+function close_modal(modalId) {
+    const modalElement = typeof modalId === 'string' ? document.querySelector(modalId) : modalId;
+    if (!modalElement) return;
+
+    modalElement.classList.remove('active', 'show');
+
+    // Ensure we check for ANY open modal before removing the class
+    // We use a small timeout to allow any transitions or other JS to finish
+    window.setTimeout(() => {
+        if (!document.querySelector('.modal.active, .modal.show')) {
+            document.body.classList.remove('modal-open');
+            document.documentElement.classList.remove('modal-open');
+            // Force remove overflow:hidden if Bootstrap added it as inline style
+            document.body.style.removeProperty('overflow');
+            document.body.style.removeProperty('padding-right');
+        }
+    }, 0);
+
+    // Trigger custom events for compatibility
+    modalElement.dispatchEvent(new CustomEvent('hide.bs.modal', { bubbles: true }));
+    modalElement.dispatchEvent(new CustomEvent('hidden.bs.modal', { bubbles: true }));
 }

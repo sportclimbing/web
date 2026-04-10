@@ -13,12 +13,6 @@ const seasons = Array.isArray(seasonsJson.seasons) ? seasonsJson.seasons.map(Str
 
 export const getAllSeasons = () => [...seasons];
 
-export const getLatestSeason = () => {
-  const sorted = [...seasons].sort((a, b) => Number(b) - Number(a));
-
-  return sorted[0] || '2026';
-};
-
 export const getSeasonEventsPayload = (season) => {
   const normalizedSeason = String(season);
 
