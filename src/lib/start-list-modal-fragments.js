@@ -8,22 +8,21 @@ const escape_html = (value) => String(value)
   .replace(/"/g, '&quot;')
   .replace(/'/g, '&#39;');
 
-const athlete_name_build = (athlete) => {
-  const firstName = typeof athlete?.first_name === 'string' ? athlete.first_name : '';
-  const rawLastName = typeof athlete?.last_name === 'string' ? athlete.last_name : '';
-  const lastName = rawLastName
-    ? rawLastName.replace(/\S+/gu, (word) => word.toLocaleLowerCase().replace(/^\p{L}/u, (c) => c.toLocaleUpperCase()))
-    : '';
-  const name = `${firstName} ${lastName}`.trim();
 
-  return name || 'Unknown athlete';
+const normalize_athlete_name = (name)  => {
+  return name.replace(/\S+/gu, (word) => word.toLocaleLowerCase().replace(/^\p{L}/u, (c) => c.toLocaleUpperCase()));
+};
+
+export const athlete_name_build = (athlete) => {
+  const firstName = athlete.first_name;
+  const rawLastName = athlete.last_name;
+  const lastName = normalize_athlete_name(rawLastName);
+
+  return `${firstName} ${lastName}`.trim();
 };
 
 const athlete_initials_build = (athlete) => {
-  const firstName = typeof athlete?.first_name === 'string' ? athlete.first_name : '';
-  const lastName = typeof athlete?.last_name === 'string' ? athlete.last_name : '';
-
-  return `${firstName[0] || ''}${lastName[0] || ''}` || '?';
+  return `${athlete.first_name[0]}${athlete.last_name[0]}`;
 };
 
 const build_full_start_list_link = (eventId) => {
@@ -63,6 +62,7 @@ export const build_start_list_modal_list_html = (startListInput, eventId = '', s
       : `<div class="w-full h-full rounded-full border-2 border-primary/20 group-hover:border-primary/50 transition-colors bg-surface-container-high flex items-center justify-center text-on-surface-variant font-bold" aria-hidden="true">${escape_html(athlete_initials_build(athlete))}</div>`;
 
     let athleteId = athlete?.athlete_id;
+
     if (athleteId === undefined || athleteId === null || athleteId === '') {
       athleteId = athlete_id_from_photo_url_build(athlete?.photo_url);
     }
@@ -78,18 +78,18 @@ export const build_start_list_modal_list_html = (startListInput, eventId = '', s
     const athleteProfile = hasAthleteId || hasInstagram
       ? `<div class="flex items-center gap-3">
           ${instagramLink}
-          ${hasAthleteId ? `<button class="bg-primary-container text-on-primary-fixed px-4 py-2 rounded-lg font-headline font-bold text-xs tracking-tight hover:brightness-110 active:scale-95 transition-all" onclick="window.open('${escape_html(`https://ifsc.results.info/athlete/${encodeURIComponent(String(athleteId))}`)}', '_blank')">IFSC PROFILE</button>` : ''}
+          ${hasAthleteId ? `<button class="bg-primary-container text-on-primary-fixed px-4 py-2 rounded-lg font-headline font-bold text-xs tracking-tight hover:brightness-110 active:scale-95 transition-all" onclick="window.open('${escape_html(`https://ifsc.results.info/athlete/${encodeURIComponent(String(athleteId))}`)}', '_blank')"><span class="hidden lg:inline">IFSC </span>PROFILE</button>` : ''}
         </div>`
       : '';
 
     return `
-            <li class="flex items-center justify-between p-4 bg-surface-container-low/40 hover:bg-surface-container-high transition-all duration-200 rounded-lg group">
-                <div class="flex items-center gap-4">
-                    <div class="relative w-14 h-14 shrink-0">
+            <li class="flex items-center justify-between px-2 py-4 lg:px-4 bg-surface-container-low/40 hover:bg-surface-container-high transition-all duration-200 rounded-lg group">
+                <div class="flex items-center gap-3 lg:gap-4 min-w-0">
+                    <div class="relative w-11 h-11 lg:w-14 lg:h-14 shrink-0">
                         ${photo}
                     </div>
-                    <div class="flex flex-col">
-                        <span class="text-on-surface font-headline font-bold tracking-tight text-lg leading-tight">${athleteName}</span>
+                    <div class="flex flex-col min-w-0">
+                        <span class="text-on-surface font-headline font-bold tracking-tight text-sm lg:text-lg leading-tight truncate">${athleteName}</span>
                         <div class="flex items-center gap-1.5 mt-1">
                             <span class="material-symbols-outlined text-[16px] text-on-surface-variant">flag</span>
                             <span class="text-xs font-label text-on-surface-variant uppercase tracking-wider">${country}</span>

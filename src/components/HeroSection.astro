@@ -16,7 +16,7 @@ const isUpcoming = heroRound?.starts_at && new Date(heroRound.starts_at) > now;
 const statusLabel = isLive ? 'Live Now' : (isUpcoming ? 'Coming Up Next' : 'Event Replay');
 const showDetailsButton = eventId != null;
 ---
-<section class="relative w-full h-[340px] lg:h-[500px] overflow-hidden flex items-start pt-8 lg:items-end lg:pt-0 lg:pb-10">
+<section class="relative w-full h-[280px] lg:h-[500px] overflow-hidden flex items-start pt-8 lg:items-end lg:pt-0 lg:pb-10">
     <div class="absolute inset-0 z-0">
         <div class="absolute inset-0 opacity-60" style={`background-image: url('${heroBgImage}'); background-size: cover; background-position: ${heroBgPosition};`}></div>
         <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
@@ -28,9 +28,9 @@ const showDetailsButton = eventId != null;
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-on-tertiary opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-on-tertiary"></span>
                 </span>
-                <span id="next-event-status-badge-label" class="text-[0.6875rem] font-bold tracking-widest uppercase font-label">{statusLabel}{heroRoundName ? `: ${heroRoundName}` : ''}</span>
+                <span id="next-event-status-badge-label" class="text-[0.5rem] lg:text-[0.6875rem] font-bold tracking-widest uppercase font-label">{statusLabel}{heroRoundName ? `: ${heroRoundName}` : ''}</span>
             </div>
-            <h1 class="text-5xl md:text-8xl font-black font-headline tracking-tighter mb-4 uppercase leading-[0.9]" id="next-event-title">
+            <h1 class="text-4xl md:text-8xl font-black font-headline tracking-tighter mb-4 uppercase leading-[0.9] line-clamp-2 md:line-clamp-none" id="next-event-title">
                 {heroEventTitle}
             </h1>
             <div class="flex flex-wrap items-center gap-8 md:gap-12 mt-8">

@@ -17,34 +17,24 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
         background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%);
     }
 </style>
-<div class="modal-dialog max-w-6xl mx-auto my-10">
-    <div class="modal-content bg-surface/80 backdrop-blur-xl w-full rounded-xl overflow-hidden border border-outline-variant/15 shadow-2xl flex flex-col" style="max-width: 800px">
+<div class="modal-dialog max-w-6xl mx-auto my-4 lg:my-10">
+    <div class="modal-content bg-surface/80 backdrop-blur-xl w-full rounded-xl overflow-hidden border border-outline-variant/15 shadow-2xl flex flex-col max-h-[90svh] lg:max-h-none" style="max-width: 800px">
         <!-- Header Section -->
-        <div class="px-8 pt-10 pb-8 text-center">
+        <div class="shrink-0 px-8 pt-10 pb-8 text-center">
             <div class="flex justify-center mb-4">
                 <div class="w-12 h-1 bg-primary rounded-full"></div>
             </div>
             <h1 class="font-headline text-4xl font-bold tracking-tighter uppercase text-primary" id="calendar-modal-title">CALENDAR SYNC</h1>
-            <p class="font-body text-on-surface-variant mt-3 max-w-lg mx-auto leading-relaxed">
+            <p class="font-body text-xs lg:text-base text-on-surface-variant mt-3 max-w-lg mx-auto leading-relaxed">
                 Stay updated with every boulder, lead, and speed final. Sync the official World Climbing schedule directly to your personal device.
             </p>
         </div>
         <!-- Three-Card Layout -->
-        <div class="px-8 grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <!-- Google Calendar -->
-            <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 flex flex-col items-center text-center group hover:bg-surface-container-high transition-all duration-300">
-                <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-primary text-3xl">calendar_today</span>
-                </div>
-                <h3 class="font-headline font-bold text-lg mb-2 text-on-surface">Google Calendar</h3>
-                <p class="text-xs text-on-surface-variant font-medium mb-8 leading-tight">One-click sync for cloud-based tracking across all devices.</p>
-                <a class="mt-auto w-full py-3 kinetic-gradient text-on-primary-container font-headline font-bold text-sm rounded-lg hover:opacity-90 transition-opacity uppercase tracking-wider text-center block" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream" target="_blank" rel="noopener">
-                    Connect Now
-                </a>
-            </div>
+        <div class="flex-1 overflow-y-auto px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 pt-0">
             <!-- Mobile & Desktop -->
             <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 flex flex-col items-center text-center group hover:bg-surface-container-high transition-all duration-300">
-                <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <div class="hidden md:flex w-14 h-14 rounded-full bg-primary/10 items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <span class="material-symbols-outlined text-primary text-3xl">devices</span>
                 </div>
                 <h3 class="font-headline font-bold text-lg mb-2 text-on-surface">Apple &amp; Outlook</h3>
@@ -53,9 +43,20 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
                     Sync Device
                 </a>
             </div>
+            <!-- Google Calendar -->
+            <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 flex flex-col items-center text-center group hover:bg-surface-container-high transition-all duration-300">
+                <div class="hidden md:flex w-14 h-14 rounded-full bg-primary/10 items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined text-primary text-3xl">calendar_today</span>
+                </div>
+                <h3 class="font-headline font-bold text-lg mb-2 text-on-surface">Google Calendar</h3>
+                <p class="text-xs text-on-surface-variant font-medium mb-8 leading-tight">One-click sync for cloud-based tracking across all devices.</p>
+                <a class="mt-auto w-full py-3 kinetic-gradient text-on-primary-container font-headline font-bold text-sm rounded-lg hover:opacity-90 transition-opacity uppercase tracking-wider text-center block" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream" target="_blank" rel="noopener">
+                    Connect Now
+                </a>
+            </div>
             <!-- Static Download -->
             <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 flex flex-col items-center text-center group hover:bg-surface-container-high transition-all duration-300">
-                <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <div class="hidden md:flex w-14 h-14 rounded-full bg-primary/10 items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <span class="material-symbols-outlined text-primary text-3xl">download</span>
                 </div>
                 <h3 class="font-headline font-bold text-lg mb-2 text-on-surface">Static File</h3>
@@ -70,21 +71,22 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
                 </div>
             </div>
         </div>
+        </div>
         <!-- Footer -->
-        <div class="bg-surface-container-highest/30 px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-outline-variant/10">
+        <div class="shrink-0 bg-surface-container-highest/30 px-8 py-3 md:py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-outline-variant/10">
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
                     <span class="material-symbols-outlined text-tertiary">sync</span>
                 </div>
                 <div>
                     <h4 class="font-headline font-bold text-sm uppercase tracking-tight text-on-surface">Auto-Update Schedule</h4>
-                    <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mt-0.5">
+                    <p class="text-[8px] lg:text-[10px] font-label uppercase tracking-widest text-on-surface-variant mt-0.5">
                         <span class="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse mr-1"></span>
                         Last updated at {updatedAt}
                     </p>
                 </div>
             </div>
-            <button type="button" class="text-on-surface-variant hover:text-on-surface transition-colors font-label text-xs uppercase tracking-widest font-bold px-6 py-2 rounded-lg hover:bg-surface-container transition-colors shrink-0" data-bs-dismiss="modal">
+            <button type="button" class="self-center md:self-auto text-on-surface-variant hover:text-on-surface transition-colors font-label text-xs uppercase tracking-widest font-bold px-6 py-2 rounded-lg hover:bg-surface-container transition-colors shrink-0" data-bs-dismiss="modal">
                 Close
             </button>
         </div>

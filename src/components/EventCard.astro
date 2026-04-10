@@ -6,13 +6,14 @@ import {
   youtube_thumbnail_local_path,
 } from '../lib/shared/media.js';
 import { round_will_be_streamed } from '../js/app/helpers/core.js';
-import { build_start_list_modal_url } from '../lib/start-list-modal-fragments';
+import { athlete_name_build, build_start_list_modal_url } from '../lib/start-list-modal-fragments';
 import { siteAssetVersion } from '../lib/site-shell';
 import { build_event_page_path } from '../lib/event-pages';
 
 const {
   event,
   shouldLinkEventTitles = false,
+  hideRounds = false,
 } = Astro.props;
 
 const MONTH_NAMES = [
@@ -213,7 +214,6 @@ const event_is_upcoming_build = (round) => {
   return startsAt.getTime() > Date.now();
 };
 
-const athlete_name_build = (athlete) => `${athlete.first_name} ${athlete.last_name}`;
 
 const league_name_without_ifsc = (value, season) => {
   let name = String(value || '')
@@ -266,7 +266,7 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
      data-event-league-name={event.league_name}
      data-event-start-month={monthIndex === null ? undefined : String(monthIndex)}
      data-event-page-path={eventPagePath || undefined}>
-    <div id={`heading_${eventId}`} class="flex flex-col lg:flex-row justify-between items-start mb-8 gap-6">
+    <div id={`heading_${eventId}`} class="flex flex-col lg:flex-row justify-between items-start mb-0 lg:mb-8 gap-6">
         <div>
             <p class={`text-[0.6875rem] ${textThemeClass} tracking-[0.2em] uppercase font-label mb-1 event-league-name`}>{prettyLeagueName}</p>
             <h3 class="text-2xl lg:text-5xl font-bold font-headline uppercase tracking-tight mb-4 event-name">
@@ -308,7 +308,7 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
         )}
     </div>
 
-    <ul class="flex flex-col gap-4">
+    <ul class={`flex flex-col gap-4${hideRounds ? ' hidden lg:flex' : ''}`}>
         {event.rounds.map((round) => {
           const streamUrl = typeof round.stream_url === 'string' ? round.stream_url : '';
           const fallbackUrl = streamUrl || STREAMS_FALLBACK_URL;

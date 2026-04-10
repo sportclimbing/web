@@ -1,4 +1,5 @@
 const TOOLTIP_TEMPLATE = '<div class="tooltip sync-tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>';
+const AVATAR_TOOLTIP_TEMPLATE = '<div class="tooltip avatar-tooltip" role="tooltip"><div class="tooltip-inner"></div></div>';
 const SEASON_SELECTOR = 'select[name="season-selector"]';
 const MONTH_NAV_LEFT_CSS_VAR = '--season-month-nav-left';
 
@@ -16,7 +17,6 @@ let seasonTimeline = {
 };
 let monthNavigationFrameId = null;
 let monthNavHorizontalFrameId = null;
-let stickyTitleFrameId = null;
 
 const is_mobile_viewport = () => window.matchMedia(MOBILE_VIEWPORT_MEDIA_QUERY).matches;
 

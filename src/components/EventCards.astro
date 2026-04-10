@@ -5,6 +5,7 @@ const {
   events = [],
   linkEventTitles = false,
   showNoResultsMessage = true,
+  hideRounds = false,
 } = Astro.props;
 
 const normalizedEvents = Array.isArray(events) ? events : [];
@@ -12,9 +13,10 @@ const shouldLinkEventTitles = Boolean(linkEventTitles);
 const shouldShowNoResultsMessage = Boolean(showNoResultsMessage);
 ---
 {normalizedEvents.map((event) => (
-  <EventCard 
-    event={event} 
-    shouldLinkEventTitles={shouldLinkEventTitles} 
+  <EventCard
+    event={event}
+    shouldLinkEventTitles={shouldLinkEventTitles}
+    hideRounds={hideRounds}
   />
 ))}
 

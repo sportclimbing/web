@@ -62,7 +62,7 @@ const setup_tooltips = () => {
 };
 
 const setup_start_list_avatar_tooltips = () => {
-    document.querySelectorAll('.event-start-list-avatar-tooltip').forEach((element) => {
+    document.querySelectorAll('.event-start-list-trigger img').forEach((element) => {
         const tooltip = get_bootstrap_tooltip(element);
 
         if (tooltip) {
@@ -78,10 +78,14 @@ const setup_start_list_avatar_tooltips = () => {
         container: 'body',
         placement: 'bottom',
         trigger: 'hover',
-        template: TOOLTIP_TEMPLATE,
+        template: AVATAR_TOOLTIP_TEMPLATE,
     };
 
-    document.querySelectorAll('.event-start-list-avatar-tooltip').forEach((element) => {
+    document.querySelectorAll('.event-start-list-trigger img').forEach((element) => {
+        if (!element.title && element.alt) {
+            element.title = element.alt;
+        }
+
         setup_tooltip_instance(element, tooltipOptions);
     });
 };
@@ -297,63 +301,4 @@ const setup_month_navigation = () => {
     addEventListener('scroll', schedule_month_navigation_sync, { passive: true });
     addEventListener('resize', schedule_month_navigation_sync);
     sync_active_month_navigation_link();
-};
-
-const NAV_HEIGHT = 62;
-
-const sync_sticky_event_title = () => {
-    const bar = document.getElementById('sticky-event-title');
-    const titleEl = document.getElementById('sticky-event-title-text');
-
-    if (!bar || !titleEl) {
-        return;
-    }
-
-    const cards = Array.from(document.querySelectorAll('#accordion .ifsc-league-card:not([hidden])'));
-    let currentTitle = null;
-
-    for (const card of cards) {
-        const nameEl = card.querySelector('.event-name');
-
-        if (!nameEl) {
-            continue;
-        }
-
-        if (nameEl.getBoundingClientRect().bottom <= NAV_HEIGHT) {
-            currentTitle = card.dataset.eventName || '';
-        } else {
-            break;
-        }
-    }
-
-    if (currentTitle) {
-        titleEl.textContent = currentTitle;
-        bar.style.opacity = '1';
-    } else {
-        bar.style.opacity = '0';
-    }
-};
-
-const schedule_sticky_event_title_sync = () => {
-    if (stickyTitleFrameId !== null) {
-        return;
-    }
-
-    stickyTitleFrameId = window.requestAnimationFrame(() => {
-        stickyTitleFrameId = null;
-        sync_sticky_event_title();
-    });
-};
-
-const setup_sticky_event_title = () => {
-    if (!is_mobile_viewport()) {
-        return;
-    }
-
-    if (!document.getElementById('sticky-event-title')) {
-        return;
-    }
-
-    addEventListener('scroll', schedule_sticky_event_title_sync, { passive: true });
-    sync_sticky_event_title();
 };

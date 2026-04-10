@@ -191,20 +191,6 @@ const apply_filtered_event_cards = (filterResult, accordion) => {
     toggle_no_results_message(accordion, visibleRoundCount > 0);
 };
 
-const is_event_panel_visible = (eventPanel) => {
-    if (!eventPanel) {
-        return false;
-    }
-
-    const eventCard = eventPanel.closest('.ifsc-league-card');
-
-    if (!eventCard) {
-        return false;
-    }
-
-    return !eventCard.hidden;
-};
-
 const refresh_event_ui = () => {
     const accordion = document.getElementById('accordion');
 

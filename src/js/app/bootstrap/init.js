@@ -14,7 +14,6 @@
         setup_discipline_quick_filters();
         setup_season_picker_click_target();
         setup_month_navigation();
-        setup_sticky_event_title();
     }
 
     if (document.readyState === 'complete') {

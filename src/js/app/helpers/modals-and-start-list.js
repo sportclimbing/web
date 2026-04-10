@@ -210,6 +210,21 @@ function start_next_event_countdown(round) {
     render_next_event_countdown(startsAt);
 }
 
+function fit_modal_title_to_one_line(element) {
+    element.style.whiteSpace = 'nowrap';
+    element.style.fontSize = '';
+
+    const available = element.parentElement ? element.parentElement.clientWidth : 0;
+
+    if (!available || element.scrollWidth <= available) {
+        return;
+    }
+
+    const ratio = available / element.scrollWidth;
+    const current = parseFloat(getComputedStyle(element).fontSize);
+    element.style.fontSize = Math.max(13, Math.floor(current * ratio)) + 'px';
+}
+
 function handle_watch_event_no_url(e) {
     const round = round_from_stream_button(e.currentTarget);
     e.preventDefault();
@@ -231,6 +246,10 @@ function handle_watch_event_no_url(e) {
             }
 
             open_modal(eventNotStartedModal);
+
+            if (is_mobile_viewport() && eventName) {
+                fit_modal_title_to_one_line(eventName);
+            }
         }
     } else {
         stop_event_not_started_countdown();
