@@ -19,65 +19,37 @@ const expectModalOpen = async (page, modalSelector) => {
   await expect(page.locator('body')).toHaveClass(/modal-open/);
 };
 
-const getNextEventPanelMatch = async (page) => {
+const getNextEventHeroMatch = async (page) => {
   return page.evaluate(() => {
-    const nextEventRow = document.querySelector('#next-event-details .ifsc-event');
-    const openPanel = document.querySelector('#accordion .event-rounds-panel.show');
+    const detailsButton = document.getElementById('next-event-details-button');
+    const nextEventTitle = document.getElementById('next-event-title');
+    const heroEventId = detailsButton instanceof HTMLElement ? (detailsButton.dataset.eventId || null) : null;
+    const heroEventName = nextEventTitle instanceof HTMLElement ? nextEventTitle.textContent.trim() : null;
 
-    if (!(nextEventRow instanceof HTMLElement)) {
-      return {
-        hasNextEventRow: false,
-        expectedPanelId: null,
-        openPanelId: openPanel instanceof HTMLElement ? openPanel.id : null,
-      };
+    if (!heroEventId) {
+      return { hasHeroEvent: false, heroEventId: null, matchingCardVisible: false };
     }
 
-    const startsAt = nextEventRow.dataset.roundStartsAt || '';
-    const endsAt = nextEventRow.dataset.roundEndsAt || '';
-    const matchingRoundCard = Array.from(
-      document.querySelectorAll('#accordion .event-round-card[data-round-starts-at][data-round-ends-at]')
-    ).find((roundCard) => {
-      if (!(roundCard instanceof HTMLElement)) {
-        return false;
-      }
-
-      return (roundCard.dataset.roundStartsAt || '') === startsAt
-        && (roundCard.dataset.roundEndsAt || '') === endsAt;
-    });
-    const expectedPanel = matchingRoundCard instanceof HTMLElement
-      ? matchingRoundCard.closest('.event-rounds-panel')
-      : null;
+    const matchingCard = document.querySelector(`#accordion .ifsc-league-card:not([hidden])[data-event-id="${heroEventId}"]`);
+    const hasRoundCard = matchingCard instanceof HTMLElement
+      ? Boolean(matchingCard.querySelector('.event-round-card[data-round-starts-at][data-round-ends-at]'))
+      : false;
 
     return {
-      hasNextEventRow: true,
-      expectedPanelId: expectedPanel instanceof HTMLElement ? expectedPanel.id : null,
-      openPanelId: openPanel instanceof HTMLElement ? openPanel.id : null,
+      hasHeroEvent: true,
+      heroEventId,
+      heroEventName,
+      matchingCardVisible: matchingCard instanceof HTMLElement,
+      hasRoundCard,
     };
   });
 };
 
 const openFirstEventPanel = async (page) => {
-  const eventWatchTrigger = page.locator('#accordion .ifsc-league-card:not([hidden]) [data-action="event-watch-toggle"]').first();
-  await expect(eventWatchTrigger).toBeVisible();
-
-  const panelTarget = await eventWatchTrigger.getAttribute('data-bs-target');
-  if (!panelTarget) {
-    throw new Error('Missing event panel target');
-  }
-
-  const eventPanel = page.locator(panelTarget);
-  await page.evaluate((selector) => {
-    const panel = document.querySelector(selector);
-    if (!panel || !window.bootstrap || !window.bootstrap.Collapse) {
-      return;
-    }
-
-    window.bootstrap.Collapse.getOrCreateInstance(panel, { toggle: false }).show();
-  }, panelTarget);
-  await expect(eventPanel).toHaveClass(/show/);
-  await expect(eventPanel.locator('.event-round-card:not([hidden])').first()).toBeVisible();
-
-  return eventPanel;
+  const eventCard = page.locator('#accordion .ifsc-league-card:not([hidden])').first();
+  await expect(eventCard).toBeVisible();
+  await expect(eventCard.locator('.event-round-card:not([hidden])').first()).toBeVisible();
+  return eventCard;
 };
 
 test.beforeEach(async ({ page }) => {
@@ -118,7 +90,7 @@ test('event title click opens the event page', async ({ page }) => {
   await page.goto('/season/2026');
   await waitForEventCards(page);
 
-  const firstTitle = page.locator('#accordion .ifsc-league-card:not([hidden]) .event-name[href]').first();
+  const firstTitle = page.locator('#accordion .ifsc-league-card:not([hidden]) .event-name-title[href]').first();
   const eventPagePath = await firstTitle.getAttribute('href');
   expect(eventPagePath).toMatch(/^\/season\/2026\/event\/.+-\d+\/$/);
 
@@ -126,36 +98,35 @@ test('event title click opens the event page', async ({ page }) => {
   await expect.poll(() => normalizePath(new URL(page.url()).pathname)).toBe(normalizePath(eventPagePath || ''));
 });
 
-test('season page expands the next-event panel by default', async ({ page }) => {
+test('season page shows next event in hero section', async ({ page }) => {
   await page.goto('/season/2026');
   await waitForEventCards(page);
-  await expect(page.locator('#next-event-details .ifsc-event')).toBeVisible({ timeout: 20000 });
+  await expect(page.locator('#next-event-details-button')).toBeVisible({ timeout: 20000 });
 
-  const panelMatch = await getNextEventPanelMatch(page);
+  const heroMatch = await getNextEventHeroMatch(page);
 
-  expect(panelMatch.hasNextEventRow).toBe(true);
-  expect(panelMatch.expectedPanelId).toBeTruthy();
-  expect(panelMatch.openPanelId).toBe(panelMatch.expectedPanelId);
+  expect(heroMatch.hasHeroEvent).toBe(true);
+  expect(heroMatch.heroEventId).toBeTruthy();
+  expect(heroMatch.matchingCardVisible).toBe(true);
+  expect(heroMatch.hasRoundCard).toBe(true);
 });
 
 test('event page shows expanded rounds with breadcrumb-only subheader', async ({ page }) => {
   await page.goto('/season/2026');
   await waitForEventCards(page);
 
-  const firstTitle = page.locator('#accordion .ifsc-league-card:not([hidden]) .event-name[href]').first();
+  const firstTitle = page.locator('#accordion .ifsc-league-card:not([hidden]) .event-name-title[href]').first();
   const eventPagePath = await firstTitle.getAttribute('href');
   expect(eventPagePath).toMatch(/^\/season\/2026\/event\/.+-\d+\/$/);
 
   await page.goto(eventPagePath || '/season/2026');
   await expect.poll(() => normalizePath(new URL(page.url()).pathname)).toBe(normalizePath(eventPagePath || ''));
-  await expect(page.locator('.subheader-buttons')).toHaveCount(1);
+  await expect(page.locator('nav[aria-label="Breadcrumb"]')).toHaveCount(1);
   await expect(page.locator('#season-month-nav')).toHaveCount(0);
   await expect(page.locator('#season-selector')).toHaveCount(0);
   await expect(page.locator('.filters-button')).toHaveCount(0);
-  await expect(page.locator('.subheader-back-to-season')).toHaveCount(0);
-  await expect(page.locator('.event-breadcrumbs')).toHaveCount(1);
-  await expect(page.locator('.event-breadcrumbs-list li')).toHaveCount(3);
-  await expect(page.locator('.event-breadcrumbs-current[aria-current="page"]')).toHaveCount(1);
+  await expect(page.locator('nav[aria-label="Breadcrumb"] a')).toHaveCount(2);
+  await expect(page.locator('nav[aria-label="Breadcrumb"] [aria-current="page"]')).toHaveCount(1);
   await expect(page.locator('[data-action="event-watch-toggle"]')).toHaveCount(0);
   await expect(page.locator('#accordion .event-rounds-panel.collapse')).toHaveCount(0);
   await expect(page.locator('#accordion .event-round-card:not([hidden])').first()).toBeVisible();
@@ -183,7 +154,7 @@ test('shows event-not-started modal when clicking a stream button with no stream
   await waitForEventCards(page);
 
   const eventPanel = await openFirstEventPanel(page);
-  const noStreamButton = eventPanel.locator('a[data-action="round-stream"]:not([data-round-stream-url])').first();
+  const noStreamButton = eventPanel.locator('[data-action="round-stream"]:not([data-round-stream-url])').first();
   await expect(noStreamButton).toBeVisible();
   const hasStreamUrlAttribute = await noStreamButton.evaluate((element) => element.hasAttribute('data-round-stream-url'));
 
@@ -195,7 +166,7 @@ test('shows event-not-started modal when clicking a stream button with no stream
 
 test('switches season and opens start list modal from pre-rendered fragment', async ({ page }) => {
   let startListFragmentRequests = 0;
-  await page.route('**/start-list-modals/**/*.html', async (route) => {
+  await page.route('**/modals/start-list/**', async (route) => {
     startListFragmentRequests += 1;
     await route.continue();
   });
@@ -222,7 +193,7 @@ test('switches season and opens start list modal from pre-rendered fragment', as
 });
 
 test('shows start list modal fallback copy when fragment load fails', async ({ page }) => {
-  await page.route('**/start-list-modals/**/*.html', async (route) => {
+  await page.route('**/modals/start-list/**', async (route) => {
     await route.fulfill({
       status: 500,
       contentType: 'text/plain',
@@ -250,7 +221,7 @@ test('switches season and opens stream modal for a youtube round', async ({ page
   await switchSeason(page, '2024');
 
   const eventPanel = await openFirstEventPanel(page);
-  const streamButton = eventPanel.locator('button.youtube-play-button[data-round-stream-url]').first();
+  const streamButton = eventPanel.locator('button.round-stream-button[data-round-stream-url]').first();
   await expect(streamButton).toHaveAttribute('data-round-stream-url', /.+/);
 
   await streamButton.click();
