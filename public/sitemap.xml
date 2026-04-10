@@ -512,6 +512,11 @@
     <priority>0.80</priority>
   </url>
   <url>
+    <loc>https://ifsc.stream/season/2026/event/world-climbing-europe-para-championship-laval-2026-1534/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://ifsc.stream/season/2026/event/world-climbing-series-koper-2026-1487/</loc>
     <changefreq>daily</changefreq>
     <priority>0.80</priority>
