@@ -12,7 +12,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
     minute: '2-digit',
 });
 ---
-<div id="calendar-modal" class="modal modal-xl" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="calendar-modal-title"></div>
+<div id="calendar-modal" class="modal modal-xl" tabindex="-1" role="dialog" aria-modal="true" aria-label="Calendar Sync"></div>
 
 <div id="start-list-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="start-list-modal-title">
   <div class="modal-dialog modal-content bg-surface-container-lowest rounded-xl shadow-[0_12px_32px_-4px_rgba(0,0,0,0.6)] border border-outline-variant/10 flex flex-col max-h-[870px] w-full max-w-2xl overflow-hidden">
@@ -45,7 +45,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
   </div>
 </div>
 
-<div id="event-not-started-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-not-started-modal-title">
+<div id="event-not-started-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-not-started-modal-event">
   <div class="modal-dialog modal-content bg-surface-container-lowest rounded-xl shadow-[0_12px_32px_-4px_rgba(0,0,0,0.6)] border border-outline-variant/15 flex flex-col w-full max-w-2xl overflow-hidden">
     <!-- Modal Header -->
     <div class="flex items-center justify-between p-6 border-b border-outline-variant/15 bg-surface-container-lowest">
@@ -98,7 +98,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
 <div id="event-link-missing-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-link-missing-modal-title">
   <div class="modal-dialog modal-content bg-surface-container-high text-on-surface shadow-2xl rounded-2xl border-0 overflow-hidden">
     <div class="modal-header border-b border-outline-variant/10 bg-surface-container-low/50 px-8 py-6">
-      <h4 class="modal-title font-headline font-bold text-xl" id="event-link-missing-modal-title">🔗 Link Not Found</h4>
+      <h2 class="modal-title font-headline font-bold text-xl" id="event-link-missing-modal-title">🔗 Link Not Found</h2>
       <button type="button" class="close w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all text-on-surface-variant hover:text-on-surface active:scale-90 border border-outline-variant/20" data-bs-dismiss="modal" aria-label="Close">
         <span class="material-symbols-outlined">close</span>
       </button>
@@ -116,4 +116,4 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
   </div>
 </div>
 
-<div id="filter-modal" class="modal filters-modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="filter-modal-title"></div>
+<div id="filter-modal" class="modal filters-modal" tabindex="-1" role="dialog" aria-modal="true" aria-label="Configure Filters"></div>
