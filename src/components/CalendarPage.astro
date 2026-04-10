@@ -97,6 +97,7 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
 
     <base href="/" />
     <link rel="canonical" href={canonicalUrl} />
+    <link rel="preload" href={heroBgImage} as="image" fetchpriority="high" />
     <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
@@ -214,7 +215,7 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
                 <div class="bg-surface-container-low p-2 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4">
                     <div class="flex items-center gap-2 p-1 bg-surface-container-lowest rounded-lg w-full md:w-auto">
                         <div class="relative">
-                            <select id="season-selector" name="season-selector" class="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10">
+                            <select id="season-selector" name="season-selector" aria-label="Season" class="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10">
                                 {normalizedSeasons.map((s) => (
                                     <option value={s} selected={s === normalizedSeason}>{s} Season</option>
                                 ))}
@@ -236,7 +237,8 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
             </section>
 
             <!-- Event Calendar -->
-            <section>
+            <section aria-labelledby="events-section-heading">
+                <h2 id="events-section-heading" class="sr-only">Season Events</h2>
                 <div class="grid grid-cols-1 gap-4 lg:gap-12">
                     <EventCards events={events} linkEventTitles={true} hideRounds={true} />
                 </div>
