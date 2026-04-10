@@ -203,7 +203,8 @@ const breadcrumbStructuredData = {
                 </div>
             </nav>
 
-            <section>
+            <section aria-labelledby="event-detail-heading">
+                <h2 id="event-detail-heading" class="sr-only">Event Details</h2>
                 <div class="grid grid-cols-1 gap-12">
                     <EventCards
                       events={[event]}
