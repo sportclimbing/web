@@ -278,7 +278,7 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
             </h3>
             <div class="flex flex-col lg:flex-row lg:flex-wrap lg:items-center gap-2 lg:gap-6 text-sm text-on-surface-variant">
                 <span class="flex items-center gap-2"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>calendar_today</span> {format_event_date(event)}</span>
-                <span class="flex items-center gap-2 font-medium"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>exercise</span> {beautify_disciplines(event.disciplines)}</span>
+                <span class="flex items-center gap-2 font-medium event-disciplines"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>exercise</span> {beautify_disciplines(event.disciplines)}</span>
                 <span class="flex items-center gap-2 font-medium" title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus.includes('Confirmed') ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus.replace(/^[^\w]*/, '')}</span>
                 {infosheetUrl && (
                   <a class={`flex items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">description</span> PDF</a>

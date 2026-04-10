@@ -15,8 +15,8 @@ export function getStaticPaths() {
 const season = String(Astro.params.season);
 const seasons = getAllSeasons();
 const eventsPayload = getSeasonEventsPayload(season);
-const pageTitle = `World Climbing (IFSC) Calendar & Live Streams ${season} - Boulder, Lead, & Speed Climbing Schedule`;
-const pageDescription = `World Climbing (IFSC) Schedule ${season} - Live-Streams for all boulder, lead, and speed climbing events`;
+const pageTitle = `IFSC Climbing World Cup ${season} – Calendar, Schedule & Live Streams | Boulder, Lead & Speed`;
+const pageDescription = `Full IFSC Climbing World Cup ${season} schedule with live streams, dates, and event details for Boulder, Lead & Speed competitions worldwide.`;
 const isDefaultSeason = season === DEFAULT_SEASON;
 const canonicalPath = isDefaultSeason ? '/' : `/season/${season}`;
 const robotsContent = isDefaultSeason

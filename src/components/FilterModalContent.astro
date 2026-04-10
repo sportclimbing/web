@@ -87,30 +87,30 @@
                 <h3 class="font-headline text-lg font-bold uppercase tracking-tight text-on-surface">Discipline</h3>
               </div>
               <div class="grid gap-4 grid-cols-3">
-                <label data-filter-name="discipline[boulder]" class="filter-button flex flex-col gap-3 p-5 bg-primary/10 border border-primary/30 rounded-2xl transition-all active relative cursor-pointer">
+                <label data-filter-name="discipline[boulder]" class="filter-button flex flex-col items-center lg:items-start gap-3 p-5 bg-primary/10 border border-primary/30 rounded-2xl transition-all active relative cursor-pointer">
                   <input type="checkbox" name="discipline[boulder]" value="1" checked class="opacity-0 absolute inset-0 cursor-pointer z-10" />
                   <span class="material-symbols-outlined text-3xl text-primary pointer-events-none">landslide</span>
-                  <div class="flex flex-col pointer-events-none">
-                    <span class="font-headline font-bold text-sm uppercase">Boulder</span>
-                    <span class="font-body text-[10px] text-on-surface-variant">Technical Power</span>
+                  <div class="flex flex-col items-center lg:items-start pointer-events-none">
+                    <span class="font-headline font-bold text-sm uppercase text-center lg:text-left">Boulder</span>
+                    <span class="font-body text-[10px] text-on-surface-variant text-center lg:text-left">Technical Power</span>
                   </div>
                 </label>
 
-                <label data-filter-name="discipline[lead]" class="filter-button flex flex-col gap-3 p-5 bg-primary/10 border border-primary/30 rounded-2xl transition-all active relative cursor-pointer">
+                <label data-filter-name="discipline[lead]" class="filter-button flex flex-col items-center lg:items-start gap-3 p-5 bg-primary/10 border border-primary/30 rounded-2xl transition-all active relative cursor-pointer">
                   <input type="checkbox" name="discipline[lead]" value="1" checked class="opacity-0 absolute inset-0 cursor-pointer z-10" />
                   <span class="material-symbols-outlined text-3xl text-primary pointer-events-none">altitude</span>
-                  <div class="flex flex-col pointer-events-none">
-                    <span class="font-headline font-bold text-sm uppercase">Lead</span>
-                    <span class="font-body text-[10px] text-on-surface-variant">Endurance Master</span>
+                  <div class="flex flex-col items-center lg:items-start pointer-events-none">
+                    <span class="font-headline font-bold text-sm uppercase text-center lg:text-left">Lead</span>
+                    <span class="font-body text-[10px] text-on-surface-variant text-center lg:text-left">Endurance Master</span>
                   </div>
                 </label>
 
-                <label data-filter-name="discipline[speed]" class="filter-button flex flex-col gap-3 p-5 bg-primary/10 border border-primary/30 rounded-2xl transition-all active relative cursor-pointer">
+                <label data-filter-name="discipline[speed]" class="filter-button flex flex-col items-center lg:items-start gap-3 p-5 bg-primary/10 border border-primary/30 rounded-2xl transition-all active relative cursor-pointer">
                   <input type="checkbox" name="discipline[speed]" value="1" checked class="opacity-0 absolute inset-0 cursor-pointer z-10" />
                   <span class="material-symbols-outlined text-3xl text-primary pointer-events-none">speed</span>
-                  <div class="flex flex-col pointer-events-none">
-                    <span class="font-headline font-bold text-sm uppercase">Speed</span>
-                    <span class="font-body text-[10px] text-on-surface-variant">Explosive Velocity</span>
+                  <div class="flex flex-col items-center lg:items-start pointer-events-none">
+                    <span class="font-headline font-bold text-sm uppercase text-center lg:text-left">Speed</span>
+                    <span class="font-body text-[10px] text-on-surface-variant text-center lg:text-left">Explosive Velocity</span>
                   </div>
                 </label>
               </div>
@@ -166,7 +166,7 @@
       <div class="modal-footer p-8 bg-surface-container-low/50 backdrop-blur-md border-t border-outline-variant/10 flex items-center justify-between">
         <button type="button" id="reset-filters" class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors">
           <span class="material-symbols-outlined text-xl">restart_alt</span>
-          <span class="font-label text-xs font-bold uppercase tracking-widest">Reset All</span>
+          <span class="font-label text-xs font-bold uppercase tracking-widest">Reset<span class="hidden lg:inline"> All</span></span>
         </button>
         <div class="flex items-center gap-4">
           <button type="button" class="px-4 py-2 lg:px-8 lg:py-4 bg-surface-container-highest text-on-surface font-bold rounded-xl text-xs uppercase tracking-widest hover:bg-surface-variant transition-colors" data-bs-dismiss="modal">

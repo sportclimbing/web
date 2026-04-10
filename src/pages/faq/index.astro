@@ -12,11 +12,11 @@ const season = DEFAULT_SEASON;
 const faqItems = [
   {
     question: 'Where can I watch World Climbing events live?',
-    answer: 'Each event card includes direct stream links for every published round, plus updates when streams go live. Please note that many broadcasts are geo-restricted; viewers outside the United States may need a VPN to access certain streams.',
+    answer: 'Each event card includes direct stream links for every published round, plus updates when streams go live. Please note that many broadcasts are geo-restricted. Viewers outside the United States may need a VPN to access certain streams.',
   },
   {
     question: 'Can I sync this calendar with my device?',
-    answer: 'Yes. Use the "Add to Calendar" option to subscribe so event updates are delivered automatically to your phone, tablet, or desktop calendar app.',
+    answer: 'Yes. Use the "Sync with Calendar" option to subscribe so event updates are delivered automatically to your phone, tablet, or desktop calendar app.',
   },
   {
     question: 'Are start times shown in my local timezone?',
@@ -32,15 +32,15 @@ const faqItems = [
   },
   {
     question: 'Is this an official World Climbing website?',
-    answer: 'No. This independent fan project was created and is maintained by (@nicoswd). Follow updates on Instagram at https://www.instagram.com/nicoswd/ and browse the code on GitHub at https://github.com/sportclimbing.',
-    answerHtml: 'No. This independent fan project was created and is maintained by <a href="https://www.instagram.com/nicoswd/" target="_blank" rel="noopener" class="text-primary hover:underline">@nicoswd</a>. Follow updates on <a href="https://www.instagram.com/nicoswd/" target="_blank" rel="noopener" class="text-primary hover:underline">Instagram</a> and browse the code on <a href="https://github.com/sportclimbing" target="_blank" rel="noopener" class="text-primary hover:underline">GitHub</a>.',
+    answer: 'No. This independent project was created and is maintained by (@nicoswd). Browse the code on GitHub at https://github.com/sportclimbing.',
+    answerHtml: 'No. This independent project was created and is maintained by <a href="https://www.instagram.com/nicoswd/" target="_blank" rel="noopener" class="text-primary hover:underline">@nicoswd</a>. Browse the code on <a href="https://github.com/sportclimbing" target="_blank" rel="noopener" class="text-primary hover:underline">GitHub</a>.',
   },
   {
     question: 'How can I support this project?',
     answer: 'You can support by buying me a coffee, starring the project on GitHub, and sharing the site with other competition climbing fans.',
   },
 ];
-const pageTitle = `World Climbing ${season} Calendar Guide & FAQ | ifsc.stream`;
+const pageTitle = `World Climbing ${season} Calendar Guide & FAQ`;
 const pageDescription = `Find stream, timezone, filtering, and schedule answers for the World Climbing ${season} calendar.`;
 const canonicalUrl = 'https://ifsc.stream/faq/';
 const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
@@ -60,9 +60,7 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
   <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preconnect" href="https://api.github.com" />
   <link rel="preconnect" href="https://calendar.ifsc.stream" />
-  <link rel="preconnect" href="https://buttons.github.io" />
   <link rel="preconnect" href="https://img.youtube.com" />
   <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
 
@@ -138,7 +136,7 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
 <main class="pt-16 flex-1">
 
   <!-- Hero Section -->
-  <section class="relative py-24 md:py-32 overflow-hidden hero-gradient">
+  <section class="relative pt-8 pb-24 lg:py-32 overflow-hidden hero-gradient">
     <div class="max-w-5xl mx-auto px-6 text-center">
       <a href="/" class="inline-flex items-center gap-2 text-primary font-label font-bold text-xs uppercase tracking-widest hover:underline mb-8">
         <span class="material-symbols-outlined text-base">arrow_back</span>
@@ -152,7 +150,7 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
           <label for="faq-search" class="sr-only">Search questions</label>
           <input
             id="faq-search"
-            class="w-full bg-transparent border-none py-6 pl-16 pr-8 text-lg font-body focus:ring-0 transition-all placeholder:text-outline/40"
+            class="w-full bg-transparent border-none py-3 lg:py-6 pl-16 pr-8 text-lg font-body focus:ring-0 transition-all placeholder:text-outline/40"
             placeholder="Search questions..."
             type="text"
             autocomplete="off"

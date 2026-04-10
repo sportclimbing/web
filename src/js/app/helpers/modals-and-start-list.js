@@ -415,7 +415,7 @@ function set_start_list_modal_loading(trigger) {
 }
 
 function set_start_list_modal_error(trigger) {
-    set_start_list_modal_content(start_list_modal_loading_event(trigger), 'ATHLETES ATTENDING', '<li class="p-8 text-center text-on-surface-variant font-medium bg-surface-container-low/20 rounded-xl border border-dashed border-outline-variant/30">Start list unavailable right now.</li>');
+    set_start_list_modal_content(start_list_modal_loading_event(trigger), 'ATHLETES ATTENDING', '<li class="p-8 text-center text-on-surface-variant font-medium bg-surface-container-low/20 rounded-xl border border-dashed border-outline-variant/30 start-list-modal-empty">Start list unavailable right now.</li>');
 }
 
 function parse_start_list_modal_fragment(fragmentHtml) {

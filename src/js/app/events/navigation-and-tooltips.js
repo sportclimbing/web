@@ -111,10 +111,11 @@ const scroll_to_first_event_starting_in_month = (monthIndex) => {
         return;
     }
 
-    firstEventInMonth.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-    });
+    const header = document.querySelector('nav.sticky');
+    const headerHeight = header ? header.offsetHeight : 0;
+    const top = firstEventInMonth.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+    window.scrollTo({ top, behavior: 'smooth' });
 };
 
 const get_month_index_from_dataset_value = (monthIndexValue) => {

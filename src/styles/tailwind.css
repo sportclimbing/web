@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+.github-icon {
+  mask-image: url(/img/github.svg);
+  -webkit-mask-image: url(/img/github.svg);
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  background-color: #C0C7D1;
+  transition: background-color 0.15s;
+}
+.github-icon:hover {
+  background-color: #97CCFF;
+}
+
 .avatar-tooltip {
   transition-duration: 80ms !important;
 }

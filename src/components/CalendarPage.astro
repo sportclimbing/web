@@ -1,5 +1,6 @@
 ---
 import { siteAssetVersion } from '../lib/site-shell';
+import { extract_youtube_video_id } from '../lib/shared/media';
 import '../styles/tailwind.css';
 import AppHeader from './AppHeader.astro';
 import AppFooter from './AppFooter.astro';
@@ -72,19 +73,11 @@ const heroEventTitle = heroEvent?.name || `World Climbing Series ${normalizedSea
 const heroRoundName = heroRound?.name || '';
 const heroEventPagePath = build_event_page_path(normalizedSeason, heroEvent);
 
-const youtube_video_id_from_url = (url) => {
-    if (!url) return null;
-    const matches = String(url).match(
-        /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|live\/|embed\/|shorts\/))(?<video_id>[A-Za-z0-9_-]{10,})/i,
-    );
-    return matches?.groups?.video_id || null;
-};
-
 const firstStreamUrl = events
     .flatMap((e) => Array.isArray(e.rounds) ? e.rounds : [])
     .map((r) => r.stream_url)
-    .find((url) => url && youtube_video_id_from_url(url));
-const heroBgVideoId = firstStreamUrl ? youtube_video_id_from_url(firstStreamUrl) : null;
+    .find((url) => url && extract_youtube_video_id(url));
+const heroBgVideoId = firstStreamUrl ? extract_youtube_video_id(firstStreamUrl) : null;
 const seasonOverride = HERO_BG_OVERRIDES[normalizedSeason] || {};
 const resolvedBgVideoId = seasonOverride.youTubeVideoId ?? heroBgVideoId;
 const heroBgImage = resolvedBgVideoId
@@ -107,9 +100,7 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
     <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preconnect" href="https://api.github.com" />
     <link rel="preconnect" href="https://calendar.ifsc.stream" />
-    <link rel="preconnect" href="https://buttons.github.io" />
     <link rel="preconnect" href="https://img.youtube.com" />
     
     <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />

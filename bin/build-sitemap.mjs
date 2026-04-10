@@ -201,6 +201,18 @@ const main = async () => {
         priority: '0.70',
     });
 
+    add_entry({
+        loc: site_url_with_trailing_slash(siteUrl, '/archive'),
+        changefreq: 'weekly',
+        priority: '0.60',
+    });
+
+    add_entry({
+        loc: site_url_with_trailing_slash(siteUrl, '/privacy-policy'),
+        changefreq: 'yearly',
+        priority: '0.30',
+    });
+
     for (const [index, season] of seasonPageSeasons.entries()) {
         add_entry({
             loc: site_url_with_trailing_slash(siteUrl, `/season/${season}`),

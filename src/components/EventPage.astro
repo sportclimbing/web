@@ -1,5 +1,6 @@
 ---
 import { siteAssetVersion } from '../lib/site-shell';
+import { extract_youtube_video_id } from '../lib/shared/media';
 import '../styles/tailwind.css';
 import AppHeader from './AppHeader.astro';
 import AppFooter from './AppFooter.astro';
@@ -29,12 +30,10 @@ const {
 } = Astro.props;
 
 const normalizedSeason = String(season);
-const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
 const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
 const normalizedEventId = String(event.id)
 const eventName = String(event?.name || '').trim() || 'Event';
 const eventLocation = String(event?.location || '').trim() || eventName;
-const seasonHomePath = normalizedSeason === DEFAULT_SEASON ? '/' : `/season/${normalizedSeason}/`;
 const seasonPagePath = `/season/${normalizedSeason}/`;
 
 // Hero section logic
@@ -61,17 +60,8 @@ const heroRound = liveRound || nextRound || rounds[rounds.length - 1];
 const isLive = Boolean(liveRound);
 const heroRoundName = heroRound?.name || '';
 const heroEventTitle = eventName;
-
-const youtube_video_id_from_url = (url) => {
-    if (!url) return null;
-    const matches = String(url).match(
-        /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|live\/|embed\/|shorts\/))(?<video_id>[A-Za-z0-9_-]{10,})/i,
-    );
-    return matches?.groups?.video_id || null;
-};
-
-const firstStreamRound = rounds.find((r) => r.stream_url && youtube_video_id_from_url(r.stream_url));
-const heroYouTubeVideoId = firstStreamRound ? youtube_video_id_from_url(firstStreamRound.stream_url) : null;
+const firstStreamRound = rounds.find((r) => r.stream_url && extract_youtube_video_id(r.stream_url));
+const heroYouTubeVideoId = firstStreamRound ? extract_youtube_video_id(firstStreamRound.stream_url) : null;
 const seasonOverride = HERO_BG_OVERRIDES[normalizedSeason] || {};
 const resolvedBgVideoId = seasonOverride.youTubeVideoId ?? heroYouTubeVideoId;
 const heroBgImage = resolvedBgVideoId
@@ -133,9 +123,7 @@ const breadcrumbStructuredData = {
     <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preconnect" href="https://api.github.com" />
     <link rel="preconnect" href="https://calendar.ifsc.stream" />
-    <link rel="preconnect" href="https://buttons.github.io" />
     <link rel="preconnect" href="https://img.youtube.com" />
     <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
 
@@ -200,10 +188,10 @@ const breadcrumbStructuredData = {
         heroBgPosition={heroBgPosition}
     />
 
-    <div class="max-w-screen-2xl mx-auto px-6 pt-16 flex gap-12 relative" id="accordion">
+    <div class="lg:max-w-6xl mx-auto px-6 pt-0 lg:pt-16 flex gap-12 relative" id="accordion">
         <div class="flex-1 min-w-0 pb-24">
             <!-- Breadcrumbs -->
-            <nav class="mb-12" aria-label="Breadcrumb">
+            <nav class="mb-4 lg:mb-12" aria-label="Breadcrumb">
                 <div class="bg-surface-container-low p-2 rounded-xl flex items-center gap-2 overflow-x-auto no-scrollbar">
                     <div class="flex items-center gap-0 p-1 bg-surface-container-lowest rounded-lg w-full">
                         <a href="/" class="flex-1 text-center px-3 lg:px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold whitespace-nowrap">Home</a>
@@ -227,7 +215,7 @@ const breadcrumbStructuredData = {
             </section>
 
             {hasRelatedEventLinks ? (
-              <section class="mt-20 border-t border-outline-variant/20 pt-20" aria-labelledby="event-internal-links-title">
+              <section class="mt-10 border-t border-outline-variant/20 pt-10" aria-labelledby="event-internal-links-title">
                 <h2 id="event-internal-links-title" class="text-3xl font-black font-headline uppercase mb-12 tracking-tight">Related Events</h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
