@@ -60,6 +60,7 @@ const watchButtonClass = isLive
         <div class="flex items-start flex-col sm:flex-row sm:items-center gap-2 mb-1">
             {isLive && <span class={`text-[10px] ${liveBadgeClass} font-bold uppercase tracking-widest px-2 py-0.5 rounded live-badge`}>Live Now</span>}
             {!isLive && isUpcoming && willBeStreamed && <span class="text-[10px] text-on-tertiary font-bold uppercase tracking-widest bg-tertiary px-2 py-0.5 rounded upcoming-badge">Upcoming</span>}
+            <span class="text-[10px] text-white font-bold uppercase tracking-widest bg-green-500 px-2 py-0.5 rounded next-event-badge hidden">Next Event</span>
             {!isLive && !isUpcoming && willBeStreamed && <span class="text-[10px] text-on-primary-fixed font-bold uppercase tracking-widest bg-primary px-2 py-0.5 rounded replay-badge">Replay</span>}
             {!willBeStreamed && <span class="text-[10px] text-on-surface-variant font-bold uppercase tracking-widest bg-surface-container-lowest px-2 py-0.5 rounded">Not Streamed</span>}
             <span class="text-[11px] text-on-surface-variant font-mono"><span class="round-date">{formatRoundDate}</span> | <span class="round-time">{formatRoundTime}</span>{formatRoundEndTime && <span class="round-end-time"> - {formatRoundEndTime}</span>} <span class="round-starts-in hidden ml-2"></span></span>

@@ -1,4 +1,5 @@
 (() => {
+    localize_round_times();
     restore_config();
     setup_accordion_handlers();
     setup_tooltips();

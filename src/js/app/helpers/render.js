@@ -44,26 +44,6 @@ function set_background_image_now(element, url) {
     }
 }
 
-function lazy_set_background_image(element, url) {
-    if (!element || !url) {
-        return;
-    }
-
-    element.classList.add('lazy-background');
-    element.dataset.bgSrc = url;
-    element.style.backgroundImage = '';
-
-    const observer = get_lazy_background_observer();
-
-    if (!observer) {
-        set_background_image_now(element, url);
-
-        return;
-    }
-
-    observer.observe(element);
-}
-
 function release_lazy_backgrounds(root) {
     if (!root || typeof root.querySelectorAll !== 'function') {
         return;
@@ -82,11 +62,7 @@ function release_lazy_backgrounds(root) {
     root.querySelectorAll('.lazy-background').forEach((element) => observer.unobserve(element));
 }
 
-function youtube_cover_url(videoId, frame = 0) {
-    return `https://img.youtube.com/vi/${videoId}/${frame}.jpg`;
-}
-
-function set_round_details(clone, round, isNextEvent) {
+function set_round_details(clone, round) {
     if (!clone || !round) {
         return;
     }
@@ -223,14 +199,27 @@ function set_round_time(element, round) {
         return;
     }
 
-    const localTimeTooltip = round_local_time_tooltip(round);
+    const startsAtRaw = round.starts_at || '';
 
-    if (localTimeTooltip) {
-        element.setAttribute('title', localTimeTooltip);
+    if (!startsAtRaw) {
         return;
     }
 
-    element.removeAttribute('title');
+    const start = new Date(startsAtRaw);
+
+    if (Number.isNaN(start.getTime())) {
+        return;
+    }
+
+    element.textContent = LOCAL_ROUND_TIME_FMT.format(start);
+
+    const venueTime = venue_time_from_iso(startsAtRaw);
+
+    if (venueTime) {
+        element.title = `Venue: ${venueTime}`;
+    } else {
+        element.removeAttribute('title');
+    }
 }
 
 function set_round_name(element, round) {
@@ -241,30 +230,77 @@ function set_round_name(element, round) {
     element.innerText = round.name;
 }
 
-function round_local_time_tooltip(round) {
-    const startsAt = String(round && round.starts_at ? round.starts_at : '');
-    const match = /T(\d{2}):(\d{2})(?::(\d{2}))?(Z|[+-]\d{2}:\d{2})$/.exec(startsAt);
+const LOCAL_ROUND_DATE_FMT = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'short' });
+const LOCAL_ROUND_TIME_FMT = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+function venue_time_from_iso(isoString) {
+    const match = /T(\d{2}):(\d{2})(?::\d{2})?(Z|[+-]\d{2}:\d{2})$/.exec(isoString);
 
     if (!match) {
         return '';
     }
 
-    const hour = match[1];
+    const hour = parseInt(match[1], 10);
     const minute = match[2];
-    const second = match[3] || '00';
-    const offset = match[4];
-    let utcOffset = '+0';
+    const offset = match[3];
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const hour12 = String(hour % 12 || 12).padStart(2, '0');
+
+    let utcLabel = 'UTC';
 
     if (offset !== 'Z') {
-        const sign = offset.charAt(0);
-        const rawHours = offset.slice(1, 3);
-        const rawMinutes = offset.slice(4, 6);
-        const hourOffset = String(parseInt(rawHours, 10));
-
-        utcOffset = rawMinutes === '00' ? `${sign}${hourOffset}` : `${sign}${hourOffset}:${rawMinutes}`;
+        const sign = offset[0];
+        const offsetHours = parseInt(offset.slice(1, 3), 10);
+        const offsetMinutes = offset.slice(4, 6);
+        utcLabel = `UTC${sign}${offsetHours}${offsetMinutes !== '00' ? ':' + offsetMinutes : ''}`;
     }
 
-    return `Local Time: ${hour}:${minute}:${second} (UTC ${utcOffset})`;
+    return `${hour12}:${minute} ${ampm} (${utcLabel})`;
+}
+
+function localize_round_times() {
+    document.querySelectorAll('.event-round-card').forEach((card) => {
+        const startsAtRaw = card.dataset.roundStartsAt || '';
+        const endsAtRaw = card.dataset.roundEndsAt || '';
+
+        if (!startsAtRaw) {
+            return;
+        }
+
+        const start = new Date(startsAtRaw);
+
+        if (Number.isNaN(start.getTime())) {
+            return;
+        }
+
+        const dateEl = card.querySelector('.round-date');
+        const timeEl = card.querySelector('.round-time');
+        const endTimeEl = card.querySelector('.round-end-time');
+
+        if (dateEl) {
+            dateEl.textContent = LOCAL_ROUND_DATE_FMT.format(start).toUpperCase();
+        }
+
+        if (timeEl) {
+            timeEl.textContent = LOCAL_ROUND_TIME_FMT.format(start);
+        }
+
+        if (endTimeEl && endsAtRaw) {
+            const end = new Date(endsAtRaw);
+
+            if (!Number.isNaN(end.getTime())) {
+                endTimeEl.textContent = ` - ${LOCAL_ROUND_TIME_FMT.format(end)}`;
+            }
+        }
+
+        if (timeEl) {
+            const venueTime = venue_time_from_iso(startsAtRaw);
+
+            if (venueTime) {
+                timeEl.title = `Venue: ${venueTime}`;
+            }
+        }
+    });
 }
 
 function set_favicon(liveEvent) {

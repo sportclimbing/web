@@ -209,6 +209,14 @@ const refresh_event_ui = () => {
         selectedEvent = nextEvent ? nextEvent.id : null;
     }
 
+    accordion.querySelectorAll('.ifsc-league-card[data-event-id]').forEach((card) => {
+        const eventId = card.dataset.eventId || '';
+
+        if (eventId) {
+            refresh_event_round_statuses(eventId);
+        }
+    });
+
     update_next_event_panel();
     setup_start_list_avatar_tooltips();
     update_month_navigation_state();
@@ -237,10 +245,17 @@ const refresh_event_page_ui = () => {
 
         visibleEventIds.add(eventId);
         show_event_card(card);
-        refresh_event_round_statuses(eventId);
     });
 
     seasonTimeline = compute_dom_season_timeline();
+
+    accordion.querySelectorAll('.ifsc-league-card[data-event-id]').forEach((card) => {
+        const eventId = card.dataset.eventId || '';
+
+        if (eventId) {
+            refresh_event_round_statuses(eventId);
+        }
+    });
 
     if (!refresh_next_event_status()) {
         update_next_event_panel();
