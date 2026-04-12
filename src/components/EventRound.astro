@@ -69,7 +69,14 @@ const watchButtonClass = isLive
     </div>
 
     <div class="flex gap-3 sm:ml-auto w-full sm:w-auto round-actions">
-           {willBeStreamed && <button class={`text-sm font-bold flex flex-1 sm:flex-none justify-center items-center gap-2 px-4 py-2 rounded-lg transition-colors ${watchButtonClass} whitespace-nowrap round-stream-button`}
+           {willBeStreamed && hasStreamUrl && <a href={round.stream_url}
+                   class={`text-sm font-bold flex flex-1 sm:flex-none justify-center items-center gap-2 px-4 py-2 rounded-lg transition-colors ${watchButtonClass} whitespace-nowrap round-stream-button`}
+                   data-action="round-stream"
+                   data-round-stream-url={round.stream_url}>
+               <span class="material-symbols-outlined text-[18px]">{isFinished ? 'replay' : 'play_circle'}</span> {isFinished ? 'REPLAY' : 'WATCH'}
+           </a>}
+           {willBeStreamed && !hasStreamUrl && <button type="button"
+                   class={`text-sm font-bold flex flex-1 sm:flex-none justify-center items-center gap-2 px-4 py-2 rounded-lg transition-colors ${watchButtonClass} whitespace-nowrap round-stream-button`}
                    data-action="round-stream"
                    data-round-stream-url={round.stream_url}>
                <span class="material-symbols-outlined text-[18px]">{isFinished ? 'replay' : 'play_circle'}</span> {isFinished ? 'REPLAY' : 'WATCH'}
