@@ -214,40 +214,34 @@ const get_next_event_from_visible_rounds = () => {
 
 const update_round_card_status_and_actions = (roundElement, round, parsedEventId, includeRoundDetails = true) => {
     const roundKey = round.roundKey || (roundElement.dataset.roundKey || '');
-    const startsIn = roundElement.querySelector('.round-starts-in');
 
     if (includeRoundDetails) {
         set_round_details(roundElement, round, false);
     }
 
     if (event_is_streaming(round)) {
-        if (startsIn) {
-            startsIn.innerText = '🔴 Live Now';
-        }
-
         return false;
     }
 
     if (event_is_upcoming(round)) {
         const isNextRound = !seasonTimeline.liveRoundKey
             && Boolean(seasonTimeline.nextRoundKey)
-            && seasonTimeline.nextRoundKey === roundKey;
+            && seasonTimeline.nextRoundKey === roundKey
+            && seasonTimeline.nextRound !== null
+            && seasonTimeline.nextRound.startsAtTimestamp === round.startsAtTimestamp;
 
-        if (startsIn) {
-            if (!round_will_be_streamed(round)) {
-                startsIn.innerText = '🟡 Qualification will not be streamed';
-            } else if (isNextRound) {
-                startsIn.innerText = `🟢 Next Event (starts ${pretty_starts_in(round)})`;
-            } else {
-                startsIn.innerText = `⌛ Starts ${pretty_starts_in(round)}`;
-            }
+        const upcomingBadge = roundElement.querySelector('.upcoming-badge');
+        const nextEventBadge = roundElement.querySelector('.next-event-badge');
+
+        if (isNextRound) {
+            if (upcomingBadge) upcomingBadge.classList.add('hidden');
+            if (nextEventBadge) nextEventBadge.classList.remove('hidden');
+        } else {
+            if (upcomingBadge) upcomingBadge.classList.remove('hidden');
+            if (nextEventBadge) nextEventBadge.classList.add('hidden');
         }
 
         return !isNextRound;
-    }
-
-    if (startsIn) {
-        startsIn.innerText = `🏁 ${pretty_finished_ago(round)}`;
     }
 
     return false;
@@ -267,7 +261,6 @@ const update_event_round_rows = (eventId, includeRoundDetails = true) => {
     }
 
     const roundsList = eventElement.getElementsByTagName('ul')[0];
-    const poster = document.querySelector(`#heading_${parsedEventId} .event-poster`);
 
     if (!roundsList) {
         return;
