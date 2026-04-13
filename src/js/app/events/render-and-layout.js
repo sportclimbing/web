@@ -439,6 +439,17 @@ const setup_filter_handlers = () => {
             document.querySelectorAll('#filter-modal input[type="checkbox"]').forEach((checkbox) => {
                 set_checkbox_checked(checkbox.name, checkbox.name !== 'streamable' && checkbox.name !== 'league[games]');
             });
+
+            const tzSelector = document.getElementById('timezone-selector');
+            if (tzSelector) {
+                try {
+                    const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    if (localTz) {
+                        tzSelector.value = localTz;
+                        tzSelector.dispatchEvent(new Event('change'));
+                    }
+                } catch (_) {}
+            }
         });
     }
 

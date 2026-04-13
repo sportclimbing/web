@@ -266,8 +266,12 @@ function make_time_fmt(tz) {
 
 function has_non_default_filters() {
     try {
-        if (localStorage.getItem(TIMEZONE_STORAGE_KEY)) {
-            return true;
+        const storedTz = localStorage.getItem(TIMEZONE_STORAGE_KEY);
+        if (storedTz) {
+            const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            if (storedTz !== localTz) {
+                return true;
+            }
         }
     } catch (_) {
         // ignore
