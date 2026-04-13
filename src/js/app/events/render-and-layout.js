@@ -423,6 +423,7 @@ const setup_filter_handlers = () => {
             config = load_config_from_modal();
             refresh_event_ui();
             window.localStorage.setItem('config', JSON.stringify(config));
+            update_filter_badge();
         });
     }
 

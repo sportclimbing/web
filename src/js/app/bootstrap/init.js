@@ -6,6 +6,7 @@
     setup_season_navigation();
     setup_modal_handlers();
     start_periodic_event_status_refresh();
+    update_filter_badge();
 
     if (is_event_page()) {
         refresh_event_page_ui();

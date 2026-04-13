@@ -264,6 +264,42 @@ function make_time_fmt(tz) {
     return new Intl.DateTimeFormat('en-US', opts);
 }
 
+function has_non_default_filters() {
+    try {
+        if (localStorage.getItem(TIMEZONE_STORAGE_KEY)) {
+            return true;
+        }
+    } catch (_) {
+        // ignore
+    }
+
+    const configRaw = localStorage.getItem('config');
+
+    if (!configRaw) {
+        return false;
+    }
+
+    try {
+        const config = JSON.parse(configRaw);
+
+        return CONFIG_CHECKBOX_BINDINGS.some(({ path }) =>
+            read_nested_value(config, path) !== read_nested_value(DEFAULT_CONFIG, path)
+        );
+    } catch (_) {
+        // ignore
+    }
+
+    return false;
+}
+
+function update_filter_badge() {
+    const active = has_non_default_filters();
+
+    document.querySelectorAll('.filters-button').forEach((button) => {
+        button.classList.toggle('has-filter-changes', active);
+    });
+}
+
 function setup_timezone_selector() {
     const selector = document.getElementById('timezone-selector');
 
@@ -280,6 +316,7 @@ function setup_timezone_selector() {
     selector.addEventListener('change', () => {
         set_selected_timezone(selector.value);
         localize_round_times();
+        update_filter_badge();
     });
 }
 
