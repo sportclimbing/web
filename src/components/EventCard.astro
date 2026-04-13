@@ -17,6 +17,7 @@ const {
   hideScheduleStatusOnMobile = false,
   showMobileDetailsButton = false,
   startListMobileBottomMargin = false,
+  hideInfosheetOnMobile = false,
 } = Astro.props;
 
 const MONTH_NAMES = [
@@ -253,11 +254,10 @@ const startListTotal = typeof event.start_list_total === 'number' ? event.start_
 
 const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
 
-const isEuropeanCup = event.league_name?.toLowerCase().includes('european cup');
-const textThemeClass = isEuropeanCup ? 'text-secondary' : 'text-primary';
-const hoverTextThemeClass = isEuropeanCup ? 'hover:text-secondary-container' : 'hover:text-primary-container';
-const borderThemeClass = isEuropeanCup ? 'border-secondary' : 'border-primary';
-const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hover:border-primary/20';
+const textThemeClass = 'text-primary';
+const hoverTextThemeClass = 'hover:text-primary-container';
+const borderThemeClass = 'border-primary';
+const hoverBorderThemeClass = 'hover:border-primary/20';
 
 ---
 <div class={`bg-surface-container rounded-2xl overflow-hidden p-6 lg:p-10 border border-outline-variant/10 shadow-2xl transition-all ${hoverBorderThemeClass} mb-4 lg:mb-2 ifsc-league-card`}
@@ -284,7 +284,7 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
                 <span class="flex items-center gap-2 font-medium event-disciplines"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>exercise</span> {beautify_disciplines(event.disciplines)}</span>
                 <span class={`${hideScheduleStatusOnMobile ? 'hidden sm:flex' : 'flex'} items-center gap-2 font-medium`} title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus.includes('Confirmed') ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus.replace(/^[^\w]*/, '')}</span>
                 {infosheetUrl && (
-                  <a class={`flex items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">description</span> PDF</a>
+                  <a class={`${hideInfosheetOnMobile ? 'hidden lg:flex' : 'flex'} items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">description</span> PDF</a>
                 )}
             </div>
             <div class="hidden lg:block h-px bg-gray-400/20 mt-4"></div>
@@ -342,7 +342,6 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
               thumbnailUrl={thumbnailUrl}
               fallbackUrl={fallbackUrl}
               STREAMS_FALLBACK_URL={STREAMS_FALLBACK_URL}
-              isEuropeanCup={isEuropeanCup}
             />
           );
         })}

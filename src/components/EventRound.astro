@@ -14,30 +14,25 @@ const {
   thumbnailUrl,
   fallbackUrl,
   STREAMS_FALLBACK_URL,
-  isEuropeanCup = false
 } = Astro.props;
 
 const showReminder = isUpcoming;
 const roundKey = `${round.kind || ''}-${(Array.isArray(round.disciplines) ? round.disciplines : []).sort().join(',')}-${(Array.isArray(round.categories) ? round.categories : []).sort().join(',')}`;
-const themeClass = isEuropeanCup ? 'secondary' : 'primary';
-const borderThemeClass = isEuropeanCup ? 'border-secondary' : 'border-primary';
-const textThemeClass = isEuropeanCup ? 'text-secondary' : 'text-primary';
 
 const willBeStreamed = round_will_be_streamed(round);
 const isDimmed = !willBeStreamed || (isFinished && !hasStreamUrl);
-const liveBadgeClass = isEuropeanCup ? 'text-secondary bg-secondary/10' : 'text-primary bg-primary/10';
-const watchButtonClass = isLive 
-    ? (isEuropeanCup ? 'bg-secondary text-on-secondary hover:bg-secondary-container' : 'bg-primary text-on-primary hover:bg-primary-container')
-    : `border border-outline-variant text-on-surface hover:border-${themeClass} hover:text-${themeClass}`;
+const liveBadgeClass = 'text-primary bg-primary/10';
+const watchButtonClass = isLive
+    ? 'bg-primary text-on-primary hover:bg-primary-container'
+    : 'border border-outline-variant text-on-surface hover:border-primary hover:text-primary';
 
 ---
-<li class={`flex flex-col sm:flex-row items-start sm:items-center gap-6 p-5 bg-surface-container-high rounded-xl group cursor-pointer hover:bg-surface-container-highest transition-colors event-round-card ifsc-event ${isLive ? `border-l-4 ${borderThemeClass}` : ''} ${isDimmed ? 'opacity-80' : ''}`}
+<li class={`flex flex-col sm:flex-row items-start sm:items-center gap-6 p-5 bg-surface-container-high rounded-xl group cursor-pointer hover:bg-surface-container-highest transition-colors event-round-card ifsc-event ${isLive ? 'border-l-4 border-primary' : ''} ${isDimmed ? 'opacity-80' : ''}`}
      data-round-kind={round.kind}
      data-round-disciplines={(Array.isArray(round.disciplines) ? round.disciplines : []).join(',')}
      data-round-categories={(Array.isArray(round.categories) ? round.categories : []).join(',')}
      data-round-starts-at={round.starts_at}
      data-round-ends-at={round.ends_at}
-     data-round-name={round.name}
      data-round-key={roundKey}>
     
     <div class="w-full sm:w-32 h-36 sm:h-20 bg-black rounded-lg overflow-hidden flex-shrink-0 relative">
