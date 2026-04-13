@@ -16,10 +16,10 @@ import {
   HERO_BG_OVERRIDES,
 } from '../lib/config';
 import { getSeasonEventsPayload } from '../lib/events-data';
+import { round_will_be_streamed } from "../js/app/helpers/core";
 
 const {
   season,
-  seasons,
   event,
   relatedLinks = {},
   canonicalPath,
@@ -43,6 +43,10 @@ let liveRound = null;
 let nextRound = null;
 
 for (const round of rounds) {
+    if (!round_will_be_streamed(round, event) || event.league_name === 'Games') {
+        continue;
+    }
+
     const startsAt = new Date(round.starts_at);
     const endsAt = new Date(round.ends_at);
     if (now >= startsAt && now <= endsAt) {
@@ -57,7 +61,6 @@ for (const round of rounds) {
 }
 
 const heroRound = liveRound || nextRound || rounds[rounds.length - 1];
-const isLive = Boolean(liveRound);
 const heroRoundName = heroRound?.name || '';
 const heroEventTitle = eventName;
 const firstStreamRound = rounds.find((r) => r.stream_url && extract_youtube_video_id(r.stream_url));
@@ -180,7 +183,6 @@ const breadcrumbStructuredData = {
     <!-- Hero Section -->
     <HeroSection
         heroEventTitle={heroEventTitle}
-        isLive={isLive}
         heroRound={heroRound}
         heroRoundName={heroRoundName}
         leagueName={event?.league_name}
