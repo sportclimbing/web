@@ -353,6 +353,13 @@ const setup_modal_handlers = () => {
 
     // Modal global event listeners
     document.addEventListener('click', (event) => {
+        const calendarTrigger = event.target.closest('[data-open-calendar-modal]');
+        if (calendarTrigger) {
+            event.preventDefault();
+            load_lazy_calendar_modal().then(() => open_modal('#calendar-modal'));
+            return;
+        }
+
         const trigger = event.target.closest('[data-bs-toggle="modal"]');
         if (trigger) {
             event.preventDefault();
