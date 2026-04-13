@@ -16,6 +16,23 @@
   background-color: #97CCFF;
 }
 
+.filters-button {
+  position: relative;
+  overflow: visible !important;
+}
+
+.filters-button.has-filter-changes::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 9px;
+  height: 9px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
 .avatar-tooltip {
   transition-duration: 80ms !important;
 }
