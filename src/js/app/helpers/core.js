@@ -64,8 +64,8 @@ function pretty_finished_ago(event) {
     return `Streamed ${dayjs(event.starts_at).fromNow()}`;
 }
 
-export function round_will_be_streamed(round) {
-    if (round && round.league_name === 'IFSC Paraclimbing') {
+export function round_will_be_streamed(round, event) {
+    if (event && event.league_name === 'IFSC Paraclimbing') {
         return true;
     }
 

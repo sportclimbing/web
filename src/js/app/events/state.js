@@ -193,7 +193,7 @@ const ranked_visible_round_candidates = () => collect_visible_round_candidates_f
 const compute_dom_season_timeline = () => {
     const candidates = ranked_visible_round_candidates();
     const liveCandidate = candidates.find(({ round }) => event_is_streaming(round)) || null;
-    const nextCandidate = liveCandidate ? null : (candidates.find(({ round }) => event_is_upcoming(round) && round_will_be_streamed(round)) || null);
+    const nextCandidate = liveCandidate ? null : (candidates.find(({ round, event }) => event_is_upcoming(round) && round_will_be_streamed(round, event)) || null);
 
     return {
         liveRound: liveCandidate ? liveCandidate.round : null,
@@ -219,8 +219,31 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
         set_round_details(roundElement, round, false);
     }
 
+    const liveBadge = roundElement.querySelector('.live-badge');
+    const upcomingBadge = roundElement.querySelector('.upcoming-badge');
+    const nextEventBadge = roundElement.querySelector('.next-event-badge');
+    const replayBadge = roundElement.querySelector('.replay-badge');
+    const streamButton = roundElement.querySelector('.round-stream-button');
+
     if (event_is_streaming(round)) {
+        if (liveBadge) liveBadge.classList.remove('hidden');
+        if (upcomingBadge) upcomingBadge.classList.add('hidden');
+        if (nextEventBadge) nextEventBadge.classList.add('hidden');
+        if (replayBadge) replayBadge.classList.add('hidden');
+        roundElement.classList.add('border-l-4', 'border-primary');
+        if (streamButton) {
+            streamButton.classList.remove('border', 'border-outline-variant', 'text-on-surface', 'hover:border-primary', 'hover:text-primary');
+            streamButton.classList.add('bg-primary', 'text-on-primary', 'hover:bg-primary-container');
+        }
         return false;
+    }
+
+    // Not streaming — clear any live styling applied by a previous JS run
+    if (liveBadge) liveBadge.classList.add('hidden');
+    roundElement.classList.remove('border-l-4', 'border-primary');
+    if (streamButton) {
+        streamButton.classList.remove('bg-primary', 'text-on-primary', 'hover:bg-primary-container');
+        streamButton.classList.add('border', 'border-outline-variant', 'text-on-surface', 'hover:border-primary', 'hover:text-primary');
     }
 
     if (event_is_upcoming(round)) {
@@ -229,9 +252,6 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
             && seasonTimeline.nextRoundKey === roundKey
             && seasonTimeline.nextRound !== null
             && seasonTimeline.nextRound.startsAtTimestamp === round.startsAtTimestamp;
-
-        const upcomingBadge = roundElement.querySelector('.upcoming-badge');
-        const nextEventBadge = roundElement.querySelector('.next-event-badge');
 
         if (isNextRound) {
             if (upcomingBadge) upcomingBadge.classList.add('hidden');
@@ -243,6 +263,9 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
 
         return !isNextRound;
     }
+
+    // Finished — ensure replay badge is visible (may have been hidden if round was previously live)
+    if (replayBadge) replayBadge.classList.remove('hidden');
 
     return false;
 };

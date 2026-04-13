@@ -44,7 +44,7 @@ let liveEvent = null;
 for (const event of events) {
     const rounds = event.rounds;
     for (const round of rounds) {
-        if (!round_will_be_streamed(round)) {
+        if (!round_will_be_streamed(round, event) || event.league_name === 'Games') {
             continue;
         }
 
@@ -65,7 +65,6 @@ for (const event of events) {
 }
 
 const heroEvent = liveEvent || nextEvent;
-const isLive = Boolean(liveEvent);
 
 const heroEventRounds = Array.isArray(heroEvent?.rounds) ? heroEvent.rounds : [];
 const heroRound = heroEvent?.currentRound || heroEventRounds[heroEventRounds.length - 1];
@@ -177,7 +176,6 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
     <!-- Hero Section: Next Event -->
     <HeroSection
         heroEventTitle={heroEventTitle}
-        isLive={isLive}
         heroRound={heroRound}
         heroRoundName={heroRoundName}
         leagueName={heroEvent?.league_name}

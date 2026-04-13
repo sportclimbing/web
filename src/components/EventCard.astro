@@ -323,13 +323,12 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
           const fallbackUrl = streamUrl || STREAMS_FALLBACK_URL;
           const hasStreamUrl = Boolean(streamUrl);
           const isUpcoming = event_is_upcoming_build(round);
-          const isLive = false;
           const videoId = video_id_from_stream(round);
           const thumbnailUrl = youtube_thumbnail_local_path(videoId);
-          const isFinished = !isUpcoming && !isLive && round.stream_url;
+          const isFinished = !isUpcoming && round.stream_url;
 
           return (
-            <EventRound 
+            <EventRound
               round={round}
               event={event}
               formatRoundDate={format_round_date_build(round)}
@@ -337,7 +336,6 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
               formatRoundEndTime={format_round_end_time_build(round)}
               hasStreamUrl={hasStreamUrl}
               isUpcoming={isUpcoming}
-              isLive={isLive}
               isFinished={isFinished}
               thumbnailUrl={thumbnailUrl}
               fallbackUrl={fallbackUrl}
