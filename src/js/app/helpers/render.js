@@ -311,6 +311,13 @@ function setup_timezone_selector() {
 
     if (saved) {
         selector.value = saved;
+    } else {
+        try {
+            const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            if (localTz) {
+                selector.value = localTz;
+            }
+        } catch (_) {}
     }
 
     selector.addEventListener('change', () => {
