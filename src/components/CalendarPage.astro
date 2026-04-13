@@ -188,7 +188,7 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
     />
 
     <!-- Main Content Area with Side Nav -->
-    <div class="max-w-screen-2xl mx-auto px-6 pt-0 lg:pt-16 flex gap-12 relative" id="accordion">
+    <div class="max-w-screen-2xl mx-auto px-6 pt-0 lg:pt-8 flex gap-12 relative" id="accordion">
         <!-- Sticky Vertical Navigation -->
         <aside class="hidden lg:block w-48 shrink-0">
             <div class="sticky sticky-nav-container flex flex-col gap-6 font-headline font-black uppercase season-month-nav" id="season-month-nav">
@@ -211,8 +211,8 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
         <!-- Events Content -->
         <div class="flex-1 lg:max-w-[75%] pb-24">
             <!-- Filter & Search Bar -->
-            <section class="mb-4 lg:mb-12">
-                <div class="bg-surface-container-low p-2 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4">
+            <section class="mb-4 lg:mb-4">
+                <div class="bg-surface-container-low p-2 rounded-xl flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
                     <div class="flex items-center gap-2 p-1 bg-surface-container-lowest rounded-lg w-full md:w-auto">
                         <div class="relative">
                             <select id="season-selector" name="season-selector" aria-label="Season" class="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10">
@@ -224,12 +224,12 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
                         </div>
                         <a href="/archive/" class="flex-1 text-center px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold">Archive</a>
                     </div>
-                    <div class="flex flex-nowrap justify-center gap-2">
-                        <button class="discipline-quick-filter px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="boulder">Boulder</button>
-                        <button class="discipline-quick-filter px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="lead">Lead</button>
-                        <button class="discipline-quick-filter px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="speed">Speed</button>
+                    <div class="flex flex-nowrap justify-center gap-2 w-full md:w-auto">
+                        <button class="discipline-quick-filter flex-1 md:flex-none px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="boulder">Boulder</button>
+                        <button class="discipline-quick-filter flex-1 md:flex-none px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="lead">Lead</button>
+                        <button class="discipline-quick-filter flex-1 md:flex-none px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="speed">Speed</button>
                         <div class="h-8 w-px bg-outline-variant mx-2"></div>
-                        <button class="px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high flex items-center gap-1.5 lg:gap-2 filters-button" data-open-filter-modal>
+                        <button class="flex-1 md:flex-none px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high flex items-center justify-center gap-1.5 lg:gap-2 filters-button" data-open-filter-modal>
                             <span class="material-symbols-outlined text-sm">filter_list</span> Filters
                         </button>
                     </div>
@@ -240,7 +240,7 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
             <section aria-labelledby="events-section-heading">
                 <h2 id="events-section-heading" class="sr-only">Season Events</h2>
                 <div class="grid grid-cols-1 gap-4 lg:gap-12">
-                    <EventCards events={events} linkEventTitles={true} hideRounds={true} />
+                    <EventCards events={events} linkEventTitles={true} hideRounds={true} hideScheduleStatusOnMobile={true} showMobileDetailsButton={true} hideInfosheetOnMobile={true} />
                 </div>
             </section>
         </div>

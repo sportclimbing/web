@@ -353,6 +353,13 @@ const setup_modal_handlers = () => {
 
     // Modal global event listeners
     document.addEventListener('click', (event) => {
+        const calendarTrigger = event.target.closest('[data-open-calendar-modal]');
+        if (calendarTrigger) {
+            event.preventDefault();
+            load_lazy_calendar_modal().then(() => open_modal('#calendar-modal'));
+            return;
+        }
+
         const trigger = event.target.closest('[data-bs-toggle="modal"]');
         if (trigger) {
             event.preventDefault();
@@ -423,6 +430,7 @@ const setup_filter_handlers = () => {
             config = load_config_from_modal();
             refresh_event_ui();
             window.localStorage.setItem('config', JSON.stringify(config));
+            update_filter_badge();
         });
     }
 
@@ -431,6 +439,17 @@ const setup_filter_handlers = () => {
             document.querySelectorAll('#filter-modal input[type="checkbox"]').forEach((checkbox) => {
                 set_checkbox_checked(checkbox.name, checkbox.name !== 'streamable' && checkbox.name !== 'league[games]');
             });
+
+            const tzSelector = document.getElementById('timezone-selector');
+            if (tzSelector) {
+                try {
+                    const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                    if (localTz) {
+                        tzSelector.value = localTz;
+                        tzSelector.dispatchEvent(new Event('change'));
+                    }
+                } catch (_) {}
+            }
         });
     }
 
@@ -513,6 +532,7 @@ const setup_lazy_filter_modal = () => {
                 filterModalContentLoaded = true;
                 restore_config();
                 setup_filter_handlers();
+                setup_timezone_selector();
             }
         } catch (_) {
             // ignore fetch errors

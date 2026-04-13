@@ -268,6 +268,8 @@ function handle_watch_event_no_url(e) {
 }
 
 function handle_round_stream_click(e) {
+    e.preventDefault();
+
     if (e.currentTarget instanceof Element && e.currentTarget.hasAttribute('data-round-stream-url')) {
         handle_watch_event(e);
 

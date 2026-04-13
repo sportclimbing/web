@@ -9,9 +9,17 @@ const SITE_TIME_FORMAT_OPTIONS = {
 };
 
 let quickDisciplineFilter = null;
-let nextEventMobileCountdownSyncFrame = null;
+// let nextEventMobileCountdownSyncFrame = null;
 let eventNotStartedCountdownIntervalId = null;
 let nextEventCountdownIntervalId = null;
+
+const DEFAULT_CONFIG = {
+    league: { cups: true, paraclimbing: true, games: false },
+    category: { women: true, men: true },
+    disciplines: { boulder: true, lead: true, speed: true },
+    rounds: { qualification: true, 'semi-final': true, final: true },
+    streamable: false,
+};
 
 const CONFIG_CHECKBOX_BINDINGS = [
     { inputName: 'league[cups]', path: ['league', 'cups'] },
@@ -324,28 +332,7 @@ function load_config_from_modal() {
             }
         }
 
-        return {
-            league: {
-                "cups": true,
-                "paraclimbing": true,
-                "games": false,
-            },
-            category: {
-                "women": true,
-                "men": true,
-            },
-            disciplines: {
-                "boulder": true,
-                "lead": true,
-                "speed": true,
-            },
-            rounds: {
-                "qualification": true,
-                "semi-final": true,
-                "final": true,
-            },
-            streamable: false,
-        };
+        return DEFAULT_CONFIG;
     }
 
     return {
