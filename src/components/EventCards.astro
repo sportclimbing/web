@@ -6,6 +6,9 @@ const {
   linkEventTitles = false,
   showNoResultsMessage = true,
   hideRounds = false,
+  hideScheduleStatusOnMobile = false,
+  showMobileDetailsButton = false,
+  startListMobileBottomMargin = false,
 } = Astro.props;
 
 const normalizedEvents = Array.isArray(events) ? events : [];
@@ -17,6 +20,9 @@ const shouldShowNoResultsMessage = Boolean(showNoResultsMessage);
     event={event}
     shouldLinkEventTitles={shouldLinkEventTitles}
     hideRounds={hideRounds}
+    hideScheduleStatusOnMobile={hideScheduleStatusOnMobile}
+    showMobileDetailsButton={showMobileDetailsButton}
+    startListMobileBottomMargin={startListMobileBottomMargin}
   />
 ))}
 

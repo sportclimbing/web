@@ -221,7 +221,7 @@ test('switches season and opens stream modal for a youtube round', async ({ page
   await switchSeason(page, '2024');
 
   const eventPanel = await openFirstEventPanel(page);
-  const streamButton = eventPanel.locator('button.round-stream-button[data-round-stream-url]').first();
+  const streamButton = eventPanel.locator('.round-stream-button[data-round-stream-url]').first();
   await expect(streamButton).toHaveAttribute('data-round-stream-url', /.+/);
 
   await streamButton.click();

@@ -145,7 +145,9 @@
                 </label>
               </div>
             </section>
-            <!-- Streamable Section -->
+          </div>
+          <!-- Bottom Row: Live-Streams Only & Timezone (spans both columns) -->
+          <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-10">
             <section>
                 <div class="flex items-center gap-3 mb-6">
                     <span class="w-1 h-6 bg-outline rounded-full"></span>
@@ -159,11 +161,36 @@
                   </div>
                 </label>
             </section>
+            <section>
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-1 h-6 bg-tertiary-container rounded-full"></span>
+                    <h3 class="font-headline text-lg font-bold uppercase tracking-tight text-on-surface">Timezone</h3>
+                </div>
+                <div class="flex items-center justify-between p-1 rounded-lg">
+                    <span class="font-body text-sm font-semibold text-on-surface-variant">Display times in</span>
+                    <select id="timezone-selector" aria-label="Display timezone" class="bg-surface-container-highest text-xs text-on-surface font-bold uppercase tracking-wider border border-outline-variant rounded-lg px-3 py-2 pr-7 focus:ring-1 focus:ring-primary focus:outline-none cursor-pointer hover:bg-surface-container-high transition-colors appearance-none">
+                        <option value="">Local Time</option>
+                        <option value="UTC">UTC</option>
+                        <option value="America/Los_Angeles">Pacific (US)</option>
+                        <option value="America/Denver">Mountain (US)</option>
+                        <option value="America/Chicago">Central (US)</option>
+                        <option value="America/New_York">Eastern (US)</option>
+                        <option value="America/Sao_Paulo">São Paulo</option>
+                        <option value="Europe/London">London</option>
+                        <option value="Europe/Berlin">Berlin / Paris</option>
+                        <option value="Europe/Moscow">Moscow</option>
+                        <option value="Asia/Kolkata">India</option>
+                        <option value="Asia/Shanghai">China</option>
+                        <option value="Asia/Tokyo">Tokyo</option>
+                        <option value="Australia/Sydney">Sydney</option>
+                    </select>
+                </div>
+            </section>
           </div>
         </div>
       </div>
       <!-- Footer Action Bar -->
-      <div class="modal-footer p-8 bg-surface-container-low/50 backdrop-blur-md border-t border-outline-variant/10 flex items-center justify-between">
+      <div class="modal-footer py-4 px-8 bg-surface-container-low/50 backdrop-blur-md border-t border-outline-variant/10 flex items-center justify-between">
         <button type="button" id="reset-filters" class="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors">
           <span class="material-symbols-outlined text-xl">restart_alt</span>
           <span class="font-label text-xs font-bold uppercase tracking-widest">Reset<span class="hidden lg:inline"> All</span></span>

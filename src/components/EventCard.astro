@@ -14,6 +14,9 @@ const {
   event,
   shouldLinkEventTitles = false,
   hideRounds = false,
+  hideScheduleStatusOnMobile = false,
+  showMobileDetailsButton = false,
+  startListMobileBottomMargin = false,
 } = Astro.props;
 
 const MONTH_NAMES = [
@@ -279,7 +282,7 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
             <div class="flex flex-col lg:flex-row lg:flex-wrap lg:items-center gap-2 lg:gap-6 text-sm text-on-surface-variant">
                 <span class="flex items-center gap-2"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>calendar_today</span> {format_event_date(event)}</span>
                 <span class="flex items-center gap-2 font-medium event-disciplines"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>exercise</span> {beautify_disciplines(event.disciplines)}</span>
-                <span class="flex items-center gap-2 font-medium" title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus.includes('Confirmed') ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus.replace(/^[^\w]*/, '')}</span>
+                <span class={`${hideScheduleStatusOnMobile ? 'hidden sm:flex' : 'flex'} items-center gap-2 font-medium`} title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus.includes('Confirmed') ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus.replace(/^[^\w]*/, '')}</span>
                 {infosheetUrl && (
                   <a class={`flex items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">description</span> PDF</a>
                 )}
@@ -287,7 +290,8 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
         </div>
 
         {startList.length > 0 && (
-        <div class="flex flex-col gap-4 bg-surface-container-high p-6 rounded-xl w-full lg:w-auto min-w-[300px] event-start-list">
+        <>
+        <div class={`flex flex-col gap-4 bg-surface-container-high p-6 rounded-xl w-full lg:w-auto min-w-[300px] event-start-list${startListMobileBottomMargin ? ' mb-6 sm:mb-0' : ''}`}>
             <p class="text-[0.6875rem] text-on-surface-variant tracking-widest uppercase font-label">Athletes Attending</p>
             <div class="flex flex-wrap gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity event-start-list-trigger" data-bs-toggle="modal" data-bs-target="#start-list-modal" data-event-id={eventId} data-start-list-url={startListModalUrl || undefined}>
                 {hasPhotos ? avatarsWithPhoto.map((athlete, index) => {
@@ -305,6 +309,10 @@ const hoverBorderThemeClass = isEuropeanCup ? 'hover:border-secondary/20' : 'hov
                 )}
             </div>
         </div>
+        {showMobileDetailsButton && eventPagePath && (
+          <a href={eventPagePath} class={`sm:hidden w-full text-center px-4 py-2 border ${borderThemeClass} ${textThemeClass} rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-surface-container-highest transition-colors`}>Details</a>
+        )}
+        </>
         )}
     </div>
 

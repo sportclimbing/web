@@ -513,6 +513,7 @@ const setup_lazy_filter_modal = () => {
                 filterModalContentLoaded = true;
                 restore_config();
                 setup_filter_handlers();
+                setup_timezone_selector();
             }
         } catch (_) {
             // ignore fetch errors

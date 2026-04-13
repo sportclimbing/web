@@ -188,7 +188,7 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
     />
 
     <!-- Main Content Area with Side Nav -->
-    <div class="max-w-screen-2xl mx-auto px-6 pt-0 lg:pt-16 flex gap-12 relative" id="accordion">
+    <div class="max-w-screen-2xl mx-auto px-6 pt-0 lg:pt-8 flex gap-12 relative" id="accordion">
         <!-- Sticky Vertical Navigation -->
         <aside class="hidden lg:block w-48 shrink-0">
             <div class="sticky sticky-nav-container flex flex-col gap-6 font-headline font-black uppercase season-month-nav" id="season-month-nav">
@@ -240,7 +240,7 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
             <section aria-labelledby="events-section-heading">
                 <h2 id="events-section-heading" class="sr-only">Season Events</h2>
                 <div class="grid grid-cols-1 gap-4 lg:gap-12">
-                    <EventCards events={events} linkEventTitles={true} hideRounds={true} />
+                    <EventCards events={events} linkEventTitles={true} hideRounds={true} hideScheduleStatusOnMobile={true} showMobileDetailsButton={true} />
                 </div>
             </section>
         </div>

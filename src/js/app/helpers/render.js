@@ -211,7 +211,7 @@ function set_round_time(element, round) {
         return;
     }
 
-    element.textContent = LOCAL_ROUND_TIME_FMT.format(start);
+    element.textContent = make_time_fmt(get_selected_timezone()).format(start);
 
     const venueTime = venue_time_from_iso(startsAtRaw);
 
@@ -230,8 +230,58 @@ function set_round_name(element, round) {
     element.innerText = round.name;
 }
 
-const LOCAL_ROUND_DATE_FMT = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'short' });
-const LOCAL_ROUND_TIME_FMT = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+const TIMEZONE_STORAGE_KEY = 'ifsc_timezone';
+
+function get_selected_timezone() {
+    try {
+        return localStorage.getItem(TIMEZONE_STORAGE_KEY) || '';
+    } catch (_) {
+        return '';
+    }
+}
+
+function set_selected_timezone(tz) {
+    try {
+        if (tz) {
+            localStorage.setItem(TIMEZONE_STORAGE_KEY, tz);
+        } else {
+            localStorage.removeItem(TIMEZONE_STORAGE_KEY);
+        }
+    } catch (_) {
+        // ignore
+    }
+}
+
+function make_date_fmt(tz) {
+    const opts = { day: 'numeric', month: 'short' };
+    if (tz) opts.timeZone = tz;
+    return new Intl.DateTimeFormat('en-US', opts);
+}
+
+function make_time_fmt(tz) {
+    const opts = { hour: '2-digit', minute: '2-digit', hour12: true };
+    if (tz) opts.timeZone = tz;
+    return new Intl.DateTimeFormat('en-US', opts);
+}
+
+function setup_timezone_selector() {
+    const selector = document.getElementById('timezone-selector');
+
+    if (!selector) {
+        return;
+    }
+
+    const saved = get_selected_timezone();
+
+    if (saved) {
+        selector.value = saved;
+    }
+
+    selector.addEventListener('change', () => {
+        set_selected_timezone(selector.value);
+        localize_round_times();
+    });
+}
 
 function venue_time_from_iso(isoString) {
     const match = /T(\d{2}):(\d{2})(?::\d{2})?(Z|[+-]\d{2}:\d{2})$/.exec(isoString);
@@ -259,6 +309,10 @@ function venue_time_from_iso(isoString) {
 }
 
 function localize_round_times() {
+    const tz = get_selected_timezone();
+    const dateFmt = make_date_fmt(tz);
+    const timeFmt = make_time_fmt(tz);
+
     document.querySelectorAll('.event-round-card').forEach((card) => {
         const startsAtRaw = card.dataset.roundStartsAt || '';
         const endsAtRaw = card.dataset.roundEndsAt || '';
@@ -278,18 +332,18 @@ function localize_round_times() {
         const endTimeEl = card.querySelector('.round-end-time');
 
         if (dateEl) {
-            dateEl.textContent = LOCAL_ROUND_DATE_FMT.format(start).toUpperCase();
+            dateEl.textContent = dateFmt.format(start).toUpperCase();
         }
 
         if (timeEl) {
-            timeEl.textContent = LOCAL_ROUND_TIME_FMT.format(start);
+            timeEl.textContent = timeFmt.format(start);
         }
 
         if (endTimeEl && endsAtRaw) {
             const end = new Date(endsAtRaw);
 
             if (!Number.isNaN(end.getTime())) {
-                endTimeEl.textContent = ` - ${LOCAL_ROUND_TIME_FMT.format(end)}`;
+                endTimeEl.textContent = ` - ${timeFmt.format(end)}`;
             }
         }
 
