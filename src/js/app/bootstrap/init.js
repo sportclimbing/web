@@ -1,6 +1,12 @@
 (() => {
+    restore_theme();
     localize_round_times();
     restore_config();
+
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggle_theme);
+    }
     setup_accordion_handlers();
     setup_tooltips();
     setup_season_navigation();

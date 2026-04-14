@@ -87,6 +87,8 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
 <!doctype html>
 <html class="dark" lang="en">
 <head>
+    <script>/* Anti-FOUC: apply saved theme before first paint */
+(function(){var t=document.cookie.split(';').reduce(function(a,c){var p=c.trim().split('=');return p[0]==='ifsc_theme'?decodeURIComponent(p[1]):a;},'');if(t!=='light'&&t!=='dark')t=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.classList.toggle('dark',t==='dark');}());</script>
     <meta charset="utf-8" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
@@ -106,35 +108,35 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
     <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
     
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: rgb(var(--color-background)); color: rgb(var(--color-on-background)); }
         .font-headline { font-family: 'Space Grotesk', sans-serif; }
-        .glass-panel { background: rgba(16, 20, 24, 0.7); backdrop-filter: blur(20px); }
+        .glass-panel { background: rgb(var(--color-background) / 0.7); backdrop-filter: blur(20px); }
         .kinetic-gradient { background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%); }
-::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #101418; }
-        ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgb(var(--color-background)); }
+        ::-webkit-scrollbar-thumb { background: rgb(var(--color-surface-variant)); border-radius: 4px; }
         .sticky-nav-container { top: 120px; }
         .season-month-nav-link {
             transition: all 0.2s ease;
             transform-origin: left center;
         }
         .season-month-nav-link.is-active {
-            color: #97ccff !important;
+            color: rgb(var(--color-primary)) !important;
             transform: scale(1.25);
             font-weight: 900;
-            text-shadow: 0 0 20px rgba(151, 204, 255, 0.4);
+            text-shadow: 0 0 20px rgb(var(--color-primary) / 0.4);
         }
         .season-month-nav-link.is-empty {
             opacity: 0.2;
             filter: grayscale(1);
         }
         .discipline-quick-filter[data-active="true"] {
-            background-color: rgba(151, 204, 255, 0.15);
-            color: #97ccff;
-            border-color: #97ccff;
+            background-color: rgb(var(--color-primary) / 0.15);
+            color: rgb(var(--color-primary));
+            border-color: rgb(var(--color-primary));
         }
         .discipline-quick-filter[data-active="true"]:hover {
-            background-color: rgba(151, 204, 255, 0.25);
+            background-color: rgb(var(--color-primary) / 0.25);
         }
     </style>
 
@@ -186,7 +188,7 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
     />
 
     <!-- Main Content Area with Side Nav -->
-    <div class="max-w-screen-2xl mx-auto px-6 pt-0 lg:pt-8 flex gap-12 relative" id="accordion">
+    <div class="max-w-screen-2xl mx-auto px-2 sm:px-6 pt-0 lg:pt-8 flex gap-12 relative" id="accordion">
         <!-- Sticky Vertical Navigation -->
         <aside class="hidden lg:block w-48 shrink-0">
             <div class="sticky sticky-nav-container flex flex-col gap-6 font-headline font-black uppercase season-month-nav" id="season-month-nav">

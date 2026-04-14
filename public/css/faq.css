@@ -49,7 +49,7 @@
     margin-bottom: 0;
 }
 
-.theme-light .season-seo-content {
+html:not(.dark) .season-seo-content {
     border-color: rgba(66, 91, 117, 0.22);
     background:
         linear-gradient(150deg, rgba(255, 255, 255, 0.94), rgba(243, 248, 253, 0.9)),
@@ -57,20 +57,20 @@
     color: #2d445a;
 }
 
-.theme-light .season-seo-content h1,
-.theme-light .season-seo-content h2 {
+html:not(.dark) .season-seo-content h1,
+html:not(.dark) .season-seo-content h2 {
     color: #13314b;
 }
 
-.theme-light .season-seo-content h3 {
+html:not(.dark) .season-seo-content h3 {
     color: #b10062;
 }
 
-.theme-light .season-seo-content h4 {
+html:not(.dark) .season-seo-content h4 {
     color: #1e3b53;
 }
 
-.theme-light .season-seo-faq {
+html:not(.dark) .season-seo-faq {
     margin-top: 10px;
     padding: 12px 14px;
     border: 1px solid rgba(23, 49, 74, 0.1);
