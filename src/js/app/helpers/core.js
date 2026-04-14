@@ -171,10 +171,6 @@ function get_system_theme() {
     return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
 }
 
-function resolve_theme(theme) {
-    return theme === 'system' ? get_system_theme() : theme;
-}
-
 function update_theme_toggle(theme) {
     const toggle = document.getElementById('theme-toggle');
 
@@ -182,16 +178,14 @@ function update_theme_toggle(theme) {
         return;
     }
 
-    const labels = {
-        dark: '🌙 Dark Mode',
-        light: '☀ Light Mode',
-        system: '◐ System Mode',
-    };
+    const icon = toggle.querySelector('.theme-toggle-icon');
 
-    toggle.innerText = labels[theme] || labels.system;
-    toggle.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
-    toggle.setAttribute('title', 'Cycle theme: System, Dark, Light');
-    toggle.setAttribute('data-original-title', 'Cycle theme: System, Dark, Light');
+    if (icon) {
+        icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+    }
+
+    toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    toggle.setAttribute('aria-pressed', String(theme === 'light'));
 }
 
 function update_github_button_theme(theme) {
@@ -234,36 +228,26 @@ function update_github_button_theme(theme) {
 }
 
 function apply_theme(theme) {
-    const selectedTheme = ['dark', 'light', 'system'].includes(theme) ? theme : 'system';
-    const resolvedTheme = resolve_theme(selectedTheme);
+    const resolved = theme === 'light' ? 'light' : 'dark';
 
-    document.body.classList.toggle('theme-light', resolvedTheme === 'light');
-    document.body.dataset.theme = resolvedTheme;
-    document.body.dataset.themePreference = selectedTheme;
-    update_theme_toggle(selectedTheme);
-    update_github_button_theme(resolvedTheme);
-}
-
-function sync_system_theme() {
-    if (document.body.dataset.themePreference === 'system') {
-        apply_theme('system');
-    }
+    document.documentElement.classList.toggle('dark', resolved === 'dark');
+    update_theme_toggle(resolved);
+    update_github_button_theme(resolved);
 }
 
 function toggle_theme() {
-    const currentTheme = document.body.dataset.themePreference || 'system';
-    const nextTheme = {
-        system: 'dark',
-        dark: 'light',
-        light: 'system',
-    }[currentTheme];
+    const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
 
-    apply_theme(nextTheme);
-    set_cookie('ifsc_theme', nextTheme);
+    apply_theme(next);
+    set_cookie('ifsc_theme', next);
 }
 
 function restore_theme() {
-    apply_theme(get_cookie('ifsc_theme') || 'system');
+    // Theme toggle is temporarily disabled — dark mode only
+    apply_theme('dark');
+    // const saved = get_cookie('ifsc_theme');
+    // apply_theme(saved === 'light' || saved === 'dark' ? saved : get_system_theme());
 }
 
 function config_is_enabled(name) {
