@@ -175,7 +175,7 @@ function round_from_stream_button(element) {
     const eventContainer = element instanceof Element ? element.closest('.ifsc-league-card') : null;
 
     return {
-        name: roundContainer ? (roundContainer.dataset.roundName || '') : '',
+        name: roundContainer ? (roundContainer.querySelector('.round-name')?.textContent?.trim() || '') : '',
         event_name: eventContainer ? (eventContainer.dataset.eventName || '') : '',
         starts_at: roundContainer ? (roundContainer.dataset.roundStartsAt || '') : '',
         ends_at: roundContainer ? (roundContainer.dataset.roundEndsAt || '') : '',
