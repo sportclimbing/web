@@ -19,9 +19,6 @@ const pageTitle = `IFSC Climbing World Cup ${season} – Calendar, Schedule & Li
 const pageDescription = `Full IFSC Climbing World Cup ${season} schedule with live streams, dates, and event details for Boulder, Lead & Speed competitions worldwide.`;
 const isDefaultSeason = season === DEFAULT_SEASON;
 const canonicalPath = isDefaultSeason ? '/' : `/season/${season}`;
-const robotsContent = isDefaultSeason
-  ? 'noindex,follow,max-image-preview:large'
-  : 'index,follow,max-image-preview:large';
 const socialImagePath = `/img/season/${season}.svg`;
 const socialImageAlt = `World Climbing ${season} season calendar preview`;
 ---
@@ -32,7 +29,6 @@ const socialImageAlt = `World Climbing ${season} season calendar preview`;
   canonicalPath={canonicalPath}
   pageTitle={pageTitle}
   pageDescription={pageDescription}
-  robotsContent={robotsContent}
   socialImagePath={socialImagePath}
   socialImageAlt={socialImageAlt}
 />
