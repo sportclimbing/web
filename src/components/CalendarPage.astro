@@ -40,6 +40,7 @@ const socialImageUrl = socialImagePath.startsWith('http')
 const now = new Date();
 let nextEvent = null;
 let liveEvent = null;
+let lastEvent = null;
 
 for (const event of events) {
     const rounds = event.rounds;
@@ -59,12 +60,14 @@ for (const event of events) {
             if (!nextEvent || startsAt < new Date(nextEvent.currentRound.starts_at)) {
                 nextEvent = { ...event, currentRound: round };
             }
+        } else if (!nextEvent && (!lastEvent || startsAt > new Date(lastEvent.currentRound.starts_at))) {
+            lastEvent = { ...event, currentRound: round };
         }
     }
     if (liveEvent) break;
 }
 
-const heroEvent = liveEvent || nextEvent;
+const heroEvent = liveEvent || nextEvent || lastEvent;
 
 const heroEventRounds = Array.isArray(heroEvent?.rounds) ? heroEvent.rounds : [];
 const heroRound = heroEvent?.currentRound || heroEventRounds[heroEventRounds.length - 1];

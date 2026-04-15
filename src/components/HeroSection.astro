@@ -12,6 +12,7 @@ const {
 
 const now = new Date();
 const isUpcoming = heroRound?.starts_at && new Date(heroRound.starts_at) > now;
+const hasRound = Boolean(heroRound?.starts_at);
 const statusLabel = isUpcoming ? 'Coming Up Next' : 'Event Replay';
 const showDetailsButton = eventId != null;
 ---
@@ -33,7 +34,7 @@ const showDetailsButton = eventId != null;
                 {heroEventTitle}
             </h1>
             <div class="flex flex-wrap items-center gap-8 md:gap-12 mt-8">
-                <div class={`flex flex-col event-not-started-countdown ${!isUpcoming ? 'hidden' : ''}`} id="next-event-countdown" hidden={!isUpcoming}>
+                <div class={`flex flex-col event-not-started-countdown ${!hasRound ? 'hidden' : ''}`} id="next-event-countdown" hidden={!hasRound}>
                     <span class="text-[0.6875rem] text-on-surface-variant tracking-widest uppercase mb-2 font-label">Starts In</span>
                     <div class="flex gap-2 lg:gap-4 font-headline text-xl lg:text-4xl font-bold event-not-started-countdown-grid">
                         <div class="flex flex-col items-center event-not-started-countdown-chip"><span class="event-not-started-countdown-value" id="next-event-countdown-days">00</span><span class="text-[10px] uppercase font-normal tracking-normal text-primary event-not-started-countdown-unit">Days</span></div>

@@ -1,8 +1,11 @@
 (function () {
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
 
     gtag('consent', 'default', {
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
         analytics_storage: 'denied',
         security_storage: 'granted'
     });

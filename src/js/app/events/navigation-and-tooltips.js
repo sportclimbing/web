@@ -56,8 +56,18 @@ const setup_tooltips = () => {
         template: TOOLTIP_TEMPLATE,
     };
 
+    const scheduleStatusTooltipOptions = {
+        container: 'body',
+        placement: 'bottom',
+        trigger: 'hover',
+        template: AVATAR_TOOLTIP_TEMPLATE,
+    };
+
     document.querySelectorAll(STATIC_TOOLTIP_SELECTOR).forEach((element) => {
-        setup_tooltip_instance(element, tooltipOptions);
+        const options = element.classList.contains('event-schedule-status-tooltip')
+            ? scheduleStatusTooltipOptions
+            : tooltipOptions;
+        setup_tooltip_instance(element, options);
     });
 };
 
