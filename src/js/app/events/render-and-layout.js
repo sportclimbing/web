@@ -515,6 +515,10 @@ const setup_lazy_filter_modal = () => {
             return;
         }
 
+        if (window.gtag) {
+            gtag('event', 'filters_modal_opened');
+        }
+
         if (filterModalContentLoaded) {
             open_modal('#filter-modal');
             return;

@@ -503,6 +503,10 @@ function handle_start_list_trigger_click(e) {
     const startListUrl = trigger && trigger.dataset ? trigger.dataset.startListUrl : '';
     startListModalRequestId += 1;
 
+    if (window.gtag) {
+        gtag('event', 'start_list_modal_opened');
+    }
+
     set_start_list_modal_loading(trigger);
     load_start_list_modal_fragment(startListUrl, startListModalRequestId, trigger).then();
 }

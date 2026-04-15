@@ -39,7 +39,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
                 </div>
                 <h3 class="font-headline font-bold text-lg mb-2 text-on-surface">Apple &amp; Outlook</h3>
                 <p class="text-xs text-on-surface-variant font-medium mb-8 leading-tight">Native integration for iOS, macOS, and Windows calendars.</p>
-                <a class="mt-auto w-full py-3 kinetic-gradient text-on-primary-container font-headline font-bold text-sm rounded-lg hover:opacity-90 transition-opacity uppercase tracking-wider text-center block" href="webcal://calendar.ifsc.stream" rel="noopener">
+                <a class="mt-auto w-full py-3 kinetic-gradient text-on-primary-container font-headline font-bold text-sm rounded-lg hover:opacity-90 transition-opacity uppercase tracking-wider text-center block" href="webcal://calendar.ifsc.stream" rel="noopener" onclick="window.gtag && gtag('event', 'calendar_subscribed', {method: 'sync_device'})">
                     Sync Device
                 </a>
             </div>
@@ -50,7 +50,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
                 </div>
                 <h3 class="font-headline font-bold text-lg mb-2 text-on-surface">Google Calendar</h3>
                 <p class="text-xs text-on-surface-variant font-medium mb-8 leading-tight">One-click sync for cloud-based tracking across all devices.</p>
-                <a class="mt-auto w-full py-3 kinetic-gradient text-on-primary-container font-headline font-bold text-sm rounded-lg hover:opacity-90 transition-opacity uppercase tracking-wider text-center block" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream" target="_blank" rel="noopener">
+                <a class="mt-auto w-full py-3 kinetic-gradient text-on-primary-container font-headline font-bold text-sm rounded-lg hover:opacity-90 transition-opacity uppercase tracking-wider text-center block" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream" target="_blank" rel="noopener" onclick="window.gtag && gtag('event', 'calendar_subscribed', {method: 'google_calendar'})">
                     Connect Now
                 </a>
             </div>
@@ -62,7 +62,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
                 <h3 class="font-headline font-bold text-lg mb-2 text-on-surface">Static File</h3>
                 <p class="text-xs text-on-surface-variant font-medium mb-8 leading-tight">Download <code>.ics</code> file for manual import and offline viewing.</p>
                 <div class="mt-auto flex flex-col gap-3 w-full">
-                    <a class="w-full py-3 border-2 border-primary/30 text-primary font-headline font-bold text-sm rounded-lg hover:bg-primary/10 transition-all uppercase tracking-wider text-center block" href="https://calendar.ifsc.stream" target="_blank" rel="noopener">
+                    <a class="w-full py-3 border-2 border-primary/30 text-primary font-headline font-bold text-sm rounded-lg hover:bg-primary/10 transition-all uppercase tracking-wider text-center block" href="https://calendar.ifsc.stream" target="_blank" rel="noopener" onclick="window.gtag && gtag('event', 'calendar_subscribed', {method: 'download_ics'})">
                         Download .ICS
                     </a>
                     <a class="w-full py-2 text-on-surface-variant font-headline font-bold text-xs rounded-lg hover:text-primary transition-colors uppercase tracking-wider text-center block" href="https://github.com/sportclimbing/ifsc-calendar/wiki" target="_blank" rel="noopener">
