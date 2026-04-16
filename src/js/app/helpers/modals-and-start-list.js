@@ -270,6 +270,14 @@ function handle_watch_event_no_url(e) {
 function handle_round_stream_click(e) {
     e.preventDefault();
 
+    const round = round_from_stream_button(e.currentTarget);
+
+    if (window.gtag) {
+        gtag('event', 'watch_button_clicked', {
+            round_name: round.name,
+        });
+    }
+
     if (e.currentTarget instanceof Element && e.currentTarget.hasAttribute('data-round-stream-url')) {
         handle_watch_event(e);
 

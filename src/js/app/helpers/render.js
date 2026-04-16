@@ -253,9 +253,16 @@ function set_selected_timezone(tz) {
 }
 
 function make_date_fmt(tz) {
-    const opts = { day: 'numeric', month: 'short' };
+    const opts = { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' };
     if (tz) opts.timeZone = tz;
-    return new Intl.DateTimeFormat('en-US', opts);
+    const fmt = new Intl.DateTimeFormat('en-US', opts);
+    return {
+        format(date) {
+            const parts = fmt.formatToParts(date);
+            const get = (type) => parts.find(p => p.type === type)?.value || '';
+            return `${get('weekday')}, ${get('day')} ${get('month')}, ${get('year')}`;
+        }
+    };
 }
 
 function make_time_fmt(tz) {
@@ -380,7 +387,7 @@ function localize_round_times() {
         const endTimeEl = card.querySelector('.round-end-time');
 
         if (dateEl) {
-            dateEl.textContent = dateFmt.format(start).toUpperCase();
+            dateEl.textContent = dateFmt.format(start);
         }
 
         if (timeEl) {
