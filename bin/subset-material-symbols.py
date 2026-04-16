@@ -23,6 +23,7 @@ ICONS = sorted([
     "close",
     "code",
     "cookie",
+    "confirmation_number",
     "description",
     "devices",
     "do_not_disturb_on",
@@ -36,6 +37,7 @@ ICONS = sorted([
     "history",
     "landslide",
     "live_tv",
+    "open_in_new",
     "local_cafe",
     "military_tech",
     "pending_actions",
@@ -54,6 +56,7 @@ ICONS = sorted([
     "sync",
     "tune",
     "verified",
+    "visibility_off",
     "vpn_key",
 ])
 

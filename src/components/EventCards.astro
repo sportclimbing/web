@@ -10,6 +10,7 @@ const {
   showMobileDetailsButton = false,
   startListMobileBottomMargin = false,
   hideInfosheetOnMobile = false,
+  showTabs = false,
 } = Astro.props;
 
 const normalizedEvents = Array.isArray(events) ? events : [];
@@ -25,6 +26,7 @@ const shouldShowNoResultsMessage = Boolean(showNoResultsMessage);
     showMobileDetailsButton={showMobileDetailsButton}
     startListMobileBottomMargin={startListMobileBottomMargin}
     hideInfosheetOnMobile={hideInfosheetOnMobile}
+    showTabs={showTabs}
   />
 ))}
 

@@ -18,6 +18,7 @@ const {
   showMobileDetailsButton = false,
   startListMobileBottomMargin = false,
   hideInfosheetOnMobile = false,
+  showTabs = false,
 } = Astro.props;
 
 const MONTH_NAMES = [
@@ -36,9 +37,9 @@ const MONTH_NAMES = [
 ];
 
 const ROUND_SCHEDULE_STATUS = {
-  confirmed: '☑️ Confirmed Schedule',
-  provisional: '⏳ Provisional Schedule',
-  estimated: '⏳ Estimated Schedule',
+  confirmed: 'Confirmed Schedule',
+  provisional: 'Provisional Schedule',
+  estimated: 'Estimated Schedule',
 };
 
 const ROUND_SCHEDULE_STATUS_TOOLTIPS = {
@@ -258,6 +259,10 @@ const startListTotal = typeof event.start_list_total === 'number' ? event.start_
 
 const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
 
+const unstreamedCount = showTabs
+  ? event.rounds.filter((r) => !round_will_be_streamed(r, event)).length
+  : 0;
+
 const textThemeClass = 'text-primary';
 const hoverTextThemeClass = 'hover:text-primary-container';
 const borderThemeClass = 'border-primary';
@@ -273,7 +278,7 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
      data-event-league-name={event.league_name}
      data-event-start-month={monthIndex === null ? undefined : String(monthIndex)}
      data-event-page-path={eventPagePath || undefined}>
-    <div id={`heading_${eventId}`} class="flex flex-col lg:flex-row justify-between items-start mb-0 lg:mb-8 gap-6">
+    <div id={`heading_${eventId}`} class={`flex flex-col lg:flex-row justify-between items-start mb-0 ${showTabs ? 'lg:mb-4' : 'lg:mb-8'} gap-6`}>
         <div class="lg:flex-1 lg:min-w-0 px-4 sm:px-0">
             <p class={`text-[0.6875rem] ${textThemeClass} tracking-[0.2em] uppercase font-label mb-1 event-league-name`}>{prettyLeagueName}</p>
             <h3 class="text-2xl lg:text-5xl font-bold font-headline uppercase tracking-tight mb-4 event-name">
@@ -286,7 +291,7 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
             <div class="flex flex-col lg:flex-row lg:flex-wrap lg:items-center gap-2 lg:gap-6 text-sm text-on-surface-variant">
                 <span class="flex items-center gap-2"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>calendar_today</span> {format_event_date(event)}</span>
                 <span class="flex items-center gap-2 font-medium event-disciplines"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>exercise</span> {beautify_disciplines(event.disciplines)}</span>
-                <span class={`${hideScheduleStatusOnMobile ? 'hidden sm:flex' : 'flex'} items-center gap-2 font-medium cursor-help event-schedule-status-tooltip`} title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus.includes('Confirmed') ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus.replace(/^[^\w]*/, '')}</span>
+                <span class={`${hideScheduleStatusOnMobile ? 'hidden sm:flex' : 'flex'} items-center gap-2 font-medium cursor-help event-schedule-status-tooltip`} title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus === 'Confirmed Schedule' ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus}</span>
                 {infosheetUrl && (
                   <a class={`${hideInfosheetOnMobile ? 'hidden lg:flex' : 'flex'} items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener" onclick="window.gtag && gtag('event', 'info_sheet_clicked')"><span class="material-symbols-outlined text-sm">description</span> Info Sheet</a>
                 )}
@@ -296,7 +301,7 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
 
         {startList.length > 0 && (
         <>
-        <div class={`flex flex-col gap-4 bg-surface-container-high py-4 px-6 lg:py-6 rounded-xl w-full lg:w-auto min-w-[300px] event-start-list${startListMobileBottomMargin ? ' mb-6 sm:mb-0' : ''}`}>
+        <div class={`flex flex-col gap-4 bg-surface-container-high py-4 px-6 lg:py-6 rounded-xl w-full lg:w-auto min-w-[300px] event-start-list${startListMobileBottomMargin ? (showTabs ? ' mb-4 sm:mb-0' : ' mb-6 sm:mb-0') : ''}`}>
             <p class="text-[0.6875rem] text-on-surface-variant tracking-widest uppercase font-label">Athletes Attending</p>
             <div class="flex flex-wrap gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity event-start-list-trigger" data-bs-toggle="modal" data-bs-target="#start-list-modal" data-event-id={eventId} data-start-list-url={startListModalUrl || undefined}>
                 {hasPhotos ? avatarsWithPhoto.map((athlete, index) => {
@@ -321,31 +326,105 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
         )}
     </div>
 
-    <ul class={`flex flex-col gap-4${hideRounds ? ' hidden lg:flex' : ''}`}>
-        {event.rounds.map((round) => {
-          const streamUrl = typeof round.stream_url === 'string' ? round.stream_url : '';
-          const fallbackUrl = streamUrl || STREAMS_FALLBACK_URL;
-          const hasStreamUrl = Boolean(streamUrl);
-          const isUpcoming = event_is_upcoming_build(round);
-          const videoId = video_id_from_stream(round);
-          const thumbnailUrl = youtube_thumbnail_local_path(videoId);
-          const isFinished = !isUpcoming && round.stream_url;
+    {showTabs && (
+      <div class="mb-4 bg-surface-container-high p-2 rounded-xl mt-0 lg:mt-2">
+        <div class="flex p-1 bg-surface-container-highest rounded-lg gap-1">
+          <button data-tab-btn="rounds" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest transition-colors">
+            <span class="material-symbols-outlined text-sm" aria-hidden="true">schedule</span>
+            Rounds
+          </button>
+          <button data-tab-btn="map" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-on-surface-variant font-bold rounded-lg uppercase text-xs tracking-widest transition-colors">
+            <span class="material-symbols-outlined text-sm" aria-hidden="true">public</span>
+            Map
+          </button>
+          <button data-tab-btn="tickets" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-on-surface-variant font-bold rounded-lg uppercase text-xs tracking-widest transition-colors">
+            <span class="material-symbols-outlined text-sm" aria-hidden="true">confirmation_number</span>
+            Tickets
+          </button>
+        </div>
+      </div>
+    )}
 
-          return (
-            <EventRound
-              round={round}
-              event={event}
-              formatRoundDate={format_round_date_build(round)}
-              formatRoundTime={format_round_time_build(round)}
-              formatRoundEndTime={format_round_end_time_build(round)}
-              hasStreamUrl={hasStreamUrl}
-              isUpcoming={isUpcoming}
-              isFinished={isFinished}
-              thumbnailUrl={thumbnailUrl}
-              fallbackUrl={fallbackUrl}
-              STREAMS_FALLBACK_URL={STREAMS_FALLBACK_URL}
-            />
-          );
-        })}
-    </ul>
+    <div data-tab-panel={showTabs ? 'rounds' : undefined}>
+      <ul class={`flex flex-col gap-4${!showTabs && hideRounds ? ' hidden lg:flex' : ''}`}>
+          {event.rounds.map((round) => {
+            const streamUrl = typeof round.stream_url === 'string' ? round.stream_url : '';
+            const fallbackUrl = streamUrl || STREAMS_FALLBACK_URL;
+            const hasStreamUrl = Boolean(streamUrl);
+            const isUpcoming = event_is_upcoming_build(round);
+            const videoId = video_id_from_stream(round);
+            const thumbnailUrl = youtube_thumbnail_local_path(videoId);
+            const isFinished = !isUpcoming && round.stream_url;
+
+            return (
+              <EventRound
+                round={round}
+                event={event}
+                formatRoundDate={format_round_date_build(round)}
+                formatRoundTime={format_round_time_build(round)}
+                formatRoundEndTime={format_round_end_time_build(round)}
+                hasStreamUrl={hasStreamUrl}
+                isUpcoming={isUpcoming}
+                isFinished={isFinished}
+                thumbnailUrl={thumbnailUrl}
+                fallbackUrl={fallbackUrl}
+                STREAMS_FALLBACK_URL={STREAMS_FALLBACK_URL}
+                isHiddenNoStream={showTabs && !round_will_be_streamed(round, event)}
+              />
+            );
+          })}
+      </ul>
+      {unstreamedCount > 0 && (
+        <div class="unstreamed-notice mt-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-xs text-on-surface-variant">
+          <span class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-sm text-on-surface-variant/60" aria-hidden="true">visibility_off</span>
+            <span>{unstreamedCount} {unstreamedCount === 1 ? 'round' : 'rounds'} not scheduled for live streaming {unstreamedCount === 1 ? 'has' : 'have'} been hidden.</span>
+          </span>
+          <button
+            type="button"
+            class="text-primary font-bold hover:underline whitespace-nowrap sm:ml-0 pl-7 sm:pl-0"
+            onclick="this.closest('[data-tab-panel]').querySelectorAll('.unstreamed-round').forEach(function(e){e.classList.remove('hidden')});this.closest('.unstreamed-notice').remove()"
+          >Show all rounds</button>
+        </div>
+      )}
+    </div>
+
+    {showTabs && (
+      <div data-tab-panel="map" class="hidden">
+        <div
+          id="event-map"
+          data-query={`${event.location}, ${event.country_name}`}
+          class="h-96 lg:h-[32rem] rounded-xl overflow-hidden border border-outline-variant/20"
+        ></div>
+      </div>
+    )}
+
+    {showTabs && (
+      <div data-tab-panel="tickets" class="hidden">
+        {event.tickets?.summary ? (
+          <div class="p-4 bg-surface-container-high rounded-xl border border-outline-variant/20 flex flex-col-reverse lg:flex-row items-start gap-4">
+            {event.tickets.purchase_url ? (
+              <a
+                href={event.tickets.purchase_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-primary text-on-primary text-sm font-bold rounded-lg hover:opacity-90 transition-opacity"
+                onclick="window.gtag && gtag('event', 'ticket_purchase_clicked')"
+              >
+                <span class="material-symbols-outlined text-base" aria-hidden="true">confirmation_number</span>
+                Buy Tickets
+              </a>
+            ) : (
+              <span class="shrink-0 inline-flex items-center gap-2 px-4 py-2 bg-surface-container text-on-surface-variant text-sm font-bold rounded-lg opacity-50 cursor-not-allowed">
+                <span class="material-symbols-outlined text-base" aria-hidden="true">confirmation_number</span>
+                Buy Tickets
+              </span>
+            )}
+            <p class="text-sm text-on-surface-variant leading-relaxed">{event.tickets.summary}</p>
+          </div>
+        ) : (
+          <p class="text-sm text-on-surface-variant">No ticket information available for this event.</p>
+        )}
+      </div>
+    )}
 </div>
