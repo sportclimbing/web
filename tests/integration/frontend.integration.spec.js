@@ -129,7 +129,7 @@ test('event page shows expanded rounds with breadcrumb-only subheader', async ({
   await expect(page.locator('nav[aria-label="Breadcrumb"] [aria-current="page"]')).toHaveCount(1);
   await expect(page.locator('[data-action="event-watch-toggle"]')).toHaveCount(0);
   await expect(page.locator('#accordion .event-rounds-panel.collapse')).toHaveCount(0);
-  await expect(page.locator('#accordion .event-round-card:not([hidden])').first()).toBeVisible();
+  await expect(page.locator('#accordion .event-round-card:not([hidden]):not(.hidden)').first()).toBeVisible();
 });
 
 test('persists filter changes from the filter modal', async ({ page }) => {
