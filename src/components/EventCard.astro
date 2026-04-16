@@ -259,6 +259,10 @@ const startListTotal = typeof event.start_list_total === 'number' ? event.start_
 
 const STREAMS_FALLBACK_URL = 'https://www.youtube.com/@worldclimbing/streams';
 
+const unstreamedCount = showTabs
+  ? event.rounds.filter((r) => !round_will_be_streamed(r, event)).length
+  : 0;
+
 const textThemeClass = 'text-primary';
 const hoverTextThemeClass = 'hover:text-primary-container';
 const borderThemeClass = 'border-primary';
@@ -365,10 +369,24 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
                 thumbnailUrl={thumbnailUrl}
                 fallbackUrl={fallbackUrl}
                 STREAMS_FALLBACK_URL={STREAMS_FALLBACK_URL}
+                isHiddenNoStream={showTabs && !round_will_be_streamed(round, event)}
               />
             );
           })}
       </ul>
+      {unstreamedCount > 0 && (
+        <div class="unstreamed-notice mt-3 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 text-xs text-on-surface-variant">
+          <span class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-sm text-on-surface-variant/60" aria-hidden="true">visibility_off</span>
+            <span>{unstreamedCount} {unstreamedCount === 1 ? 'round' : 'rounds'} not scheduled for live streaming {unstreamedCount === 1 ? 'has' : 'have'} been hidden.</span>
+          </span>
+          <button
+            type="button"
+            class="text-primary font-bold hover:underline whitespace-nowrap sm:ml-0 pl-7 sm:pl-0"
+            onclick="this.closest('[data-tab-panel]').querySelectorAll('.unstreamed-round').forEach(function(e){e.classList.remove('hidden')});this.closest('.unstreamed-notice').remove()"
+          >Show all rounds</button>
+        </div>
+      )}
     </div>
 
     {showTabs && (
