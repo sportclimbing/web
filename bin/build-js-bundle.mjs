@@ -15,6 +15,7 @@ const SOURCE_FILES = [
   'src/js/app/events/navigation-and-tooltips.js',
   'src/js/app/bootstrap/cookie-consent.js',
   'src/js/app/bootstrap/init.js',
+  'src/js/app/event-page.js',
 ];
 const SHARED_SOURCE_FILES = new Set([
   'src/lib/shared/media.js',

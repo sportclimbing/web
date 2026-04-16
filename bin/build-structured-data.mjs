@@ -54,9 +54,10 @@ const schema_event_location = (event) => {
     };
 
     if (country) {
+        const countryName = trim(event?.country_name);
         location.address = {
             '@type': 'PostalAddress',
-            addressCountry: country,
+            addressCountry: countryName || country,
         };
     }
 
@@ -270,18 +271,12 @@ const schema_file_name_token = (value, fallback = 'event') => {
     return token || fallback;
 };
 
-const schema_same_as_urls = (event, schemaEventUrl) => {
+const schema_same_as_urls = (event) => {
     const sameAs = [];
     const eventId = String(event?.id ?? '').trim();
 
     if (eventId) {
         sameAs.push(`https://ifsc.results.info/event/${eventId}/`);
-    }
-
-    const eventUrl = trim(event?.event_url);
-
-    if (eventUrl && eventUrl !== schemaEventUrl) {
-        sameAs.push(eventUrl);
     }
 
     return Array.from(new Set(sameAs));
@@ -641,7 +636,7 @@ const main = async () => {
                     schemaEvent.keywords = keywords;
                 }
 
-                const sameAs = schema_same_as_urls(event, schemaEvent.url);
+                const sameAs = schema_same_as_urls(event);
 
                 if (sameAs.length) {
                     schemaEvent.sameAs = sameAs;
@@ -695,7 +690,7 @@ const main = async () => {
                 eventSchema.keywords = eventKeywords;
             }
 
-            const eventSameAs = schema_same_as_urls(event, eventSchemaUrl);
+            const eventSameAs = schema_same_as_urls(event);
 
             if (eventSameAs.length) {
                 eventSchema.sameAs = eventSameAs;

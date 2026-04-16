@@ -133,6 +133,8 @@ document.documentElement.classList.add('dark');
     <link rel="preconnect" href="https://calendar.ifsc.stream" />
     <link rel="preconnect" href="https://img.youtube.com" />
     <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: rgb(var(--color-background)); color: rgb(var(--color-on-background)); }
@@ -142,6 +144,7 @@ document.documentElement.classList.add('dark');
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: rgb(var(--color-background)); }
         ::-webkit-scrollbar-thumb { background: rgb(var(--color-surface-variant)); border-radius: 4px; }
+        #event-map :global(.leaflet-tile-pane) { filter: saturate(0.8) contrast(0.9); }
     </style>
 
     <meta property="og:type" content="website" />
@@ -211,15 +214,12 @@ document.documentElement.classList.add('dark');
 
             <section aria-labelledby="event-detail-heading">
                 <h2 id="event-detail-heading" class="sr-only">Event Details</h2>
-                <div class="grid grid-cols-1 gap-12">
-                    <EventCards
-                      events={[event]}
-                      expandAllRounds={true}
-                      hideRoundCollapseControls={true}
-                      showNoResultsMessage={false}
-                      startListMobileBottomMargin={true}
-                    />
-                </div>
+                <EventCards
+                  events={[event]}
+                  showNoResultsMessage={false}
+                  startListMobileBottomMargin={true}
+                  showTabs={true}
+                />
             </section>
 
             {hasRelatedEventLinks ? (
