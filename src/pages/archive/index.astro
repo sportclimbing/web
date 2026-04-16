@@ -41,9 +41,9 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
 
   <base href="/" />
   <link rel="canonical" href={canonicalUrl} />
-  <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/space-grotesk-variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={`/fonts/plus-jakarta-sans-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={`/fonts/space-grotesk-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={`/fonts/material-symbols-outlined.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
   <link rel="preconnect" href="https://calendar.ifsc.stream" />
   <link rel="preconnect" href="https://img.youtube.com" />
   <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
