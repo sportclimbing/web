@@ -393,7 +393,7 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
       <div data-tab-panel="map" class="hidden">
         <div
           id="event-map"
-          data-query={`${event.location}, ${event.country_name}`}
+          data-query={[event.location, event.country_name].filter(Boolean).join(', ')}
           class="h-96 lg:h-[32rem] rounded-xl overflow-hidden border border-outline-variant/20"
         ></div>
       </div>
