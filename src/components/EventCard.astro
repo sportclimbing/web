@@ -173,8 +173,10 @@ const parse_iso_date = (value) => {
 };
 
 const ROUND_DATE_FORMATTER = new Intl.DateTimeFormat('en-US', {
+  weekday: 'short',
   day: 'numeric',
-  month: 'short',
+  month: 'long',
+  year: 'numeric',
 });
 
 const ROUND_TIME_FORMATTER = new Intl.DateTimeFormat('en-US', {
@@ -190,7 +192,9 @@ const format_round_date_build = (round) => {
     return '';
   }
 
-  return `${ROUND_DATE_FORMATTER.format(date).toUpperCase()}`;
+  const parts = ROUND_DATE_FORMATTER.formatToParts(date);
+  const get = (type) => parts.find(p => p.type === type)?.value || '';
+  return `${get('weekday')}, ${get('day')} ${get('month')}, ${get('year')}`;
 };
 
 const format_round_time_build = (round) => {
@@ -284,7 +288,7 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
                 <span class="flex items-center gap-2 font-medium event-disciplines"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>exercise</span> {beautify_disciplines(event.disciplines)}</span>
                 <span class={`${hideScheduleStatusOnMobile ? 'hidden sm:flex' : 'flex'} items-center gap-2 font-medium cursor-help event-schedule-status-tooltip`} title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus.includes('Confirmed') ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus.replace(/^[^\w]*/, '')}</span>
                 {infosheetUrl && (
-                  <a class={`${hideInfosheetOnMobile ? 'hidden lg:flex' : 'flex'} items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener"><span class="material-symbols-outlined text-sm">description</span> PDF</a>
+                  <a class={`${hideInfosheetOnMobile ? 'hidden lg:flex' : 'flex'} items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener" onclick="window.gtag && gtag('event', 'info_sheet_clicked')"><span class="material-symbols-outlined text-sm">description</span> Info Sheet</a>
                 )}
             </div>
             <div class="hidden lg:block h-px bg-gray-400/20 mt-4"></div>
