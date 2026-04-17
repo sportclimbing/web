@@ -33,7 +33,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
         <div class="flex-1 overflow-y-auto px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 pt-0">
             <!-- Mobile & Desktop -->
-            <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 flex flex-col items-center text-center group hover:bg-surface-container-high transition-all duration-300">
+            <div class="bg-surface-container-high lg:bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 flex flex-col items-center text-center group hover:bg-surface-container-high transition-all duration-300">
                 <div class="hidden md:flex w-14 h-14 rounded-full bg-primary/10 items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <span class="material-symbols-outlined text-primary text-3xl">devices</span>
                 </div>
@@ -44,7 +44,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
                 </a>
             </div>
             <!-- Google Calendar -->
-            <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 flex flex-col items-center text-center group hover:bg-surface-container-high transition-all duration-300">
+            <div class="bg-surface-container-high lg:bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 flex flex-col items-center text-center group hover:bg-surface-container-high transition-all duration-300">
                 <div class="hidden md:flex w-14 h-14 rounded-full bg-primary/10 items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <span class="material-symbols-outlined text-primary text-3xl">calendar_today</span>
                 </div>
@@ -55,7 +55,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
                 </a>
             </div>
             <!-- Static Download -->
-            <div class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 flex flex-col items-center text-center group hover:bg-surface-container-high transition-all duration-300">
+            <div class="bg-surface-container-high lg:bg-surface-container-low p-6 rounded-xl border border-outline-variant/10 flex flex-col items-center text-center group hover:bg-surface-container-high transition-all duration-300">
                 <div class="hidden md:flex w-14 h-14 rounded-full bg-primary/10 items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <span class="material-symbols-outlined text-primary text-3xl">download</span>
                 </div>
@@ -73,7 +73,7 @@ const updatedAt = new Date(eventsData.metadata.updated_at).toLocaleString(undefi
         </div>
         </div>
         <!-- Footer -->
-        <div class="shrink-0 bg-surface-container-highest/30 px-8 py-3 md:py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-outline-variant/10">
+        <div class="shrink-0 bg-surface-container-lowest lg:bg-surface-container-highest/30 px-8 py-3 md:py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-t border-outline-variant/10">
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
                     <span class="material-symbols-outlined text-tertiary">sync</span>
