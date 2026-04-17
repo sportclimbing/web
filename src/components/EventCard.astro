@@ -304,7 +304,7 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
 
         {startList.length > 0 && (
         <div class={`flex flex-col gap-4 bg-surface-container-high py-4 px-6 lg:py-6 rounded-xl w-full lg:w-auto min-w-[300px] event-start-list${startListMobileBottomMargin && !showTabs ? ' mb-6 sm:mb-0' : ''}`}>
-            <p class="text-[0.6875rem] text-on-surface-variant tracking-widest uppercase font-label">Athletes Attending</p>
+            <p class="text-[0.6875rem] text-on-surface tracking-widest uppercase font-label">Athletes Attending</p>
             <div class="flex flex-wrap gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity event-start-list-trigger" data-bs-toggle="modal" data-bs-target="#start-list-modal" data-event-id={eventId} data-start-list-url={startListModalUrl || undefined}>
                 {hasPhotos ? avatarsWithPhoto.map((athlete, index) => {
                   const photoSources = athlete_photo_local_sources_build(athlete);
