@@ -281,8 +281,8 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
      data-event-page-path={eventPagePath || undefined}>
     <div id={`heading_${eventId}`} class={`flex flex-col lg:flex-row justify-between items-start mb-0 ${showTabs ? 'lg:mb-4' : 'lg:mb-8'} gap-6`}>
         <div class="lg:flex-1 lg:min-w-0 px-4 sm:px-0">
-            <p class={`text-[0.6875rem] ${textThemeClass} tracking-[0.2em] uppercase font-label mb-1 event-league-name`}>{prettyLeagueName}</p>
-            <h3 class="text-2xl lg:text-5xl font-bold font-headline uppercase tracking-tight mb-4 event-name">
+            <p class={`text-xs ${textThemeClass} tracking-[0.2em] uppercase font-label font-bold mb-1 event-league-name`}>{prettyLeagueName}</p>
+            <h3 class="text-2xl lg:text-5xl font-bold font-headline uppercase tracking-tight mb-4 text-white event-name">
               {shouldLinkEventTitles && eventPagePath ? (
                 <a href={eventPagePath} class={`hover:${textThemeClass} transition-colors event-name-title`}>{prettyEventName}</a>
               ) : (
@@ -296,7 +296,7 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
                 {infosheetUrl ? (
                   <a class={`${hideInfosheetOnMobile ? 'hidden lg:flex' : 'flex'} items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold order-4 lg:order-none`} href={infosheetUrl} target="_blank" rel="noopener" onclick="window.gtag && gtag('event', 'info_sheet_clicked')"><span class="material-symbols-outlined text-sm">description</span> Info Sheet</a>
                 ) : (
-                  <span class={`${hideInfosheetOnMobile ? 'hidden lg:flex' : 'flex'} items-center gap-2 text-on-surface-variant/50 line-through font-bold cursor-help order-4 lg:order-none`} title="Info sheet not yet available"><span class="material-symbols-outlined text-sm">description</span> Info Sheet</span>
+                  <span class={`${hideInfosheetOnMobile ? 'hidden lg:flex' : 'flex'} items-center gap-2 text-on-surface-variant/70 line-through font-bold cursor-help order-4 lg:order-none`} title="Info sheet not yet available"><span class="material-symbols-outlined text-sm">description</span> Info Sheet</span>
                 )}
             </div>
             <div class="hidden lg:block h-px bg-gray-400/20 mt-4"></div>
@@ -304,7 +304,7 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
 
         {startList.length > 0 && (
         <div class={`flex flex-col gap-4 bg-surface-container-high py-4 px-6 lg:py-6 rounded-xl w-full lg:w-auto min-w-[300px] event-start-list${startListMobileBottomMargin && !showTabs ? ' mb-6 sm:mb-0' : ''}`}>
-            <p class="text-[0.6875rem] text-on-surface-variant tracking-widest uppercase font-label">Athletes Attending</p>
+            <p class="text-[0.6875rem] text-on-surface tracking-widest uppercase font-label">Athletes Attending</p>
             <div class="flex flex-wrap gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity event-start-list-trigger" data-bs-toggle="modal" data-bs-target="#start-list-modal" data-event-id={eventId} data-start-list-url={startListModalUrl || undefined}>
                 {hasPhotos ? avatarsWithPhoto.map((athlete, index) => {
                   const photoSources = athlete_photo_local_sources_build(athlete);

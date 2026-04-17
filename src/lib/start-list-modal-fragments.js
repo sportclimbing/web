@@ -83,7 +83,7 @@ export const build_start_list_modal_list_html = (startListInput, eventId = '', s
       : '';
 
     return `
-            <li class="flex items-center justify-between px-2 py-4 lg:px-4 bg-surface-container lg:bg-surface-container-low/40 hover:bg-surface-container-high transition-all duration-200 rounded-lg group start-list-athlete">
+            <li class="flex items-center justify-between px-2 py-4 lg:px-4 bg-surface-container hover:bg-surface-container-high transition-all duration-200 rounded-lg group start-list-athlete">
                 <div class="flex items-center gap-3 lg:gap-4 min-w-0">
                     <div class="relative w-11 h-11 lg:w-14 lg:h-14 shrink-0">
                         ${photo}

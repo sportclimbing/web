@@ -85,6 +85,7 @@ const resolvedBgVideoId = seasonOverride.youTubeVideoId ?? heroBgVideoId;
 const heroBgImage = resolvedBgVideoId
     ? `https://img.youtube.com/vi/${resolvedBgVideoId}/maxresdefault.jpg`
     : '/img/hero/hero-bg.webp';
+const heroBgIsDefault = !resolvedBgVideoId;
 const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
 ---
 <!doctype html>
@@ -103,7 +104,11 @@ document.documentElement.classList.add('dark');
 
     <base href="/" />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="preload" href={heroBgImage} as="image" fetchpriority="high" />
+    {heroBgIsDefault ? (
+        <link rel="preload" as="image" fetchpriority="high" imagesrcset="/img/hero/hero-bg-mobile.webp 800w, /img/hero/hero-bg.webp 1280w" imagesizes="100vw" />
+    ) : (
+        <link rel="preload" href={heroBgImage} as="image" fetchpriority="high" />
+    )}
     <link rel="preload" href={`/fonts/plus-jakarta-sans-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={`/fonts/space-grotesk-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={`/fonts/material-symbols-outlined.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
