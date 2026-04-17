@@ -61,7 +61,7 @@ const watchButtonClass = 'border border-primary text-primary hover:bg-primary/10
         </div>
     </div>
 
-    <div class="flex gap-3 sm:ml-auto w-full sm:w-auto round-actions">
+    <div class={`${willBeStreamed ? 'flex' : 'hidden sm:flex'} gap-3 sm:ml-auto w-full sm:w-auto round-actions`}>
            {willBeStreamed && hasStreamUrl && <a href={round.stream_url}
                    class={`text-sm font-bold flex flex-1 sm:flex-none justify-center items-center gap-2 px-4 py-2 rounded-lg transition-colors ${watchButtonClass} whitespace-nowrap round-stream-button`}
                    data-action="round-stream"
