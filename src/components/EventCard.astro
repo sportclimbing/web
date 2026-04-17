@@ -148,6 +148,7 @@ const capitalize = (value) => {
 
 const beautify_disciplines = (disciplines) => {
   const normalized = (Array.isArray(disciplines) ? disciplines : []).map(capitalize);
+  normalized.sort((a, b) => a.localeCompare(b));
 
   if (normalized.length === 0) {
     return '';
@@ -288,20 +289,21 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
                 <span class="event-name-title">{prettyEventName}</span>
               )}
             </h3>
-            <div class="flex flex-col lg:flex-row lg:flex-wrap lg:items-center gap-2 lg:gap-6 text-sm text-on-surface-variant">
-                <span class="flex items-center gap-2"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>calendar_today</span> {format_event_date(event)}</span>
-                <span class="flex items-center gap-2 font-medium event-disciplines"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>exercise</span> {beautify_disciplines(event.disciplines)}</span>
-                <span class={`${hideScheduleStatusOnMobile ? 'hidden sm:flex' : 'flex'} items-center gap-2 font-medium cursor-help event-schedule-status-tooltip`} title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus === 'Confirmed Schedule' ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus}</span>
-                {infosheetUrl && (
-                  <a class={`${hideInfosheetOnMobile ? 'hidden lg:flex' : 'flex'} items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold`} href={infosheetUrl} target="_blank" rel="noopener" onclick="window.gtag && gtag('event', 'info_sheet_clicked')"><span class="material-symbols-outlined text-sm">description</span> Info Sheet</a>
+            <div class="grid grid-cols-[9fr_10fr] gap-x-4 gap-y-2 lg:flex lg:flex-row lg:flex-wrap lg:items-center lg:gap-6 text-sm text-on-surface-variant">
+                <span class="flex items-center gap-2 order-1 lg:order-none"><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>calendar_today</span> {format_event_date(event)}</span>
+                <span class="flex items-center gap-2 font-medium event-disciplines order-3 lg:order-none min-w-0"><span class={`material-symbols-outlined text-sm shrink-0 ${textThemeClass}`}>exercise</span> <span class="truncate">{beautify_disciplines(event.disciplines)}</span></span>
+                <span class={`${hideScheduleStatusOnMobile ? 'hidden sm:flex' : 'flex'} items-center gap-2 font-medium cursor-help event-schedule-status-tooltip order-2 lg:order-none`} title={eventScheduleStatusTooltip}><span class={`material-symbols-outlined text-sm ${textThemeClass}`}>{eventScheduleStatus === 'Confirmed Schedule' ? 'verified' : 'pending_actions'}</span> {eventScheduleStatus}</span>
+                {infosheetUrl ? (
+                  <a class={`${hideInfosheetOnMobile ? 'hidden lg:flex' : 'flex'} items-center gap-2 ${textThemeClass} ${hoverTextThemeClass} transition-colors font-bold order-4 lg:order-none`} href={infosheetUrl} target="_blank" rel="noopener" onclick="window.gtag && gtag('event', 'info_sheet_clicked')"><span class="material-symbols-outlined text-sm">description</span> Info Sheet</a>
+                ) : (
+                  <span class={`${hideInfosheetOnMobile ? 'hidden lg:flex' : 'flex'} items-center gap-2 text-on-surface-variant/50 line-through font-bold cursor-help order-4 lg:order-none`} title="Info sheet not yet available"><span class="material-symbols-outlined text-sm">description</span> Info Sheet</span>
                 )}
             </div>
             <div class="hidden lg:block h-px bg-gray-400/20 mt-4"></div>
         </div>
 
         {startList.length > 0 && (
-        <>
-        <div class={`flex flex-col gap-4 bg-surface-container-high py-4 px-6 lg:py-6 rounded-xl w-full lg:w-auto min-w-[300px] event-start-list${startListMobileBottomMargin ? (showTabs ? ' mb-4 sm:mb-0' : ' mb-6 sm:mb-0') : ''}`}>
+        <div class={`flex flex-col gap-4 bg-surface-container-high py-4 px-6 lg:py-6 rounded-xl w-full lg:w-auto min-w-[300px] event-start-list${startListMobileBottomMargin && !showTabs ? ' mb-6 sm:mb-0' : ''}`}>
             <p class="text-[0.6875rem] text-on-surface-variant tracking-widest uppercase font-label">Athletes Attending</p>
             <div class="flex flex-wrap gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity event-start-list-trigger" data-bs-toggle="modal" data-bs-target="#start-list-modal" data-event-id={eventId} data-start-list-url={startListModalUrl || undefined}>
                 {hasPhotos ? avatarsWithPhoto.map((athlete, index) => {
@@ -319,15 +321,14 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
                 )}
             </div>
         </div>
+        )}
         {showMobileDetailsButton && eventPagePath && (
           <a href={eventPagePath} class={`sm:hidden w-full text-center px-4 py-2 border ${borderThemeClass} ${textThemeClass} rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-surface-container-highest transition-colors`}>Details</a>
-        )}
-        </>
         )}
     </div>
 
     {showTabs && (
-      <div class="mb-4 bg-surface-container-high p-2 rounded-xl mt-0 lg:mt-2">
+      <div class="mb-4 bg-surface-container-high p-2 rounded-xl mt-4 lg:mt-2">
         <div class="flex p-1 bg-surface-container-highest rounded-lg gap-1">
           <button data-tab-btn="rounds" class="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest transition-colors">
             <span class="material-symbols-outlined text-sm" aria-hidden="true">schedule</span>
