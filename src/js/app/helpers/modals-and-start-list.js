@@ -409,7 +409,7 @@ function set_start_list_modal_content(eventNameText, titleText, listHtml) {
                 footerAvatars.appendChild(clone);
             });
             const plus = document.createElement('div');
-            plus.className = 'w-8 h-8 rounded-full border-2 border-surface bg-surface-container-lowest flex items-center justify-center text-[10px] font-bold text-primary';
+            plus.className = 'w-8 h-8 shrink-0 rounded-full border-2 border-surface bg-surface-bright flex items-center justify-center text-[10px] font-bold text-primary';
             plus.textContent = '+';
             footerAvatars.appendChild(plus);
         }

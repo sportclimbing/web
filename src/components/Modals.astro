@@ -32,15 +32,14 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
       <ul id="start-list-modal-list" class="flex flex-col gap-2"></ul>
     </div>
     <!-- Modal Footer -->
-    <div class="p-6 border-t border-outline-variant/15 flex items-center justify-between bg-surface-container-low/20 rounded-b-xl">
+    <div class="px-6 py-3 border-t border-outline-variant/15 flex items-center justify-between bg-surface-container-low/20 rounded-b-xl">
       <div class="flex items-center gap-4">
         <div id="start-list-modal-more-athletes" class="hidden flex items-center gap-4">
           <div id="start-list-modal-footer-avatars" class="flex -space-x-3"></div>
-          <span class="text-xs font-label text-on-surface-variant/80 uppercase tracking-widest">More Athletes Confirmed</span>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <span class="text-[10px] font-headline font-bold text-on-surface-variant uppercase">Updated: <span class="js-updated-at" data-iso={updatedAtIso}>{updatedAt}</span></span>
+        <span class="text-[10px] font-headline font-bold text-on-surface-variant uppercase"><span class="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse mr-1"></span>Updated: <span class="js-updated-at" data-iso={updatedAtIso}>{updatedAt}</span></span>
       </div>
     </div>
   </div>

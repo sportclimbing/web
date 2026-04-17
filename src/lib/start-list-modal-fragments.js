@@ -107,8 +107,8 @@ export const build_start_list_modal_list_html = (startListInput, eventId = '', s
           const athleteName = escape_html(athlete_name_build(athlete));
           const photoSources = athlete_photo_local_sources_build(athlete);
           return photoSources
-            ? `<img class="w-10 h-10 rounded-full border-2 border-primary/20 object-cover" src="${escape_html(photoSources.src)}" width="40" height="40" alt="${athleteName}" loading="lazy" referrerpolicy="no-referrer"${photoSources.fallbackSrc ? ` data-fallback-src="${escape_html(photoSources.fallbackSrc)}" onerror="handle_start_list_photo_error(this)"` : ''} />`
-            : `<div class="w-10 h-10 rounded-full border-2 border-primary/20 bg-surface-container-high flex items-center justify-center text-on-surface-variant font-bold text-xs" aria-hidden="true">${escape_html(athlete_initials_build(athlete))}</div>`;
+            ? `<img class="w-10 h-10 shrink-0 rounded-full border-2 border-primary/20 object-cover" src="${escape_html(photoSources.src)}" width="40" height="40" alt="${athleteName}" loading="lazy" referrerpolicy="no-referrer"${photoSources.fallbackSrc ? ` data-fallback-src="${escape_html(photoSources.fallbackSrc)}" onerror="handle_start_list_photo_error(this)"` : ''} />`
+            : `<div class="w-10 h-10 shrink-0 rounded-full border-2 border-primary/20 bg-surface-container-high flex items-center justify-center text-on-surface-variant font-bold text-xs" aria-hidden="true">${escape_html(athlete_initials_build(athlete))}</div>`;
         }).join('');
         return `<li class="start-list-overflow-athletes hidden">
             <div class="flex -space-x-2">${avatars}</div>
