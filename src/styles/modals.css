@@ -130,10 +130,16 @@ body > *:not(.modal):not(.modal-backdrop):not(script):not(style) {
 }
 
 @media (max-width: 1023px) {
+    #start-list-modal {
+        padding: 2rem 1rem !important;
+    }
+    #start-list-modal > .modal-content {
+        max-height: calc(100dvh - 4rem);
+    }
     .filters-modal {
         align-items: flex-start;
-        padding-top: 0.25rem;
-        padding-bottom: 0.25rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
     }
     .filters-modal .modal-dialog {
         margin-top: 0;
@@ -141,7 +147,7 @@ body > *:not(.modal):not(.modal-backdrop):not(script):not(style) {
         width: 100%;
     }
     .filters-modal .modal-content {
-        max-height: calc(100vh - 0.5rem);
+        max-height: calc(100dvh - 3rem);
         display: flex;
         flex-direction: column;
     }
