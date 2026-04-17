@@ -351,6 +351,10 @@ const setup_modal_handlers = () => {
         });
     }
 
+    document.addEventListener('show.bs.modal', (event) => {
+        localize_updated_at_labels(event.target);
+    });
+
     // Modal global event listeners
     document.addEventListener('click', (event) => {
         const calendarTrigger = event.target.closest('[data-open-calendar-modal]');

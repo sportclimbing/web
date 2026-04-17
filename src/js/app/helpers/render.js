@@ -271,6 +271,35 @@ function make_time_fmt(tz) {
     return new Intl.DateTimeFormat('en-US', opts);
 }
 
+function format_relative_updated_at(iso) {
+    const d = dayjs(iso);
+    const time = d.format('h:mm A');
+
+    if (d.isSame(dayjs(), 'day')) {
+        return `today at ${time}`;
+    }
+
+    if (d.isSame(dayjs().subtract(1, 'day'), 'day')) {
+        return `yesterday at ${time}`;
+    }
+
+    const daysAgo = dayjs().startOf('day').diff(d.startOf('day'), 'day');
+    return `${daysAgo} days ago`;
+}
+
+function localize_updated_at_labels(root) {
+    const scope = root || document;
+
+    scope.querySelectorAll('.js-updated-at').forEach((el) => {
+        const iso = el.dataset.iso;
+        if (!iso) {
+            return;
+        }
+
+        el.textContent = format_relative_updated_at(iso);
+    });
+}
+
 function has_non_default_filters() {
     try {
         const storedTz = localStorage.getItem(TIMEZONE_STORAGE_KEY);
