@@ -4,6 +4,34 @@
 
   var tabPanels = document.querySelectorAll('[data-tab-panel]');
   var mapInitialized = false;
+  var leafletPromise = null;
+
+  var LEAFLET_CSS = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+  var LEAFLET_CSS_INTEGRITY = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+  var LEAFLET_JS = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  var LEAFLET_JS_INTEGRITY = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+
+  function loadLeaflet() {
+    if (leafletPromise) return leafletPromise;
+    leafletPromise = new Promise(function (resolve, reject) {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = LEAFLET_CSS;
+      link.integrity = LEAFLET_CSS_INTEGRITY;
+      link.crossOrigin = '';
+      document.head.appendChild(link);
+
+      var script = document.createElement('script');
+      script.src = LEAFLET_JS;
+      script.integrity = LEAFLET_JS_INTEGRITY;
+      script.crossOrigin = '';
+      script.async = true;
+      script.onload = function () { resolve(window.L); };
+      script.onerror = function () { reject(new Error('Failed to load Leaflet')); };
+      document.head.appendChild(script);
+    });
+    return leafletPromise;
+  }
 
   var ACTIVE = ['bg-primary', 'text-on-primary'];
   var INACTIVE = ['text-on-surface-variant'];
@@ -29,11 +57,15 @@
   function initMap() {
     var mapEl = document.getElementById('event-map');
     if (!mapEl) return;
-    fetch('https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(mapEl.dataset.query) + '&format=json&limit=1', {
-      headers: { 'Accept-Language': 'en' }
-    })
-      .then(function (r) { return r.json(); })
-      .then(function (results) {
+    Promise.all([
+      loadLeaflet(),
+      fetch('https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(mapEl.dataset.query) + '&format=json&limit=1', {
+        headers: { 'Accept-Language': 'en' }
+      }).then(function (r) { return r.json(); })
+    ])
+      .then(function (values) {
+        var L = values[0];
+        var results = values[1];
         if (!results || !results.length) return;
         var lat = parseFloat(results[0].lat);
         var lon = parseFloat(results[0].lon);
