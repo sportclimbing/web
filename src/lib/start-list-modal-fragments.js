@@ -88,7 +88,7 @@ export const build_start_list_modal_list_html = (startListInput, eventId = '', s
                     <div class="relative w-11 h-11 lg:w-14 lg:h-14 shrink-0">
                         ${photo}
                     </div>
-                    <div class="flex flex-col min-w-0">
+                    <div class="flex flex-col min-w-0 pr-3">
                         <span class="text-on-surface font-headline font-bold tracking-tight text-sm lg:text-lg leading-tight truncate">${athleteName}</span>
                         <div class="flex items-center gap-1.5 mt-1">
                             <span class="material-symbols-outlined text-[16px] text-on-surface-variant">flag</span>
@@ -107,8 +107,8 @@ export const build_start_list_modal_list_html = (startListInput, eventId = '', s
           const athleteName = escape_html(athlete_name_build(athlete));
           const photoSources = athlete_photo_local_sources_build(athlete);
           return photoSources
-            ? `<img class="w-10 h-10 rounded-full border-2 border-primary/20 object-cover" src="${escape_html(photoSources.src)}" width="40" height="40" alt="${athleteName}" loading="lazy" referrerpolicy="no-referrer"${photoSources.fallbackSrc ? ` data-fallback-src="${escape_html(photoSources.fallbackSrc)}" onerror="handle_start_list_photo_error(this)"` : ''} />`
-            : `<div class="w-10 h-10 rounded-full border-2 border-primary/20 bg-surface-container-high flex items-center justify-center text-on-surface-variant font-bold text-xs" aria-hidden="true">${escape_html(athlete_initials_build(athlete))}</div>`;
+            ? `<img class="w-10 h-10 shrink-0 rounded-full border-2 border-primary/20 object-cover" src="${escape_html(photoSources.src)}" width="40" height="40" alt="${athleteName}" loading="lazy" referrerpolicy="no-referrer"${photoSources.fallbackSrc ? ` data-fallback-src="${escape_html(photoSources.fallbackSrc)}" onerror="handle_start_list_photo_error(this)"` : ''} />`
+            : `<div class="w-10 h-10 shrink-0 rounded-full border-2 border-primary/20 bg-surface-container-high flex items-center justify-center text-on-surface-variant font-bold text-xs" aria-hidden="true">${escape_html(athlete_initials_build(athlete))}</div>`;
         }).join('');
         return `<li class="start-list-overflow-athletes hidden">
             <div class="flex -space-x-2">${avatars}</div>
