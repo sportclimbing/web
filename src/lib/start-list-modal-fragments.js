@@ -88,7 +88,7 @@ export const build_start_list_modal_list_html = (startListInput, eventId = '', s
                     <div class="relative w-11 h-11 lg:w-14 lg:h-14 shrink-0">
                         ${photo}
                     </div>
-                    <div class="flex flex-col min-w-0">
+                    <div class="flex flex-col min-w-0 pr-3">
                         <span class="text-on-surface font-headline font-bold tracking-tight text-sm lg:text-lg leading-tight truncate">${athleteName}</span>
                         <div class="flex items-center gap-1.5 mt-1">
                             <span class="material-symbols-outlined text-[16px] text-on-surface-variant">flag</span>
