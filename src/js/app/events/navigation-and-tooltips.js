@@ -270,13 +270,15 @@ const update_month_navigation_state = () => {
             .filter((monthIndex) => monthIndex !== undefined)
     );
 
+    const activeMonthIndex = get_active_month_index_from_visible_events();
+
     monthNav.querySelectorAll('.season-month-nav-link[data-month-index]').forEach((button) => {
         const hasEvents = monthsWithEvents.has(button.dataset.monthIndex);
         button.classList.toggle('is-empty', !hasEvents);
         button.setAttribute('aria-disabled', hasEvents ? 'false' : 'true');
     });
 
-    sync_active_month_navigation_link();
+    set_active_month_navigation_link(activeMonthIndex);
 };
 
 const setup_month_navigation = () => {

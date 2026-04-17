@@ -214,15 +214,17 @@ function fit_modal_title_to_one_line(element) {
     element.style.whiteSpace = 'nowrap';
     element.style.fontSize = '';
 
-    const available = element.parentElement ? element.parentElement.clientWidth : 0;
+    window.requestAnimationFrame(() => {
+        const available = element.parentElement ? element.parentElement.clientWidth : 0;
 
-    if (!available || element.scrollWidth <= available) {
-        return;
-    }
+        if (!available || element.scrollWidth <= available) {
+            return;
+        }
 
-    const ratio = available / element.scrollWidth;
-    const current = parseFloat(getComputedStyle(element).fontSize);
-    element.style.fontSize = Math.max(13, Math.floor(current * ratio)) + 'px';
+        const ratio = available / element.scrollWidth;
+        const current = parseFloat(getComputedStyle(element).fontSize);
+        element.style.fontSize = Math.max(13, Math.floor(current * ratio)) + 'px';
+    });
 }
 
 function handle_watch_event_no_url(e) {
