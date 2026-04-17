@@ -54,7 +54,7 @@ const watchButtonClass = 'border border-primary text-primary hover:bg-primary/10
     </div>
 
     <div class="flex-1 min-w-0 flex flex-col">
-        <h4 class={`font-bold text-xs sm:text-sm lg:text-lg uppercase leading-tight truncate round-name mb-2 ${isDimmed ? 'text-on-surface-variant' : 'text-on-surface'}`}>{round.name}</h4>
+        <h4 class={`font-bold text-xs sm:text-sm lg:text-lg uppercase leading-tight truncate round-name mb-2 ${isDimmed ? 'text-on-surface-variant' : 'text-white'}`}>{round.name}</h4>
         <div class="text-[11px] sm:text-[13px] text-on-surface-variant font-medium sm:mb-1 flex flex-col gap-0.5">
             <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px] sm:text-[15px] text-primary">calendar_today</span><span class="round-date">{formatRoundDate}</span></span>
             <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px] sm:text-[15px] text-primary">schedule</span><span class="round-time">{formatRoundTime}</span>{formatRoundEndTime && <span class="round-end-time"> - {formatRoundEndTime}</span>} <span class="round-starts-in hidden ml-2"></span></span>
