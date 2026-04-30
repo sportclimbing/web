@@ -27,10 +27,10 @@
 
     <!-- Modal Footer -->
     <div class="px-3 py-3 lg:px-8 lg:py-5 bg-surface-container-high/30 border-t border-outline-variant/10 flex flex-nowrap lg:flex-wrap items-center gap-4">
-      <a class="text-xs lg:text-sm text-on-surface-variant hover:text-primary transition-colors mr-auto self-center flex items-center gap-2" href="https://protonvpn.com/free-vpn" role="button" target="_blank" rel="noopener">
-        <span class="material-symbols-outlined text-xs lg:text-sm">vpn_key</span> Video blocked? Free VPN
-      </a>
-      <button type="button" class="ml-auto lg:ml-0 px-8 py-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline font-bold uppercase text-xs tracking-widest transition-all border border-outline-variant/20" data-bs-dismiss="modal">Close</button>
+      <button type="button" id="video-modal-vpn-btn" class="hidden text-xs lg:text-sm font-bold flex items-center gap-2 px-4 py-2 rounded-lg border border-tertiary/30 text-tertiary bg-tertiary/10 hover:bg-tertiary/20 hover:border-tertiary/50 transition-colors whitespace-nowrap" aria-label="VPN needed for this stream">
+        <span class="material-symbols-outlined text-xs lg:text-sm">travel_explore</span> VPN needed
+      </button>
+      <button type="button" class="ml-auto px-8 py-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline font-bold uppercase text-xs tracking-widest transition-all border border-outline-variant/20" data-bs-dismiss="modal">Close</button>
     </div>
   </div>
 </div>

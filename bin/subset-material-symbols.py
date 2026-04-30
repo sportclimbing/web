@@ -55,6 +55,7 @@ ICONS = sorted([
     "stars",
     "sync",
     "tune",
+    "travel_explore",
     "verified",
     "visibility_off",
     "vpn_key",

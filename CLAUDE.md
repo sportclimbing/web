@@ -38,7 +38,7 @@ After editing any file under `src/js/app/`, regenerate the bundle with `npm run 
 | `/` | `src/pages/index.astro` |
 | `/season/:season/` | `src/pages/season/[season]/index.astro` |
 | `/season/:season/event/:eventSlugAndId/` | `src/pages/season/[season]/event/[eventSlugAndId].astro` |
-| `/start-list-modals/:season/:eventId.html` | `src/pages/start-list-modals/[season]/[eventId].html.js` |
+| `/start-list-modals/:season/:eventId.html` | `src/pages/start-list-modals/[season]/[eventId].js` |
 | `/modals/filters.html`, `/modals/sync.html` | `src/pages/modals/` |
 
 ### JavaScript Bundle

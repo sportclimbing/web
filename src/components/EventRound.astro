@@ -30,9 +30,10 @@ const watchButtonClass = 'border border-primary text-primary hover:bg-primary/10
      data-round-name={round.name}
      data-round-starts-at={round.starts_at}
      data-round-ends-at={round.ends_at}
-     data-round-key={roundKey}>
+     data-round-key={roundKey}
+     data-round-blocked-regions={Array.isArray(round.stream_blocked_regions) && round.stream_blocked_regions.length > 0 ? round.stream_blocked_regions.join(',') : undefined}>
     
-    <div class="w-24 h-16 sm:w-32 sm:h-20 bg-black rounded-lg overflow-hidden flex-shrink-0 relative">
+    <div class="w-24 sm:w-32 aspect-video bg-black rounded-lg overflow-hidden flex-shrink-0 relative">
         {thumbnailUrl ? (
             <img class={`w-full h-full object-cover ${isDimmed ? 'opacity-50' : 'opacity-80'}`} src={thumbnailUrl} alt="Stream Thumbnail" loading="lazy" />
         ) : (
@@ -43,7 +44,7 @@ const watchButtonClass = 'border border-primary text-primary hover:bg-primary/10
             <span class="material-symbols-outlined text-white text-3xl opacity-0 group-hover:opacity-100 transition-opacity stream-icon">play_arrow</span>
         </div>
         )}
-        {hasStreamUrl && <button class="youtube-play-button" type="button" aria-label="Watch stream" data-action="round-stream" data-round-stream-url={round.stream_url}></button>}
+        {hasStreamUrl && <button class="youtube-play-button" type="button" aria-label="Watch stream" data-action="round-stream" data-round-stream-url={round.stream_url || undefined}></button>}
         <div class="absolute top-1 left-1 flex gap-1">
             {!willBeStreamed && <span class="text-[8px] text-on-surface-variant font-bold uppercase tracking-widest bg-surface-container-lowest px-1.5 py-0.5 rounded">No Stream</span>}
             {willBeStreamed && <span class={`text-[8px] ${liveBadgeClass} font-bold uppercase tracking-widest px-1.5 py-0.5 rounded live-badge hidden`}>Live Now</span>}
@@ -71,7 +72,7 @@ const watchButtonClass = 'border border-primary text-primary hover:bg-primary/10
            {willBeStreamed && !hasStreamUrl && <button type="button"
                    class={`text-sm font-bold flex flex-1 sm:flex-none justify-center items-center gap-2 px-4 py-2 rounded-lg transition-colors ${watchButtonClass} whitespace-nowrap round-stream-button`}
                    data-action="round-stream"
-                   data-round-stream-url={round.stream_url}>
+                   data-round-stream-url={round.stream_url || undefined}>
                <span class="material-symbols-outlined text-[18px]">{isFinished ? 'replay' : 'play_circle'}</span> {isFinished ? 'REPLAY' : 'WATCH'}
            </button>}
 

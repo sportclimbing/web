@@ -70,7 +70,7 @@ const resolvedBgVideoId = seasonOverride.youTubeVideoId ?? heroYouTubeVideoId;
 const heroBgImage = resolvedBgVideoId
     ? `https://img.youtube.com/vi/${resolvedBgVideoId}/maxresdefault.jpg`
     : '/img/hero/hero-bg.webp';
-const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
+const heroBgPosition = seasonOverride.backgroundPosition ?? null;
 
 const updatedAt = getSeasonEventsPayload(season)?.metadata?.updated_at || undefined;
 const previousEventLink = relatedLinks?.previousEvent || null;

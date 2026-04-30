@@ -137,5 +137,5 @@ export const build_start_list_modal_url = (season, eventId, version = '') => {
   const normalizedVersion = String(version || '').trim();
   const query = normalizedVersion ? `?v=${encodeURIComponent(normalizedVersion)}` : '';
 
-  return `/modals/start-list/${normalizedSeason}/${normalizedEventId}.html${query}`;
+  return `/modals/start-list/${normalizedSeason}/${normalizedEventId}/${query}`;
 };

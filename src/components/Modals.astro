@@ -116,4 +116,120 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
   </div>
 </div>
 
+<div id="geo-restriction-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="geo-restriction-modal-title">
+  <div class="modal-dialog modal-content bg-surface-container-low rounded-xl shadow-[0_12px_32px_-4px_rgba(0,0,0,0.6)] border border-outline-variant/15 flex flex-col w-full max-w-2xl overflow-hidden">
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between p-6 border-b border-outline-variant/15 bg-surface-container-high">
+      <div class="flex items-center gap-4 min-w-0">
+        <span class="material-symbols-outlined text-3xl text-primary shrink-0" aria-hidden="true">travel_explore</span>
+        <div class="flex flex-col text-left min-w-0">
+          <span class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-1 uppercase leading-none">GEO-RESTRICTED STREAM</span>
+          <h2 class="text-lg lg:text-2xl font-headline font-bold text-on-surface tracking-tight" id="geo-restriction-modal-title">Stream Blocked</h2>
+        </div>
+      </div>
+      <button type="button" class="w-10 h-10 shrink-0 flex items-center justify-center rounded-full bg-surface-container-lowest hover:bg-surface-bright transition-colors group" onclick="close_modal(document.getElementById('geo-restriction-modal'));" aria-label="Close">
+        <span class="material-symbols-outlined text-on-surface-variant group-hover:text-on-surface">close</span>
+      </button>
+    </div>
+    <!-- Modal Body -->
+    <div class="modal-body px-4 lg:px-8 py-10 text-center bg-surface-container-lowest">
+      <div class="max-w-lg mx-auto mb-8">
+        <p class="text-on-surface-variant leading-relaxed text-sm">
+          The IFSC has imposed regional restrictions on this stream, making it unavailable in <strong class="text-on-surface font-bold" id="geo-restriction-country-name">your region</strong>.
+          To bypass this restriction, connect to a <strong class="text-on-surface font-bold">US-based server</strong> using a VPN service before accessing the stream.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-6">
+        <div class="bg-surface-container-low rounded-xl border border-outline-variant/15 p-4 lg:p-6 text-left">
+          <p class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-4 uppercase">Recommended VPNs</p>
+          <ul class="flex flex-col gap-2 lg:gap-3">
+            <li>
+              <a href="https://protonvpn.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+                <span class="w-8 lg:w-9 h-8 lg:h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+                </span>
+                <span class="flex-1 min-w-0">
+                  <span class="block text-sm font-bold text-on-surface group-hover:text-primary transition-colors">ProtonVPN</span>
+                  <span class="block text-[11px] text-on-surface-variant">Free tier available · No logs</span>
+                </span>
+                <span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover:translate-x-0.5 transition-transform">open_in_new</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://windscribe.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+                <span class="w-8 lg:w-9 h-8 lg:h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+                </span>
+                <span class="flex-1 min-w-0">
+                  <span class="block text-sm font-bold text-on-surface group-hover:text-primary transition-colors">Windscribe</span>
+                  <span class="block text-[11px] text-on-surface-variant">Free tier available · Strong privacy</span>
+                </span>
+                <span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover:translate-x-0.5 transition-transform">open_in_new</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://mullvad.net" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+                <span class="w-8 lg:w-9 h-8 lg:h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+                </span>
+                <span class="flex-1 min-w-0">
+                  <span class="block text-sm font-bold text-on-surface group-hover:text-primary transition-colors">Mullvad VPN</span>
+                  <span class="block text-[11px] text-on-surface-variant">Privacy-focused · Fixed price</span>
+                </span>
+                <span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover:translate-x-0.5 transition-transform">open_in_new</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-surface-container-low rounded-xl border border-outline-variant/15 p-4 lg:p-6 text-left">
+          <p class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-4 uppercase">Alternative Broadcasters</p>
+          <p class="text-xs text-on-surface-variant mb-4">In some regions, the IFSC streams are available through local broadcasters:</p>
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-outline-variant/15">
+                <th class="text-left py-2 pr-2 lg:pr-4 font-headline font-bold text-[10px] text-primary uppercase tracking-[0.2em]">Region</th>
+                <th class="text-left py-2 pr-2 lg:pr-4 font-headline font-bold text-[10px] text-primary uppercase tracking-[0.2em]">Availability</th>
+                <th class="text-left py-2 font-headline font-bold text-[10px] text-primary uppercase tracking-[0.2em]">Broadcaster</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr class="border-b border-outline-variant/10">
+              <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">Europe</td>
+              <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Live and on-demand</td>
+              <td class="py-3 text-on-surface"><a href="https://www.eurosport.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Eurosport</a> / <a href="https://www.discoveryplus.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Discovery Plus</a></td>
+            </tr>
+            <tr class="border-b border-outline-variant/10">
+              <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">Europe</td>
+              <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Delayed 24 hours</td>
+              <td class="py-3 text-on-surface"><a href="https://olympics.com/en/olympic-channel" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Olympic Channel</a></td>
+            </tr>
+              <tr class="border-b border-outline-variant/10">
+                <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">Brazil</td>
+                <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Live or delayed</td>
+                <td class="py-3 text-on-surface"><a href="https://globoplay.globo.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Globo</a></td>
+              </tr>
+              <tr class="border-b border-outline-variant/10">
+                <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">China</td>
+                <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Live and on-demand</td>
+                <td class="py-3 text-on-surface"><a href="https://www.bilibili.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Bilibili</a></td>
+              </tr>
+              <tr class="border-b border-outline-variant/10">
+                <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">Mexico</td>
+                <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Live or delayed</td>
+                <td class="py-3 text-on-surface"><a href="https://www.tvazteca.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">TV Azteca</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Footer -->
+    <div class="px-6 py-4 border-t border-outline-variant/15 flex justify-center bg-surface-container-low/20 rounded-b-xl">
+      <button type="button" class="px-10 py-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline font-bold uppercase text-xs tracking-widest transition-all border border-outline-variant/20" onclick="close_modal(document.getElementById('geo-restriction-modal'));">Got it</button>
+    </div>
+  </div>
+</div>
+
 <div id="filter-modal" class="modal filters-modal" tabindex="-1" role="dialog" aria-modal="true" aria-label="Configure Filters"></div>
