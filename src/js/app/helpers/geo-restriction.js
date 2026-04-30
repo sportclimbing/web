@@ -289,13 +289,11 @@ function apply_geo_restriction_warnings() {
             return;
         }
 
-        // Add a geo-restriction warning badge next to the watch button area
         const roundActions = roundElement.querySelector('.round-actions');
         if (!roundActions) {
             return;
         }
 
-        // Avoid duplicating the badge
         if (roundActions.querySelector('.geo-restriction-badge')) {
             return;
         }
@@ -307,10 +305,12 @@ function apply_geo_restriction_warnings() {
         badge.innerHTML = '<span class="material-symbols-outlined text-[14px]" aria-hidden="true">travel_explore</span> VPN needed';
         badge.addEventListener('click', function (e) {
             e.stopPropagation();
+            if (window.gtag) {
+                gtag('event', 'vpn_needed_clicked');
+            }
             open_geo_restriction_modal(userCountry);
         });
 
-        // Insert the badge before the watch button, or append to round-actions
         const watchButton = roundActions.querySelector('.round-stream-button');
         if (watchButton) {
             roundActions.insertBefore(badge, watchButton);
