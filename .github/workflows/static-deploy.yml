@@ -95,6 +95,9 @@ jobs:
           NODE_ENV: production
         run: npm run build:astro -- --mode production
 
+      - name: "Convert start-list modal flat files to index.html directories"
+        run: npm run build:start-list-index
+
       - name: "Save YouTube thumbnails cache (daily)"
         if: always() && steps.thumb-cache-restore.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
