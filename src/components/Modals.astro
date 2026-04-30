@@ -132,7 +132,7 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
       </button>
     </div>
     <!-- Modal Body -->
-    <div class="modal-body px-8 py-10 text-center bg-surface-container-lowest">
+    <div class="modal-body px-4 lg:px-8 py-10 text-center bg-surface-container-lowest">
       <div class="max-w-lg mx-auto mb-8">
         <p class="text-on-surface-variant leading-relaxed text-sm">
           The IFSC has imposed regional restrictions on this stream, making it unavailable in <strong class="text-on-surface font-bold" id="geo-restriction-country-name">your region</strong>.
@@ -141,12 +141,12 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
       </div>
 
       <div class="flex flex-col gap-6">
-        <div class="bg-surface-container-low rounded-xl border border-outline-variant/15 p-6 text-left">
+        <div class="bg-surface-container-low rounded-xl border border-outline-variant/15 p-4 lg:p-6 text-left">
           <p class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-4 uppercase">Recommended VPNs</p>
-          <ul class="flex flex-col gap-3">
+          <ul class="flex flex-col gap-2 lg:gap-3">
             <li>
-              <a href="https://protonvpn.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
-                <span class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+              <a href="https://protonvpn.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+                <span class="w-8 lg:w-9 h-8 lg:h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                   <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
                 </span>
                 <span class="flex-1 min-w-0">
@@ -157,8 +157,8 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
               </a>
             </li>
             <li>
-              <a href="https://windscribe.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
-                <span class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+              <a href="https://windscribe.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+                <span class="w-8 lg:w-9 h-8 lg:h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                   <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
                 </span>
                 <span class="flex-1 min-w-0">
@@ -169,8 +169,8 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
               </a>
             </li>
             <li>
-              <a href="https://mullvad.net" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
-                <span class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+              <a href="https://mullvad.net" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+                <span class="w-8 lg:w-9 h-8 lg:h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                   <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
                 </span>
                 <span class="flex-1 min-w-0">
@@ -183,41 +183,41 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
           </ul>
         </div>
 
-        <div class="bg-surface-container-low rounded-xl border border-outline-variant/15 p-6 text-left">
+        <div class="bg-surface-container-low rounded-xl border border-outline-variant/15 p-4 lg:p-6 text-left">
           <p class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-4 uppercase">Alternative Broadcasters</p>
           <p class="text-xs text-on-surface-variant mb-4">In some regions, the IFSC streams are available through local broadcasters:</p>
           <table class="w-full text-sm">
             <thead>
               <tr class="border-b border-outline-variant/15">
-                <th class="text-left py-2 pr-4 font-headline font-bold text-[10px] text-primary uppercase tracking-[0.2em]">Region</th>
-                <th class="text-left py-2 pr-4 font-headline font-bold text-[10px] text-primary uppercase tracking-[0.2em]">Availability</th>
+                <th class="text-left py-2 pr-2 lg:pr-4 font-headline font-bold text-[10px] text-primary uppercase tracking-[0.2em]">Region</th>
+                <th class="text-left py-2 pr-2 lg:pr-4 font-headline font-bold text-[10px] text-primary uppercase tracking-[0.2em]">Availability</th>
                 <th class="text-left py-2 font-headline font-bold text-[10px] text-primary uppercase tracking-[0.2em]">Broadcaster</th>
               </tr>
             </thead>
             <tbody>
             <tr class="border-b border-outline-variant/10">
-              <td class="py-3 pr-4 font-bold text-on-surface">Europe</td>
-              <td class="py-3 pr-4 text-on-surface-variant">Live and on-demand</td>
+              <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">Europe</td>
+              <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Live and on-demand</td>
               <td class="py-3 text-on-surface"><a href="https://www.eurosport.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Eurosport</a> / <a href="https://www.discoveryplus.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Discovery Plus</a></td>
             </tr>
             <tr class="border-b border-outline-variant/10">
-              <td class="py-3 pr-4 font-bold text-on-surface">Europe</td>
-              <td class="py-3 pr-4 text-on-surface-variant">Delayed 24 hours</td>
+              <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">Europe</td>
+              <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Delayed 24 hours</td>
               <td class="py-3 text-on-surface"><a href="https://olympics.com/en/olympic-channel" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Olympic Channel</a></td>
             </tr>
               <tr class="border-b border-outline-variant/10">
-                <td class="py-3 pr-4 font-bold text-on-surface">Brazil</td>
-                <td class="py-3 pr-4 text-on-surface-variant">Live or delayed</td>
+                <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">Brazil</td>
+                <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Live or delayed</td>
                 <td class="py-3 text-on-surface"><a href="https://globoplay.globo.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Globo</a></td>
               </tr>
               <tr class="border-b border-outline-variant/10">
-                <td class="py-3 pr-4 font-bold text-on-surface">China</td>
-                <td class="py-3 pr-4 text-on-surface-variant">Live and on-demand</td>
+                <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">China</td>
+                <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Live and on-demand</td>
                 <td class="py-3 text-on-surface"><a href="https://www.bilibili.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Bilibili</a></td>
               </tr>
               <tr class="border-b border-outline-variant/10">
-                <td class="py-3 pr-4 font-bold text-on-surface">Mexico</td>
-                <td class="py-3 pr-4 text-on-surface-variant">Live or delayed</td>
+                <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">Mexico</td>
+                <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Live or delayed</td>
                 <td class="py-3 text-on-surface"><a href="https://www.tvazteca.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">TV Azteca</a></td>
               </tr>
             </tbody>

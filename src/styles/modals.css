@@ -130,28 +130,28 @@ body > *:not(.modal):not(.modal-backdrop):not(script):not(style) {
 }
 
 @media (max-width: 1023px) {
-    #start-list-modal {
-        padding: 2rem 1rem !important;
-    }
-    #start-list-modal > .modal-content {
-        max-height: calc(100dvh - 4rem);
-    }
-    #geo-restriction-modal {
-        align-items: flex-start;
-        padding: 2rem 1rem;
-        overflow-y: auto;
-    }
-    #geo-restriction-modal .modal-content {
-        max-height: none;
-        margin-top: auto;
-        margin-bottom: auto;
-    }
-    #geo-restriction-modal .modal-body {
-        max-height: none;
-        flex: 1;
-        overflow-y: auto;
-    }
-    .filters-modal {
+  #start-list-modal {
+    padding: 2rem 1rem !important;
+  }
+  #start-list-modal > .modal-content {
+    max-height: calc(100dvh - 4rem);
+  }
+  #geo-restriction-modal {
+    align-items: flex-start;
+    padding: 2rem 1rem;
+    overflow-y: auto;
+  }
+  #geo-restriction-modal .modal-content {
+    max-height: none;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  #geo-restriction-modal .modal-body {
+    max-height: none;
+    flex: 1;
+    overflow-y: auto;
+  }
+  .filters-modal {
         align-items: flex-start;
         padding-top: 1.5rem;
         padding-bottom: 1.5rem;
