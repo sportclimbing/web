@@ -1,19 +1,17 @@
 import { defineConfig } from 'astro/config';
 
-export default defineConfig(({ mode }) => {
-  const isProduction = mode === 'production';
-  const doMinify = isProduction ? 'esbuild' : false;
+const isProduction = process.env.NODE_ENV === 'production';
+const doMinify = isProduction ? 'esbuild' : false;
 
-  return {
-    site: 'https://ifsc.stream',
-    output: 'static',
-    trailingSlash: 'always',
-    integrations: [],
-    vite: {
-      build: {
-        minify: doMinify,
-        cssMinify: doMinify,
-      },
+export default defineConfig({
+  site: 'https://ifsc.stream',
+  output: 'static',
+  trailingSlash: 'always',
+  integrations: [],
+  vite: {
+    build: {
+      minify: doMinify,
+      cssMinify: doMinify,
     },
-  };
+  },
 });
