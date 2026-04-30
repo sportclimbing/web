@@ -44,7 +44,7 @@ const watchButtonClass = 'border border-primary text-primary hover:bg-primary/10
             <span class="material-symbols-outlined text-white text-3xl opacity-0 group-hover:opacity-100 transition-opacity stream-icon">play_arrow</span>
         </div>
         )}
-        {hasStreamUrl && <button class="youtube-play-button" type="button" aria-label="Watch stream" data-action="round-stream" data-round-stream-url={round.stream_url}></button>}
+        {hasStreamUrl && <button class="youtube-play-button" type="button" aria-label="Watch stream" data-action="round-stream" data-round-stream-url={round.stream_url || undefined}></button>}
         <div class="absolute top-1 left-1 flex gap-1">
             {!willBeStreamed && <span class="text-[8px] text-on-surface-variant font-bold uppercase tracking-widest bg-surface-container-lowest px-1.5 py-0.5 rounded">No Stream</span>}
             {willBeStreamed && <span class={`text-[8px] ${liveBadgeClass} font-bold uppercase tracking-widest px-1.5 py-0.5 rounded live-badge hidden`}>Live Now</span>}

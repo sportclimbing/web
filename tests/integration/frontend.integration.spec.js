@@ -71,7 +71,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test('opens calendar modal from the add-to-calendar button', async ({ page }) => {
-  await page.goto('/season/2026');
+  await page.goto('/season/2026/');
   await waitForEventCards(page);
 
   await page.locator('.calendar-sync-tooltip').first().click();
@@ -79,7 +79,7 @@ test('opens calendar modal from the add-to-calendar button', async ({ page }) =>
 });
 
 test('opens filter modal from the filters button', async ({ page }) => {
-  await page.goto('/season/2026');
+  await page.goto('/season/2026/');
   await waitForEventCards(page);
 
   await page.locator('.filters-button').click();
@@ -87,7 +87,7 @@ test('opens filter modal from the filters button', async ({ page }) => {
 });
 
 test('event title click opens the event page', async ({ page }) => {
-  await page.goto('/season/2026');
+  await page.goto('/season/2026/');
   await waitForEventCards(page);
 
   const firstTitle = page.locator('#accordion .ifsc-league-card:not([hidden]) .event-name-title[href]').first();
@@ -99,7 +99,7 @@ test('event title click opens the event page', async ({ page }) => {
 });
 
 test('season page shows next event in hero section', async ({ page }) => {
-  await page.goto('/season/2026');
+  await page.goto('/season/2026/');
   await waitForEventCards(page);
   await expect(page.locator('#next-event-details-button')).toBeVisible({ timeout: 20000 });
 
@@ -112,14 +112,14 @@ test('season page shows next event in hero section', async ({ page }) => {
 });
 
 test('event page shows expanded rounds with breadcrumb-only subheader', async ({ page }) => {
-  await page.goto('/season/2026');
+  await page.goto('/season/2026/');
   await waitForEventCards(page);
 
   const firstTitle = page.locator('#accordion .ifsc-league-card:not([hidden]) .event-name-title[href]').first();
   const eventPagePath = await firstTitle.getAttribute('href');
   expect(eventPagePath).toMatch(/^\/season\/2026\/event\/.+-\d+\/$/);
 
-  await page.goto(eventPagePath || '/season/2026');
+  await page.goto(eventPagePath || '/season/2026/');
   await expect.poll(() => normalizePath(new URL(page.url()).pathname)).toBe(normalizePath(eventPagePath || ''));
   await expect(page.locator('nav[aria-label="Breadcrumb"]')).toHaveCount(1);
   await expect(page.locator('#season-month-nav')).toHaveCount(0);
@@ -133,7 +133,7 @@ test('event page shows expanded rounds with breadcrumb-only subheader', async ({
 });
 
 test('persists filter changes from the filter modal', async ({ page }) => {
-  await page.goto('/season/2026');
+  await page.goto('/season/2026/');
   await waitForEventCards(page);
 
   await page.locator('.filters-button').click();
@@ -150,11 +150,12 @@ test('persists filter changes from the filter modal', async ({ page }) => {
 });
 
 test('shows event-not-started modal when clicking a stream button with no stream URL', async ({ page }) => {
-  await page.goto('/season/2026');
+  await page.goto('/season/2026/');
   await waitForEventCards(page);
 
-  const eventPanel = await openFirstEventPanel(page);
-  const noStreamButton = eventPanel.locator('[data-action="round-stream"]:not([data-round-stream-url])').first();
+  // Find the first visible card that has a stream button without a URL
+  // (e.g. Paraclimbing events have willBeStreamed=true but no stream_url)
+  const noStreamButton = page.locator('#accordion .ifsc-league-card:not([hidden]) [data-action="round-stream"]:not([data-round-stream-url])').first();
   await expect(noStreamButton).toBeVisible();
   const hasStreamUrlAttribute = await noStreamButton.evaluate((element) => element.hasAttribute('data-round-stream-url'));
 
@@ -171,7 +172,7 @@ test('switches season and opens start list modal from pre-rendered fragment', as
     await route.continue();
   });
 
-  await page.goto('/season/2026');
+  await page.goto('/season/2026/');
   await waitForEventCards(page);
 
   await switchSeason(page, '2024');
@@ -201,7 +202,7 @@ test('shows start list modal fallback copy when fragment load fails', async ({ p
     });
   });
 
-  await page.goto('/season/2026');
+  await page.goto('/season/2026/');
   await waitForEventCards(page);
 
   await switchSeason(page, '2024');
@@ -215,7 +216,7 @@ test('shows start list modal fallback copy when fragment load fails', async ({ p
 });
 
 test('switches season and opens stream modal for a youtube round', async ({ page }) => {
-  await page.goto('/season/2026');
+  await page.goto('/season/2026/');
   await waitForEventCards(page);
 
   await switchSeason(page, '2024');
