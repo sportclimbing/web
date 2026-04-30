@@ -807,6 +807,10 @@ input:where([type='file']):focus {
   visibility: collapse;
 }
 
+.static {
+  position: static;
+}
+
 .fixed {
   position: fixed;
 }
@@ -3271,10 +3275,6 @@ input:where([type='file']):focus {
 
   .sm\:hidden {
     display: none;
-  }
-
-  .sm\:h-20 {
-    height: 5rem;
   }
 
   .sm\:w-32 {
