@@ -86,7 +86,7 @@ const heroBgImage = resolvedBgVideoId
     ? `https://img.youtube.com/vi/${resolvedBgVideoId}/maxresdefault.jpg`
     : '/img/hero/hero-bg.webp';
 const heroBgIsDefault = !resolvedBgVideoId;
-const heroBgPosition = seasonOverride.backgroundPosition ?? 'center 30%';
+const heroBgPosition = seasonOverride.backgroundPosition ?? null;
 ---
 <!doctype html>
 <html class="dark" lang="en">

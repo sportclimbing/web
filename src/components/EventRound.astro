@@ -30,9 +30,10 @@ const watchButtonClass = 'border border-primary text-primary hover:bg-primary/10
      data-round-name={round.name}
      data-round-starts-at={round.starts_at}
      data-round-ends-at={round.ends_at}
-     data-round-key={roundKey}>
+     data-round-key={roundKey}
+     data-round-blocked-regions={Array.isArray(round.stream_blocked_regions) && round.stream_blocked_regions.length > 0 ? round.stream_blocked_regions.join(',') : undefined}>
     
-    <div class="w-24 h-16 sm:w-32 sm:h-20 bg-black rounded-lg overflow-hidden flex-shrink-0 relative">
+    <div class="w-24 sm:w-32 aspect-video bg-black rounded-lg overflow-hidden flex-shrink-0 relative">
         {thumbnailUrl ? (
             <img class={`w-full h-full object-cover ${isDimmed ? 'opacity-50' : 'opacity-80'}`} src={thumbnailUrl} alt="Stream Thumbnail" loading="lazy" />
         ) : (

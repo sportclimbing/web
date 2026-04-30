@@ -7,7 +7,7 @@ const {
   eventId,
   eventPagePath = '',
   heroBgImage = '/img/hero/hero-bg.webp',
-  heroBgPosition = 'center 30%',
+  heroBgPosition,
 } = Astro.props;
 
 const now = new Date();
@@ -16,12 +16,17 @@ const hasRound = Boolean(heroRound?.starts_at);
 const statusLabel = isUpcoming ? 'Coming Up Next' : 'Event Replay';
 const showDetailsButton = eventId != null;
 const heroBgMobile = heroBgImage === '/img/hero/hero-bg.webp' ? '/img/hero/hero-bg-mobile.webp' : null;
+
+// YouTube thumbnails (maxresdefault.jpg) have a different focal point than the static hero background.
+// Move them lower so the subject (athletes) is better positioned within the frame.
+const isYouTubeBg = heroBgImage.includes('img.youtube.com');
+const resolvedBgPosition = heroBgPosition ?? (isYouTubeBg ? 'center 5%' : 'center 30%');
 ---
 <section class="relative w-full h-[280px] lg:h-[500px] overflow-hidden flex items-start pt-8 lg:items-end lg:pt-0 lg:pb-10">
     <div class="absolute inset-0 z-0">
         <picture>
             {heroBgMobile && <source media="(max-width: 1023px)" srcset={heroBgMobile} />}
-            <img src={heroBgImage} alt="" aria-hidden="true" fetchpriority="high" loading="eager" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-60" style={`object-position: ${heroBgPosition};`} />
+            <img src={heroBgImage} alt="" aria-hidden="true" fetchpriority="high" loading="eager" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-60" style={`object-position: ${resolvedBgPosition};`} />
         </picture>
         <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
     </div>
