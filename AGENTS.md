@@ -14,7 +14,7 @@
 ## Routing And Rendering
 - `/` is generated from `src/pages/index.astro`.
 - `/season/:season` pages are prerendered from `src/pages/season/[season]/index.astro`.
-- `/start-list-modals/:season/:eventId.html` fragments are prerendered from `src/pages/start-list-modals/[season]/[eventId].html.js`.
+- `/start-list-modals/:season/:eventId.html` fragments are prerendered from `src/pages/start-list-modals/[season]/[eventId].js`.
 - Season/event JSON from `events/` is loaded during build (not fetched via runtime AJAX for core page data).
 
 ## Key Paths

@@ -355,7 +355,7 @@ function start_list_modal_url_build(season, eventId) {
     const version = String(document.body.dataset.buildVersion || '').trim();
     const query = version ? `?v=${encodeURIComponent(version)}` : '';
 
-    return `/modals/start-list/${normalizedSeason}/${normalizedEventId}.html${query}`;
+    return `/modals/start-list/${normalizedSeason}/${normalizedEventId}/${query}`;
 }
 
 function athlete_name_build(athlete) {
