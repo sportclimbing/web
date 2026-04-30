@@ -72,7 +72,7 @@ const watchButtonClass = 'border border-primary text-primary hover:bg-primary/10
            {willBeStreamed && !hasStreamUrl && <button type="button"
                    class={`text-sm font-bold flex flex-1 sm:flex-none justify-center items-center gap-2 px-4 py-2 rounded-lg transition-colors ${watchButtonClass} whitespace-nowrap round-stream-button`}
                    data-action="round-stream"
-                   data-round-stream-url={round.stream_url}>
+                   data-round-stream-url={round.stream_url || undefined}>
                <span class="material-symbols-outlined text-[18px]">{isFinished ? 'replay' : 'play_circle'}</span> {isFinished ? 'REPLAY' : 'WATCH'}
            </button>}
 
