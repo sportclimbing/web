@@ -110,7 +110,7 @@ const setup_season_navigation = () => {
     seasonSelector.addEventListener('change', (event) => {
         const season = event.target.value;
 
-        window.location = `/season/${season}`;
+        window.location = `/season/${season}/`;
     });
 };
 
