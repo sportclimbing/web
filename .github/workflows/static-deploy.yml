@@ -56,7 +56,7 @@ jobs:
           node-version: 22
 
       - name: "Install frontend dependencies"
-        run: npm install --no-package-lock
+        run: npm install # --no-package-lock
 
       - name: "Cache athlete start-list photos"
         run: node bin/cache-athlete-photos.mjs
