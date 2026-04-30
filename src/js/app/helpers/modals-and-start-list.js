@@ -75,6 +75,36 @@ function handle_watch_event(e) {
     if (videoModalElement) {
         open_modal(videoModalElement);
     }
+
+    // Geo-restriction: show VPN button if the user's region is blocked for this round
+    const roundContainer = e.currentTarget instanceof Element
+        ? (e.currentTarget.closest('.event-round-card, .ifsc-event') || e.currentTarget)
+        : null;
+    const vpnBtn = document.getElementById('video-modal-vpn-btn');
+    if (roundContainer && vpnBtn) {
+        const raw = roundContainer.dataset.roundBlockedRegions || '';
+        const blockedRegions = raw.split(',').map(function (code) { return code.trim(); }).filter(Boolean);
+        const userCountry = detect_user_country();
+        const isBlocked = Boolean(userCountry) && blockedRegions.includes(userCountry);
+
+        if (isBlocked) {
+            vpnBtn.classList.remove('hidden');
+            // Remove any existing click listeners by cloning and replacing
+            const newVpnBtn = vpnBtn.cloneNode(true);
+            vpnBtn.parentNode.replaceChild(newVpnBtn, vpnBtn);
+            newVpnBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Close the video modal first so the geo-restriction modal is visible
+                close_modal(document.getElementById('video-modal'));
+                if (window.gtag) {
+                    gtag('event', 'vpn_needed_clicked');
+                }
+                open_geo_restriction_modal(userCountry);
+            });
+        } else {
+            vpnBtn.classList.add('hidden');
+        }
+    }
 }
 
 function event_not_started_countdown_parts(startsAt) {
@@ -289,88 +319,6 @@ function handle_round_stream_click(e) {
     handle_watch_event_no_url(e);
 }
 
-
-function athlete_photo_sources_build(athlete) {
-    return athlete_photo_local_sources_build(athlete);
-}
-
-function handle_start_list_photo_error(imageElement) {
-    if (!(imageElement instanceof HTMLImageElement)) {
-        return;
-    }
-
-    const fallbackSrc = String(imageElement.dataset.fallbackSrc || '').trim();
-
-    if (!fallbackSrc || imageElement.dataset.fallbackApplied === '1') {
-        imageElement.onerror = null;
-        return;
-    }
-
-    imageElement.dataset.fallbackApplied = '1';
-    imageElement.src = fallbackSrc;
-}
-
-function start_list_build(startList, season, maxAthletesWithPhoto = 5) {
-    if (!startList.length) {
-        return '📋 Start List: Pending';
-    }
-
-    const maxAthletes = Number.isFinite(maxAthletesWithPhoto) ? Math.max(0, maxAthletesWithPhoto) : 5;
-    const athletesWithPhoto = startList.filter((athlete) => Boolean(athlete.photo_url)).slice(0, maxAthletes);
-
-    if (!athletesWithPhoto.length) {
-        return '📋 Start List';
-    }
-
-    const avatars = athletesWithPhoto.map((athlete, index) => {
-        const athleteName = escape_html(athlete_name_build(athlete));
-        const country = athlete.country ? escape_html(athlete.country) : '';
-        const tooltip = country ? `${athleteName} (${country})` : athleteName;
-        const photoSources = athlete_photo_sources_build(athlete);
-        const stackIndex = athletesWithPhoto.length - index;
-
-        if (!photoSources) {
-            return '';
-        }
-
-        const photoUrl = escape_html(photoSources.src);
-        const fallbackAttribute = photoSources.fallbackSrc
-            ? ` data-fallback-src="${escape_html(photoSources.fallbackSrc)}" onerror="handle_start_list_photo_error(this)"`
-            : '';
-
-        return `<span class="event-start-list-avatar-chip" style="--stack-index: ${stackIndex};"><img class="event-start-list-avatar event-start-list-avatar-tooltip" src="${photoUrl}" width="31" height="31" alt="${athleteName}" title="${tooltip}" loading="lazy" referrerpolicy="no-referrer"${fallbackAttribute} /></span>`;
-    }).join('');
-
-    return `<span class="event-start-list-avatars" aria-label="Start list athletes with profile photos">${avatars}</span>`;
-}
-
-function start_list_modal_url_build(season, eventId) {
-    const normalizedSeason = encodeURIComponent(String(season || '').trim());
-    const normalizedEventId = encodeURIComponent(String(eventId || '').trim());
-
-    if (!normalizedSeason || !normalizedEventId) {
-        return '';
-    }
-
-    const version = String(document.body.dataset.buildVersion || '').trim();
-    const query = version ? `?v=${encodeURIComponent(version)}` : '';
-
-    return `/modals/start-list/${normalizedSeason}/${normalizedEventId}/${query}`;
-}
-
-function athlete_name_build(athlete) {
-    return `${athlete.first_name} ${athlete.last_name}`;
-}
-
-function escape_html(value) {
-    return String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-}
-
 function set_start_list_modal_content(eventNameText, titleText, listHtml) {
     const eventName = document.getElementById('start-list-modal-event');
     const title = document.getElementById('start-list-modal-title');
@@ -519,20 +467,6 @@ function handle_start_list_trigger_click(e) {
 
     set_start_list_modal_loading(trigger);
     load_start_list_modal_fragment(startListUrl, startListModalRequestId, trigger).then();
-}
-
-function build_event_start_list_button(eventId, startList, season, maxAthletesWithPhoto = 5) {
-    const button = document.createElement('button');
-
-    button.type = 'button';
-    button.className = 'event-start-list-trigger';
-    button.innerHTML = start_list_build(startList, season, maxAthletesWithPhoto);
-    button.setAttribute('data-bs-toggle', 'modal');
-    button.setAttribute('data-bs-target', '#start-list-modal');
-    button.dataset.eventId = String(eventId);
-    button.dataset.startListUrl = start_list_modal_url_build(season, eventId);
-
-    return button;
 }
 
 function open_modal(modalId) {
