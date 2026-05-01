@@ -192,7 +192,7 @@ const ranked_visible_round_candidates = () => collect_visible_round_candidates_f
 
 const compute_dom_season_timeline = () => {
     const candidates = ranked_visible_round_candidates();
-    const liveCandidate = candidates.find(({ round }) => event_is_streaming(round)) || null;
+    const liveCandidate = candidates.find(({ round, event }) => event_is_streaming(round) && round_will_be_streamed(round, event)) || null;
     const nextCandidate = liveCandidate ? null : (candidates.find(({ round, event }) => event_is_upcoming(round) && round_will_be_streamed(round, event)) || null);
 
     return {
