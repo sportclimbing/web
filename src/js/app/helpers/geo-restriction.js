@@ -265,10 +265,30 @@ function open_geo_restriction_modal(countryCode) {
 }
 
 /**
+ * Switches the active tab in the geo-restriction modal.
+ * @param {string} tabId - The tab identifier ('vpns' or 'broadcasters').
+ */
+function switch_geo_tab(tabId) {
+    // Update tab buttons
+    document.querySelectorAll('.geo-tab').forEach(function (tab) {
+        const isActive = tab.id === 'geo-tab-' + tabId;
+        tab.classList.toggle('active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    // Update tab panels
+    document.querySelectorAll('.geo-tab-panel').forEach(function (panel) {
+        const isActive = panel.id === 'geo-panel-' + tabId;
+        panel.classList.toggle('active', isActive);
+    });
+}
+
+/**
  * Applies geo-restriction warnings to all round cards on the page.
  * Reads the `data-round-blocked-regions` attribute from each round element.
  */
 function apply_geo_restriction_warnings() {
+
     const userCountry = detect_user_country();
     if (!userCountry) {
         return;

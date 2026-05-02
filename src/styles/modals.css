@@ -232,3 +232,29 @@ body > *:not(.modal):not(.modal-backdrop):not(script):not(style) {
     cursor: pointer;
     white-space: nowrap;
 }
+
+/* Geo-restriction modal tabs */
+.geo-tab {
+    color: #8a8f96;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.geo-tab:hover {
+    color: #c4c9d0;
+}
+
+.geo-tab.active {
+    color: #0b0d0e;
+    background: #97ccff;
+}
+
+.geo-tab-panel {
+    display: none;
+}
+
+.geo-tab-panel.active {
+    display: block;
+}
+
