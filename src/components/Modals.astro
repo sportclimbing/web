@@ -140,12 +140,19 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
         </p>
       </div>
 
-      <div class="flex flex-col gap-6">
+      <!-- Tab Bar -->
+      <div class="geo-tabs flex gap-1 p-1 bg-surface-container-high rounded-xl mb-6" role="tablist">
+        <button class="geo-tab active flex-1 px-4 py-2.5 rounded-lg text-xs font-headline font-bold uppercase tracking-[0.15em] transition-all duration-200" role="tab" aria-selected="true" id="geo-tab-vpns" onclick="switch_geo_tab('vpns')">Recommended VPNs</button>
+
+        <button class="geo-tab flex-1 px-4 py-2.5 rounded-lg text-xs font-headline font-bold uppercase tracking-[0.15em] transition-all duration-200" role="tab" aria-selected="false" id="geo-tab-broadcasters" onclick="switch_geo_tab('broadcasters')">Alternative Broadcasters</button>
+      </div>
+
+      <!-- Tab: Recommended VPNs -->
+      <div class="geo-tab-panel active" id="geo-panel-vpns" role="tabpanel" aria-labelledby="geo-tab-vpns">
         <div class="bg-surface-container-low rounded-xl border border-outline-variant/15 p-4 lg:p-6 text-left">
-          <p class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-4 uppercase">Recommended VPNs</p>
           <ul class="flex flex-col gap-2 lg:gap-3">
             <li>
-              <a href="https://protonvpn.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+              <a href="https://protonvpn.com" target="_blank" rel="noopener noreferrer" onclick="if(window.gtag)gtag('event','vpn_clicked',{vpn:'ProtonVPN'})" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
                 <span class="w-8 lg:w-9 h-8 lg:h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                   <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
                 </span>
@@ -157,7 +164,7 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
               </a>
             </li>
             <li>
-              <a href="https://windscribe.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+              <a href="https://windscribe.com" target="_blank" rel="noopener noreferrer" onclick="if(window.gtag)gtag('event','vpn_clicked',{vpn:'Windscribe'})" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
                 <span class="w-8 lg:w-9 h-8 lg:h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                   <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
                 </span>
@@ -169,7 +176,7 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
               </a>
             </li>
             <li>
-              <a href="https://mullvad.net" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
+              <a href="https://mullvad.net" target="_blank" rel="noopener noreferrer" onclick="if(window.gtag)gtag('event','vpn_clicked',{vpn:'Mullvad VPN'})" class="flex items-center gap-2 lg:gap-3 p-2 lg:p-3 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors group">
                 <span class="w-8 lg:w-9 h-8 lg:h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                   <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
                 </span>
@@ -180,11 +187,14 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
                 <span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover:translate-x-0.5 transition-transform">open_in_new</span>
               </a>
             </li>
+
           </ul>
         </div>
+      </div>
 
+      <!-- Tab: Alternative Broadcasters -->
+      <div class="geo-tab-panel" id="geo-panel-broadcasters" role="tabpanel" aria-labelledby="geo-tab-broadcasters">
         <div class="bg-surface-container-low rounded-xl border border-outline-variant/15 p-4 lg:p-6 text-left">
-          <p class="text-[10px] font-headline font-bold text-primary tracking-[0.2em] mb-4 uppercase">Alternative Broadcasters</p>
           <p class="text-xs text-on-surface-variant mb-4">In some regions, the IFSC streams are available through local broadcasters:</p>
           <table class="w-full text-sm">
             <thead>
@@ -211,11 +221,6 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
                 <td class="py-3 text-on-surface"><a href="https://globoplay.globo.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Globo</a></td>
               </tr>
               <tr class="border-b border-outline-variant/10">
-                <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">China</td>
-                <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Live and on-demand</td>
-                <td class="py-3 text-on-surface"><a href="https://www.bilibili.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">Bilibili</a></td>
-              </tr>
-              <tr class="border-b border-outline-variant/10">
                 <td class="py-3 pr-2 lg:pr-4 font-bold text-on-surface">Mexico</td>
                 <td class="py-3 pr-2 lg:pr-4 text-on-surface-variant">Live or delayed</td>
                 <td class="py-3 text-on-surface"><a href="https://www.tvazteca.com" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-container transition-colors">TV Azteca</a></td>
@@ -225,6 +230,7 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
         </div>
       </div>
     </div>
+
     <!-- Modal Footer -->
     <div class="px-6 py-4 border-t border-outline-variant/15 flex justify-center bg-surface-container-low/20 rounded-b-xl">
       <button type="button" class="px-10 py-3 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-headline font-bold uppercase text-xs tracking-widest transition-all border border-outline-variant/20" onclick="close_modal(document.getElementById('geo-restriction-modal'));">Got it</button>
