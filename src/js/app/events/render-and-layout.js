@@ -486,7 +486,7 @@ const load_lazy_calendar_modal = async () => {
     }
 
     try {
-        const response = await window.fetch('/modals/sync.html');
+        const response = await window.fetch('/modals/sync.html/');
         const html = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
@@ -529,7 +529,7 @@ const setup_lazy_filter_modal = () => {
         }
 
         try {
-            const response = await window.fetch('/modals/filters.html');
+            const response = await window.fetch('/modals/filters.html/');
             const html = await response.text();
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
