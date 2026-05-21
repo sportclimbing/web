@@ -128,6 +128,41 @@ function set_next_event(round, event, isStreaming) {
         if (event.page_path) {
             nextDetailsButton.href = event.page_path;
         }
+
+        // Update button text and icon based on live status
+        const hasPulse = nextDetailsButton.querySelector('.animate-ping');
+        const hasIcon = nextDetailsButton.querySelector('.material-symbols-outlined');
+
+        if (isStreaming) {
+            // Show "Live Now" with pulse indicator
+            if (!hasPulse) {
+                // Remove info icon if present
+                if (hasIcon) hasIcon.remove();
+                // Add pulse dots
+                const pulseContainer = document.createElement('span');
+                pulseContainer.className = 'relative flex h-3 w-3';
+                pulseContainer.innerHTML = '<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>';
+                nextDetailsButton.insertBefore(pulseContainer, nextDetailsButton.firstChild);
+            }
+            // Update text
+            const textNode = Array.from(nextDetailsButton.childNodes).find(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
+            if (textNode) textNode.textContent = ' Live Now';
+        } else {
+            // Show "Details" with info icon
+            if (hasPulse) {
+                // Remove pulse dots
+                const pulseContainer = nextDetailsButton.querySelector('.relative.flex.h-3.w-3');
+                if (pulseContainer) pulseContainer.remove();
+                // Add info icon
+                const infoIcon = document.createElement('span');
+                infoIcon.className = 'material-symbols-outlined text-base';
+                infoIcon.textContent = 'info';
+                nextDetailsButton.insertBefore(infoIcon, nextDetailsButton.firstChild);
+            }
+            // Update text
+            const textNode = Array.from(nextDetailsButton.childNodes).find(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
+            if (textNode) textNode.textContent = ' Details';
+        }
     }
 
     if (nextEventLeagueName) {
