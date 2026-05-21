@@ -51,6 +51,13 @@
         mapInitialized = true;
         initMap();
       }
+      if (window.gtag) {
+        if (target === 'map') {
+          gtag('event', 'map_tab_clicked');
+        } else if (target === 'tickets') {
+          gtag('event', 'tickets_tab_clicked');
+        }
+      }
     });
   });
 

@@ -8,6 +8,8 @@
 /public/images/thumb/
 /public/img/news
 /public/js/app.js
+/public/css/modals.css
+/public/css/tailwind.css
 /node_modules/
 /dist/
 /.astro/

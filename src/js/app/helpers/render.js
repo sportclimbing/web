@@ -74,7 +74,14 @@ function set_round_details(clone, round) {
 }
 
 function set_next_event_countdown(round, isStreaming) {
-    if (isStreaming || !event_is_upcoming(round)) {
+    if (isStreaming) {
+        // Show countdown with all 0s when event is live
+        render_next_event_countdown(round.starts_at);
+
+        return;
+    }
+
+    if (!event_is_upcoming(round)) {
         stop_next_event_countdown();
 
         return;
@@ -106,8 +113,8 @@ function set_next_event(round, event, isStreaming) {
     }
 
     if (nextCountdown) {
-        nextCountdown.classList.toggle('hidden', isStreaming);
-        nextCountdown.hidden = isStreaming;
+        nextCountdown.classList.remove('hidden');
+        nextCountdown.hidden = false;
     }
 
     if (nextWatchButton) {
