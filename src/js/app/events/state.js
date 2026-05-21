@@ -232,8 +232,8 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
         if (replayBadge) replayBadge.classList.add('hidden');
         roundElement.classList.add('border-l-4', 'border-primary');
         if (streamButton) {
-            streamButton.classList.remove('border', 'border-outline-variant', 'text-on-surface', 'hover:border-primary', 'hover:text-primary');
-            streamButton.classList.add('bg-primary', 'text-on-primary', 'hover:bg-primary-container');
+            streamButton.classList.remove('border', 'border-outline-variant', 'text-on-surface', 'text-primary', 'border-primary', 'hover:border-primary', 'hover:text-primary', 'hover:bg-primary/10');
+            streamButton.classList.add('bg-primary', 'text-on-primary', 'hover:brightness-110');
         }
         return false;
     }
@@ -242,8 +242,8 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
     if (liveBadge) liveBadge.classList.add('hidden');
     roundElement.classList.remove('border-l-4', 'border-primary');
     if (streamButton) {
-        streamButton.classList.remove('bg-primary', 'text-on-primary', 'hover:bg-primary-container');
-        streamButton.classList.add('border', 'border-outline-variant', 'text-on-surface', 'hover:border-primary', 'hover:text-primary');
+        streamButton.classList.remove('bg-primary', 'text-on-primary', 'hover:brightness-110');
+        streamButton.classList.add('border', 'border-outline-variant', 'text-on-surface', 'text-primary', 'border-primary', 'hover:border-primary', 'hover:text-primary', 'hover:bg-primary/10');
     }
 
     if (event_is_upcoming(round)) {

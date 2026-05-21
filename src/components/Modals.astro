@@ -97,9 +97,9 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
 
 <div id="event-link-missing-modal" class="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="event-link-missing-modal-title">
   <div class="modal-dialog modal-content bg-surface-container-high text-on-surface shadow-2xl rounded-2xl border-0 overflow-hidden">
-    <div class="modal-header border-b border-outline-variant/10 bg-surface-container-low/50 px-8 py-6">
-      <h2 class="modal-title font-headline font-bold text-xl" id="event-link-missing-modal-title">🔗 Link Not Found</h2>
-      <button type="button" class="close w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all text-on-surface-variant hover:text-on-surface active:scale-90 border border-outline-variant/20" data-bs-dismiss="modal" aria-label="Close">
+    <div class="flex items-center justify-between px-8 py-6 border-b border-outline-variant/10 bg-surface-container-low/50">
+      <h2 class="font-headline font-bold text-xl" id="event-link-missing-modal-title">🔗 Link Not Found</h2>
+      <button type="button" class="w-10 h-10 shrink-0 flex items-center justify-center rounded-xl bg-surface-container hover:bg-surface-container-highest transition-all text-on-surface-variant hover:text-on-surface active:scale-90 border border-outline-variant/20" data-bs-dismiss="modal" aria-label="Close">
         <span class="material-symbols-outlined">close</span>
       </button>
     </div>

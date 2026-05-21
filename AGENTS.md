@@ -40,7 +40,7 @@
 - Preserve the Astro + static-output architecture and existing frontend behavior.
 - Keep changes surgical and consistent with the existing style of the touched file.
 - Prefer editing Astro pages/components in `src/` instead of generated `dist/` output.
-- Prefer editing JS source files in `src/js/app/`; regenerate `public/js/app.js` after JS source changes.
+- **JS source → bundle workflow**: Edit source files in `src/js/app/`, then run `npm run build:js` (or `npm run build:js:min`) to regenerate `public/js/app.js`. Never hand-edit `public/js/app.js` directly — it is a build artifact.
 - Do not introduce new frameworks, build systems, or TypeScript unless explicitly requested.
 - Treat generated directories/files (`dist/`, `.astro/`, `vendor/`, `node_modules/`, `public/js/app.js`) as generated output; do not hand-edit them.
 - Avoid large formatting-only diffs in Astro templates, CSS, JS, and JSON data files.
