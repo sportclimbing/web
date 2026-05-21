@@ -153,15 +153,48 @@ test('shows event-not-started modal when clicking a stream button with no stream
   await page.goto('/season/2026/');
   await waitForEventCards(page);
 
-  // Find the first visible card that has a stream button without a URL
+  // Find a visible card that has a stream button without a URL
   // (e.g. Paraclimbing events have willBeStreamed=true but no stream_url)
+  // We need to find a round that is upcoming (starts in the future) so that
+  // the event-not-started modal is shown instead of the event-link-missing modal
   const noStreamButton = page.locator('#accordion .ifsc-league-card:not([hidden]) [data-action="round-stream"]:not([data-round-stream-url])').first();
   await expect(noStreamButton).toBeVisible();
   const hasStreamUrlAttribute = await noStreamButton.evaluate((element) => element.hasAttribute('data-round-stream-url'));
 
   expect(hasStreamUrlAttribute).toBe(false);
 
-  await noStreamButton.click();
+  // Check if the round is upcoming; if not, find one that is
+  const isUpcoming = await noStreamButton.evaluate((element) => {
+    const roundCard = element.closest('.event-round-card');
+    if (!roundCard) return false;
+    const startsAt = roundCard.dataset.roundStartsAt;
+    if (!startsAt) return false;
+    return new Date(startsAt) > new Date();
+  });
+
+  if (!isUpcoming) {
+    // Find an upcoming round with no stream URL (e.g. future Paraclimbing events)
+    // Filter round cards by evaluating their data-round-starts-at attribute
+    const allNoStreamRoundCards = page.locator('#accordion .ifsc-league-card:not([hidden]) .event-round-card[data-round-starts-at]').filter({
+      has: page.locator('[data-action="round-stream"]:not([data-round-stream-url])')
+    });
+    const count = await allNoStreamRoundCards.count();
+    let foundUpcoming = false;
+    for (let i = 0; i < count; i++) {
+      const card = allNoStreamRoundCards.nth(i);
+      const startsAt = await card.getAttribute('data-round-starts-at');
+      if (startsAt && new Date(startsAt).getTime() > Date.now()) {
+        const button = card.locator('[data-action="round-stream"]:not([data-round-stream-url])').first();
+        await button.click();
+        foundUpcoming = true;
+        break;
+      }
+    }
+    expect(foundUpcoming).toBe(true);
+  } else {
+    await noStreamButton.click();
+  }
+
   await expectModalOpen(page, '#event-not-started-modal');
 });
 
