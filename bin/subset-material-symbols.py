@@ -35,6 +35,7 @@ ICONS = sorted([
     "flag",
     "groups",
     "history",
+    "info",
     "landslide",
     "live_tv",
     "open_in_new",
