@@ -94,6 +94,7 @@ const next_event_round_from_element = (roundElement) => {
         starts_at: startsAt,
         ends_at: endsAt,
         stream_url: streamUrl,
+        stream_blocked_regions: roundElement.dataset.roundBlockedRegions || '',
         roundKey,
         startsAtTimestamp,
     };
