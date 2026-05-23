@@ -235,6 +235,7 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
         if (streamButton) {
             streamButton.classList.remove('border', 'border-outline-variant', 'text-on-surface', 'text-primary', 'border-primary', 'hover:border-primary', 'hover:text-primary', 'hover:bg-primary/10');
             streamButton.classList.add('bg-primary', 'text-on-primary', 'hover:brightness-110');
+            streamButton.innerHTML = '<span class="relative inline-flex h-[18px] w-[18px]"><span class="animate-ping absolute inset-0 m-auto h-[10px] w-[10px] rounded-full bg-red-500 opacity-75"></span><span class="absolute inset-0 m-auto rounded-full h-[10px] w-[10px] bg-red-500"></span></span> WATCH';
         }
         return false;
     }
@@ -245,6 +246,9 @@ const update_round_card_status_and_actions = (roundElement, round, parsedEventId
     if (streamButton) {
         streamButton.classList.remove('bg-primary', 'text-on-primary', 'hover:brightness-110');
         streamButton.classList.add('border', 'border-outline-variant', 'text-on-surface', 'text-primary', 'border-primary', 'hover:border-primary', 'hover:text-primary', 'hover:bg-primary/10');
+        const icon = event_is_upcoming(round) ? 'play_circle' : 'replay';
+        const label = event_is_upcoming(round) ? 'WATCH' : 'REPLAY';
+        streamButton.innerHTML = `<span class="material-symbols-outlined text-[18px]">${icon}</span> ${label}`;
     }
 
     if (event_is_upcoming(round)) {
