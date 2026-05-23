@@ -93,7 +93,6 @@ function set_next_event(round, event, isStreaming) {
     const nextEventContainer = document.querySelector('.next-event');
     const nextEventTitle = document.getElementById('next-event-title');
     const nextStatusBadgeLabel = document.getElementById('next-event-status-badge-label');
-    const nextWatchButton = document.getElementById('next-event-watch-button');
     const nextDetailsButton = document.getElementById('next-event-details-button');
     const nextCountdown = document.getElementById('next-event-countdown');
     const nextEventLeagueName = document.getElementById('next-event-league-name');
@@ -117,23 +116,29 @@ function set_next_event(round, event, isStreaming) {
         nextCountdown.hidden = false;
     }
 
-    if (nextWatchButton) {
-        const streamUrl = round.stream_url || '';
-        nextWatchButton.classList.toggle('hidden', !isStreaming || !streamUrl);
-        nextWatchButton.dataset.roundStreamUrl = streamUrl;
-    }
-
     if (nextDetailsButton) {
         nextDetailsButton.dataset.eventId = event.id;
-        if (event.page_path) {
-            nextDetailsButton.href = event.page_path;
-        }
 
         // Update button text and icon based on live status
         const hasPulse = nextDetailsButton.querySelector('.animate-ping');
         const hasIcon = nextDetailsButton.querySelector('.material-symbols-outlined');
 
         if (isStreaming) {
+            nextDetailsButton.setAttribute('data-action', 'round-stream');
+            nextDetailsButton.href = round.stream_url || STREAMS_FALLBACK_URL;
+            if (round.stream_url) {
+                nextDetailsButton.dataset.roundStreamUrl = round.stream_url;
+            } else {
+                nextDetailsButton.removeAttribute('data-round-stream-url');
+            }
+            nextDetailsButton.dataset.roundName = round.name || '';
+            nextDetailsButton.dataset.roundStartsAt = round.starts_at || '';
+            nextDetailsButton.dataset.roundEndsAt = round.ends_at || '';
+            nextDetailsButton.dataset.roundBlockedRegions = round.stream_blocked_regions || '';
+            nextDetailsButton.dataset.eventName = event.name || '';
+            nextDetailsButton.classList.remove('hover:border-primary');
+            nextDetailsButton.classList.add('hover:border-red-500');
+
             // Show "Live Now" with pulse indicator
             if (!hasPulse) {
                 // Remove info icon if present
@@ -148,6 +153,19 @@ function set_next_event(round, event, isStreaming) {
             const textNode = Array.from(nextDetailsButton.childNodes).find(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
             if (textNode) textNode.textContent = ' Live Now';
         } else {
+            nextDetailsButton.removeAttribute('data-action');
+            nextDetailsButton.removeAttribute('data-round-stream-url');
+            nextDetailsButton.removeAttribute('data-round-name');
+            nextDetailsButton.removeAttribute('data-round-starts-at');
+            nextDetailsButton.removeAttribute('data-round-ends-at');
+            nextDetailsButton.removeAttribute('data-round-blocked-regions');
+            nextDetailsButton.removeAttribute('data-event-name');
+            if (event.page_path) {
+                nextDetailsButton.href = event.page_path;
+            }
+            nextDetailsButton.classList.remove('hover:border-red-500');
+            nextDetailsButton.classList.add('hover:border-primary');
+
             // Show "Details" with info icon
             if (hasPulse) {
                 // Remove pulse dots
@@ -213,12 +231,12 @@ function set_round_stream_button(element, round) {
 
 function round_from_stream_button(element) {
     const roundContainer = element instanceof Element ? (element.closest('.event-round-card, .ifsc-event') || element) : null;
-
     const eventContainer = element instanceof Element ? element.closest('.ifsc-league-card') : null;
+    const roundNameFromQuery = roundContainer ? (roundContainer.querySelector('.round-name')?.textContent?.trim() || '') : '';
 
     return {
-        name: roundContainer ? (roundContainer.querySelector('.round-name')?.textContent?.trim() || '') : '',
-        event_name: eventContainer ? (eventContainer.dataset.eventName || '') : '',
+        name: roundNameFromQuery || (element instanceof Element ? (element.dataset.roundName || '') : ''),
+        event_name: (eventContainer ? (eventContainer.dataset.eventName || '') : '') || (element instanceof Element ? (element.dataset.eventName || '') : ''),
         starts_at: roundContainer ? (roundContainer.dataset.roundStartsAt || '') : '',
         ends_at: roundContainer ? (roundContainer.dataset.roundEndsAt || '') : '',
     };

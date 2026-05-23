@@ -357,6 +357,15 @@ const setup_modal_handlers = () => {
 
     // Modal global event listeners
     document.addEventListener('click', (event) => {
+        const streamTrigger = event.target.closest('[data-action="round-stream"]');
+        if (streamTrigger && !streamTrigger.closest('#accordion')) {
+            handle_round_stream_click({
+                currentTarget: streamTrigger,
+                preventDefault: () => event.preventDefault(),
+            });
+            return;
+        }
+
         const calendarTrigger = event.target.closest('[data-open-calendar-modal]');
         if (calendarTrigger) {
             event.preventDefault();

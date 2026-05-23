@@ -54,18 +54,11 @@ const resolvedBgPosition = heroBgPosition ?? (isYouTubeBg ? 'center 5%' : 'cente
                     </div>
                 </div>
 
-                <button class="kinetic-gradient text-on-primary-fixed px-10 py-4 rounded-lg font-bold text-lg uppercase tracking-tight flex items-center gap-3 transition-transform hover:scale-[1.02] active:scale-95 round-stream-button hidden"
-                        data-action="round-stream"
-                        data-round-stream-url={heroRound?.stream_url}
-                        id="next-event-watch-button">
-                    <span class="material-symbols-outlined">play_circle</span>
-                    Watch Live
-                </button>
-
                 {showDetailsButton && (
                     <a class="border border-outline-variant hover:border-primary text-on-surface px-6 py-2 lg:px-10 lg:py-4 rounded-lg font-bold text-sm lg:text-lg uppercase tracking-tight transition-all flex items-center gap-3"
                        href={eventPagePath || undefined}
                        data-event-id={eventId}
+                       data-action="round-stream"
                        id="next-event-details-button">
                         Details
                     </a>
