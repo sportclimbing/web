@@ -178,11 +178,11 @@ body > *:not(.modal):not(.modal-backdrop):not(script):not(style) {
 }
 
 .modal-body::-webkit-scrollbar-track {
-    background: #181c21;
+    background: rgb(var(--color-surface-container-low));
 }
 
 .modal-body::-webkit-scrollbar-thumb {
-    background: #31353a;
+    background: rgb(var(--color-surface-variant));
     border-radius: 10px;
 }
 

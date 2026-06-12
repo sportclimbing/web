@@ -11,6 +11,8 @@ import CardTemplates from './CardTemplates.astro';
 import CookieConsent from './CookieConsent.astro';
 import CalendarSyncBanner from './CalendarSyncBanner.astro';
 import HeroSection from './HeroSection.astro';
+import Breadcrumb from './Breadcrumb.astro';
+import SeasonMonthNav from './SeasonMonthNav.astro';
 import {
   DEFAULT_SEASON,
   HERO_BG_OVERRIDES,
@@ -72,6 +74,24 @@ const heroBgImage = resolvedBgVideoId
     : '/img/hero/hero-bg.webp';
 const heroBgPosition = seasonOverride.backgroundPosition ?? null;
 
+const month_index_from_starts_at = (startsAt) => {
+  const match = /^(\d{4})-(\d{2})-/.exec(startsAt || '');
+
+  if (!match) {
+    return null;
+  }
+
+  const monthIndex = parseInt(match[2], 10) - 1;
+
+  if (monthIndex < 0 || monthIndex > 11) {
+    return null;
+  }
+
+  return monthIndex;
+};
+
+const eventMonthIndex = month_index_from_starts_at(event.starts_at);
+
 const updatedAt = getSeasonEventsPayload(season)?.metadata?.updated_at || undefined;
 const previousEventLink = relatedLinks?.previousEvent || null;
 const nextEventLink = relatedLinks?.nextEvent || null;
@@ -112,12 +132,9 @@ const breadcrumbStructuredData = {
 };
 ---
 <!doctype html>
-<html class="dark" lang="en">
+<html lang="en">
 <head>
-    <script>/* Anti-FOUC: dark mode only */
-document.documentElement.classList.add('dark');
-/* Theme toggle disabled — restore when re-enabling:
-(function(){var t=document.cookie.split(';').reduce(function(a,c){var p=c.trim().split('=');return p[0]==='ifsc_theme'?decodeURIComponent(p[1]):a;},'');if(t!=='light'&&t!=='dark')t=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.classList.toggle('dark',t==='dark');}()); */</script>
+    <script>(function(){var t=document.cookie.split(';').reduce(function(a,c){var p=c.trim().split('=');return p[0]==='ifsc_theme'?decodeURIComponent(p[1]):a;},'');if(t!=='light'&&t!=='dark')t=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.classList.toggle('dark',t==='dark');}());</script>
     <meta charset="utf-8" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
@@ -195,20 +212,17 @@ document.documentElement.classList.add('dark');
         heroBgPosition={heroBgPosition}
     />
 
-    <div class="lg:max-w-6xl mx-auto px-2 sm:px-6 pt-0 lg:pt-8 flex gap-12 relative" id="accordion">
-        <div class="flex-1 min-w-0 pb-24">
+    <div class="max-w-screen-2xl mx-auto px-2 sm:px-6 pt-0 lg:pt-8 flex gap-8 lg:gap-12 relative" id="accordion">
+        <!-- Sticky Vertical Navigation -->
+        <SeasonMonthNav season={normalizedSeason} activeMonthIndex={eventMonthIndex} />
+
+        <div class="flex-1 min-w-0 lg:max-w-[75%] pb-24">
             <!-- Breadcrumbs -->
-            <nav class="mb-4 lg:mb-4" aria-label="Breadcrumb">
-                <div class="bg-surface-container-low p-2 rounded-xl flex items-center gap-2 overflow-x-auto no-scrollbar">
-                    <div class="flex items-center gap-0 p-1 bg-surface-container-lowest rounded-lg w-full">
-                        <a href="/" class="flex-1 text-center px-3 lg:px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold whitespace-nowrap">Home</a>
-                        <div class="h-4 w-px bg-outline-variant mx-1 shrink-0"></div>
-                        <a href={seasonPagePath} class="flex-1 text-center px-3 lg:px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold whitespace-nowrap">{normalizedSeason}<span class="hidden lg:inline"> Season</span></a>
-                        <div class="h-4 w-px bg-outline-variant mx-1 shrink-0"></div>
-                        <span class="flex-1 text-center px-3 lg:px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest truncate" aria-current="page"><span class="lg:hidden">{eventLocation}</span><span class="hidden lg:inline">{eventName}</span></span>
-                    </div>
-                </div>
-            </nav>
+            <Breadcrumb items={[
+                { label: 'Home', href: '/' },
+                { label: `${normalizedSeason} Season`, shortLabel: normalizedSeason, href: seasonPagePath },
+                { label: eventName, shortLabel: eventLocation },
+            ]} />
 
             <section aria-labelledby="event-detail-heading">
                 <h2 id="event-detail-heading" class="sr-only">Event Details</h2>

@@ -244,10 +244,8 @@ function toggle_theme() {
 }
 
 function restore_theme() {
-    // Theme toggle is temporarily disabled — dark mode only
-    apply_theme('dark');
-    // const saved = get_cookie('ifsc_theme');
-    // apply_theme(saved === 'light' || saved === 'dark' ? saved : get_system_theme());
+    const saved = get_cookie('ifsc_theme');
+    apply_theme(saved === 'light' || saved === 'dark' ? saved : get_system_theme());
 }
 
 function config_is_enabled(name) {
@@ -470,4 +468,41 @@ function apply_search_filters() {
         visibleRoundKeyCountsByEventId,
         visibleRoundCount,
     };
+}
+
+const CALENDAR_BASE_URL = 'https://calendar.ifsc.stream';
+
+function build_filtered_calendar_url(config) {
+    const disciplines = get_enabled_filter_keys(config.disciplines || {});
+    const rounds = get_enabled_filter_keys(config.rounds || {});
+    const categories = get_enabled_filter_keys(config.category || {});
+
+    const params = new URLSearchParams();
+    if (disciplines.length > 0 && disciplines.length < 3) params.set('discipline', disciplines.join(','));
+    if (rounds.length > 0 && rounds.length < 3) params.set('kind', rounds.join(','));
+    if (categories.length > 0 && categories.length < 2) params.set('category', categories.join(','));
+
+    const qs = params.toString();
+    return qs ? `${CALENDAR_BASE_URL}?${qs}` : CALENDAR_BASE_URL;
+}
+
+function update_calendar_modal_links() {
+    const config = load_config_from_modal();
+    const filteredUrl = build_filtered_calendar_url(config);
+    const filterParams = filteredUrl.replace(CALENDAR_BASE_URL, '');
+    const encodedWebcal = encodeURIComponent('webcal://calendar.ifsc.stream' + filterParams);
+
+    const webcalLink = document.querySelector('#calendar-modal a[href^="webcal://"]');
+    const googleLink = document.querySelector('#calendar-modal a[href*="google.com/calendar/render"]');
+    const directLink = document.querySelector('#calendar-modal a[href="https://calendar.ifsc.stream"]');
+    const customizeLink = document.querySelector('#calendar-modal a[href^="/calendar/"]');
+
+    if (webcalLink) webcalLink.href = 'webcal://calendar.ifsc.stream' + filterParams;
+    if (googleLink) googleLink.href = 'https://www.google.com/calendar/render?cid=' + encodedWebcal;
+    if (directLink) directLink.href = filteredUrl;
+
+    // Update the Customize button to deep-link with current filters
+    if (customizeLink && filterParams) {
+        customizeLink.href = '/calendar/' + filterParams;
+    }
 }

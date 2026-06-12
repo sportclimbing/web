@@ -504,6 +504,7 @@ const load_lazy_calendar_modal = async () => {
         if (modalDialog) {
             calendarModal.innerHTML = modalDialog.outerHTML;
             calendarModalContentLoaded = true;
+            update_calendar_modal_links();
         }
     } catch (_) {
         // ignore fetch errors
@@ -587,27 +588,3 @@ const setup_discipline_quick_filters = () => {
     });
 };
 
-const setup_season_picker_click_target = () => {
-    const seasonLabel = document.querySelector('.season-label');
-    const seasonSelect = document.querySelector(SEASON_SELECTOR);
-
-    if (!seasonLabel || !seasonSelect) {
-        return;
-    }
-
-    seasonLabel.addEventListener('click', (event) => {
-        event.preventDefault();
-        seasonSelect.focus();
-
-        if (typeof seasonSelect.showPicker === 'function') {
-            seasonSelect.showPicker();
-            return;
-        }
-
-        seasonSelect.dispatchEvent(new MouseEvent('mousedown', {
-            bubbles: true,
-            cancelable: true,
-            view: window,
-        }));
-    });
-};

@@ -4,6 +4,7 @@ import CookieConsent from '../../components/CookieConsent.astro';
 import AppHeader from '../../components/AppHeader.astro';
 import CardTemplates from '../../components/CardTemplates.astro';
 import Modals from '../../components/Modals.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
 import { siteAssetVersion } from '../../lib/site-shell';
 import '../../styles/tailwind.css';
 
@@ -12,8 +13,9 @@ const pageDescription = 'Learn how ifsc.stream uses cookies and analytics to und
 const canonicalUrl = 'https://ifsc.stream/privacy-policy/';
 ---
 <!doctype html>
-<html class="dark" lang="en">
+<html lang="en">
 <head>
+  <script>(function(){var t=document.cookie.split(';').reduce(function(a,c){var p=c.trim().split('=');return p[0]==='ifsc_theme'?decodeURIComponent(p[1]):a;},'');if(t!=='light'&&t!=='dark')t=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.classList.toggle('dark',t==='dark');}());</script>
   <meta charset="utf-8" />
   <title>{pageTitle}</title>
   <meta name="description" content={pageDescription} />
@@ -54,12 +56,14 @@ const canonicalUrl = 'https://ifsc.stream/privacy-policy/';
 <main class="pt-16 flex-1">
   <div class="max-w-4xl mx-auto px-6 pt-2 lg:pt-16 pb-24">
 
+    <!-- Breadcrumbs -->
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: 'Privacy Policy' },
+    ]} />
+
     <!-- Header Section -->
-    <header class="mb-16">
-      <a href="/" class="inline-flex items-center gap-2 text-primary font-label font-bold text-xs uppercase tracking-widest hover:underline mb-8">
-        <span class="material-symbols-outlined text-base">arrow_back</span>
-        Back to Calendar
-      </a>
+    <header class="mb-16 mt-8">
       <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-6 leading-none italic font-headline">
         Cookies &amp; <span class="text-primary">Analytics</span>
       </h1>

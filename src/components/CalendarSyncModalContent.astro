@@ -103,9 +103,15 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
                     </p>
                 </div>
             </div>
-            <button type="button" class="hidden lg:block self-center md:self-auto text-on-surface-variant hover:text-on-surface transition-colors font-label text-xs uppercase tracking-widest font-bold px-6 py-2 rounded-lg hover:bg-surface-container transition-colors shrink-0" data-bs-dismiss="modal">
-                Close
-            </button>
+            <div class="flex items-center gap-3">
+                <a href="/calendar/" class="self-center md:self-auto text-primary hover:text-primary/80 transition-colors font-label text-xs uppercase tracking-widest font-bold px-6 py-2 rounded-lg hover:bg-primary/10 transition-colors shrink-0 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-base">tune</span>
+                    Customize
+                </a>
+                <button type="button" class="hidden lg:block self-center md:self-auto text-on-surface-variant hover:text-on-surface transition-colors font-label text-xs uppercase tracking-widest font-bold px-6 py-2 rounded-lg hover:bg-surface-container transition-colors shrink-0" data-bs-dismiss="modal">
+                    Close
+                </button>
+            </div>
         </div>
     </div>
 </div>

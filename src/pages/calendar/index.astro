@@ -1,0 +1,61 @@
+---
+import '../../styles/tailwind.css';
+import AppHeader from '../../components/AppHeader.astro';
+import AppFooter from '../../components/AppFooter.astro';
+import CalendarConfigPage from '../../components/CalendarConfigPage.astro';
+import { DEFAULT_SEASON } from '../../lib/config.js';
+import { siteAssetVersion } from '../../lib/site-shell.js';
+
+const season = DEFAULT_SEASON;
+const pageTitle = 'Customize Calendar Subscription — IFSC Stream';
+const pageDescription = 'Filter IFSC World Climbing events by discipline, round type, and category before subscribing to your calendar.';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>(function(){var t=document.cookie.split(';').reduce(function(a,c){var p=c.trim().split('=');return p[0]==='ifsc_theme'?decodeURIComponent(p[1]):a;},'');if(t!=='light'&&t!=='dark')t=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.classList.toggle('dark',t==='dark');}());</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+
+    <base href="/" />
+    <link rel="canonical" href="https://ifsc.stream/calendar/" />
+
+    <link rel="preload" href={`/fonts/plus-jakarta-sans-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={`/fonts/space-grotesk-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={`/fonts/material-symbols-outlined.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://calendar.ifsc.stream" />
+
+    <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: rgb(var(--color-background)); color: rgb(var(--color-on-background)); }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .kinetic-gradient { background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgb(var(--color-background)); }
+        ::-webkit-scrollbar-thumb { background: rgb(var(--color-surface-variant)); border-radius: 4px; }
+    </style>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ifsc.stream/calendar/" />
+    <meta property="og:site_name" content="ifsc.stream" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+
+    <script defer src={`/js/app.js?v=${siteAssetVersion}`}></script>
+</head>
+<body class="bg-surface min-h-screen flex flex-col font-body text-on-surface antialiased" data-page-type="config">
+    <AppHeader season={season} />
+    <main class="flex-1">
+        <CalendarConfigPage season={season} />
+    </main>
+    <AppFooter season={season} />
+</body>
+</html>

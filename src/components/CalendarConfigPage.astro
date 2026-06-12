@@ -1,0 +1,617 @@
+---
+import Breadcrumb from './Breadcrumb.astro';
+
+const { season } = Astro.props;
+---
+<style>
+    .kinetic-gradient {
+        background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%);
+    }
+
+    /* ── Content panel ── */
+    .config-panel {
+        position: relative;
+        background: rgb(var(--color-surface-container-lowest));
+        border: 1px solid rgb(var(--color-outline-variant) / 0.25);
+        border-radius: 1.75rem;
+        padding: 2rem 1.25rem;
+        box-shadow:
+            0 24px 80px rgb(var(--color-primary) / 0.08),
+            0 4px 24px rgb(0 0 0 / 0.06);
+    }
+    @media (min-width: 1024px) {
+        .config-panel {
+            padding: 3rem 2.5rem;
+        }
+    }
+
+    /* ── Filter label cards ── */
+    .filter-label {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+        background: rgb(var(--color-surface-container-high));
+        border: 2px solid rgb(var(--color-outline-variant) / 0.15);
+        border-radius: 1rem;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        user-select: none;
+        position: relative;
+    }
+    .filter-label:hover {
+        border-color: rgb(var(--color-primary) / 0.3);
+        background: rgb(var(--color-surface-container-highest));
+    }
+    .filter-label.active {
+        background: rgb(var(--color-primary) / 0.08);
+        border-color: rgb(var(--color-primary) / 0.55);
+    }
+    .filter-label.active .filter-label-icon,
+    .filter-label.active .filter-label-check {
+        color: rgb(var(--color-primary));
+    }
+    .filter-label.active .filter-label-text {
+        color: rgb(var(--color-on-surface));
+    }
+    .filter-label:not(.active) {
+        opacity: 0.5;
+    }
+    .filter-label:not(.active):hover {
+        opacity: 0.75;
+    }
+    .filter-label-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        color: rgb(var(--color-primary));
+        transition: color 0.2s ease;
+    }
+    .filter-label-text {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 0.8125rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: rgb(var(--color-on-surface));
+        transition: color 0.2s ease;
+    }
+    .filter-label-check {
+        margin-left: auto;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+        color: rgb(var(--color-primary));
+        transition: all 0.2s ease;
+    }
+    .filter-label:not(.active) .filter-label-check {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    .filter-label.active .filter-label-check {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Stacked variant (discipline, round type) */
+    .filter-label-stacked {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: 0.25rem;
+        padding: 0.75rem 0.5rem;
+    }
+    .filter-label-stacked .filter-label-icon {
+        font-size: 1.75rem;
+    }
+    .filter-label-stacked .filter-label-text {
+        font-size: 0.625rem;
+    }
+    .filter-label-stacked .filter-label-check {
+        position: absolute;
+        top: 0.375rem;
+        right: 0.375rem;
+        margin-left: 0;
+        font-size: 1rem;
+    }
+
+    /* ── Section headers ── */
+    .section-head {
+        --accent: var(--color-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.875rem;
+    }
+    .section-num {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        flex-shrink: 0;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 800;
+        font-size: 0.6875rem;
+        letter-spacing: 0.05em;
+        color: rgb(var(--accent));
+        background: linear-gradient(135deg, rgb(var(--accent) / 0.2) 0%, rgb(var(--accent) / 0.05) 100%);
+        border: 1px solid rgb(var(--accent) / 0.3);
+        border-radius: 0.625rem;
+        box-shadow: 0 2px 10px rgb(var(--accent) / 0.18);
+    }
+    .section-title {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 800;
+        font-size: 1.0625rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        line-height: 1;
+        white-space: nowrap;
+        background: linear-gradient(90deg, rgb(var(--color-on-surface)) 40%, rgb(var(--color-on-surface) / 0.65) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+    }
+    .section-rule {
+        flex: 1;
+        height: 2px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgb(var(--accent) / 0.45) 0%, rgb(var(--accent) / 0) 100%);
+    }
+
+    /* ── Subscribe cards ── */
+    .subscribe-card {
+        --accent: var(--color-primary);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.75rem 1.25rem;
+        background: rgb(var(--color-surface-container-high));
+        border: 2px solid rgb(var(--color-outline-variant) / 0.15);
+        border-radius: 1.25rem;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .subscribe-card:hover {
+        transform: translateY(-2px);
+        border-color: rgb(var(--accent) / 0.5);
+        box-shadow: 0 6px 16px rgb(0 0 0 / 0.06);
+    }
+    .subscribe-icon-badge {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+        background: rgb(var(--accent) / 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        transition: background 0.2s ease;
+    }
+    .subscribe-icon-badge .material-symbols-outlined {
+        color: rgb(var(--accent));
+    }
+    .subscribe-card:hover .subscribe-icon-badge {
+        background: rgb(var(--accent) / 0.2);
+    }
+    .subscribe-arrow {
+        position: absolute;
+        top: 0.875rem;
+        right: 0.875rem;
+        font-size: 1.125rem;
+        color: rgb(var(--color-on-surface-variant) / 0.45);
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .subscribe-card:hover .subscribe-arrow {
+        color: rgb(var(--accent));
+        transform: translate(2px, -2px);
+    }
+
+    /* ── "or" divider ── */
+    .or-divider {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .or-divider::before,
+    .or-divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgb(var(--color-outline-variant) / 0.3);
+    }
+    .or-divider span {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 0.625rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: rgb(var(--color-on-surface-variant));
+    }
+
+    /* ── URL pill ── */
+    .url-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.375rem;
+        background: rgb(var(--color-surface-container-highest));
+        border: 1px solid rgb(var(--color-outline-variant) / 0.15);
+        border-radius: 1rem;
+        transition: border-color 0.2s ease;
+    }
+    .url-pill:focus-within {
+        border-color: rgb(var(--color-primary) / 0.4);
+    }
+</style>
+
+<div>
+    <!-- ── Hero ── -->
+    <section class="relative h-[300px] lg:h-[420px] overflow-hidden flex items-end">
+        <div class="absolute inset-0 z-0">
+            <picture>
+                <source media="(max-width: 1023px)" srcset="/img/hero/hero-bg-mobile.webp" />
+                <img src="/img/hero/hero-bg.webp" alt="" aria-hidden="true" fetchpriority="high" loading="eager" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-50" style="object-position: center 30%" />
+            </picture>
+            <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30"></div>
+        </div>
+        <div class="relative z-10 max-w-2xl mx-auto px-4 w-full pb-16 lg:pb-24 text-center">
+            <div class="inline-flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16 rounded-2xl mb-6" style="background: rgb(var(--color-primary) / 0.12); backdrop-filter: blur(8px)">
+                <span class="material-symbols-outlined text-2xl lg:text-3xl text-primary">calendar_month</span>
+            </div>
+            <h1 class="font-headline text-3xl lg:text-5xl font-bold tracking-tighter uppercase text-on-surface mb-3">
+                Build Your <span class="text-primary">Calendar</span>
+            </h1>
+            <p class="font-body text-on-surface-variant text-sm lg:text-base max-w-md mx-auto leading-relaxed">
+                Pick your events, copy the link, and subscribe once. Your calendar stays in sync automatically.
+            </p>
+        </div>
+    </section>
+
+    <!-- ── Content ── -->
+    <div class="relative z-10 max-w-2xl mx-auto px-4 -mt-10 lg:-mt-16 pb-14 lg:pb-20">
+    <Breadcrumb items={[
+        { label: 'Home', href: '/' },
+        { label: 'Calendar Sync' },
+    ]} />
+    <div class="config-panel">
+
+    <!-- ── Filters ── -->
+    <div class="space-y-10 mb-12">
+
+        <!-- Series -->
+        <section>
+            <div class="section-head mb-5">
+                <span class="section-num">01</span>
+                <h2 class="section-title">Series</h2>
+                <span class="section-rule"></span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <label class="filter-label active">
+                    <input type="checkbox" name="series[cups]" value="cups" checked class="sr-only config-filter" data-filter-key="series" data-filter-value="cups" />
+                    <span class="filter-label-icon material-symbols-outlined">emoji_events</span>
+                    <span class="filter-label-text">World Series</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" name="series[paraclimbing]" value="paraclimbing" class="sr-only config-filter" data-filter-key="series" data-filter-value="paraclimbing" />
+                    <span class="filter-label-icon material-symbols-outlined">military_tech</span>
+                    <span class="filter-label-text">Para Series</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Category -->
+        <section>
+            <div class="section-head mb-5">
+                <span class="section-num">02</span>
+                <h2 class="section-title">Category</h2>
+                <span class="section-rule"></span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <label class="filter-label active">
+                    <input type="checkbox" name="category[men]" value="men" checked class="sr-only config-filter" data-filter-key="category" data-filter-value="men" />
+                    <span class="filter-label-icon material-symbols-outlined">man</span>
+                    <span class="filter-label-text">Men</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label active">
+                    <input type="checkbox" name="category[women]" value="women" checked class="sr-only config-filter" data-filter-key="category" data-filter-value="women" />
+                    <span class="filter-label-icon material-symbols-outlined">woman</span>
+                    <span class="filter-label-text">Women</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Discipline -->
+        <section>
+            <div class="section-head mb-5">
+                <span class="section-num">03</span>
+                <h2 class="section-title">Discipline</h2>
+                <span class="section-rule"></span>
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+                <label class="filter-label filter-label-stacked active">
+                    <input type="checkbox" name="discipline[boulder]" value="boulder" checked class="sr-only config-filter" data-filter-key="discipline" data-filter-value="boulder" />
+                    <span class="filter-label-icon material-symbols-outlined">landslide</span>
+                    <span class="filter-label-text">Boulder</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label filter-label-stacked active">
+                    <input type="checkbox" name="discipline[lead]" value="lead" checked class="sr-only config-filter" data-filter-key="discipline" data-filter-value="lead" />
+                    <span class="filter-label-icon material-symbols-outlined">altitude</span>
+                    <span class="filter-label-text">Lead</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label filter-label-stacked active">
+                    <input type="checkbox" name="discipline[speed]" value="speed" checked class="sr-only config-filter" data-filter-key="discipline" data-filter-value="speed" />
+                    <span class="filter-label-icon material-symbols-outlined">speed</span>
+                    <span class="filter-label-text">Speed</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Round Type -->
+        <section>
+            <div class="section-head mb-5">
+                <span class="section-num">04</span>
+                <h2 class="section-title">Round Type</h2>
+                <span class="section-rule"></span>
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+                <label class="filter-label filter-label-stacked">
+                    <input type="checkbox" name="round[qualification]" value="qualification" class="sr-only config-filter" data-filter-key="kind" data-filter-value="qualification" />
+                    <span class="filter-label-icon material-symbols-outlined">format_list_numbered</span>
+                    <span class="filter-label-text">Quali<span class="hidden sm:inline">fication</span><span class="sm:hidden">s</span></span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label filter-label-stacked active">
+                    <input type="checkbox" name="round[semi-final]" value="semi-final" checked class="sr-only config-filter" data-filter-key="kind" data-filter-value="semi-final" />
+                    <span class="filter-label-icon material-symbols-outlined">social_leaderboard</span>
+                    <span class="filter-label-text">Semi<span class="hidden sm:inline">-Final</span><span class="sm:hidden">s</span></span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label filter-label-stacked active">
+                    <input type="checkbox" name="round[final]" value="final" checked class="sr-only config-filter" data-filter-key="kind" data-filter-value="final" />
+                    <span class="filter-label-icon material-symbols-outlined">emoji_events</span>
+                    <span class="filter-label-text">Final<span class="hidden sm:inline">s</span></span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+            </div>
+        </section>
+    </div>
+
+    <!-- ── Subscribe ── -->
+    <section class="mb-10">
+        <div class="section-head mb-6">
+            <span class="section-num">05</span>
+            <h2 class="section-title">Subscribe</h2>
+            <span class="section-rule"></span>
+        </div>
+        <p class="text-xs text-on-surface-variant mb-5 leading-relaxed">Click a provider below to add the calendar directly. It stays in sync and updates automatically.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <a id="link-webcal" class="subscribe-card" href="webcal://calendar.ifsc.stream">
+                <span class="subscribe-arrow material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+                <div class="subscribe-icon-badge">
+                    <span class="material-symbols-outlined text-2xl">devices</span>
+                </div>
+                <span class="font-headline font-bold text-sm mb-1">Apple &amp; Outlook</span>
+                <span class="text-xs text-on-surface-variant">Native calendar app</span>
+            </a>
+            <a id="link-google" class="subscribe-card" target="_blank" rel="noopener" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream">
+                <span class="subscribe-arrow material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+                <div class="subscribe-icon-badge">
+                    <span class="material-symbols-outlined text-2xl">calendar_today</span>
+                </div>
+                <span class="font-headline font-bold text-sm mb-1">Google Calendar</span>
+                <span class="text-xs text-on-surface-variant">Web-based calendar</span>
+            </a>
+            <a id="link-direct" class="subscribe-card" target="_blank" rel="noopener" href="https://calendar.ifsc.stream">
+                <span class="subscribe-arrow material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+                <div class="subscribe-icon-badge">
+                    <span class="material-symbols-outlined text-2xl">download</span>
+                </div>
+                <span class="font-headline font-bold text-sm mb-1">Download .ICS</span>
+                <span class="text-xs text-on-surface-variant">Manual import</span>
+            </a>
+        </div>
+
+        <div class="or-divider my-7">
+            <span>or subscribe manually</span>
+        </div>
+
+        <p class="text-xs text-on-surface-variant mb-4 leading-relaxed">Copy the link below, then paste it into your calendar app&rsquo;s &ldquo;Subscribe from URL&rdquo; or &ldquo;Add by URL&rdquo; option.</p>
+        <div class="url-pill">
+        <span class="material-symbols-outlined text-on-surface-variant text-lg pl-3 flex-shrink-0">link</span>
+        <span class="text-xs text-on-surface-variant font-mono truncate flex-1 py-2" id="filtered-url">calendar.ifsc.stream</span>
+        <button id="copy-url-btn" class="px-5 py-2.5 bg-primary text-on-primary font-bold text-xs uppercase tracking-widest rounded-xl hover:opacity-90 transition-all active:scale-95 whitespace-nowrap cursor-pointer flex-shrink-0">
+            Copy Link
+        </button>
+    </div>
+    </section>
+
+    <!-- ── Info ── -->
+    <div class="flex items-start gap-3 p-5 rounded-2xl" style="background: rgb(var(--color-primary) / 0.04); border: 1px solid rgb(var(--color-primary) / 0.08)">
+        <span class="material-symbols-outlined text-primary flex-shrink-0 mt-0.5">info</span>
+        <p class="text-on-surface-variant text-sm leading-relaxed">
+            Your calendar auto-updates as the schedule changes. Add once, stay in sync.
+        </p>
+    </div>
+    </div>
+</div>
+</div>
+
+<script>
+    import { DEFAULT_SEASON } from '../lib/config.js';
+
+    const CALENDAR_BASE_URL = 'https://calendar.ifsc.stream';
+
+    function getEnabledFilters() {
+        const checkboxes = document.querySelectorAll('.config-filter:checked');
+        const config = {
+            discipline: { boulder: false, lead: false, speed: false },
+            kind: { qualification: false, 'semi-final': false, final: false },
+            category: { men: false, women: false },
+            series: { cups: false, paraclimbing: false },
+        };
+
+        checkboxes.forEach((cb) => {
+            const key = cb.dataset.filterKey;
+            const value = cb.dataset.filterValue;
+            if (key === 'discipline') {
+                config.discipline[value] = true;
+            } else if (key === 'kind') {
+                config.kind[value] = true;
+            } else if (key === 'category') {
+                config.category[value] = true;
+            } else if (key === 'series') {
+                config.series[value] = true;
+            }
+        });
+
+        return config;
+    }
+
+    function getEnabledKeys(obj) {
+        return Object.keys(obj).filter((k) => obj[k]);
+    }
+
+    function buildFilteredUrl() {
+        const config = getEnabledFilters();
+        const disciplines = getEnabledKeys(config.discipline);
+        const kinds = getEnabledKeys(config.kind);
+        const categories = getEnabledKeys(config.category);
+        const series = getEnabledKeys(config.series);
+
+        const params = new URLSearchParams();
+        if (disciplines.length > 0 && disciplines.length < 3) params.set('discipline', disciplines.join(','));
+        if (kinds.length > 0 && kinds.length < 3) params.set('kind', kinds.join(','));
+        if (categories.length > 0 && categories.length < 2) params.set('category', categories.join(','));
+        if (series.length > 0 && series.length < 2) params.set('series', series.join(','));
+
+        const qs = params.toString();
+        return qs ? `${CALENDAR_BASE_URL}?${qs}` : CALENDAR_BASE_URL;
+    }
+
+    function updateLinks() {
+        const filteredUrl = buildFilteredUrl();
+        const encodedWebcal = encodeURIComponent(`webcal://calendar.ifsc.stream${filteredUrl.replace(CALENDAR_BASE_URL, '')}`);
+
+        document.getElementById('link-webcal').href = filteredUrl.replace('https://', 'webcal://');
+        document.getElementById('link-google').href = `https://www.google.com/calendar/render?cid=${encodedWebcal}`;
+        document.getElementById('link-direct').href = filteredUrl;
+        document.getElementById('filtered-url').textContent = filteredUrl.replace('https://', '');
+    }
+
+    function updateUrlParams() {
+        const config = getEnabledFilters();
+        const disciplines = getEnabledKeys(config.discipline);
+        const kinds = getEnabledKeys(config.kind);
+        const categories = getEnabledKeys(config.category);
+        const series = getEnabledKeys(config.series);
+
+        const params = new URLSearchParams();
+        if (disciplines.length > 0 && disciplines.length < 3) params.set('discipline', disciplines.join(','));
+        if (kinds.length > 0 && kinds.length < 3) params.set('kind', kinds.join(','));
+        if (categories.length > 0 && categories.length < 2) params.set('category', categories.join(','));
+        if (series.length > 0 && series.length < 2) params.set('series', series.join(','));
+
+        const qs = params.toString();
+        const newUrl = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
+        window.history.replaceState({}, '', newUrl);
+    }
+
+    // Read initial filter state from URL params
+    function initFromUrlParams() {
+        const params = new URLSearchParams(window.location.search);
+        const discipline = params.get('discipline');
+        const kind = params.get('kind');
+        const category = params.get('category');
+        const series = params.get('series');
+
+        if (discipline) {
+            const selected = new Set(discipline.split(',').map((s) => s.trim()).filter(Boolean));
+            document.querySelectorAll('.config-filter[data-filter-key="discipline"]').forEach((cb) => {
+                cb.checked = selected.has(cb.dataset.filterValue);
+            });
+        }
+
+        if (kind) {
+            const selected = new Set(kind.split(',').map((s) => s.trim()).filter(Boolean));
+            document.querySelectorAll('.config-filter[data-filter-key="kind"]').forEach((cb) => {
+                cb.checked = selected.has(cb.dataset.filterValue);
+            });
+        }
+
+        if (category) {
+            const selected = new Set(category.split(',').map((s) => s.trim()).filter(Boolean));
+            document.querySelectorAll('.config-filter[data-filter-key="category"]').forEach((cb) => {
+                cb.checked = selected.has(cb.dataset.filterValue);
+            });
+        }
+
+        if (series) {
+            const selected = new Set(series.split(',').map((s) => s.trim()).filter(Boolean));
+            document.querySelectorAll('.config-filter[data-filter-key="series"]').forEach((cb) => {
+                cb.checked = selected.has(cb.dataset.filterValue);
+            });
+        }
+    }
+
+    // Wire up filter change handlers
+    document.querySelectorAll('.config-filter').forEach((cb) => {
+        cb.addEventListener('change', () => {
+            const label = cb.closest('.filter-label');
+            if (label) {
+                if (cb.checked) {
+                    label.classList.add('active');
+                } else {
+                    label.classList.remove('active');
+                }
+            }
+            updateLinks();
+            updateUrlParams();
+        });
+    });
+
+    // Copy link button
+    document.getElementById('copy-url-btn').addEventListener('click', () => {
+        const url = buildFilteredUrl();
+        navigator.clipboard.writeText(url).then(() => {
+            const btn = document.getElementById('copy-url-btn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = originalText; }, 2000);
+        }).catch(() => {
+            // Fallback: select the text
+            const urlEl = document.getElementById('filtered-url');
+            const range = document.createRange();
+            range.selectNode(urlEl);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+        });
+    });
+
+    // Sync .active class with checkbox state (for programmatic changes)
+    function syncActiveClasses() {
+        document.querySelectorAll('.config-filter').forEach((cb) => {
+            const label = cb.closest('.filter-label');
+            if (label) {
+                if (cb.checked) {
+                    label.classList.add('active');
+                } else {
+                    label.classList.remove('active');
+                }
+            }
+        });
+    }
+
+    // Initialize
+    initFromUrlParams();
+    syncActiveClasses();
+    updateLinks();
+</script>

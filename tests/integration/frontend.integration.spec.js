@@ -7,7 +7,8 @@ const waitForEventCards = async (page) => {
 const normalizePath = (path) => path.replace(/\/+$/, '') || '/';
 
 const switchSeason = async (page, season) => {
-  await page.selectOption('#season-selector', season);
+  await page.locator('#season-selector').click();
+  await page.locator(`#season-dropdown-menu a[data-season="${season}"]`).click();
   await expect.poll(() => normalizePath(new URL(page.url()).pathname)).toBe(`/season/${season}`);
 
   await waitForEventCards(page);

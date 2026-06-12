@@ -1,0 +1,44 @@
+---
+// Shared breadcrumb. Items with `href` render as links; items without render
+// as the current page (`aria-current="page"`). `shortLabel` is shown below lg.
+// The first "Home" item renders as a home icon (with text from lg up), and the
+// bar hugs its content on lg+ so it left-aligns like the homepage nav.
+const { items = [] } = Astro.props;
+---
+<nav class="mb-4" aria-label="Breadcrumb">
+    <div class="bg-surface-container-low/75 backdrop-blur-xl border border-outline-variant/25 p-2 rounded-2xl flex items-center overflow-x-auto no-scrollbar">
+        <div class="flex items-center gap-0 p-1 bg-surface-container-lowest/80 rounded-xl w-full lg:w-auto">
+            {items.map((item, index) => (
+                <>
+                    {index > 0 && (
+                        <span class="material-symbols-outlined text-sm text-outline-variant shrink-0 select-none" aria-hidden="true">chevron_right</span>
+                    )}
+                    {item.href ? (
+                        <a href={item.href} class="flex-1 lg:flex-initial flex items-center justify-center gap-1.5 px-3 lg:px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60 rounded-lg transition-colors uppercase text-xs tracking-widest font-bold whitespace-nowrap" aria-label={index === 0 && item.label === 'Home' ? 'Home' : undefined}>
+                            {index === 0 && item.label === 'Home' ? (
+                                <>
+                                    <span class="material-symbols-outlined text-sm leading-none">home</span>
+                                    <span class="hidden lg:inline">Home</span>
+                                </>
+                            ) : item.shortLabel ? (
+                                <>
+                                    <span class="lg:hidden">{item.shortLabel}</span>
+                                    <span class="hidden lg:inline">{item.label}</span>
+                                </>
+                            ) : item.label}
+                        </a>
+                    ) : (
+                        <span aria-current="page" class="flex-1 lg:flex-initial text-center px-3 lg:px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest truncate">
+                            {item.shortLabel ? (
+                                <>
+                                    <span class="lg:hidden">{item.shortLabel}</span>
+                                    <span class="hidden lg:inline">{item.label}</span>
+                                </>
+                            ) : item.label}
+                        </span>
+                    )}
+                </>
+            ))}
+        </div>
+    </div>
+</nav>

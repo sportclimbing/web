@@ -9,6 +9,7 @@ import { getAllSeasons, getSeasonEventsPayload } from '../../lib/events-data';
 import { siteAssetVersion } from '../../lib/site-shell';
 import '../../styles/tailwind.css';
 import CalendarSyncBanner from "../../components/CalendarSyncBanner.astro";
+import Breadcrumb from '../../components/Breadcrumb.astro';
 
 const season = DEFAULT_SEASON;
 const seasons = getAllSeasons().sort((a, b) => Number(b) - Number(a));
@@ -30,8 +31,9 @@ const canonicalUrl = 'https://ifsc.stream/archive/';
 const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
 ---
 <!doctype html>
-<html class="dark" lang="en">
+<html lang="en">
 <head>
+  <script>(function(){var t=document.cookie.split(';').reduce(function(a,c){var p=c.trim().split('=');return p[0]==='ifsc_theme'?decodeURIComponent(p[1]):a;},'');if(t!=='light'&&t!=='dark')t=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.classList.toggle('dark',t==='dark');}());</script>
   <meta charset="utf-8" />
   <title>{pageTitle}</title>
   <meta name="description" content={pageDescription} />
@@ -49,10 +51,10 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
   <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
 
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: rgb(var(--color-background)); color: rgb(var(--color-on-background)); }
     ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #101418; }
-    ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }
+    ::-webkit-scrollbar-track { background: rgb(var(--color-background)); }
+    ::-webkit-scrollbar-thumb { background: rgb(var(--color-surface-variant)); border-radius: 4px; }
   </style>
 
   <meta property="og:type" content="website" />
@@ -77,7 +79,7 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: `${DEFAULT_SEASON} Season`, item: 'https://ifsc.stream/' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ifsc.stream/' },
         { '@type': 'ListItem', position: 2, name: 'Archive', item: canonicalUrl },
       ],
     })}
@@ -109,15 +111,10 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
 
   <!-- Breadcrumbs -->
   <div class="px-2 sm:px-6 lg:px-12 pt-0 lg:pt-8 lg:max-w-6xl lg:mx-auto">
-    <nav class="mb-4" aria-label="Breadcrumb">
-      <div class="bg-surface-container-low p-2 rounded-xl flex items-center gap-2 overflow-x-auto no-scrollbar">
-        <div class="flex items-center gap-2 p-1 bg-surface-container-lowest rounded-lg whitespace-nowrap w-full lg:w-auto">
-          <a href="/" class="px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold">{DEFAULT_SEASON} Season</a>
-          <div class="h-4 w-px bg-outline-variant mx-1"></div>
-          <span class="flex-1 lg:flex-none text-center lg:text-left px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest">Archive</span>
-        </div>
-      </div>
-    </nav>
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: 'Archive' },
+    ]} />
   </div>
 
   <!-- Season List -->

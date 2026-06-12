@@ -31,28 +31,28 @@
 
 /* Dark theme */
 .dark {
-  --color-primary:                   151 204 255;   /* #97ccff */
-  --color-on-primary:                0 51 82;       /* #003352 */
-  --color-primary-container:         102 178 242;   /* #66b2f2 */
-  --color-on-primary-container:      0 67 106;      /* #00436a */
-  --color-background:                16 20 24;      /* #101418 */
-  --color-on-background:             224 226 233;   /* #e0e2e9 */
-  --color-surface:                   16 20 24;      /* #101418 */
-  --color-surface-dim:               16 20 24;      /* #101418 */
-  --color-surface-bright:            54 57 63;      /* #36393f */
-  --color-surface-variant:           49 53 58;      /* #31353a */
-  --color-surface-container:         28 32 37;      /* #1c2025 */
-  --color-surface-container-low:     24 28 33;      /* #181c21 */
-  --color-surface-container-high:    38 42 47;      /* #262a2f */
-  --color-surface-container-highest: 49 53 58;      /* #31353a */
-  --color-surface-container-lowest:  10 15 19;      /* #0a0f13 */
-  --color-on-surface:                224 226 233;   /* #e0e2e9 */
-  --color-on-surface-variant:        192 199 209;   /* #c0c7d1 */
-  --color-outline:                   138 145 155;   /* #8a919b */
-  --color-outline-variant:           64 71 80;      /* #404750 */
+  --color-primary:                   135 195 255;   /* #87c3ff */
+  --color-on-primary:                0 43 70;       /* #002b46 */
+  --color-primary-container:         76 152 217;   /* #4c98d9 */
+  --color-on-primary-container:      0 54 86;      /* #003656 */
+  --color-background:                13 21 33;      /* #0d1521 */
+  --color-on-background:             227 233 242;   /* #e3e9f2 */
+  --color-surface:                   16 26 40;      /* #101a28 */
+  --color-surface-dim:               10 17 27;      /* #0a111b */
+  --color-surface-bright:            46 60 78;      /* #2e3c4e */
+  --color-surface-variant:           44 58 75;      /* #2c3a4b */
+  --color-surface-container:         24 35 47;      /* #18232f */
+  --color-surface-container-low:     19 28 43;      /* #131c2b */
+  --color-surface-container-high:    30 41 55;      /* #1e2937 */
+  --color-surface-container-highest: 36 49 64;      /* #243140 */
+  --color-surface-container-lowest:  10 16 26;      /* #0a101a */
+  --color-on-surface:                227 233 242;   /* #e3e9f2 */
+  --color-on-surface-variant:        184 196 212;   /* #b8c4d4 */
+  --color-outline:                   139 153 173;   /* #8b99ad */
+  --color-outline-variant:           58 74 94;      /* #3a4a5e */
   --color-inverse-primary:           0 99 154;      /* #00639a */
-  --color-inverse-surface:           224 226 233;   /* #e0e2e9 */
-  --color-inverse-on-surface:        45 49 54;      /* #2d3136 */
+  --color-inverse-surface:           227 233 242;   /* #e3e9f2 */
+  --color-inverse-on-surface:        22 32 46;      /* #16202e */
 }
 
 /* ─── Custom component styles ─────────────────────────────────────────────── */
@@ -67,6 +67,20 @@
   transition: background-color 0.15s;
 }
 .github-icon:hover {
+  background-color: rgb(var(--color-primary));
+}
+
+.instagram-icon {
+  mask-image: url(/img/instagram.svg);
+  -webkit-mask-image: url(/img/instagram.svg);
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  background-color: rgb(var(--color-on-surface-variant));
+  transition: background-color 0.15s;
+}
+.instagram-icon:hover {
   background-color: rgb(var(--color-primary));
 }
 
