@@ -1,5 +1,6 @@
 ---
 import Breadcrumb from './Breadcrumb.astro';
+import PageHero from './PageHero.astro';
 
 const { season } = Astro.props;
 ---
@@ -11,7 +12,7 @@ const { season } = Astro.props;
     /* ── Content panel ── */
     .config-panel {
         position: relative;
-        background: rgb(var(--color-surface-container-lowest));
+        background: rgb(var(--color-surface-container));
         border: 1px solid rgb(var(--color-outline-variant) / 0.25);
         border-radius: 1.75rem;
         padding: 2rem 1.25rem;
@@ -167,16 +168,17 @@ const { season } = Astro.props;
         align-items: center;
         text-align: center;
         padding: 1.75rem 1.25rem;
-        background: rgb(var(--color-surface-container-high));
-        border: 2px solid rgb(var(--color-outline-variant) / 0.15);
+        background: rgb(var(--color-surface-container-highest));
+        border: 2px solid rgb(var(--color-outline-variant) / 0.25);
         border-radius: 1.25rem;
         cursor: pointer;
+        box-shadow: 0 4px 16px rgb(0 0 0 / 0.08);
         transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .subscribe-card:hover {
-        transform: translateY(-2px);
-        border-color: rgb(var(--accent) / 0.5);
-        box-shadow: 0 6px 16px rgb(0 0 0 / 0.06);
+        transform: translateY(-3px);
+        border-color: rgb(var(--accent) / 0.55);
+        box-shadow: 0 10px 28px rgb(var(--accent) / 0.18);
     }
     .subscribe-icon-badge {
         width: 64px;
@@ -248,33 +250,18 @@ const { season } = Astro.props;
 
 <div>
     <!-- ── Hero ── -->
-    <section class="relative h-[300px] lg:h-[420px] overflow-hidden flex items-end">
-        <div class="absolute inset-0 z-0">
-            <picture>
-                <source media="(max-width: 1023px)" srcset="/img/hero/hero-bg-mobile.webp" />
-                <img src="/img/hero/hero-bg.webp" alt="" aria-hidden="true" fetchpriority="high" loading="eager" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-50" style="object-position: center 30%" />
-            </picture>
-            <div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/30"></div>
-        </div>
-        <div class="relative z-10 max-w-2xl mx-auto px-4 w-full pb-16 lg:pb-24 text-center">
-            <div class="inline-flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16 rounded-2xl mb-6" style="background: rgb(var(--color-primary) / 0.12); backdrop-filter: blur(8px)">
-                <span class="material-symbols-outlined text-2xl lg:text-3xl text-primary">calendar_month</span>
-            </div>
-            <h1 class="font-headline text-3xl lg:text-5xl font-bold tracking-tighter uppercase text-on-surface mb-3">
-                Build Your <span class="text-primary">Calendar</span>
-            </h1>
-            <p class="font-body text-on-surface-variant text-sm lg:text-base max-w-md mx-auto leading-relaxed">
-                Pick your events, copy the link, and subscribe once. Your calendar stays in sync automatically.
-            </p>
-        </div>
-    </section>
+    <PageHero badgeLabel="Stay In Sync" badgeIcon="sync" subtitle="Pick your events, copy the link, and subscribe once. Your calendar stays in sync automatically.">Build Your <span class="text-primary">Calendar</span></PageHero>
 
-    <!-- ── Content ── -->
-    <div class="relative z-10 max-w-2xl mx-auto px-4 -mt-10 lg:-mt-16 pb-14 lg:pb-20">
+    <!-- ── Breadcrumbs ── -->
+    <div class="max-w-5xl mx-auto px-6 pt-0 lg:pt-8">
     <Breadcrumb items={[
         { label: 'Home', href: '/' },
         { label: 'Calendar Sync' },
     ]} />
+    </div>
+
+    <!-- ── Content ── -->
+    <div class="max-w-5xl mx-auto px-6 pb-14 lg:pb-20">
     <div class="config-panel">
 
     <!-- ── Filters ── -->
@@ -287,6 +274,7 @@ const { season } = Astro.props;
                 <h2 class="section-title">Series</h2>
                 <span class="section-rule"></span>
             </div>
+            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Choose which competition series to include in your calendar.</p>
             <div class="grid grid-cols-2 gap-3">
                 <label class="filter-label active">
                     <input type="checkbox" name="series[cups]" value="cups" checked class="sr-only config-filter" data-filter-key="series" data-filter-value="cups" />
@@ -310,6 +298,7 @@ const { season } = Astro.props;
                 <h2 class="section-title">Category</h2>
                 <span class="section-rule"></span>
             </div>
+            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Follow men's rounds, women's rounds, or both.</p>
             <div class="grid grid-cols-2 gap-3">
                 <label class="filter-label active">
                     <input type="checkbox" name="category[men]" value="men" checked class="sr-only config-filter" data-filter-key="category" data-filter-value="men" />
@@ -333,6 +322,7 @@ const { season } = Astro.props;
                 <h2 class="section-title">Discipline</h2>
                 <span class="section-rule"></span>
             </div>
+            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Pick the climbing disciplines you want to keep up with.</p>
             <div class="grid grid-cols-3 gap-3">
                 <label class="filter-label filter-label-stacked active">
                     <input type="checkbox" name="discipline[boulder]" value="boulder" checked class="sr-only config-filter" data-filter-key="discipline" data-filter-value="boulder" />
@@ -362,6 +352,7 @@ const { season } = Astro.props;
                 <h2 class="section-title">Round Type</h2>
                 <span class="section-rule"></span>
             </div>
+            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Select which rounds show up as calendar entries.</p>
             <div class="grid grid-cols-3 gap-3">
                 <label class="filter-label filter-label-stacked">
                     <input type="checkbox" name="round[qualification]" value="qualification" class="sr-only config-filter" data-filter-key="kind" data-filter-value="qualification" />
@@ -393,8 +384,8 @@ const { season } = Astro.props;
             <span class="section-rule"></span>
         </div>
         <p class="text-xs text-on-surface-variant mb-5 leading-relaxed">Click a provider below to add the calendar directly. It stays in sync and updates automatically.</p>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <a id="link-webcal" class="subscribe-card" href="webcal://calendar.ifsc.stream">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <a id="link-webcal" class="subscribe-card" style="--accent: 234 179 8" href="webcal://calendar.ifsc.stream">
                 <span class="subscribe-arrow material-symbols-outlined" aria-hidden="true">arrow_outward</span>
                 <div class="subscribe-icon-badge">
                     <span class="material-symbols-outlined text-2xl">devices</span>
@@ -402,21 +393,13 @@ const { season } = Astro.props;
                 <span class="font-headline font-bold text-sm mb-1">Apple &amp; Outlook</span>
                 <span class="text-xs text-on-surface-variant">Native calendar app</span>
             </a>
-            <a id="link-google" class="subscribe-card" target="_blank" rel="noopener" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream">
+            <a id="link-google" class="subscribe-card" style="--accent: 52 168 83" target="_blank" rel="noopener" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream">
                 <span class="subscribe-arrow material-symbols-outlined" aria-hidden="true">arrow_outward</span>
                 <div class="subscribe-icon-badge">
                     <span class="material-symbols-outlined text-2xl">calendar_today</span>
                 </div>
                 <span class="font-headline font-bold text-sm mb-1">Google Calendar</span>
                 <span class="text-xs text-on-surface-variant">Web-based calendar</span>
-            </a>
-            <a id="link-direct" class="subscribe-card" target="_blank" rel="noopener" href="https://calendar.ifsc.stream">
-                <span class="subscribe-arrow material-symbols-outlined" aria-hidden="true">arrow_outward</span>
-                <div class="subscribe-icon-badge">
-                    <span class="material-symbols-outlined text-2xl">download</span>
-                </div>
-                <span class="font-headline font-bold text-sm mb-1">Download .ICS</span>
-                <span class="text-xs text-on-surface-variant">Manual import</span>
             </a>
         </div>
 
@@ -503,7 +486,6 @@ const { season } = Astro.props;
 
         document.getElementById('link-webcal').href = filteredUrl.replace('https://', 'webcal://');
         document.getElementById('link-google').href = `https://www.google.com/calendar/render?cid=${encodedWebcal}`;
-        document.getElementById('link-direct').href = filteredUrl;
         document.getElementById('filtered-url').textContent = filteredUrl.replace('https://', '');
     }
 

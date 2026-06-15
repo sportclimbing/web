@@ -5,6 +5,7 @@ import AppHeader from '../../components/AppHeader.astro';
 import CardTemplates from '../../components/CardTemplates.astro';
 import Modals from '../../components/Modals.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import PageHero from '../../components/PageHero.astro';
 import { siteAssetVersion } from '../../lib/site-shell';
 import '../../styles/tailwind.css';
 
@@ -53,20 +54,22 @@ const canonicalUrl = 'https://ifsc.stream/privacy-policy/';
 
 <AppHeader />
 
-<main class="pt-16 flex-1">
-  <div class="max-w-4xl mx-auto px-6 pt-2 lg:pt-16 pb-24">
+<main class="flex-1">
+  <!-- Hero Section -->
+  <PageHero badgeLabel="Your Privacy" badgeIcon="security">Cookies &amp; <span class="text-primary">Analytics</span></PageHero>
 
-    <!-- Breadcrumbs -->
+  <!-- Breadcrumbs -->
+  <div class="max-w-5xl mx-auto px-6 pt-0 lg:pt-8">
     <Breadcrumb items={[
       { label: 'Home', href: '/' },
       { label: 'Privacy Policy' },
     ]} />
+  </div>
+
+  <div class="max-w-5xl mx-auto px-6 pb-24">
 
     <!-- Header Section -->
     <header class="mb-16 mt-8">
-      <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-6 leading-none italic font-headline">
-        Cookies &amp; <span class="text-primary">Analytics</span>
-      </h1>
       <p class="text-on-surface-variant text-lg leading-relaxed font-medium max-w-2xl">
         This website is a personal project and does not directly collect or store personal data from visitors. However, it uses cookies and similar technologies to understand how the site is used and to improve its performance.
       </p>

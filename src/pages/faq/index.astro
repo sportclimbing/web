@@ -5,6 +5,7 @@ import AppHeader from '../../components/AppHeader.astro';
 import CardTemplates from '../../components/CardTemplates.astro';
 import Modals from '../../components/Modals.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import PageHero from '../../components/PageHero.astro';
 import { DEFAULT_SEASON } from '../../lib/config';
 import { siteAssetVersion } from '../../lib/site-shell';
 import '../../styles/tailwind.css';
@@ -76,9 +77,6 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
       backdrop-filter: blur(12px);
       border: 1px solid rgb(var(--color-outline-variant) / 0.15);
     }
-    .hero-gradient {
-      background: radial-gradient(circle at center, rgba(102, 178, 242, 0.1) 0%, transparent 70%);
-    }
     .faq-entry.is-open .faq-answer { max-height: 20rem; }
     .faq-entry.is-open .faq-trigger { padding-left: 1rem; padding-right: 1rem; background-color: rgb(var(--color-surface-container-low)); }
     .faq-entry.is-open .faq-trigger span:first-child { color: rgb(var(--color-primary)); }
@@ -135,40 +133,36 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
 
 <AppHeader />
 
-<main class="pt-16 flex-1">
+<main class="flex-1">
+
+  <!-- Hero Section -->
+  <PageHero title="FAQ" badgeLabel="Help Center" badgeIcon="help" />
 
   <!-- Breadcrumbs -->
-  <div class="max-w-5xl mx-auto px-6 pt-4">
+  <div class="max-w-5xl mx-auto px-6 pt-0 lg:pt-8">
     <Breadcrumb items={[
       { label: 'Home', href: '/' },
       { label: 'FAQ' },
     ]} />
   </div>
 
-  <!-- Hero Section -->
-  <section class="relative pt-8 pb-24 lg:py-32 overflow-hidden hero-gradient">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <h1 class="font-headline text-6xl md:text-8xl font-black tracking-tighter mb-12 text-on-surface uppercase">FAQ</h1>
-      <div class="max-w-2xl mx-auto relative group">
-        <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/0 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-        <div class="relative flex items-center glass-panel rounded-2xl overflow-hidden shadow-2xl">
-          <span class="material-symbols-outlined absolute left-6 text-outline group-focus-within:text-primary transition-colors">search</span>
-          <label for="faq-search" class="sr-only">Search questions</label>
-          <input
-            id="faq-search"
-            class="w-full bg-transparent border-none py-3 lg:py-6 pl-16 pr-8 text-lg font-body focus:ring-0 transition-all placeholder:text-outline/40"
-            placeholder="Search questions..."
-            type="text"
-            autocomplete="off"
-          />
-        </div>
+  <!-- FAQ Items -->
+  <section class="max-w-5xl mx-auto px-6 pb-32" aria-labelledby="faq-section-title">
+    <h2 id="faq-section-title" class="sr-only">Frequently Asked Questions</h2>
+    <div class="max-w-2xl mx-auto relative group mb-12">
+      <div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/0 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+      <div class="relative flex items-center glass-panel rounded-2xl overflow-hidden shadow-2xl">
+        <span class="material-symbols-outlined absolute left-6 text-outline group-focus-within:text-primary transition-colors">search</span>
+        <label for="faq-search" class="sr-only">Search questions</label>
+        <input
+          id="faq-search"
+          class="w-full bg-transparent border-none py-3 lg:py-6 pl-16 pr-8 text-lg font-body focus:ring-0 transition-all placeholder:text-outline/40"
+          placeholder="Search questions..."
+          type="text"
+          autocomplete="off"
+        />
       </div>
     </div>
-  </section>
-
-  <!-- FAQ Items -->
-  <section class="max-w-4xl mx-auto px-6 pb-32" aria-labelledby="faq-section-title">
-    <h2 id="faq-section-title" class="sr-only">Frequently Asked Questions</h2>
     <div class="space-y-2" id="faq-list">
       {faqItems.map((item) => (
         <div class="faq-entry border-b border-outline-variant/10">
