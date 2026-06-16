@@ -510,7 +510,7 @@ function set_favicon(liveEvent) {
         favicon = 'img/favicon-live.png';
     } else {
         document.title = title;
-        favicon = 'img/favicon.png';
+        favicon = 'img/favicon.svg';
     }
 
     let elementById = document.getElementById('favicon');

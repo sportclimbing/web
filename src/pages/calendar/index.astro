@@ -2,6 +2,7 @@
 import '../../styles/tailwind.css';
 import AppHeader from '../../components/AppHeader.astro';
 import AppFooter from '../../components/AppFooter.astro';
+import CookieConsent from '../../components/CookieConsent.astro';
 import CalendarConfigPage from '../../components/CalendarConfigPage.astro';
 import { DEFAULT_SEASON } from '../../lib/config.js';
 import { siteAssetVersion } from '../../lib/site-shell.js';
@@ -22,11 +23,12 @@ const pageDescription = 'Filter IFSC World Climbing events by discipline, round 
 
     <base href="/" />
     <link rel="canonical" href="https://ifsc.stream/calendar/" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.svg" id="favicon" />
 
     <link rel="preload" href={`/fonts/plus-jakarta-sans-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={`/fonts/space-grotesk-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={`/fonts/material-symbols-outlined.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-    <link rel="preconnect" href="https://calendar.ifsc.stream" />
+    <link rel="preconnect" href="https://cal.ifsc.stream" />
 
     <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
 
@@ -57,5 +59,6 @@ const pageDescription = 'Filter IFSC World Climbing events by discipline, round 
         <CalendarConfigPage season={season} />
     </main>
     <AppFooter season={season} />
+    <CookieConsent />
 </body>
 </html>

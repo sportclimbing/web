@@ -250,7 +250,7 @@ const { season } = Astro.props;
 
 <div>
     <!-- ── Hero ── -->
-    <PageHero badgeLabel="Stay In Sync" badgeIcon="sync" subtitle="Pick your events, copy the link, and subscribe once. Your calendar stays in sync automatically.">Build Your <span class="text-primary">Calendar</span></PageHero>
+    <PageHero badgeLabel="Stay In Sync with the Comp Season" badgeIcon="sync" subtitle="Pick your events, copy the link, and subscribe once. Your calendar stays in sync automatically.">Build Your <span class="text-primary">Calendar</span></PageHero>
 
     <!-- ── Breadcrumbs ── -->
     <div class="max-w-5xl mx-auto px-6 pt-0 lg:pt-8">
@@ -410,7 +410,7 @@ const { season } = Astro.props;
         <p class="text-xs text-on-surface-variant mb-4 leading-relaxed">Copy the link below, then paste it into your calendar app&rsquo;s &ldquo;Subscribe from URL&rdquo; or &ldquo;Add by URL&rdquo; option.</p>
         <div class="url-pill">
         <span class="material-symbols-outlined text-on-surface-variant text-lg pl-3 flex-shrink-0">link</span>
-        <span class="text-xs text-on-surface-variant font-mono truncate flex-1 py-2" id="filtered-url">calendar.ifsc.stream</span>
+        <span class="text-xs text-on-surface-variant font-mono truncate flex-1 py-2" id="filtered-url">cal.ifsc.stream</span>
         <button id="copy-url-btn" class="px-5 py-2.5 bg-primary text-on-primary font-bold text-xs uppercase tracking-widest rounded-xl hover:opacity-90 transition-all active:scale-95 whitespace-nowrap cursor-pointer flex-shrink-0">
             Copy Link
         </button>
@@ -431,7 +431,7 @@ const { season } = Astro.props;
 <script>
     import { DEFAULT_SEASON } from '../lib/config.js';
 
-    const CALENDAR_BASE_URL = 'https://calendar.ifsc.stream';
+    const CALENDAR_BASE_URL = 'https://cal.ifsc.stream';
 
     function getEnabledFilters() {
         const checkboxes = document.querySelectorAll('.config-filter:checked');
@@ -476,13 +476,13 @@ const { season } = Astro.props;
         if (categories.length > 0 && categories.length < 2) params.set('category', categories.join(','));
         if (series.length > 0 && series.length < 2) params.set('series', series.join(','));
 
-        const qs = params.toString();
-        return qs ? `${CALENDAR_BASE_URL}?${qs}` : CALENDAR_BASE_URL;
+        const qs = params.toString().replace(/%2C/g, ',');
+        return qs ? `${CALENDAR_BASE_URL}/?${qs}` : `${CALENDAR_BASE_URL}/`;
     }
 
     function updateLinks() {
         const filteredUrl = buildFilteredUrl();
-        const encodedWebcal = encodeURIComponent(`webcal://calendar.ifsc.stream${filteredUrl.replace(CALENDAR_BASE_URL, '')}`);
+        const encodedWebcal = encodeURIComponent(`webcal://cal.ifsc.stream${filteredUrl.replace(CALENDAR_BASE_URL, '')}`);
 
         document.getElementById('link-webcal').href = filteredUrl.replace('https://', 'webcal://');
         document.getElementById('link-google').href = `https://www.google.com/calendar/render?cid=${encodedWebcal}`;
@@ -502,7 +502,7 @@ const { season } = Astro.props;
         if (categories.length > 0 && categories.length < 2) params.set('category', categories.join(','));
         if (series.length > 0 && series.length < 2) params.set('series', series.join(','));
 
-        const qs = params.toString();
+        const qs = params.toString().replace(/%2C/g, ',');
         const newUrl = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
         window.history.replaceState({}, '', newUrl);
     }

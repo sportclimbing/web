@@ -110,7 +110,7 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? null;
     <link rel="preload" href={`/fonts/plus-jakarta-sans-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={`/fonts/space-grotesk-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={`/fonts/material-symbols-outlined.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-    <link rel="preconnect" href="https://calendar.ifsc.stream" />
+    <link rel="preconnect" href="https://cal.ifsc.stream" />
     <link rel="preconnect" href="https://img.youtube.com" />
     
     <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
@@ -131,6 +131,29 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? null;
         }
         .discipline-quick-filter[data-active="true"]:hover {
             background-color: rgb(var(--color-primary) / 0.25);
+        }
+        @media (min-width: 1024px) {
+            #filter-bar .filter-bar-breadcrumb {
+                max-width: 320px;
+                opacity: 1;
+                overflow: hidden;
+                transition: max-width 0.3s ease, opacity 0.2s ease;
+            }
+            #filter-bar.is-stuck {
+                width: fit-content;
+                margin-left: auto;
+            }
+            #filter-bar.is-stuck .filter-bar-breadcrumb {
+                max-width: 0;
+                opacity: 0;
+            }
+            #filter-bar .filter-bar-inner {
+                transition: background-color 0.3s ease;
+            }
+            #filter-bar.is-stuck .filter-bar-inner {
+                background-color: rgb(var(--color-surface-container-highest));
+                gap: 0;
+            }
         }
     </style>
 
@@ -189,9 +212,10 @@ const heroBgPosition = seasonOverride.backgroundPosition ?? null;
         <!-- Events Content -->
         <div class="flex-1 lg:max-w-[75%] pb-24">
             <!-- Filter & Search Bar -->
-            <section class="mb-4 lg:mb-4 lg:sticky lg:top-[72px] z-30">
-                <div class="bg-surface-container-low/75 backdrop-blur-xl border border-outline-variant/25 p-2 rounded-2xl shadow-lg shadow-black/20 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
-                    <nav aria-label="Breadcrumb" class="w-full md:w-auto">
+            <div id="filter-bar-sentinel" aria-hidden="true"></div>
+            <section id="filter-bar" class="mb-4 lg:mb-4 lg:sticky lg:top-[72px] z-30">
+                <div class="filter-bar-inner bg-surface-container-low/75 backdrop-blur-xl border border-outline-variant/25 p-2 rounded-2xl shadow-lg shadow-black/20 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
+                    <nav aria-label="Breadcrumb" class="filter-bar-breadcrumb w-full md:w-auto">
                         <div class="grid grid-cols-[auto_1fr] lg:flex items-center gap-1 lg:gap-2 p-1 bg-surface-container-lowest/80 rounded-xl w-full md:w-auto">
                             <a href="/" aria-label="Home" class="flex items-center justify-center gap-1.5 px-3 lg:px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60 rounded-lg transition-colors uppercase text-xs tracking-widest font-bold">
                                 <span class="material-symbols-outlined text-sm leading-none">home</span>

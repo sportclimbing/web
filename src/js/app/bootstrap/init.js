@@ -22,6 +22,7 @@
         setup_lazy_filter_modal();
         setup_discipline_quick_filters();
         setup_month_navigation();
+        setup_sticky_filter_bar();
     }
 
     if (document.readyState === 'complete') {

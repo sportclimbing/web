@@ -379,3 +379,22 @@ const setup_month_navigation = () => {
     addEventListener('resize', schedule_month_navigation_sync);
     sync_active_month_navigation_link();
 };
+
+const setup_sticky_filter_bar = () => {
+    const sentinel = document.getElementById('filter-bar-sentinel');
+    const bar = document.getElementById('filter-bar');
+
+    if (!sentinel || !bar || typeof IntersectionObserver === 'undefined') {
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        ([entry]) => {
+            // sentinel above the 72px line => bar is pinned
+            bar.classList.toggle('is-stuck', !entry.isIntersecting);
+        },
+        { rootMargin: '-72px 0px 0px 0px', threshold: 0 },
+    );
+
+    observer.observe(sentinel);
+};
