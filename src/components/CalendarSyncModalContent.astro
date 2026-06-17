@@ -70,22 +70,22 @@ const updatedAt = new Date(updatedAtIso).toLocaleString(undefined, {
                     Connect Now
                 </a>
             </div>
-            <!-- Static Download -->
+            <!-- Manual / Copy URL -->
             <div class="bg-surface-container-high p-6 rounded-xl border border-outline-variant/10 flex flex-col items-center text-center group hover:bg-surface-container-high transition-all duration-300">
                 <div class="hidden md:flex w-14 h-14 rounded-full bg-primary/10 items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <span class="material-symbols-outlined text-primary text-3xl">download</span>
+                    <span class="material-symbols-outlined text-primary text-3xl">link</span>
                 </div>
                 <div class="flex items-center gap-3 mb-2 md:contents">
                     <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0 md:hidden">
-                        <span class="material-symbols-outlined text-primary text-base">download</span>
+                        <span class="material-symbols-outlined text-primary text-base">link</span>
                     </div>
-                    <h3 class="font-headline font-bold text-lg md:mb-2 text-on-surface">Static File</h3>
+                    <h3 class="font-headline font-bold text-lg md:mb-2 text-on-surface">Manual Import</h3>
                     <div class="w-8 h-8 shrink-0 md:hidden" aria-hidden="true"></div>
                 </div>
-                <p class="text-xs text-on-surface-variant font-medium mb-3 md:mb-8 leading-tight">Download <code>.ics</code> file for manual import and offline viewing.</p>
-                <a class="mt-auto w-full py-3 border-2 border-primary/30 text-primary font-headline font-bold text-sm rounded-lg hover:bg-primary/10 transition-all uppercase tracking-wider text-center block" href="https://cal.ifsc.stream" target="_blank" rel="noopener" onclick="window.gtag && gtag('event', 'calendar_subscribed', {method: 'download_ics'})">
-                    Download .ICS
-                </a>
+                <p class="text-xs text-on-surface-variant font-medium mb-3 md:mb-8 leading-tight">Copy the link, then paste it into your calendar app&rsquo;s &ldquo;Subscribe from URL&rdquo; option.</p>
+                <button type="button" id="modal-copy-url-btn" data-copy-url="https://cal.ifsc.stream" class="mt-auto w-full py-3 border-2 border-primary/30 text-primary font-headline font-bold text-sm rounded-lg hover:bg-primary/10 transition-all uppercase tracking-wider text-center block cursor-pointer">
+                    Copy Link
+                </button>
             </div>
         </div>
         </div>

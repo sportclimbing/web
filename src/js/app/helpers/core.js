@@ -494,12 +494,27 @@ function update_calendar_modal_links() {
 
     const webcalLink = document.querySelector('#calendar-modal a[href^="webcal://"]');
     const googleLink = document.querySelector('#calendar-modal a[href*="google.com/calendar/render"]');
-    const directLink = document.querySelector('#calendar-modal a[href="https://cal.ifsc.stream"]');
+    const copyBtn = document.querySelector('#calendar-modal #modal-copy-url-btn');
     const customizeLink = document.querySelector('#calendar-modal a[href^="/calendar/"]');
 
     if (webcalLink) webcalLink.href = 'webcal://cal.ifsc.stream' + filterParams;
     if (googleLink) googleLink.href = 'https://www.google.com/calendar/render?cid=' + encodedWebcal;
-    if (directLink) directLink.href = filteredUrl;
+    if (copyBtn) {
+        copyBtn.dataset.copyUrl = filteredUrl;
+        if (!copyBtn.dataset.copyBound) {
+            copyBtn.dataset.copyBound = '1';
+            copyBtn.addEventListener('click', () => {
+                const url = copyBtn.dataset.copyUrl;
+                const original = copyBtn.textContent.trim();
+                const done = () => {
+                    copyBtn.textContent = 'Copied!';
+                    window.setTimeout(() => { copyBtn.textContent = original; }, 2000);
+                    window.gtag && gtag('event', 'calendar_subscribed', { method: 'copy_url' });
+                };
+                navigator.clipboard.writeText(url).then(done, done);
+            });
+        }
+    }
 
     // Update the Customize button to deep-link with current filters
     if (customizeLink && filterParams) {
