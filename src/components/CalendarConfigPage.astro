@@ -338,7 +338,7 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
 
 <div>
     <!-- ── Hero ── -->
-    <PageHero badgeLabel="Stay In Sync with the Comp Season" badgeIcon="sync" subtitle="Subscribe once and your calendar stays in sync automatically. Customize it first if you only want certain events.">World Climbing <span class="text-primary">Calendar</span></PageHero>
+    <PageHero badgeLabel="Stay In Sync with the Comp Season" badgeIcon="sync" subtitle="Subscribe to the IFSC World Cup schedule in Apple Calendar, Google Calendar or Outlook — an auto-syncing iCal subscription that stays up to date. Customize it first if you only want certain events.">World Climbing <span class="text-primary">Calendar</span> {season}</PageHero>
 
     <!-- ── Breadcrumbs ── -->
     <div class="max-w-5xl mx-auto px-6 pt-0 lg:pt-8">
@@ -370,7 +370,7 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
                 <h2 class="section-title">Series</h2>
                 <span class="section-rule"></span>
             </div>
-            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Choose which competition series to include in your calendar.</p>
+            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Choose which IFSC World Cup competition series to include in your calendar.</p>
             <div class="grid grid-cols-2 gap-3">
                 <label class="filter-label active">
                     <input type="checkbox" name="series[cups]" value="cups" checked class="sr-only config-filter" data-filter-key="series" data-filter-value="cups" />
@@ -416,7 +416,7 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
                 <h2 class="section-title">Discipline</h2>
                 <span class="section-rule"></span>
             </div>
-            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Pick the climbing disciplines you want to keep up with.</p>
+            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Pick the climbing disciplines you want to keep up with — Boulder, Lead and Speed.</p>
             <div class="grid grid-cols-3 gap-3">
                 <label class="filter-label filter-label-stacked active">
                     <input type="checkbox" name="discipline[boulder]" value="boulder" checked class="sr-only config-filter" data-filter-key="discipline" data-filter-value="boulder" />
@@ -477,7 +477,7 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
             <h2 class="section-title">Subscribe</h2>
             <span class="section-rule"></span>
         </div>
-        <p class="text-sm text-on-surface-variant mb-5 leading-relaxed">By default you&rsquo;ll get every event. Want only specific disciplines or rounds? Use <strong class="text-on-surface font-semibold">Customize</strong> above. Then click a provider to add the calendar &mdash; it stays in sync and updates automatically.</p>
+        <p class="text-sm text-on-surface-variant mb-5 leading-relaxed">By default you&rsquo;ll get every event. Want only specific disciplines or rounds? Use <strong class="text-on-surface font-semibold">Customize</strong> above. Then click a provider to add the calendar, it stays in sync and updates automatically.</p>
         <div class="grid grid-cols-2 gap-3 sm:gap-4">
             <a id="link-webcal" class="subscribe-card" style="--accent: 234 179 8" href="webcal://calendar.ifsc.stream">
                 <span class="subscribe-arrow material-symbols-outlined" aria-hidden="true">arrow_outward</span>
@@ -501,7 +501,7 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
             <span>or subscribe manually</span>
         </div>
 
-        <p class="text-sm text-on-surface-variant mb-4 leading-relaxed">Copy the link below, then paste it into your calendar app&rsquo;s &ldquo;Subscribe from URL&rdquo; or &ldquo;Add by URL&rdquo; option.</p>
+        <p class="text-sm text-on-surface-variant mb-4 leading-relaxed">Copy the iCal link below, then paste it into your calendar app&rsquo;s &ldquo;Subscribe from URL&rdquo; or &ldquo;Add by URL&rdquo; option.</p>
         <div class="url-pill">
         <span class="material-symbols-outlined text-on-surface-variant text-lg pl-3 flex-shrink-0">link</span>
         <span class="text-xs text-on-surface-variant font-mono truncate flex-1 py-2" id="filtered-url">cal.ifsc.stream</span>
