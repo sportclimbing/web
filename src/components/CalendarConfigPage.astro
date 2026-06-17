@@ -3,6 +3,17 @@ import Breadcrumb from './Breadcrumb.astro';
 import PageHero from './PageHero.astro';
 
 const { season } = Astro.props;
+
+const allEventsFiles = import.meta.glob('../../events/events_*.json', { eager: true }) as Record<string, { metadata: { updated_at: string } }>;
+const eventsData = allEventsFiles[`../../events/events_${season}.json`];
+const updatedAtIso = eventsData?.metadata?.updated_at;
+const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+}) : '';
 ---
 <style>
     .kinetic-gradient {
@@ -121,23 +132,6 @@ const { season } = Astro.props;
         align-items: center;
         gap: 0.875rem;
     }
-    .section-num {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2rem;
-        height: 2rem;
-        flex-shrink: 0;
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        font-weight: 800;
-        font-size: 0.6875rem;
-        letter-spacing: 0.05em;
-        color: rgb(var(--accent));
-        background: linear-gradient(135deg, rgb(var(--accent) / 0.2) 0%, rgb(var(--accent) / 0.05) 100%);
-        border: 1px solid rgb(var(--accent) / 0.3);
-        border-radius: 0.625rem;
-        box-shadow: 0 2px 10px rgb(var(--accent) / 0.18);
-    }
     .section-title {
         font-family: 'Plus Jakarta Sans', sans-serif;
         font-weight: 800;
@@ -197,6 +191,26 @@ const { season } = Astro.props;
     .subscribe-card:hover .subscribe-icon-badge {
         background: rgb(var(--accent) / 0.2);
     }
+    @media (max-width: 639px) {
+        .subscribe-card {
+            padding: 1.25rem 0.75rem;
+        }
+        .subscribe-icon-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            margin-bottom: 0.75rem;
+        }
+        .subscribe-icon-badge .material-symbols-outlined {
+            font-size: 1.375rem;
+        }
+        .subscribe-card .font-headline {
+            font-size: 0.8125rem;
+        }
+        .subscribe-card .text-xs {
+            font-size: 0.6875rem;
+        }
+    }
     .subscribe-arrow {
         position: absolute;
         top: 0.875rem;
@@ -246,11 +260,74 @@ const { season } = Astro.props;
     .url-pill:focus-within {
         border-color: rgb(var(--color-primary) / 0.4);
     }
+
+    /* ── Customize toggle bar ── */
+    .customize-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+        padding: 1rem 1.25rem;
+        background: rgb(var(--color-surface-container-high));
+        border: 2px solid rgb(var(--color-outline-variant) / 0.15);
+        border-radius: 1rem;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .customize-toggle:hover {
+        border-color: rgb(var(--color-primary) / 0.3);
+        background: rgb(var(--color-surface-container-highest));
+    }
+    .customize-toggle[aria-expanded='true'] {
+        border-color: rgb(var(--color-primary) / 0.55);
+        background: rgb(var(--color-primary) / 0.08);
+    }
+    .customize-toggle-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        color: rgb(var(--color-primary));
+    }
+    .customize-toggle-text {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 0.8125rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: rgb(var(--color-on-surface));
+    }
+    .customize-toggle-chevron {
+        margin-left: auto;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        color: rgb(var(--color-on-surface-variant));
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .customize-toggle[aria-expanded='true'] .customize-toggle-chevron {
+        transform: rotate(180deg);
+        color: rgb(var(--color-primary));
+    }
+
+    /* ── Filter drawer (collapsible) ── */
+    .filter-drawer {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    }
+    .filter-drawer.is-open {
+        grid-template-rows: 1fr;
+        opacity: 1;
+    }
+    .filter-drawer > .filter-drawer-inner {
+        overflow: hidden;
+        min-height: 0;
+    }
 </style>
 
 <div>
     <!-- ── Hero ── -->
-    <PageHero badgeLabel="Stay In Sync with the Comp Season" badgeIcon="sync" subtitle="Pick your events, copy the link, and subscribe once. Your calendar stays in sync automatically.">Build Your <span class="text-primary">Calendar</span></PageHero>
+    <PageHero badgeLabel="Stay In Sync with the Comp Season" badgeIcon="sync" subtitle="Subscribe once and your calendar stays in sync automatically. Customize it first if you only want certain events.">Build Your <span class="text-primary">Calendar</span></PageHero>
 
     <!-- ── Breadcrumbs ── -->
     <div class="max-w-5xl mx-auto px-6 pt-0 lg:pt-8">
@@ -264,13 +341,21 @@ const { season } = Astro.props;
     <div class="max-w-5xl mx-auto px-6 pb-14 lg:pb-20">
     <div class="config-panel">
 
-    <!-- ── Filters ── -->
-    <div class="space-y-10 mb-12">
+    <!-- ── Customize toggle ── -->
+    <button type="button" id="customize-toggle" class="customize-toggle mb-8" aria-expanded="false" aria-controls="filter-drawer">
+        <span class="customize-toggle-icon material-symbols-outlined">tune</span>
+        <span class="customize-toggle-text">Customize which events are included</span>
+        <span class="customize-toggle-chevron material-symbols-outlined" aria-hidden="true">expand_more</span>
+    </button>
+
+    <!-- ── Filters (collapsible) ── -->
+    <div id="filter-drawer" class="filter-drawer mb-4">
+    <div class="filter-drawer-inner">
+    <div class="space-y-10 pb-4">
 
         <!-- Series -->
         <section>
             <div class="section-head mb-5">
-                <span class="section-num">01</span>
                 <h2 class="section-title">Series</h2>
                 <span class="section-rule"></span>
             </div>
@@ -294,7 +379,6 @@ const { season } = Astro.props;
         <!-- Category -->
         <section>
             <div class="section-head mb-5">
-                <span class="section-num">02</span>
                 <h2 class="section-title">Category</h2>
                 <span class="section-rule"></span>
             </div>
@@ -318,7 +402,6 @@ const { season } = Astro.props;
         <!-- Discipline -->
         <section>
             <div class="section-head mb-5">
-                <span class="section-num">03</span>
                 <h2 class="section-title">Discipline</h2>
                 <span class="section-rule"></span>
             </div>
@@ -348,7 +431,6 @@ const { season } = Astro.props;
         <!-- Round Type -->
         <section>
             <div class="section-head mb-5">
-                <span class="section-num">04</span>
                 <h2 class="section-title">Round Type</h2>
                 <span class="section-rule"></span>
             </div>
@@ -375,16 +457,17 @@ const { season } = Astro.props;
             </div>
         </section>
     </div>
+    </div>
+    </div>
 
     <!-- ── Subscribe ── -->
     <section class="mb-10">
         <div class="section-head mb-6">
-            <span class="section-num">05</span>
             <h2 class="section-title">Subscribe</h2>
             <span class="section-rule"></span>
         </div>
-        <p class="text-xs text-on-surface-variant mb-5 leading-relaxed">Click a provider below to add the calendar directly. It stays in sync and updates automatically.</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <p class="text-sm text-on-surface-variant mb-5 leading-relaxed">By default you&rsquo;ll get every event. Want only specific disciplines or rounds? Use <strong class="text-on-surface font-semibold">Customize</strong> above. Then click a provider to add the calendar &mdash; it stays in sync and updates automatically.</p>
+        <div class="grid grid-cols-2 gap-3 sm:gap-4">
             <a id="link-webcal" class="subscribe-card" style="--accent: 234 179 8" href="webcal://calendar.ifsc.stream">
                 <span class="subscribe-arrow material-symbols-outlined" aria-hidden="true">arrow_outward</span>
                 <div class="subscribe-icon-badge">
@@ -407,7 +490,7 @@ const { season } = Astro.props;
             <span>or subscribe manually</span>
         </div>
 
-        <p class="text-xs text-on-surface-variant mb-4 leading-relaxed">Copy the link below, then paste it into your calendar app&rsquo;s &ldquo;Subscribe from URL&rdquo; or &ldquo;Add by URL&rdquo; option.</p>
+        <p class="text-sm text-on-surface-variant mb-4 leading-relaxed">Copy the link below, then paste it into your calendar app&rsquo;s &ldquo;Subscribe from URL&rdquo; or &ldquo;Add by URL&rdquo; option.</p>
         <div class="url-pill">
         <span class="material-symbols-outlined text-on-surface-variant text-lg pl-3 flex-shrink-0">link</span>
         <span class="text-xs text-on-surface-variant font-mono truncate flex-1 py-2" id="filtered-url">cal.ifsc.stream</span>
@@ -418,11 +501,21 @@ const { season } = Astro.props;
     </section>
 
     <!-- ── Info ── -->
-    <div class="flex items-start gap-3 p-5 rounded-2xl" style="background: rgb(var(--color-primary) / 0.04); border: 1px solid rgb(var(--color-primary) / 0.08)">
-        <span class="material-symbols-outlined text-primary flex-shrink-0 mt-0.5">info</span>
-        <p class="text-on-surface-variant text-sm leading-relaxed">
-            Your calendar auto-updates as the schedule changes. Add once, stay in sync.
-        </p>
+    <div class="flex items-center gap-4 p-5 rounded-2xl" style="background: rgb(var(--color-primary) / 0.04); border: 1px solid rgb(var(--color-primary) / 0.08)">
+        <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-tertiary">sync</span>
+        </div>
+        <div>
+            <p class="text-on-surface-variant text-sm leading-relaxed">
+                Your calendar auto-updates as the schedule changes. Add once, stay in sync.
+            </p>
+            {updatedAtIso && (
+                <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mt-2">
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse mr-1"></span>
+                    Last updated <span class="js-updated-at" data-iso={updatedAtIso}>at {updatedAt}</span>
+                </p>
+            )}
+        </div>
     </div>
     </div>
 </div>
@@ -489,61 +582,6 @@ const { season } = Astro.props;
         document.getElementById('filtered-url').textContent = filteredUrl.replace('https://', '');
     }
 
-    function updateUrlParams() {
-        const config = getEnabledFilters();
-        const disciplines = getEnabledKeys(config.discipline);
-        const kinds = getEnabledKeys(config.kind);
-        const categories = getEnabledKeys(config.category);
-        const series = getEnabledKeys(config.series);
-
-        const params = new URLSearchParams();
-        if (disciplines.length > 0 && disciplines.length < 3) params.set('discipline', disciplines.join(','));
-        if (kinds.length > 0 && kinds.length < 3) params.set('kind', kinds.join(','));
-        if (categories.length > 0 && categories.length < 2) params.set('category', categories.join(','));
-        if (series.length > 0 && series.length < 2) params.set('series', series.join(','));
-
-        const qs = params.toString().replace(/%2C/g, ',');
-        const newUrl = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
-        window.history.replaceState({}, '', newUrl);
-    }
-
-    // Read initial filter state from URL params
-    function initFromUrlParams() {
-        const params = new URLSearchParams(window.location.search);
-        const discipline = params.get('discipline');
-        const kind = params.get('kind');
-        const category = params.get('category');
-        const series = params.get('series');
-
-        if (discipline) {
-            const selected = new Set(discipline.split(',').map((s) => s.trim()).filter(Boolean));
-            document.querySelectorAll('.config-filter[data-filter-key="discipline"]').forEach((cb) => {
-                cb.checked = selected.has(cb.dataset.filterValue);
-            });
-        }
-
-        if (kind) {
-            const selected = new Set(kind.split(',').map((s) => s.trim()).filter(Boolean));
-            document.querySelectorAll('.config-filter[data-filter-key="kind"]').forEach((cb) => {
-                cb.checked = selected.has(cb.dataset.filterValue);
-            });
-        }
-
-        if (category) {
-            const selected = new Set(category.split(',').map((s) => s.trim()).filter(Boolean));
-            document.querySelectorAll('.config-filter[data-filter-key="category"]').forEach((cb) => {
-                cb.checked = selected.has(cb.dataset.filterValue);
-            });
-        }
-
-        if (series) {
-            const selected = new Set(series.split(',').map((s) => s.trim()).filter(Boolean));
-            document.querySelectorAll('.config-filter[data-filter-key="series"]').forEach((cb) => {
-                cb.checked = selected.has(cb.dataset.filterValue);
-            });
-        }
-    }
-
     // Wire up filter change handlers
     document.querySelectorAll('.config-filter').forEach((cb) => {
         cb.addEventListener('change', () => {
@@ -556,8 +594,20 @@ const { season } = Astro.props;
                 }
             }
             updateLinks();
-            updateUrlParams();
         });
+    });
+
+    // Customize drawer toggle
+    const customizeToggle = document.getElementById('customize-toggle');
+    const filterDrawer = document.getElementById('filter-drawer');
+
+    function setDrawerOpen(open) {
+        filterDrawer.classList.toggle('is-open', open);
+        customizeToggle.setAttribute('aria-expanded', String(open));
+    }
+
+    customizeToggle.addEventListener('click', () => {
+        setDrawerOpen(!filterDrawer.classList.contains('is-open'));
     });
 
     // Copy link button
@@ -592,8 +642,22 @@ const { season } = Astro.props;
         });
     }
 
+    // Relative "last updated" label — mirrors format_relative_updated_at in helpers/render.js
+    function formatRelativeUpdatedAt(iso) {
+        const d = new Date(iso);
+        const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        const startOfDay = (x) => new Date(x.getFullYear(), x.getMonth(), x.getDate());
+        const daysAgo = Math.round((startOfDay(new Date()) - startOfDay(d)) / 86400000);
+        if (daysAgo <= 0) return `today at ${time}`;
+        if (daysAgo === 1) return `yesterday at ${time}`;
+        return `${daysAgo} days ago`;
+    }
+
+    document.querySelectorAll('.js-updated-at').forEach((el) => {
+        if (el.dataset.iso) el.textContent = formatRelativeUpdatedAt(el.dataset.iso);
+    });
+
     // Initialize
-    initFromUrlParams();
     syncActiveClasses();
     updateLinks();
 </script>
