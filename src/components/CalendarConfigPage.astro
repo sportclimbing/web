@@ -69,6 +69,14 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
     .filter-label:not(.active) {
         opacity: 0.5;
     }
+    @keyframes filter-shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-4px); }
+        75% { transform: translateX(4px); }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+        .filter-label.shake { animation: filter-shake 0.3s ease; }
+    }
     .filter-label:not(.active):hover {
         opacity: 0.75;
     }
@@ -373,13 +381,13 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
             <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Choose which IFSC World Cup competition series to include in your calendar.</p>
             <div class="grid grid-cols-2 gap-3">
                 <label class="filter-label active">
-                    <input type="checkbox" name="series[cups]" value="cups" checked class="sr-only config-filter" data-filter-key="series" data-filter-value="cups" />
+                    <input type="checkbox" name="series[world]" value="world" checked class="sr-only config-filter" data-filter-key="series" data-filter-value="world" />
                     <span class="filter-label-icon material-symbols-outlined">emoji_events</span>
                     <span class="filter-label-text">World Series</span>
                     <span class="filter-label-check material-symbols-outlined">check_circle</span>
                 </label>
                 <label class="filter-label">
-                    <input type="checkbox" name="series[paraclimbing]" value="paraclimbing" class="sr-only config-filter" data-filter-key="series" data-filter-value="paraclimbing" />
+                    <input type="checkbox" name="series[para]" value="para" class="sr-only config-filter" data-filter-key="series" data-filter-value="para" />
                     <span class="filter-label-icon material-symbols-outlined">military_tech</span>
                     <span class="filter-label-text">Para Series</span>
                     <span class="filter-label-check material-symbols-outlined">check_circle</span>
@@ -504,7 +512,7 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
         <p class="text-sm text-on-surface-variant mb-4 leading-relaxed">Copy the iCal link below, then paste it into your calendar app&rsquo;s &ldquo;Subscribe from URL&rdquo; or &ldquo;Add by URL&rdquo; option.</p>
         <div class="url-pill">
         <span class="material-symbols-outlined text-on-surface-variant text-lg pl-3 flex-shrink-0">link</span>
-        <span class="text-xs text-on-surface-variant font-mono truncate flex-1 py-2" id="filtered-url">cal.ifsc.stream</span>
+        <span class="text-xs text-on-surface-variant font-mono truncate flex-1 py-2" id="filtered-url">https://cal.ifsc.stream</span>
         <button id="copy-url-btn" class="px-5 py-2.5 bg-primary text-on-primary font-bold text-xs uppercase tracking-widest rounded-xl hover:opacity-90 transition-all active:scale-95 whitespace-nowrap cursor-pointer flex-shrink-0">
             Copy Link
         </button>
@@ -543,7 +551,7 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
             discipline: { boulder: false, lead: false, speed: false },
             kind: { qualification: false, 'semi-final': false, final: false },
             category: { men: false, women: false },
-            series: { cups: false, paraclimbing: false },
+            series: { world: false, para: false },
         };
 
         checkboxes.forEach((cb) => {
@@ -575,10 +583,10 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
         const series = getEnabledKeys(config.series);
 
         const params = new URLSearchParams();
+        if (series.length > 0 && series.length < 2) params.set('series', series.join(','));
+        if (categories.length > 0 && categories.length < 2) params.set('category', categories.join(','));
         if (disciplines.length > 0 && disciplines.length < 3) params.set('discipline', disciplines.join(','));
         if (kinds.length > 0 && kinds.length < 3) params.set('kind', kinds.join(','));
-        if (categories.length > 0 && categories.length < 2) params.set('category', categories.join(','));
-        if (series.length > 0 && series.length < 2) params.set('series', series.join(','));
 
         const qs = params.toString().replace(/%2C/g, ',');
         return qs ? `${CALENDAR_BASE_URL}/?${qs}` : `${CALENDAR_BASE_URL}/`;
@@ -590,13 +598,27 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
 
         document.getElementById('link-webcal').href = filteredUrl.replace('https://', 'webcal://');
         document.getElementById('link-google').href = `https://www.google.com/calendar/render?cid=${encodedWebcal}`;
-        document.getElementById('filtered-url').textContent = filteredUrl.replace('https://', '');
+        document.getElementById('filtered-url').textContent = filteredUrl;
     }
 
     // Wire up filter change handlers
     document.querySelectorAll('.config-filter').forEach((cb) => {
         cb.addEventListener('change', () => {
             const label = cb.closest('.filter-label');
+            // Keep at least one option active per group — block the last deselect.
+            if (!cb.checked) {
+                const key = cb.dataset.filterKey;
+                const stillOn = document.querySelectorAll(`.config-filter[data-filter-key="${key}"]:checked`).length;
+                if (stillOn === 0) {
+                    cb.checked = true;
+                    if (label) {
+                        label.classList.remove('shake');
+                        void label.offsetWidth; // restart animation
+                        label.classList.add('shake');
+                    }
+                    return;
+                }
+            }
             if (label) {
                 if (cb.checked) {
                     label.classList.add('active');
@@ -606,6 +628,10 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
             }
             updateLinks();
         });
+    });
+
+    document.querySelectorAll('.filter-label').forEach((lbl) => {
+        lbl.addEventListener('animationend', () => lbl.classList.remove('shake'));
     });
 
     // Customize drawer toggle
