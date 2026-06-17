@@ -125,6 +125,17 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
         font-size: 1rem;
     }
 
+    /* Mobile: pin check to top-right corner on horizontal labels too (Series/Category) */
+    @media (max-width: 639px) {
+        .filter-label:not(.filter-label-stacked) .filter-label-check {
+            position: absolute;
+            top: 0.375rem;
+            right: 0.375rem;
+            margin-left: 0;
+            font-size: 1rem;
+        }
+    }
+
     /* ── Section headers ── */
     .section-head {
         --accent: var(--color-primary);
@@ -327,7 +338,7 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
 
 <div>
     <!-- ── Hero ── -->
-    <PageHero badgeLabel="Stay In Sync with the Comp Season" badgeIcon="sync" subtitle="Subscribe once and your calendar stays in sync automatically. Customize it first if you only want certain events.">Build Your <span class="text-primary">Calendar</span></PageHero>
+    <PageHero badgeLabel="Stay In Sync with the Comp Season" badgeIcon="sync" subtitle="Subscribe once and your calendar stays in sync automatically. Customize it first if you only want certain events.">World Climbing <span class="text-primary">Calendar</span></PageHero>
 
     <!-- ── Breadcrumbs ── -->
     <div class="max-w-5xl mx-auto px-6 pt-0 lg:pt-8">
