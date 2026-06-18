@@ -366,13 +366,6 @@ const setup_modal_handlers = () => {
             return;
         }
 
-        const calendarTrigger = event.target.closest('[data-open-calendar-modal]');
-        if (calendarTrigger) {
-            event.preventDefault();
-            load_lazy_calendar_modal().then(() => open_modal('#calendar-modal'));
-            return;
-        }
-
         const trigger = event.target.closest('[data-bs-toggle="modal"]');
         if (trigger) {
             event.preventDefault();
@@ -381,10 +374,6 @@ const setup_modal_handlers = () => {
                 close_modal(currentModal);
             }
             const targetSelector = trigger.getAttribute('data-bs-target');
-            if (targetSelector === '#calendar-modal') {
-                load_lazy_calendar_modal().then(() => open_modal(targetSelector));
-                return;
-            }
             open_modal(targetSelector);
             return;
         }
@@ -480,38 +469,6 @@ const setup_filter_handlers = () => {
         });
     });
 };
-
-let calendarModalContentLoaded = false;
-
-const load_lazy_calendar_modal = async () => {
-    if (calendarModalContentLoaded) {
-        return;
-    }
-
-    const calendarModal = document.getElementById('calendar-modal');
-
-    if (!calendarModal) {
-        return;
-    }
-
-    try {
-        const response = await window.fetch('/modals/sync.html/');
-        const html = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const modalDialog = doc.querySelector('.modal-dialog');
-
-        if (modalDialog) {
-            calendarModal.innerHTML = modalDialog.outerHTML;
-            calendarModalContentLoaded = true;
-            update_calendar_modal_links();
-        }
-    } catch (_) {
-        // ignore fetch errors
-    }
-};
-
-window.load_lazy_calendar_modal = load_lazy_calendar_modal;
 
 let filterModalContentLoaded = false;
 
