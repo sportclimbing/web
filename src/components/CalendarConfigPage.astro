@@ -542,8 +542,7 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
 
 <script>
     import { DEFAULT_SEASON } from '../lib/config.js';
-
-    const CALENDAR_BASE_URL = 'https://cal.ifsc.stream';
+    import { build_calendar_url, CALENDAR_BASE_URL } from '../lib/shared/calendar-url.js';
 
     function getEnabledFilters() {
         const checkboxes = document.querySelectorAll('.config-filter:checked');
@@ -582,14 +581,13 @@ const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', 
         const categories = getEnabledKeys(config.category);
         const series = getEnabledKeys(config.series);
 
-        const params = new URLSearchParams();
-        if (series.length > 0 && series.length < 2) params.set('series', series.join(','));
-        if (categories.length > 0 && categories.length < 2) params.set('category', categories.join(','));
-        if (disciplines.length > 0 && disciplines.length < 3) params.set('discipline', disciplines.join(','));
-        if (kinds.length > 0 && kinds.length < 3) params.set('kind', kinds.join(','));
-
-        const qs = params.toString().replace(/%2C/g, ',');
-        return qs ? `${CALENDAR_BASE_URL}/?${qs}` : `${CALENDAR_BASE_URL}/`;
+        // Emit a segment only when a group is partially selected (full/none => "all").
+        return build_calendar_url({
+            series: series.length > 0 && series.length < 2 ? series : [],
+            category: categories.length > 0 && categories.length < 2 ? categories : [],
+            discipline: disciplines.length > 0 && disciplines.length < 3 ? disciplines : [],
+            round: kinds.length > 0 && kinds.length < 3 ? kinds : [],
+        });
     }
 
     function updateLinks() {

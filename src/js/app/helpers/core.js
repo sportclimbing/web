@@ -470,20 +470,17 @@ function apply_search_filters() {
     };
 }
 
-const CALENDAR_BASE_URL = 'https://cal.ifsc.stream';
-
 function build_filtered_calendar_url(config) {
     const disciplines = get_enabled_filter_keys(config.disciplines || {});
     const rounds = get_enabled_filter_keys(config.rounds || {});
     const categories = get_enabled_filter_keys(config.category || {});
 
-    const params = new URLSearchParams();
-    if (disciplines.length > 0 && disciplines.length < 3) params.set('discipline', disciplines.join(','));
-    if (rounds.length > 0 && rounds.length < 3) params.set('kind', rounds.join(','));
-    if (categories.length > 0 && categories.length < 2) params.set('category', categories.join(','));
-
-    const qs = params.toString();
-    return qs ? `${CALENDAR_BASE_URL}/?${qs}` : `${CALENDAR_BASE_URL}/`;
+    // Emit a segment only when a group is partially selected (full/none => "all").
+    return build_calendar_url({
+        category: categories.length > 0 && categories.length < 2 ? categories : [],
+        discipline: disciplines.length > 0 && disciplines.length < 3 ? disciplines : [],
+        round: rounds.length > 0 && rounds.length < 3 ? rounds : [],
+    });
 }
 
 function update_calendar_modal_links() {
