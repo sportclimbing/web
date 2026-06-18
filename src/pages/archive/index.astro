@@ -6,8 +6,7 @@ import CardTemplates from '../../components/CardTemplates.astro';
 import Modals from '../../components/Modals.astro';
 import { DEFAULT_SEASON } from '../../lib/config';
 import { getAllSeasons, getSeasonEventsPayload } from '../../lib/events-data';
-import { siteAssetVersion } from '../../lib/site-shell';
-import '../../styles/tailwind.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import CalendarSyncBanner from "../../components/CalendarSyncBanner.astro";
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import PageHero from '../../components/PageHero.astro';
@@ -28,51 +27,19 @@ const seasonStats = Object.fromEntries(seasons.map((s) => {
 
 const pageTitle = `World Climbing Archive - Re-watch Historical Seasons`;
 const pageDescription = `Browse historical World Climbing seasons, competition results, and statistics from past IFSC events.`;
-const canonicalUrl = 'https://ifsc.stream/archive/';
-const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
+const canonicalPath = '/archive/';
+const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
 ---
-<!doctype html>
-<html lang="en">
-<head>
-  <script>document.documentElement.classList.add('dark');</script>
-  <meta charset="utf-8" />
-  <title>{pageTitle}</title>
-  <meta name="description" content={pageDescription} />
-  <meta name="robots" content="index,follow,max-image-preview:large" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <base href="/" />
-  <link rel="canonical" href={canonicalUrl} />
-  <link rel="preload" href={`/fonts/plus-jakarta-sans-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href={`/fonts/space-grotesk-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href={`/fonts/material-symbols-outlined.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-  <link rel="preconnect" href="https://cal.ifsc.stream" />
-  <link rel="preconnect" href="https://img.youtube.com" />
-  <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
-
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: rgb(var(--color-background)); color: rgb(var(--color-on-background)); }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: rgb(var(--color-background)); }
-    ::-webkit-scrollbar-thumb { background: rgb(var(--color-surface-variant)); border-radius: 4px; }
-  </style>
-
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:site_name" content="ifsc.stream" />
-  <meta property="og:title" content={pageTitle} />
-  <meta property="og:description" content={pageDescription} />
-  <meta property="og:image" content={socialImageUrl} />
-  <meta property="og:image:alt" content={`World Climbing historical seasons archive`} />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={pageTitle} />
-  <meta name="twitter:description" content={pageDescription} />
-  <meta name="twitter:image" content={socialImageUrl} />
-  <meta name="twitter:image:alt" content={`World Climbing historical seasons archive`} />
-
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath={canonicalPath}
+  socialImagePath={`/img/season/${season}.svg`}
+  socialImageAlt={`World Climbing historical seasons archive`}
+  pageType="archive"
+>
   <script
+    slot="head"
     is:inline
     type="application/ld+json"
     id="structured-data-breadcrumbs"
@@ -85,10 +52,6 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
       ],
     })}
   ></script>
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.svg" id="favicon" />
-</head>
-<body class="bg-background text-on-background min-h-screen" data-page-type="archive" data-build-version={siteAssetVersion}>
 
 <AppHeader />
 
@@ -180,9 +143,4 @@ const socialImageUrl = `https://ifsc.stream/img/season/${season}.svg`;
   <div class="absolute bottom-[5%] right-[-10%] w-[600px] h-[600px] bg-secondary-container/5 rounded-full blur-[150px]"></div>
 </div>
 
-<script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
-<script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
-<script is:inline src={`/js/app.js?v=${siteAssetVersion}`}></script>
-
-</body>
-</html>
+</BaseLayout>

@@ -6,51 +6,20 @@ import CardTemplates from '../../components/CardTemplates.astro';
 import Modals from '../../components/Modals.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import PageHero from '../../components/PageHero.astro';
-import { siteAssetVersion } from '../../lib/site-shell';
-import '../../styles/tailwind.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const pageTitle = 'World Climbing Calendar | Privacy Policy & Cookies';
 const pageDescription = 'Learn how ifsc.stream uses cookies and analytics to understand site usage. Manage your consent preferences at any time.';
-const canonicalUrl = 'https://ifsc.stream/privacy-policy/';
+const canonicalPath = '/privacy-policy/';
 ---
-<!doctype html>
-<html lang="en">
-<head>
-  <script>document.documentElement.classList.add('dark');</script>
-  <meta charset="utf-8" />
-  <title>{pageTitle}</title>
-  <meta name="description" content={pageDescription} />
-  <meta name="robots" content="index,follow" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <base href="/" />
-  <link rel="canonical" href={canonicalUrl} />
-  <link rel="preload" href={`/fonts/plus-jakarta-sans-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href={`/fonts/space-grotesk-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href={`/fonts/material-symbols-outlined.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
-
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #101418; }
-    ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }
-  </style>
-
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:site_name" content="ifsc.stream" />
-  <meta property="og:title" content={pageTitle} />
-  <meta property="og:description" content={pageDescription} />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content={pageTitle} />
-  <meta name="twitter:description" content={pageDescription} />
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.svg" id="favicon" />
-</head>
-<body class="bg-background text-on-background min-h-screen flex flex-col selection:bg-primary/30" data-page-type="privacy-policy" data-build-version={siteAssetVersion}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath={canonicalPath}
+  socialImageAlt="ifsc.stream privacy policy"
+  bodyClass="bg-background text-on-background min-h-screen flex flex-col selection:bg-primary/30"
+  pageType="privacy-policy"
+>
 
 <AppHeader />
 
@@ -226,10 +195,7 @@ const canonicalUrl = 'https://ifsc.stream/privacy-policy/';
   <div class="absolute bottom-[5%] right-[-10%] w-[600px] h-[600px] bg-secondary-container/5 rounded-full blur-[150px]"></div>
 </div>
 
-<script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
-<script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
-<script is:inline src={`/js/app.js?v=${siteAssetVersion}`}></script>
-<script is:inline>
+<script slot="body-end" is:inline>
   (function () {
     var btn = document.getElementById('open-cookie-settings-page');
     var trigger = document.getElementById('open-cookie-settings');
@@ -238,5 +204,4 @@ const canonicalUrl = 'https://ifsc.stream/privacy-policy/';
     }
   })();
 </script>
-</body>
-</html>
+</BaseLayout>

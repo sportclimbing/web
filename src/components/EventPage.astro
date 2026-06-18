@@ -1,7 +1,6 @@
 ---
-import { siteAssetVersion } from '../lib/site-shell';
 import { extract_youtube_video_id } from '../lib/shared/media';
-import '../styles/tailwind.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import AppHeader from './AppHeader.astro';
 import AppFooter from './AppFooter.astro';
 import EventCards from './EventCards.astro';
@@ -103,9 +102,6 @@ const hasRelatedEventLinks = Boolean(
   || sameSeasonEventLinks.length
   || sameDisciplineEventLinks.length,
 );
-const socialImageUrl = socialImagePath.startsWith('http')
-  ? socialImagePath
-  : `https://ifsc.stream${socialImagePath}`;
 const breadcrumbStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -131,73 +127,27 @@ const breadcrumbStructuredData = {
   ],
 };
 ---
-<!doctype html>
-<html lang="en">
-<head>
-    <script>document.documentElement.classList.add('dark');</script>
-    <meta charset="utf-8" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDescription} />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <base href="/" />
-    <link rel="canonical" href={canonicalUrl} />
-    <link rel="preload" href={`/fonts/plus-jakarta-sans-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={`/fonts/space-grotesk-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={`/fonts/material-symbols-outlined.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-    <link rel="preconnect" href="https://cal.ifsc.stream" />
-    <link rel="preconnect" href="https://img.youtube.com" />
-    <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
-
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: rgb(var(--color-background)); color: rgb(var(--color-on-background)); }
-        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+<BaseLayout
+    title={pageTitle}
+    description={pageDescription}
+    canonicalPath={canonicalPath}
+    socialImagePath={socialImagePath}
+    socialImageAlt={socialImageAlt}
+    pageType="event"
+    updatedAt={updatedAt}
+    bodyData={{ 'data-event-id': normalizedEventId || undefined }}
+>
+    <style slot="head">
         .glass-panel { background: rgb(var(--color-background) / 0.7); backdrop-filter: blur(20px); }
         .kinetic-gradient { background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%); }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: rgb(var(--color-background)); }
-        ::-webkit-scrollbar-thumb { background: rgb(var(--color-surface-variant)); border-radius: 4px; }
         #event-map :global(.leaflet-tile-pane) { filter: saturate(0.8) contrast(0.9); }
     </style>
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content="ifsc.stream" />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:image" content={socialImageUrl} />
-    <meta property="og:image:alt" content={socialImageAlt} />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content={socialImageUrl} />
-    <meta name="twitter:image:alt" content={socialImageAlt} />
-
-    <script type="application/ld+json" id="structured-data-organization">
-        {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "@id": "https://ifsc.stream/#organization",
-            "name": "ifsc.stream",
-            "url": "https://ifsc.stream/",
-            "logo": "https://ifsc.stream/img/logo.png",
-            "sameAs": [
-                "https://github.com/sportclimbing/ifsc-calendar",
-                "https://www.instagram.com/nicoswd/"
-            ]
-        }
-    </script>
     <script
+      slot="head"
       type="application/ld+json"
       id="structured-data-breadcrumbs"
       set:html={JSON.stringify(breadcrumbStructuredData)}
     ></script>
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.svg" id="favicon" />
-</head>
-<body class="bg-background text-on-background min-h-screen" data-page-type="event" data-event-id={normalizedEventId || undefined} data-build-version={siteAssetVersion} data-updated-at={updatedAt}>
 
 <AppHeader />
 
@@ -307,9 +257,4 @@ const breadcrumbStructuredData = {
 
 <AppFooter />
 <CookieConsent />
-
-<script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
-<script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
-<script is:inline src={`/js/app.js?v=${siteAssetVersion}`}></script>
-</body>
-</html>
+</BaseLayout>
