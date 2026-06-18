@@ -244,8 +244,8 @@ function toggle_theme() {
 }
 
 function restore_theme() {
-    const saved = get_cookie('ifsc_theme');
-    apply_theme(saved === 'light' || saved === 'dark' ? saved : get_system_theme());
+    // Light mode disabled — force dark for all users. Toggle code kept but unused.
+    apply_theme('dark');
 }
 
 function config_is_enabled(name) {
