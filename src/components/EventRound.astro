@@ -23,7 +23,7 @@ const liveBadgeClass = 'text-primary bg-primary/10';
 const watchButtonClass = 'border border-primary text-primary hover:bg-primary/10';
 
 ---
-<li class={`flex flex-row flex-wrap items-start sm:items-center gap-3 sm:gap-6 p-3 sm:p-5 bg-surface-container-high rounded-xl group cursor-pointer hover:bg-surface-container-highest transition-colors event-round-card ifsc-event ${isDimmed ? 'opacity-80' : ''} ${isHiddenNoStream ? 'hidden unstreamed-round' : ''}`}
+<li class={`flex flex-row flex-wrap items-start sm:items-center gap-3 sm:gap-6 p-3 sm:p-5 bg-surface-container-highest rounded-xl group cursor-pointer hover:bg-surface-container-high transition-colors event-round-card ifsc-event ${isDimmed ? 'opacity-80' : ''} ${isHiddenNoStream ? 'hidden unstreamed-round' : ''}`}
      data-round-kind={round.kind}
      data-round-disciplines={(Array.isArray(round.disciplines) ? round.disciplines : []).join(',')}
      data-round-categories={(Array.isArray(round.categories) ? round.categories : []).join(',')}
@@ -33,7 +33,8 @@ const watchButtonClass = 'border border-primary text-primary hover:bg-primary/10
      data-round-key={roundKey}
      data-round-blocked-regions={Array.isArray(round.stream_blocked_regions) && round.stream_blocked_regions.length > 0 ? round.stream_blocked_regions.join(',') : undefined}>
     
-    <div class="w-24 sm:w-32 aspect-video bg-black rounded-lg overflow-hidden flex-shrink-0 relative">
+    <div class="w-24 sm:w-32 aspect-video bg-black rounded-lg overflow-hidden flex-shrink-0 relative"
+         {...(willBeStreamed ? { 'data-action': 'round-stream', 'data-round-stream-url': round.stream_url || undefined } : {})}>
         {thumbnailUrl ? (
             <img class={`w-full h-full object-cover ${isDimmed ? 'opacity-50' : 'opacity-80'}`} src={thumbnailUrl} alt="Stream Thumbnail" loading="lazy" />
         ) : (
@@ -55,7 +56,8 @@ const watchButtonClass = 'border border-primary text-primary hover:bg-primary/10
     </div>
 
     <div class="flex-1 min-w-0 flex flex-col">
-        <h4 class={`font-bold text-xs sm:text-sm lg:text-lg uppercase leading-tight truncate round-name mb-2 ${isDimmed ? 'text-on-surface-variant' : 'text-white'}`}>{round.name}</h4>
+        <h4 class={`font-bold text-xs sm:text-sm lg:text-lg uppercase leading-tight truncate round-name mb-2 ${isDimmed ? 'text-on-surface-variant' : 'text-on-surface'}${willBeStreamed ? ' hover:text-primary transition-colors' : ''}`}
+            {...(willBeStreamed ? { 'data-action': 'round-stream', 'data-round-stream-url': round.stream_url || undefined } : {})}>{round.name}</h4>
         <div class="text-[11px] sm:text-[13px] text-on-surface-variant font-medium sm:mb-1 flex flex-col gap-0.5">
             <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px] sm:text-[15px] text-primary">calendar_today</span><span class="round-date">{formatRoundDate}</span></span>
             <span class="flex items-center gap-1"><span class="material-symbols-outlined text-[13px] sm:text-[15px] text-primary">schedule</span><span class="round-time">{formatRoundTime}</span>{formatRoundEndTime && <span class="round-end-time"> - {formatRoundEndTime}</span>} <span class="round-starts-in hidden ml-2"></span></span>

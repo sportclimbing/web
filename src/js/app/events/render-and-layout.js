@@ -366,13 +366,6 @@ const setup_modal_handlers = () => {
             return;
         }
 
-        const calendarTrigger = event.target.closest('[data-open-calendar-modal]');
-        if (calendarTrigger) {
-            event.preventDefault();
-            load_lazy_calendar_modal().then(() => open_modal('#calendar-modal'));
-            return;
-        }
-
         const trigger = event.target.closest('[data-bs-toggle="modal"]');
         if (trigger) {
             event.preventDefault();
@@ -381,10 +374,6 @@ const setup_modal_handlers = () => {
                 close_modal(currentModal);
             }
             const targetSelector = trigger.getAttribute('data-bs-target');
-            if (targetSelector === '#calendar-modal') {
-                load_lazy_calendar_modal().then(() => open_modal(targetSelector));
-                return;
-            }
             open_modal(targetSelector);
             return;
         }
@@ -481,37 +470,6 @@ const setup_filter_handlers = () => {
     });
 };
 
-let calendarModalContentLoaded = false;
-
-const load_lazy_calendar_modal = async () => {
-    if (calendarModalContentLoaded) {
-        return;
-    }
-
-    const calendarModal = document.getElementById('calendar-modal');
-
-    if (!calendarModal) {
-        return;
-    }
-
-    try {
-        const response = await window.fetch('/modals/sync.html/');
-        const html = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const modalDialog = doc.querySelector('.modal-dialog');
-
-        if (modalDialog) {
-            calendarModal.innerHTML = modalDialog.outerHTML;
-            calendarModalContentLoaded = true;
-        }
-    } catch (_) {
-        // ignore fetch errors
-    }
-};
-
-window.load_lazy_calendar_modal = load_lazy_calendar_modal;
-
 let filterModalContentLoaded = false;
 
 const setup_lazy_filter_modal = () => {
@@ -587,27 +545,3 @@ const setup_discipline_quick_filters = () => {
     });
 };
 
-const setup_season_picker_click_target = () => {
-    const seasonLabel = document.querySelector('.season-label');
-    const seasonSelect = document.querySelector(SEASON_SELECTOR);
-
-    if (!seasonLabel || !seasonSelect) {
-        return;
-    }
-
-    seasonLabel.addEventListener('click', (event) => {
-        event.preventDefault();
-        seasonSelect.focus();
-
-        if (typeof seasonSelect.showPicker === 'function') {
-            seasonSelect.showPicker();
-            return;
-        }
-
-        seasonSelect.dispatchEvent(new MouseEvent('mousedown', {
-            bubbles: true,
-            cancelable: true,
-            view: window,
-        }));
-    });
-};

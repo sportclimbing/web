@@ -1,5 +1,7 @@
 export const DEFAULT_SEASON = '2026';
 
+export const SITE_URL = 'https://ifsc.stream';
+
 /**
  * Per-season hero background overrides.
  * - `youTubeVideoId`: YouTube video ID to use instead of the auto-detected one.

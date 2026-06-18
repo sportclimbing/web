@@ -196,6 +196,12 @@ const main = async () => {
     });
 
     add_entry({
+        loc: site_url_with_trailing_slash(siteUrl, '/calendar'),
+        changefreq: 'weekly',
+        priority: '0.70',
+    });
+
+    add_entry({
         loc: site_url_with_trailing_slash(siteUrl, '/faq'),
         changefreq: 'weekly',
         priority: '0.70',

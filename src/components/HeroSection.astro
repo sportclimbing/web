@@ -28,7 +28,8 @@ const resolvedBgPosition = heroBgPosition ?? (isYouTubeBg ? 'center 5%' : 'cente
             {heroBgMobile && <source media="(max-width: 1023px)" srcset={heroBgMobile} />}
             <img src={heroBgImage} alt="" aria-hidden="true" fetchpriority="high" loading="eager" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-60" style={`object-position: ${resolvedBgPosition};`} />
         </picture>
-        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-background via-background/55 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
     </div>
     <div class="relative z-10 max-w-screen-2xl mx-auto px-6 w-full next-event">
         <div class="max-w-5xl">

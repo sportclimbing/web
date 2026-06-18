@@ -101,16 +101,80 @@ const setup_start_list_avatar_tooltips = () => {
 };
 
 const setup_season_navigation = () => {
-    const seasonSelector = document.querySelector(SEASON_SELECTOR);
+    document.querySelectorAll(SEASON_SELECTOR).forEach((seasonSelector) => {
+        seasonSelector.addEventListener('change', (event) => {
+            const season = event.target.value;
 
-    if (!seasonSelector) {
+            window.location = `/season/${season}/`;
+        });
+    });
+
+    setup_season_dropdown();
+};
+
+const setup_season_dropdown = () => {
+    const trigger = document.getElementById('season-selector');
+    const dropdown = trigger ? trigger.closest('.season-dropdown') : null;
+    const panel = document.getElementById('season-dropdown-menu');
+
+    if (!(trigger instanceof HTMLButtonElement) || !dropdown || !panel) {
         return;
     }
 
-    seasonSelector.addEventListener('change', (event) => {
-        const season = event.target.value;
+    const is_open = () => dropdown.classList.contains('is-open');
 
-        window.location = `/season/${season}/`;
+    const set_open = (open) => {
+        dropdown.classList.toggle('is-open', open);
+        trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+
+    trigger.addEventListener('click', (event) => {
+        event.stopPropagation();
+        set_open(!is_open());
+    });
+
+    document.addEventListener('click', (event) => {
+        if (is_open() && !dropdown.contains(event.target)) {
+            set_open(false);
+        }
+    });
+
+    dropdown.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            if (is_open()) {
+                set_open(false);
+                trigger.focus();
+            }
+            return;
+        }
+
+        if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
+            return;
+        }
+
+        if (!is_open()) {
+            if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                set_open(true);
+            }
+            return;
+        }
+
+        event.preventDefault();
+
+        const links = Array.from(panel.querySelectorAll('a'));
+
+        if (links.length === 0) {
+            return;
+        }
+
+        const currentIndex = links.indexOf(document.activeElement);
+        const direction = event.key === 'ArrowDown' ? 1 : -1;
+        const nextIndex = currentIndex === -1
+            ? (direction === 1 ? 0 : links.length - 1)
+            : Math.min(Math.max(currentIndex + direction, 0), links.length - 1);
+
+        links[nextIndex].focus();
     });
 };
 
@@ -314,4 +378,23 @@ const setup_month_navigation = () => {
     addEventListener('scroll', schedule_month_navigation_sync, { passive: true });
     addEventListener('resize', schedule_month_navigation_sync);
     sync_active_month_navigation_link();
+};
+
+const setup_sticky_filter_bar = () => {
+    const sentinel = document.getElementById('filter-bar-sentinel');
+    const bar = document.getElementById('filter-bar');
+
+    if (!sentinel || !bar || typeof IntersectionObserver === 'undefined') {
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        ([entry]) => {
+            // sentinel above the 72px line => bar is pinned
+            bar.classList.toggle('is-stuck', !entry.isIntersecting);
+        },
+        { rootMargin: '-72px 0px 0px 0px', threshold: 0 },
+    );
+
+    observer.observe(sentinel);
 };

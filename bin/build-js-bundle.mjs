@@ -5,6 +5,7 @@ import { transform } from 'esbuild';
 const ROOT = process.cwd();
 const SOURCE_FILES = [
   'src/lib/shared/media.js',
+  'src/lib/shared/calendar-url.js',
   'src/lib/config.js',
   'src/js/app/helpers/core.js',
   'src/js/app/helpers/render.js',
@@ -20,6 +21,7 @@ const SOURCE_FILES = [
 ];
 const SHARED_SOURCE_FILES = new Set([
   'src/lib/shared/media.js',
+  'src/lib/shared/calendar-url.js',
   'src/lib/config.js',
   'src/js/app/helpers/core.js',
 ]);

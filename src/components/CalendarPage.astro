@@ -1,7 +1,6 @@
 ---
-import { siteAssetVersion } from '../lib/site-shell';
 import { extract_youtube_video_id } from '../lib/shared/media';
-import '../styles/tailwind.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 import AppHeader from './AppHeader.astro';
 import AppFooter from './AppFooter.astro';
 import EventCards from './EventCards.astro';
@@ -11,6 +10,7 @@ import CardTemplates from './CardTemplates.astro';
 import HeroSection from './HeroSection.astro';
 import CookieConsent from './CookieConsent.astro';
 import CalendarSyncBanner from './CalendarSyncBanner.astro';
+import SeasonMonthNav from './SeasonMonthNav.astro';
 import { build_event_page_path } from '../lib/event-pages';
 import { round_will_be_streamed } from '../js/app/helpers/core.js';
 import { HERO_BG_OVERRIDES } from '../lib/config';
@@ -31,10 +31,6 @@ const normalizedSeason = String(season);
 const normalizedSeasons = Array.isArray(seasons) ? seasons.map(String) : [];
 const events = Array.isArray(eventsPayload?.events) ? eventsPayload.events : [];
 const updatedAt = eventsPayload?.metadata?.updated_at || undefined;
-const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
-const socialImageUrl = socialImagePath.startsWith('http')
-  ? socialImagePath
-  : `https://ifsc.stream${socialImagePath}`;
 
 // Find next/live event
 const now = new Date();
@@ -88,99 +84,57 @@ const heroBgImage = resolvedBgVideoId
 const heroBgIsDefault = !resolvedBgVideoId;
 const heroBgPosition = seasonOverride.backgroundPosition ?? null;
 ---
-<!doctype html>
-<html class="dark" lang="en">
-<head>
-    <script>/* Anti-FOUC: dark mode only */
-document.documentElement.classList.add('dark');
-/* Theme toggle disabled — restore when re-enabling:
-(function(){var t=document.cookie.split(';').reduce(function(a,c){var p=c.trim().split('=');return p[0]==='ifsc_theme'?decodeURIComponent(p[1]):a;},'');if(t!=='light'&&t!=='dark')t=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.classList.toggle('dark',t==='dark');}()); */</script>
-    <meta charset="utf-8" />
-    <title>{pageTitle}</title>
-    <meta name="description" content={pageDescription} />
-    <meta name="robots" content={robotsContent} />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <base href="/" />
-    <link rel="canonical" href={canonicalUrl} />
+<BaseLayout
+    title={pageTitle}
+    description={pageDescription}
+    canonicalPath={canonicalPath}
+    robots={robotsContent}
+    socialImagePath={socialImagePath}
+    socialImageAlt={socialImageAlt}
+    pageType="season"
+    updatedAt={updatedAt}
+>
     {heroBgIsDefault ? (
-        <link rel="preload" as="image" fetchpriority="high" imagesrcset="/img/hero/hero-bg-mobile.webp 800w, /img/hero/hero-bg.webp 1280w" imagesizes="100vw" />
+        <link slot="head-preload" rel="preload" as="image" fetchpriority="high" imagesrcset="/img/hero/hero-bg-mobile.webp 800w, /img/hero/hero-bg.webp 1280w" imagesizes="100vw" />
     ) : (
-        <link rel="preload" href={heroBgImage} as="image" fetchpriority="high" />
+        <link slot="head-preload" rel="preload" href={heroBgImage} as="image" fetchpriority="high" />
     )}
-    <link rel="preload" href={`/fonts/plus-jakarta-sans-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={`/fonts/space-grotesk-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={`/fonts/material-symbols-outlined.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-    <link rel="preconnect" href="https://calendar.ifsc.stream" />
-    <link rel="preconnect" href="https://img.youtube.com" />
-    
-    <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
-    
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: rgb(var(--color-background)); color: rgb(var(--color-on-background)); }
-        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+    <style slot="head">
         .glass-panel { background: rgb(var(--color-background) / 0.7); backdrop-filter: blur(20px); }
         .kinetic-gradient { background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%); }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: rgb(var(--color-background)); }
-        ::-webkit-scrollbar-thumb { background: rgb(var(--color-surface-variant)); border-radius: 4px; }
-        .sticky-nav-container { top: 120px; }
-        .season-month-nav-link {
-            transition: all 0.2s ease;
-            transform-origin: left center;
-        }
-        .season-month-nav-link.is-active {
-            color: rgb(var(--color-primary)) !important;
-            transform: scale(1.25);
-            font-weight: 900;
-            text-shadow: 0 0 20px rgb(var(--color-primary) / 0.4);
-        }
-        .season-month-nav-link.is-empty {
-            opacity: 0.2;
-            filter: grayscale(1);
-        }
         .discipline-quick-filter[data-active="true"] {
-            background-color: rgb(var(--color-primary) / 0.15);
+            background-color: rgb(var(--color-primary) / 0.18);
             color: rgb(var(--color-primary));
-            border-color: rgb(var(--color-primary));
+            border-color: rgb(var(--color-primary) / 0.6);
+            box-shadow: 0 0 12px rgb(var(--color-primary) / 0.15) inset;
         }
         .discipline-quick-filter[data-active="true"]:hover {
             background-color: rgb(var(--color-primary) / 0.25);
         }
-    </style>
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content="ifsc.stream" />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDescription} />
-    <meta property="og:image" content={socialImageUrl} />
-    <meta property="og:image:alt" content={socialImageAlt} />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content={socialImageUrl} />
-    <meta name="twitter:image:alt" content={socialImageAlt} />
-
-    <script type="application/ld+json" id="structured-data-organization">
-        {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "@id": "https://ifsc.stream/#organization",
-            "name": "ifsc.stream",
-            "url": "https://ifsc.stream/",
-            "logo": "https://ifsc.stream/img/logo.png",
-            "sameAs": [
-                "https://github.com/sportclimbing/ifsc-calendar",
-                "https://www.instagram.com/nicoswd/"
-            ]
+        @media (min-width: 1024px) {
+            #filter-bar .filter-bar-breadcrumb {
+                max-width: 320px;
+                opacity: 1;
+                overflow: hidden;
+                transition: max-width 0.3s ease, opacity 0.2s ease;
+            }
+            #filter-bar.is-stuck {
+                width: fit-content;
+                margin-left: auto;
+            }
+            #filter-bar.is-stuck .filter-bar-breadcrumb {
+                max-width: 0;
+                opacity: 0;
+            }
+            #filter-bar .filter-bar-inner {
+                transition: background-color 0.3s ease;
+            }
+            #filter-bar.is-stuck .filter-bar-inner {
+                background-color: rgb(var(--color-surface-container-highest));
+                gap: 0;
+            }
         }
-    </script>
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
-</head>
-<body class="bg-background text-on-background min-h-screen" data-page-type="season" data-build-version={siteAssetVersion} data-updated-at={updatedAt}>
+    </style>
 
 <AppHeader />
 
@@ -198,49 +152,38 @@ document.documentElement.classList.add('dark');
     />
 
     <!-- Main Content Area with Side Nav -->
-    <div class="max-w-screen-2xl mx-auto px-2 sm:px-6 pt-0 lg:pt-8 flex gap-12 relative" id="accordion">
+    <div class="max-w-screen-2xl mx-auto px-3 sm:px-6 pt-0 lg:pt-8 flex gap-8 lg:gap-12 relative" id="accordion">
         <!-- Sticky Vertical Navigation -->
-        <aside class="hidden lg:block w-48 shrink-0">
-            <div class="sticky sticky-nav-container flex flex-col gap-6 font-headline font-black uppercase season-month-nav" id="season-month-nav">
-                <div class="text-xs tracking-[0.2em] text-on-surface-variant mb-4 font-label">Timeline {normalizedSeason}</div>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="0">January</button>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="1">February</button>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="2">March</button>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="3">April</button>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="4">May</button>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="5">June</button>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="6">July</button>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="7">August</button>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="8">September</button>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="9">October</button>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="10">November</button>
-                <button type="button" class="transition-all text-left season-month-nav-link" data-month-index="11">December</button>
-            </div>
-        </aside>
+        <SeasonMonthNav season={normalizedSeason} seasons={normalizedSeasons} />
 
         <!-- Events Content -->
         <div class="flex-1 lg:max-w-[75%] pb-24">
             <!-- Filter & Search Bar -->
-            <section class="mb-4 lg:mb-4">
-                <div class="bg-surface-container-low p-2 rounded-xl flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
-                    <div class="grid grid-cols-[1fr_auto_1fr] lg:flex items-center gap-2 p-1 bg-surface-container-lowest rounded-lg w-full md:w-auto">
-                        <div class="relative min-w-0">
-                            <select id="season-selector" name="season-selector" aria-label="Season" class="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10">
-                                {normalizedSeasons.map((s) => (
-                                    <option value={s} selected={s === normalizedSeason}>{s} Season</option>
-                                ))}
-                            </select>
-                            <button class="w-full lg:w-auto px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest">{normalizedSeason} Season</button>
+            <div id="filter-bar-sentinel" aria-hidden="true"></div>
+            <section id="filter-bar" class="mb-4 lg:mb-4 lg:sticky lg:top-[72px] z-30">
+                <div class="filter-bar-inner bg-surface-container-low/75 backdrop-blur-xl border border-outline-variant/25 p-2 rounded-2xl shadow-lg shadow-black/20 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
+                    <nav aria-label="Breadcrumb" class="filter-bar-breadcrumb w-full md:w-auto">
+                        <div class="grid grid-cols-[auto_1fr] lg:flex items-center gap-1 lg:gap-2 p-1 bg-surface-container-lowest/80 rounded-xl w-full md:w-auto">
+                            <a href="/" aria-label="Home" class="flex items-center justify-center gap-1.5 px-3 lg:px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60 rounded-lg transition-colors uppercase text-xs tracking-widest font-bold">
+                                <span class="material-symbols-outlined text-sm leading-none">home</span>
+                                <span class="hidden lg:inline">Home</span>
+                            </a>
+                            <div class="relative min-w-0">
+                                <select id="season-selector-mobile" name="season-selector" aria-label="Season" class="lg:hidden opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10">
+                                    {normalizedSeasons.map((s) => (
+                                        <option value={s} selected={s === normalizedSeason}>{s} Season</option>
+                                    ))}
+                                </select>
+                                <button class="w-full lg:w-auto px-4 lg:px-6 py-2 bg-primary text-on-primary font-bold rounded-lg uppercase text-xs tracking-widest shadow-md shadow-primary/25 flex items-center justify-center gap-1 whitespace-nowrap" aria-current="page">{normalizedSeason} Season <span class="material-symbols-outlined text-sm leading-none lg:hidden">expand_more</span></button>
+                            </div>
                         </div>
+                    </nav>
+                    <div class="flex flex-nowrap items-center justify-center gap-1 p-1 bg-surface-container-lowest/80 rounded-xl w-full md:w-auto">
+                        <button class="discipline-quick-filter flex-1 md:flex-none px-3 py-1.5 lg:py-[5px] lg:px-4 border border-transparent text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="boulder">Boulder</button>
+                        <button class="discipline-quick-filter flex-1 md:flex-none px-3 py-1.5 lg:py-[5px] lg:px-4 border border-transparent text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="lead">Lead</button>
+                        <button class="discipline-quick-filter flex-1 md:flex-none px-3 py-1.5 lg:py-[5px] lg:px-4 border border-transparent text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="speed">Speed</button>
                         <div class="h-4 w-px bg-outline-variant mx-1"></div>
-                        <a href="/archive/" class="min-w-0 text-center px-6 py-2 text-on-surface-variant hover:text-on-surface transition-colors uppercase text-xs tracking-widest font-bold">Archive</a>
-                    </div>
-                    <div class="flex flex-nowrap justify-center gap-2 w-full md:w-auto">
-                        <button class="discipline-quick-filter flex-1 md:flex-none px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="boulder">Boulder</button>
-                        <button class="discipline-quick-filter flex-1 md:flex-none px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="lead">Lead</button>
-                        <button class="discipline-quick-filter flex-1 md:flex-none px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high transition-colors" data-quick-filter="speed">Speed</button>
-                        <div class="h-8 w-px bg-outline-variant mx-2"></div>
-                        <button class="flex-1 md:flex-none px-3 py-1.5 lg:px-4 lg:py-2 border border-outline-variant text-on-surface-variant rounded-lg text-xs lg:text-sm font-medium hover:bg-surface-container-high flex items-center justify-center gap-1.5 lg:gap-2 filters-button" data-open-filter-modal>
+                        <button class="flex-1 md:flex-none px-3 py-1.5 lg:py-[5px] lg:px-4 border border-primary/35 text-primary rounded-lg text-xs lg:text-sm font-medium hover:bg-primary/10 transition-colors flex items-center justify-center gap-1.5 lg:gap-2 filters-button" data-open-filter-modal>
                             <span class="material-symbols-outlined text-sm">filter_list</span> Filters
                         </button>
                     </div>
@@ -250,7 +193,7 @@ document.documentElement.classList.add('dark');
             <!-- Event Calendar -->
             <section aria-labelledby="events-section-heading">
                 <h2 id="events-section-heading" class="sr-only">Season Events</h2>
-                <div class="grid grid-cols-1 gap-4 lg:gap-12">
+                <div class="grid grid-cols-1 gap-4 lg:gap-10">
                     <EventCards events={events} linkEventTitles={true} hideRounds={true} hideScheduleStatusOnMobile={true} showMobileDetailsButton={true} hideInfosheetOnMobile={true} />
                 </div>
             </section>
@@ -261,15 +204,16 @@ document.documentElement.classList.add('dark');
 </main>
 
 
+<!-- Background Decoration -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 overflow-hidden">
+    <div class="absolute top-[-10%] left-[-5%] w-[800px] h-[800px] bg-primary/5 rounded-full blur-[150px]"></div>
+    <div class="absolute bottom-[5%] right-[-10%] w-[600px] h-[600px] bg-tertiary/5 rounded-full blur-[150px]"></div>
+</div>
+
 <Modals />
 <VideoModal />
 <CardTemplates />
 
 <AppFooter />
 <CookieConsent />
-
-<script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
-<script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
-<script is:inline src={`/js/app.js?v=${siteAssetVersion}`}></script>
-</body>
-</html>
+</BaseLayout>

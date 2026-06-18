@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AppHeader from '../../components/AppHeader.astro';
+import AppFooter from '../../components/AppFooter.astro';
+import CookieConsent from '../../components/CookieConsent.astro';
+import CalendarConfigPage from '../../components/CalendarConfigPage.astro';
+import { DEFAULT_SEASON } from '../../lib/config.js';
+
+const season = DEFAULT_SEASON;
+const pageTitle = `Subscribe to the IFSC Climbing Calendar ${season} — Boulder, Lead & Speed | ifsc.stream`;
+const pageDescription = `Add the IFSC World Cup ${season} schedule to Apple Calendar, Google Calendar or Outlook. Auto-syncing iCal subscription — filter by discipline, round and category.`;
+const canonicalPath = '/calendar/';
+const canonicalUrl = `https://ifsc.stream${canonicalPath}`;
+
+const breadcrumbStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ifsc.stream/' },
+        { '@type': 'ListItem', position: 2, name: 'Calendar Sync', item: canonicalUrl },
+    ],
+};
+
+const howToStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: `Subscribe to the IFSC climbing calendar ${season}`,
+    description: `Add the IFSC World Cup ${season} schedule to your calendar app so it stays in sync automatically.`,
+    step: [
+        {
+            '@type': 'HowToStep',
+            name: 'Customize the events (optional)',
+            text: 'Open Customize to pick which series, categories, disciplines (Boulder, Lead, Speed) and round types are included in your calendar.',
+            url: `${canonicalUrl}#customize-toggle`,
+        },
+        {
+            '@type': 'HowToStep',
+            name: 'Choose a calendar provider',
+            text: 'Click Apple & Outlook to add the calendar to a native app, or Google Calendar to add it on the web. You can also copy the subscription URL and paste it into your app’s "Subscribe from URL" option.',
+            url: canonicalUrl,
+        },
+        {
+            '@type': 'HowToStep',
+            name: 'Stay in sync',
+            text: 'Confirm the subscription. Your calendar auto-updates as the IFSC schedule changes — add once, stay in sync.',
+            url: canonicalUrl,
+        },
+    ],
+};
+---
+
+<BaseLayout
+    title={pageTitle}
+    description={pageDescription}
+    canonicalPath={canonicalPath}
+    socialImagePath={`/img/season/${season}.svg`}
+    socialImageAlt={`World Climbing ${season} calendar subscription`}
+    bodyClass="bg-surface min-h-screen flex flex-col font-body text-on-surface antialiased"
+    pageType="config"
+>
+    <style slot="head">
+        .kinetic-gradient { background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%); }
+    </style>
+    <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbStructuredData)} />
+    <script slot="head" type="application/ld+json" set:html={JSON.stringify(howToStructuredData)} />
+
+    <AppHeader season={season} />
+    <main class="flex-1">
+        <CalendarConfigPage season={season} />
+    </main>
+    <AppFooter season={season} />
+    <CookieConsent />
+</BaseLayout>

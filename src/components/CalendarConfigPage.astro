@@ -1,0 +1,698 @@
+---
+import Breadcrumb from './Breadcrumb.astro';
+import PageHero from './PageHero.astro';
+
+const { season } = Astro.props;
+
+const allEventsFiles = import.meta.glob('../../events/events_*.json', { eager: true }) as Record<string, { metadata: { updated_at: string } }>;
+const eventsData = allEventsFiles[`../../events/events_${season}.json`];
+const updatedAtIso = eventsData?.metadata?.updated_at;
+const updatedAt = updatedAtIso ? new Date(updatedAtIso).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+}) : '';
+---
+<style>
+    .kinetic-gradient {
+        background: linear-gradient(135deg, #97CCFF 0%, #66B2F2 100%);
+    }
+
+    /* ── Content panel ── */
+    .config-panel {
+        position: relative;
+        background: rgb(var(--color-surface-container));
+        border: 1px solid rgb(var(--color-outline-variant) / 0.25);
+        border-radius: 1.75rem;
+        padding: 2rem 1.25rem;
+        box-shadow:
+            0 24px 80px rgb(var(--color-primary) / 0.08),
+            0 4px 24px rgb(0 0 0 / 0.06);
+    }
+    @media (min-width: 1024px) {
+        .config-panel {
+            padding: 3rem 2.5rem;
+        }
+    }
+
+    /* ── Filter label cards ── */
+    .filter-label {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+        background: rgb(var(--color-surface-container-high));
+        border: 2px solid rgb(var(--color-outline-variant) / 0.15);
+        border-radius: 1rem;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        user-select: none;
+        position: relative;
+    }
+    .filter-label:hover {
+        border-color: rgb(var(--color-primary) / 0.3);
+        background: rgb(var(--color-surface-container-highest));
+    }
+    .filter-label.active {
+        background: rgb(var(--color-primary) / 0.08);
+        border-color: rgb(var(--color-primary) / 0.55);
+    }
+    .filter-label.active .filter-label-icon,
+    .filter-label.active .filter-label-check {
+        color: rgb(var(--color-primary));
+    }
+    .filter-label.active .filter-label-text {
+        color: rgb(var(--color-on-surface));
+    }
+    .filter-label:not(.active) {
+        opacity: 0.5;
+    }
+    @keyframes filter-shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-4px); }
+        75% { transform: translateX(4px); }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+        .filter-label.shake { animation: filter-shake 0.3s ease; }
+    }
+    .filter-label:not(.active):hover {
+        opacity: 0.75;
+    }
+    .filter-label-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        color: rgb(var(--color-primary));
+        transition: color 0.2s ease;
+    }
+    .filter-label-text {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 0.8125rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: rgb(var(--color-on-surface));
+        transition: color 0.2s ease;
+    }
+    .filter-label-check {
+        margin-left: auto;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+        color: rgb(var(--color-primary));
+        transition: all 0.2s ease;
+    }
+    .filter-label:not(.active) .filter-label-check {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    .filter-label.active .filter-label-check {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Stacked variant (discipline, round type) */
+    .filter-label-stacked {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: 0.25rem;
+        padding: 0.75rem 0.5rem;
+    }
+    .filter-label-stacked .filter-label-icon {
+        font-size: 1.75rem;
+    }
+    .filter-label-stacked .filter-label-text {
+        font-size: 0.625rem;
+    }
+    .filter-label-stacked .filter-label-check {
+        position: absolute;
+        top: 0.375rem;
+        right: 0.375rem;
+        margin-left: 0;
+        font-size: 1rem;
+    }
+
+    /* Mobile: pin check to top-right corner on horizontal labels too (Series/Category) */
+    @media (max-width: 639px) {
+        .filter-label:not(.filter-label-stacked) .filter-label-check {
+            position: absolute;
+            top: 0.375rem;
+            right: 0.375rem;
+            margin-left: 0;
+            font-size: 1rem;
+        }
+    }
+
+    /* ── Section headers ── */
+    .section-head {
+        --accent: var(--color-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.875rem;
+    }
+    .section-title {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 800;
+        font-size: 1.0625rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        line-height: 1;
+        white-space: nowrap;
+        background: linear-gradient(90deg, rgb(var(--color-on-surface)) 40%, rgb(var(--color-on-surface) / 0.65) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+    }
+    .section-rule {
+        flex: 1;
+        height: 2px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgb(var(--accent) / 0.45) 0%, rgb(var(--accent) / 0) 100%);
+    }
+
+    /* ── Subscribe cards ── */
+    .subscribe-card {
+        --accent: var(--color-primary);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.75rem 1.25rem;
+        background: rgb(var(--color-surface-container-highest));
+        border: 2px solid rgb(var(--color-outline-variant) / 0.25);
+        border-radius: 1.25rem;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgb(0 0 0 / 0.08);
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .subscribe-card:hover {
+        transform: translateY(-3px);
+        border-color: rgb(var(--accent) / 0.55);
+        box-shadow: 0 10px 28px rgb(var(--accent) / 0.18);
+    }
+    .subscribe-icon-badge {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+        background: rgb(var(--accent) / 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        transition: background 0.2s ease;
+    }
+    .subscribe-icon-badge .material-symbols-outlined {
+        color: rgb(var(--accent));
+    }
+    .subscribe-card:hover .subscribe-icon-badge {
+        background: rgb(var(--accent) / 0.2);
+    }
+    @media (max-width: 639px) {
+        .subscribe-card {
+            padding: 1.25rem 0.75rem;
+        }
+        .subscribe-icon-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            margin-bottom: 0.75rem;
+        }
+        .subscribe-icon-badge .material-symbols-outlined {
+            font-size: 1.375rem;
+        }
+        .subscribe-card .font-headline {
+            font-size: 0.8125rem;
+        }
+        .subscribe-card .text-xs {
+            font-size: 0.6875rem;
+        }
+    }
+    .subscribe-arrow {
+        position: absolute;
+        top: 0.875rem;
+        right: 0.875rem;
+        font-size: 1.125rem;
+        color: rgb(var(--color-on-surface-variant) / 0.45);
+        transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .subscribe-card:hover .subscribe-arrow {
+        color: rgb(var(--accent));
+        transform: translate(2px, -2px);
+    }
+
+    /* ── "or" divider ── */
+    .or-divider {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    .or-divider::before,
+    .or-divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgb(var(--color-outline-variant) / 0.3);
+    }
+    .or-divider span {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 0.625rem;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: rgb(var(--color-on-surface-variant));
+    }
+
+    /* ── URL pill ── */
+    .url-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.375rem;
+        background: rgb(var(--color-surface-container-highest));
+        border: 1px solid rgb(var(--color-outline-variant) / 0.15);
+        border-radius: 1rem;
+        transition: border-color 0.2s ease;
+    }
+    .url-pill:focus-within {
+        border-color: rgb(var(--color-primary) / 0.4);
+    }
+
+    /* ── Customize toggle bar ── */
+    .customize-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+        padding: 1rem 1.25rem;
+        background: rgb(var(--color-surface-container-high));
+        border: 2px solid rgb(var(--color-outline-variant) / 0.15);
+        border-radius: 1rem;
+        cursor: pointer;
+        text-align: left;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .customize-toggle:hover {
+        border-color: rgb(var(--color-primary) / 0.3);
+        background: rgb(var(--color-surface-container-highest));
+    }
+    .customize-toggle[aria-expanded='true'] {
+        border-color: rgb(var(--color-primary) / 0.55);
+        background: rgb(var(--color-primary) / 0.08);
+    }
+    .customize-toggle-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        color: rgb(var(--color-primary));
+    }
+    .customize-toggle-text {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 700;
+        font-size: 0.8125rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: rgb(var(--color-on-surface));
+    }
+    .customize-toggle-chevron {
+        margin-left: auto;
+        font-size: 1.5rem;
+        flex-shrink: 0;
+        color: rgb(var(--color-on-surface-variant));
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .customize-toggle[aria-expanded='true'] .customize-toggle-chevron {
+        transform: rotate(180deg);
+        color: rgb(var(--color-primary));
+    }
+
+    /* ── Filter drawer (collapsible) ── */
+    .filter-drawer {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    }
+    .filter-drawer.is-open {
+        grid-template-rows: 1fr;
+        opacity: 1;
+    }
+    .filter-drawer > .filter-drawer-inner {
+        overflow: hidden;
+        min-height: 0;
+    }
+</style>
+
+<div>
+    <!-- ── Hero ── -->
+    <PageHero badgeLabel="Stay In Sync with the Comp Season" badgeIcon="sync" subtitle="Subscribe to the IFSC World Cup schedule in Apple Calendar, Google Calendar or Outlook. Free auto-syncing iCal subscription that stays up to date. Customize it first if you only want certain events.">World Climbing <span class="text-primary">Calendar</span> {season}</PageHero>
+
+    <!-- ── Breadcrumbs ── -->
+    <div class="max-w-5xl mx-auto px-6 pt-0 lg:pt-8">
+    <Breadcrumb items={[
+        { label: 'Home', href: '/' },
+        { label: 'Calendar Sync' },
+    ]} />
+    </div>
+
+    <!-- ── Content ── -->
+    <div class="max-w-5xl mx-auto px-6 pb-14 lg:pb-20">
+    <div class="config-panel">
+
+    <!-- ── Customize toggle ── -->
+    <button type="button" id="customize-toggle" class="customize-toggle mb-8" aria-expanded="false" aria-controls="filter-drawer">
+        <span class="customize-toggle-icon material-symbols-outlined">tune</span>
+        <span class="customize-toggle-text">Customize which events are included</span>
+        <span class="customize-toggle-chevron material-symbols-outlined" aria-hidden="true">expand_more</span>
+    </button>
+
+    <!-- ── Filters (collapsible) ── -->
+    <div id="filter-drawer" class="filter-drawer mb-4">
+    <div class="filter-drawer-inner">
+    <div class="space-y-10 pb-4">
+
+        <!-- Series -->
+        <section>
+            <div class="section-head mb-5">
+                <h2 class="section-title">Series</h2>
+                <span class="section-rule"></span>
+            </div>
+            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Choose which IFSC World Cup competition series to include in your calendar.</p>
+            <div class="grid grid-cols-2 gap-3">
+                <label class="filter-label active">
+                    <input type="checkbox" name="series[world]" value="world" checked class="sr-only config-filter" data-filter-key="series" data-filter-value="world" />
+                    <span class="filter-label-icon material-symbols-outlined">emoji_events</span>
+                    <span class="filter-label-text">World Series</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label">
+                    <input type="checkbox" name="series[para]" value="para" class="sr-only config-filter" data-filter-key="series" data-filter-value="para" />
+                    <span class="filter-label-icon material-symbols-outlined">military_tech</span>
+                    <span class="filter-label-text">Para Series</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Category -->
+        <section>
+            <div class="section-head mb-5">
+                <h2 class="section-title">Category</h2>
+                <span class="section-rule"></span>
+            </div>
+            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Follow men's rounds, women's rounds, or both.</p>
+            <div class="grid grid-cols-2 gap-3">
+                <label class="filter-label active">
+                    <input type="checkbox" name="category[men]" value="men" checked class="sr-only config-filter" data-filter-key="category" data-filter-value="men" />
+                    <span class="filter-label-icon material-symbols-outlined">man</span>
+                    <span class="filter-label-text">Men</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label active">
+                    <input type="checkbox" name="category[women]" value="women" checked class="sr-only config-filter" data-filter-key="category" data-filter-value="women" />
+                    <span class="filter-label-icon material-symbols-outlined">woman</span>
+                    <span class="filter-label-text">Women</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Discipline -->
+        <section>
+            <div class="section-head mb-5">
+                <h2 class="section-title">Discipline</h2>
+                <span class="section-rule"></span>
+            </div>
+            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Pick the climbing disciplines you want to keep up with — Boulder, Lead and Speed.</p>
+            <div class="grid grid-cols-3 gap-3">
+                <label class="filter-label filter-label-stacked active">
+                    <input type="checkbox" name="discipline[boulder]" value="boulder" checked class="sr-only config-filter" data-filter-key="discipline" data-filter-value="boulder" />
+                    <span class="filter-label-icon material-symbols-outlined">landslide</span>
+                    <span class="filter-label-text">Boulder</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label filter-label-stacked active">
+                    <input type="checkbox" name="discipline[lead]" value="lead" checked class="sr-only config-filter" data-filter-key="discipline" data-filter-value="lead" />
+                    <span class="filter-label-icon material-symbols-outlined">altitude</span>
+                    <span class="filter-label-text">Lead</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label filter-label-stacked active">
+                    <input type="checkbox" name="discipline[speed]" value="speed" checked class="sr-only config-filter" data-filter-key="discipline" data-filter-value="speed" />
+                    <span class="filter-label-icon material-symbols-outlined">speed</span>
+                    <span class="filter-label-text">Speed</span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Round Type -->
+        <section>
+            <div class="section-head mb-5">
+                <h2 class="section-title">Round Type</h2>
+                <span class="section-rule"></span>
+            </div>
+            <p class="text-xs lg:text-sm text-on-surface-variant leading-relaxed -mt-3 mb-5">Select which rounds show up as calendar entries.</p>
+            <div class="grid grid-cols-3 gap-3">
+                <label class="filter-label filter-label-stacked">
+                    <input type="checkbox" name="round[qualification]" value="qualification" class="sr-only config-filter" data-filter-key="kind" data-filter-value="qualification" />
+                    <span class="filter-label-icon material-symbols-outlined">format_list_numbered</span>
+                    <span class="filter-label-text">Quali<span class="hidden sm:inline">fication</span><span class="sm:hidden">s</span></span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label filter-label-stacked active">
+                    <input type="checkbox" name="round[semi-final]" value="semi-final" checked class="sr-only config-filter" data-filter-key="kind" data-filter-value="semi-final" />
+                    <span class="filter-label-icon material-symbols-outlined">social_leaderboard</span>
+                    <span class="filter-label-text">Semi<span class="hidden sm:inline">-Final</span><span class="sm:hidden">s</span></span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+                <label class="filter-label filter-label-stacked active">
+                    <input type="checkbox" name="round[final]" value="final" checked class="sr-only config-filter" data-filter-key="kind" data-filter-value="final" />
+                    <span class="filter-label-icon material-symbols-outlined">emoji_events</span>
+                    <span class="filter-label-text">Final<span class="hidden sm:inline">s</span></span>
+                    <span class="filter-label-check material-symbols-outlined">check_circle</span>
+                </label>
+            </div>
+        </section>
+    </div>
+    </div>
+    </div>
+
+    <!-- ── Subscribe ── -->
+    <section class="mb-10">
+        <div class="section-head mb-6">
+            <h2 class="section-title">Subscribe</h2>
+            <span class="section-rule"></span>
+        </div>
+        <p class="text-sm text-on-surface-variant mb-5 leading-relaxed">By default you'll get every event except for Para Series and Qualifications. Want only specific disciplines or rounds? Use <strong class="text-on-surface font-semibold">Customize</strong> above. Then click a provider to add the calendar, it stays in sync and updates automatically.</p>
+        <div class="grid grid-cols-2 gap-3 sm:gap-4">
+            <a id="link-webcal" class="subscribe-card" style="--accent: 234 179 8" href="webcal://calendar.ifsc.stream">
+                <span class="subscribe-arrow material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+                <div class="subscribe-icon-badge">
+                    <span class="material-symbols-outlined text-2xl">devices</span>
+                </div>
+                <span class="font-headline font-bold text-sm mb-1">Apple &amp; Outlook</span>
+                <span class="text-xs text-on-surface-variant">Native calendar app</span>
+            </a>
+            <a id="link-google" class="subscribe-card" style="--accent: 52 168 83" target="_blank" rel="noopener" href="https://www.google.com/calendar/render?cid=webcal://calendar.ifsc.stream">
+                <span class="subscribe-arrow material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+                <div class="subscribe-icon-badge">
+                    <span class="material-symbols-outlined text-2xl">calendar_today</span>
+                </div>
+                <span class="font-headline font-bold text-sm mb-1">Google Calendar</span>
+                <span class="text-xs text-on-surface-variant">Web-based calendar</span>
+            </a>
+        </div>
+
+        <div class="or-divider my-7">
+            <span>or subscribe manually</span>
+        </div>
+
+        <p class="text-sm text-on-surface-variant mb-4 leading-relaxed">Copy the iCal link below, then paste it into your calendar app&rsquo;s &ldquo;Subscribe from URL&rdquo; or &ldquo;Add by URL&rdquo; option.</p>
+        <div class="url-pill">
+        <span class="material-symbols-outlined text-on-surface-variant text-lg pl-3 flex-shrink-0">link</span>
+        <span class="text-xs text-on-surface-variant font-mono truncate flex-1 py-2" id="filtered-url">https://cal.ifsc.stream</span>
+        <button id="copy-url-btn" class="px-5 py-2.5 bg-primary text-on-primary font-bold text-xs uppercase tracking-widest rounded-xl hover:opacity-90 transition-all active:scale-95 whitespace-nowrap cursor-pointer flex-shrink-0">
+            Copy Link
+        </button>
+    </div>
+    </section>
+
+    <!-- ── Info ── -->
+    <div class="flex items-center gap-4 p-5 rounded-2xl" style="background: rgb(var(--color-primary) / 0.04); border: 1px solid rgb(var(--color-primary) / 0.08)">
+        <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-tertiary">sync</span>
+        </div>
+        <div>
+            <p class="text-on-surface-variant text-sm leading-relaxed">
+                Your calendar auto-updates as the schedule changes. Add once, stay in sync.
+            </p>
+            {updatedAtIso && (
+                <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mt-2">
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse mr-1"></span>
+                    Last updated <span class="js-updated-at" data-iso={updatedAtIso}>at {updatedAt}</span>
+                </p>
+            )}
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+
+<script>
+    import { DEFAULT_SEASON } from '../lib/config.js';
+    import { build_calendar_url, CALENDAR_BASE_URL } from '../lib/shared/calendar-url.js';
+
+    function getEnabledFilters() {
+        const checkboxes = document.querySelectorAll('.config-filter:checked');
+        const config = {
+            discipline: { boulder: false, lead: false, speed: false },
+            kind: { qualification: false, 'semi-final': false, final: false },
+            category: { men: false, women: false },
+            series: { world: false, para: false },
+        };
+
+        checkboxes.forEach((cb) => {
+            const key = cb.dataset.filterKey;
+            const value = cb.dataset.filterValue;
+            if (key === 'discipline') {
+                config.discipline[value] = true;
+            } else if (key === 'kind') {
+                config.kind[value] = true;
+            } else if (key === 'category') {
+                config.category[value] = true;
+            } else if (key === 'series') {
+                config.series[value] = true;
+            }
+        });
+
+        return config;
+    }
+
+    function getEnabledKeys(obj) {
+        return Object.keys(obj).filter((k) => obj[k]);
+    }
+
+    function buildFilteredUrl() {
+        const config = getEnabledFilters();
+        const disciplines = getEnabledKeys(config.discipline);
+        const kinds = getEnabledKeys(config.kind);
+        const categories = getEnabledKeys(config.category);
+        const series = getEnabledKeys(config.series);
+
+        // Emit a segment only when a group is partially selected (full/none => "all").
+        return build_calendar_url({
+            series: series.length > 0 && series.length < 2 ? series : [],
+            category: categories.length > 0 && categories.length < 2 ? categories : [],
+            discipline: disciplines.length > 0 && disciplines.length < 3 ? disciplines : [],
+            round: kinds.length > 0 && kinds.length < 3 ? kinds : [],
+        });
+    }
+
+    function updateLinks() {
+        const filteredUrl = buildFilteredUrl();
+        const encodedWebcal = encodeURIComponent(`webcal://cal.ifsc.stream${filteredUrl.replace(CALENDAR_BASE_URL, '')}`);
+
+        document.getElementById('link-webcal').href = filteredUrl.replace('https://', 'webcal://');
+        document.getElementById('link-google').href = `https://www.google.com/calendar/render?cid=${encodedWebcal}`;
+        document.getElementById('filtered-url').textContent = filteredUrl;
+    }
+
+    // Wire up filter change handlers
+    document.querySelectorAll('.config-filter').forEach((cb) => {
+        cb.addEventListener('change', () => {
+            const label = cb.closest('.filter-label');
+            // Keep at least one option active per group — block the last deselect.
+            if (!cb.checked) {
+                const key = cb.dataset.filterKey;
+                const stillOn = document.querySelectorAll(`.config-filter[data-filter-key="${key}"]:checked`).length;
+                if (stillOn === 0) {
+                    cb.checked = true;
+                    if (label) {
+                        label.classList.remove('shake');
+                        void label.offsetWidth; // restart animation
+                        label.classList.add('shake');
+                    }
+                    return;
+                }
+            }
+            if (label) {
+                if (cb.checked) {
+                    label.classList.add('active');
+                } else {
+                    label.classList.remove('active');
+                }
+            }
+            updateLinks();
+        });
+    });
+
+    document.querySelectorAll('.filter-label').forEach((lbl) => {
+        lbl.addEventListener('animationend', () => lbl.classList.remove('shake'));
+    });
+
+    // Customize drawer toggle
+    const customizeToggle = document.getElementById('customize-toggle');
+    const filterDrawer = document.getElementById('filter-drawer');
+
+    function setDrawerOpen(open) {
+        filterDrawer.classList.toggle('is-open', open);
+        customizeToggle.setAttribute('aria-expanded', String(open));
+    }
+
+    customizeToggle.addEventListener('click', () => {
+        setDrawerOpen(!filterDrawer.classList.contains('is-open'));
+    });
+
+    // Copy link button
+    document.getElementById('copy-url-btn').addEventListener('click', () => {
+        const url = buildFilteredUrl();
+        navigator.clipboard.writeText(url).then(() => {
+            const btn = document.getElementById('copy-url-btn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Copied!';
+            setTimeout(() => { btn.textContent = originalText; }, 2000);
+        }).catch(() => {
+            // Fallback: select the text
+            const urlEl = document.getElementById('filtered-url');
+            const range = document.createRange();
+            range.selectNode(urlEl);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+        });
+    });
+
+    // Sync .active class with checkbox state (for programmatic changes)
+    function syncActiveClasses() {
+        document.querySelectorAll('.config-filter').forEach((cb) => {
+            const label = cb.closest('.filter-label');
+            if (label) {
+                if (cb.checked) {
+                    label.classList.add('active');
+                } else {
+                    label.classList.remove('active');
+                }
+            }
+        });
+    }
+
+    // Relative "last updated" label — mirrors format_relative_updated_at in helpers/render.js
+    function formatRelativeUpdatedAt(iso) {
+        const d = new Date(iso);
+        const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        const startOfDay = (x) => new Date(x.getFullYear(), x.getMonth(), x.getDate());
+        const daysAgo = Math.round((startOfDay(new Date()) - startOfDay(d)) / 86400000);
+        if (daysAgo <= 0) return `today at ${time}`;
+        if (daysAgo === 1) return `yesterday at ${time}`;
+        return `${daysAgo} days ago`;
+    }
+
+    document.querySelectorAll('.js-updated-at').forEach((el) => {
+        if (el.dataset.iso) el.textContent = formatRelativeUpdatedAt(el.dataset.iso);
+    });
+
+    // Initialize
+    syncActiveClasses();
+    updateLinks();
+</script>

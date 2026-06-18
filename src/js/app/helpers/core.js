@@ -244,10 +244,8 @@ function toggle_theme() {
 }
 
 function restore_theme() {
-    // Theme toggle is temporarily disabled — dark mode only
+    // Light mode disabled — force dark for all users. Toggle code kept but unused.
     apply_theme('dark');
-    // const saved = get_cookie('ifsc_theme');
-    // apply_theme(saved === 'light' || saved === 'dark' ? saved : get_system_theme());
 }
 
 function config_is_enabled(name) {

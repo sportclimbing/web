@@ -7,7 +7,8 @@ const waitForEventCards = async (page) => {
 const normalizePath = (path) => path.replace(/\/+$/, '') || '/';
 
 const switchSeason = async (page, season) => {
-  await page.selectOption('#season-selector', season);
+  await page.locator('#season-selector').click();
+  await page.locator(`#season-dropdown-menu a[data-season="${season}"]`).click();
   await expect.poll(() => normalizePath(new URL(page.url()).pathname)).toBe(`/season/${season}`);
 
   await waitForEventCards(page);
@@ -68,14 +69,6 @@ test.beforeEach(async ({ page }) => {
       body: ''
     });
   });
-});
-
-test('opens calendar modal from the add-to-calendar button', async ({ page }) => {
-  await page.goto('/season/2026/');
-  await waitForEventCards(page);
-
-  await page.locator('.calendar-sync-tooltip').first().click();
-  await expectModalOpen(page, '#calendar-modal');
 });
 
 test('opens filter modal from the filters button', async ({ page }) => {

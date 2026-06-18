@@ -1,0 +1,89 @@
+---
+// Desktop-only sticky month navigation sidebar, shared by the season calendar
+// page and event pages.
+//
+// Two variants:
+// - Calendar (pass `seasons`): season dropdown header, clickable month buttons
+//   (wired up by app.js via #season-month-nav), archive link at the bottom.
+// - Event (pass `activeMonthIndex`): static. Header links back to the season
+//   page, the event's month is highlighted, all other months are grayed out.
+//   No #season-month-nav id, so the calendar-page JS leaves it alone.
+const { season, seasons = null, activeMonthIndex = null } = Astro.props;
+
+const normalizedSeason = String(season);
+const interactive = Array.isArray(seasons);
+
+const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+---
+<aside class="hidden lg:block w-48 shrink-0">
+    <div class="sticky sticky-nav-container flex flex-col gap-6 font-headline font-black uppercase season-month-nav border-l border-outline-variant/20 pl-6" id={interactive ? 'season-month-nav' : undefined}>
+        {interactive ? (
+            <div class="relative mb-4 season-dropdown">
+                <button type="button" id="season-selector" aria-label="Season" aria-haspopup="true" aria-expanded="false" aria-controls="season-dropdown-menu" class="flex items-center gap-1.5 text-xs tracking-[0.2em] text-on-surface-variant font-label hover:text-primary transition-colors cursor-pointer uppercase">
+                    Season {normalizedSeason}
+                    <span class="material-symbols-outlined text-sm leading-none season-dropdown-chevron">expand_more</span>
+                </button>
+                <div id="season-dropdown-menu" class="season-dropdown-panel absolute left-0 top-full mt-3 w-44 rounded-xl bg-surface-container-high border border-outline-variant/30 shadow-xl z-30 p-2">
+                    {seasons.map((s) => (
+                        <a href={`/season/${s}/`} data-season={s} aria-current={s === normalizedSeason ? 'true' : undefined} class={`flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-xl normal-case tracking-normal transition-colors ${s === normalizedSeason ? 'text-primary' : 'text-on-surface-variant hover:text-primary hover:bg-surface-container-highest'}`}>
+                            {s}
+                            {s === normalizedSeason && (
+                                <span class="material-symbols-outlined text-lg leading-none">check_circle</span>
+                            )}
+                        </a>
+                    ))}
+                    <a href="/archive/" class="flex items-center gap-2 px-3 py-2 mt-2 rounded-lg border-t border-outline-variant/20 pt-3 text-sm normal-case font-normal tracking-normal text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors font-body">
+                        <span class="material-symbols-outlined text-sm leading-none">history</span> Archive
+                    </a>
+                </div>
+            </div>
+        ) : (
+            <a href={`/season/${normalizedSeason}/`} class="flex items-center gap-1.5 text-xs tracking-[0.2em] text-on-surface-variant hover:text-primary transition-colors mb-4 font-label">Season {normalizedSeason}</a>
+        )}
+        {MONTH_NAMES.map((month, index) => interactive ? (
+            <button type="button" class="transition-all text-left season-month-nav-link" data-month-index={String(index)}>{month}</button>
+        ) : (
+            <span class={`text-left normal-case season-month-nav-link ${index === activeMonthIndex ? 'is-active' : 'is-empty'}`}>{month}</span>
+        ))}
+        <a href="/archive/" class="transition-all text-left text-on-surface-variant hover:text-primary border-t border-outline-variant/20 pt-5 text-sm flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm leading-none">history</span> Archive
+        </a>
+    </div>
+</aside>
+
+<style>
+    .sticky-nav-container { top: 120px; }
+    .season-dropdown-panel {
+        opacity: 0;
+        transform: translateY(-6px);
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    }
+    .season-dropdown.is-open .season-dropdown-panel {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+        pointer-events: auto;
+    }
+    .season-dropdown-chevron {
+        transition: transform 0.15s ease;
+    }
+    .season-dropdown.is-open .season-dropdown-chevron {
+        transform: rotate(180deg);
+    }
+    .season-month-nav-link {
+        transition: all 0.2s ease;
+        transform-origin: left center;
+    }
+    .season-month-nav-link.is-active {
+        color: rgb(var(--color-primary)) !important;
+        transform: scale(1.25);
+        font-weight: 900;
+        text-shadow: 0 0 20px rgb(var(--color-primary) / 0.4);
+    }
+    .season-month-nav-link.is-empty {
+        opacity: 0.2;
+        filter: grayscale(1);
+    }
+</style>

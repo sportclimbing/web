@@ -267,10 +267,10 @@ const unstreamedCount = showTabs
 const textThemeClass = 'text-primary';
 const hoverTextThemeClass = 'hover:text-primary-container';
 const borderThemeClass = 'border-primary';
-const hoverBorderThemeClass = 'hover:border-primary/20';
+const hoverBorderThemeClass = 'hover:border-primary/30';
 
 ---
-<div class={`bg-surface-container rounded-2xl overflow-hidden px-2 sm:px-6 py-6 lg:p-10 border border-outline-variant/10 shadow-2xl transition-all ${hoverBorderThemeClass} mb-4 lg:mb-2 ifsc-league-card`}
+<div class={`bg-surface-container rounded-2xl overflow-hidden px-2 sm:px-6 py-6 lg:p-10 border border-outline-variant/25 shadow-xl shadow-black/25 hover:shadow-primary/5 transition-all ${hoverBorderThemeClass} mb-4 lg:mb-2 ifsc-league-card`}
      id={`event-${eventId}`}
      data-event-id={eventId}
      data-event-name={event.name || ''}
@@ -282,7 +282,7 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
     <div id={`heading_${eventId}`} class={`flex flex-col lg:flex-row justify-between items-start mb-0 ${showTabs ? 'lg:mb-4' : 'lg:mb-8'} gap-6`}>
         <div class="lg:flex-1 lg:min-w-0 px-4 sm:px-0">
             <p class={`text-xs ${textThemeClass} tracking-[0.2em] uppercase font-label font-bold mb-1 event-league-name`}>{prettyLeagueName}</p>
-            <h3 class="text-2xl lg:text-5xl font-bold font-headline uppercase tracking-tight mb-4 text-white event-name">
+            <h3 class="text-2xl lg:text-5xl font-bold font-headline uppercase tracking-tight mb-4 text-on-surface event-name">
               {shouldLinkEventTitles && eventPagePath ? (
                 <a href={eventPagePath} class={`hover:${textThemeClass} transition-colors event-name-title`}>{prettyEventName}</a>
               ) : (
@@ -303,21 +303,21 @@ const hoverBorderThemeClass = 'hover:border-primary/20';
         </div>
 
         {startList.length > 0 && (
-        <div class={`flex flex-col gap-4 bg-surface-container-high py-4 px-6 lg:py-6 rounded-xl w-full lg:w-auto min-w-[300px] event-start-list${startListMobileBottomMargin && !showTabs ? ' mb-6 sm:mb-0' : ''}`}>
+        <div class={`flex flex-col gap-4 bg-surface-container-high bg-gradient-to-br from-primary/15 via-primary/5 to-transparent py-4 px-6 lg:py-6 rounded-xl border border-primary/15 w-full lg:w-auto min-w-[300px] event-start-list${startListMobileBottomMargin && !showTabs ? ' mb-6 sm:mb-0' : ''}`}>
             <p class="text-[0.6875rem] text-on-surface tracking-widest uppercase font-label">Athletes Attending</p>
-            <div class="flex flex-wrap gap-2 items-center cursor-pointer hover:opacity-80 transition-opacity event-start-list-trigger" data-bs-toggle="modal" data-bs-target="#start-list-modal" data-event-id={eventId} data-start-list-url={startListModalUrl || undefined}>
+            <div class="flex flex-wrap gap-2 items-center cursor-pointer event-start-list-trigger" data-bs-toggle="modal" data-bs-target="#start-list-modal" data-event-id={eventId} data-start-list-url={startListModalUrl || undefined}>
                 {hasPhotos ? avatarsWithPhoto.map((athlete, index) => {
                   const photoSources = athlete_photo_local_sources_build(athlete);
                   if (!photoSources) return null;
                   return (
-                    <img alt={athlete_name_build(athlete)} class={`w-10 h-10 flex-shrink-0 rounded-full border-2 ${borderThemeClass} object-cover${index === 5 ? ' hidden sm:block' : ''}`} src={photoSources.src} data-fallback-src={photoSources.fallbackSrc} onerror="handle_start_list_photo_error(this)" loading="lazy" referrerpolicy="no-referrer"/>
+                    <img alt={athlete_name_build(athlete)} class={`w-10 h-10 flex-shrink-0 rounded-full border-2 border-primary/60 hover:border-primary object-cover transition duration-200 hover:scale-110 hover:z-10${index === 5 ? ' hidden sm:block' : ''}`} src={photoSources.src} data-fallback-src={photoSources.fallbackSrc} onerror="handle_start_list_photo_error(this)" loading="lazy" referrerpolicy="no-referrer"/>
                   );
                 }) : <span class="text-sm font-bold text-on-surface">View Start List</span>}
                 {hasPhotos && startListTotal > 5 && (
-                  <div class={`sm:hidden w-10 h-10 flex-shrink-0 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold ${textThemeClass} border-2 ${borderThemeClass}`}>+{startListTotal - 5}</div>
+                  <div class={`sm:hidden w-10 h-10 flex-shrink-0 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold ${textThemeClass} border-2 border-primary/60`}>+{startListTotal - 5}</div>
                 )}
                 {hasPhotos && startListTotal > 6 && (
-                  <div class={`hidden sm:flex w-10 h-10 flex-shrink-0 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold ${textThemeClass} border-2 ${borderThemeClass}`}>+{startListTotal - 6}</div>
+                  <div class={`hidden sm:flex w-10 h-10 flex-shrink-0 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold ${textThemeClass} border-2 border-primary/60`}>+{startListTotal - 6}</div>
                 )}
             </div>
         </div>

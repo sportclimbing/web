@@ -4,65 +4,41 @@ import CookieConsent from '../../components/CookieConsent.astro';
 import AppHeader from '../../components/AppHeader.astro';
 import CardTemplates from '../../components/CardTemplates.astro';
 import Modals from '../../components/Modals.astro';
-import { siteAssetVersion } from '../../lib/site-shell';
-import '../../styles/tailwind.css';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import PageHero from '../../components/PageHero.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const pageTitle = 'World Climbing Calendar | Privacy Policy & Cookies';
 const pageDescription = 'Learn how ifsc.stream uses cookies and analytics to understand site usage. Manage your consent preferences at any time.';
-const canonicalUrl = 'https://ifsc.stream/privacy-policy/';
+const canonicalPath = '/privacy-policy/';
 ---
-<!doctype html>
-<html class="dark" lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>{pageTitle}</title>
-  <meta name="description" content={pageDescription} />
-  <meta name="robots" content="index,follow" />
-  <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <base href="/" />
-  <link rel="canonical" href={canonicalUrl} />
-  <link rel="preload" href={`/fonts/plus-jakarta-sans-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href={`/fonts/space-grotesk-variable.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href={`/fonts/material-symbols-outlined.woff2?v=${siteAssetVersion}`} as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href={`/css/modals.css?v=${siteAssetVersion}`} />
-
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #101418; color: #e0e2e9; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #101418; }
-    ::-webkit-scrollbar-thumb { background: #31353a; border-radius: 4px; }
-  </style>
-
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:site_name" content="ifsc.stream" />
-  <meta property="og:title" content={pageTitle} />
-  <meta property="og:description" content={pageDescription} />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content={pageTitle} />
-  <meta name="twitter:description" content={pageDescription} />
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png" id="favicon" />
-</head>
-<body class="bg-background text-on-background min-h-screen flex flex-col selection:bg-primary/30" data-page-type="privacy-policy" data-build-version={siteAssetVersion}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath={canonicalPath}
+  socialImageAlt="ifsc.stream privacy policy"
+  bodyClass="bg-background text-on-background min-h-screen flex flex-col selection:bg-primary/30"
+  pageType="privacy-policy"
+>
 
 <AppHeader />
 
-<main class="pt-16 flex-1">
-  <div class="max-w-4xl mx-auto px-6 pt-2 lg:pt-16 pb-24">
+<main class="flex-1">
+  <!-- Hero Section -->
+  <PageHero badgeLabel="Your Privacy" badgeIcon="security">Cookies &amp; <span class="text-primary">Analytics</span></PageHero>
+
+  <!-- Breadcrumbs -->
+  <div class="max-w-5xl mx-auto px-6 pt-0 lg:pt-8">
+    <Breadcrumb items={[
+      { label: 'Home', href: '/' },
+      { label: 'Privacy Policy' },
+    ]} />
+  </div>
+
+  <div class="max-w-5xl mx-auto px-6 pb-24">
 
     <!-- Header Section -->
-    <header class="mb-16">
-      <a href="/" class="inline-flex items-center gap-2 text-primary font-label font-bold text-xs uppercase tracking-widest hover:underline mb-8">
-        <span class="material-symbols-outlined text-base">arrow_back</span>
-        Back to Calendar
-      </a>
-      <h1 class="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-6 leading-none italic font-headline">
-        Cookies &amp; <span class="text-primary">Analytics</span>
-      </h1>
+    <header class="mb-16 mt-8">
       <p class="text-on-surface-variant text-lg leading-relaxed font-medium max-w-2xl">
         This website is a personal project and does not directly collect or store personal data from visitors. However, it uses cookies and similar technologies to understand how the site is used and to improve its performance.
       </p>
@@ -219,10 +195,7 @@ const canonicalUrl = 'https://ifsc.stream/privacy-policy/';
   <div class="absolute bottom-[5%] right-[-10%] w-[600px] h-[600px] bg-secondary-container/5 rounded-full blur-[150px]"></div>
 </div>
 
-<script is:inline src={`/js/dayjs.min.js?v=${siteAssetVersion}`}></script>
-<script is:inline src={`/js/bootstrap.min.js?v=${siteAssetVersion}`}></script>
-<script is:inline src={`/js/app.js?v=${siteAssetVersion}`}></script>
-<script is:inline>
+<script slot="body-end" is:inline>
   (function () {
     var btn = document.getElementById('open-cookie-settings-page');
     var trigger = document.getElementById('open-cookie-settings');
@@ -231,5 +204,4 @@ const canonicalUrl = 'https://ifsc.stream/privacy-policy/';
     }
   })();
 </script>
-</body>
-</html>
+</BaseLayout>
