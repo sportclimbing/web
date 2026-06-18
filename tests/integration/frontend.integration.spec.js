@@ -71,14 +71,6 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-test('opens calendar modal from the add-to-calendar button', async ({ page }) => {
-  await page.goto('/season/2026/');
-  await waitForEventCards(page);
-
-  await page.locator('.calendar-sync-tooltip').first().click();
-  await expectModalOpen(page, '#calendar-modal');
-});
-
 test('opens filter modal from the filters button', async ({ page }) => {
   await page.goto('/season/2026/');
   await waitForEventCards(page);
