@@ -143,6 +143,9 @@ test('persists filter changes from the filter modal', async ({ page }) => {
 });
 
 test('shows event-not-started modal when clicking a stream button with no stream URL', async ({ page }) => {
+  // Pin the clock before the 2026 season so the test doesn't depend on the real date
+  // (once the season is over, no round without a stream URL is upcoming anymore).
+  await page.clock.setFixedTime(new Date('2026-01-01T00:00:00Z'));
   await page.goto('/season/2026/');
   await waitForEventCards(page);
 
